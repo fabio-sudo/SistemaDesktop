@@ -1,0 +1,85 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{A63E4530-7F0F-42AC-997F-E45D0F20027F}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>ObjetoTransferencia</RootNamespace>
+    <AssemblyName>ObjetoTransferencia</AssemblyName>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Caixa.cs" />
+    <Compile Include="CaixaEstatus.cs" />
+    <Compile Include="Crediario.cs" />
+    <Compile Include="Cliente.cs" />
+    <Compile Include="Cor.cs" />
+    <Compile Include="EntradaEstoque.cs" />
+    <Compile Include="Estoque.cs" />
+    <Compile Include="FormaPagamento.cs" />
+    <Compile Include="Fornecedor.cs" />
+    <Compile Include="Funcionario.cs" />
+    <Compile Include="Genero.cs" />
+    <Compile Include="Grade.cs" />
+    <Compile Include="ItemCaixa.cs" />
+    <Compile Include="ItemCrediario.cs" />
+    <Compile Include="ItemCrediarioParcial.cs" />
+    <Compile Include="ItemEntrada.cs" />
+    <Compile Include="ItemVenda.cs" />
+    <Compile Include="ParcialVenda.cs" />
+    <Compile Include="Produto.cs" />
+    <Compile Include="ProdutoCor.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="ReciboCrediario.cs" />
+    <Compile Include="ReciboCrediarioParcial.cs" />
+    <Compile Include="ReciboVenda.cs" />
+    <Compile Include="Sangria.cs" />
+    <Compile Include="Tamanho.cs" />
+    <Compile Include="UsuarioSenha.cs" />
+    <Compile Include="Venda.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\AcessoDados\AcessoDados.csproj">
+      <Project>{9d0e0a03-144b-4e8f-9b61-048047edd83c}</Project>
+      <Name>AcessoDados</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

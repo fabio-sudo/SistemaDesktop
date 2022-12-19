@@ -1,0 +1,14 @@
+C:\Users\Fabio\Desktop\SolutionTrevezaneSoftware\Console\bin\Debug\Console.exe.config
+C:\Users\Fabio\Desktop\SolutionTrevezaneSoftware\Console\bin\Debug\Console.exe
+C:\Users\Fabio\Desktop\SolutionTrevezaneSoftware\Console\bin\Debug\Console.pdb
+C:\Users\Fabio\Desktop\SolutionTrevezaneSoftware\Console\bin\Debug\AcessoDados.dll
+C:\Users\Fabio\Desktop\SolutionTrevezaneSoftware\Console\bin\Debug\Apresentacao.exe
+C:\Users\Fabio\Desktop\SolutionTrevezaneSoftware\Console\bin\Debug\Negocio.dll
+C:\Users\Fabio\Desktop\SolutionTrevezaneSoftware\Console\bin\Debug\ObjetoTransferencia.dll
+C:\Users\Fabio\Desktop\SolutionTrevezaneSoftware\Console\bin\Debug\AcessoDados.pdb
+C:\Users\Fabio\Desktop\SolutionTrevezaneSoftware\Console\bin\Debug\Apresentacao.pdb
+C:\Users\Fabio\Desktop\SolutionTrevezaneSoftware\Console\bin\Debug\Negocio.pdb
+C:\Users\Fabio\Desktop\SolutionTrevezaneSoftware\Console\bin\Debug\ObjetoTransferencia.pdb
+C:\Users\Fabio\Desktop\SolutionTrevezaneSoftware\Console\obj\Debug\Console.csprojResolveAssemblyReference.cache
+C:\Users\Fabio\Desktop\SolutionTrevezaneSoftware\Console\obj\Debug\Console.exe
+C:\Users\Fabio\Desktop\SolutionTrevezaneSoftware\Console\obj\Debug\Console.pdb

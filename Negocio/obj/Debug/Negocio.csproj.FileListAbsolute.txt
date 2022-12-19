@@ -1,0 +1,71 @@
+C:\Users\Fabio\Desktop\SolutionTrevezaneSoftware\Negocio\bin\Debug\Negocio.dll
+C:\Users\Fabio\Desktop\SolutionTrevezaneSoftware\Negocio\bin\Debug\Negocio.pdb
+C:\Users\Fabio\Desktop\SolutionTrevezaneSoftware\Negocio\bin\Debug\AcessoDados.dll
+C:\Users\Fabio\Desktop\SolutionTrevezaneSoftware\Negocio\bin\Debug\ObjetoTransferencia.dll
+C:\Users\Fabio\Desktop\SolutionTrevezaneSoftware\Negocio\bin\Debug\AcessoDados.pdb
+C:\Users\Fabio\Desktop\SolutionTrevezaneSoftware\Negocio\bin\Debug\ObjetoTransferencia.pdb
+C:\Users\Fabio\Desktop\SolutionTrevezaneSoftware\Negocio\obj\Debug\Negocio.csprojResolveAssemblyReference.cache
+C:\Users\Fabio\Desktop\SolutionTrevezaneSoftware\Negocio\obj\Debug\Negocio.dll
+C:\Users\Fabio\Desktop\SolutionTrevezaneSoftware\Negocio\obj\Debug\Negocio.pdb
+C:\Users\Admin\Desktop\SolutionTrevezaneSoftware\Negocio\bin\Debug\Negocio.dll
+C:\Users\Admin\Desktop\SolutionTrevezaneSoftware\Negocio\bin\Debug\Negocio.pdb
+C:\Users\Admin\Desktop\SolutionTrevezaneSoftware\Negocio\bin\Debug\AcessoDados.dll
+C:\Users\Admin\Desktop\SolutionTrevezaneSoftware\Negocio\bin\Debug\ObjetoTransferencia.dll
+C:\Users\Admin\Desktop\SolutionTrevezaneSoftware\Negocio\bin\Debug\AcessoDados.pdb
+C:\Users\Admin\Desktop\SolutionTrevezaneSoftware\Negocio\bin\Debug\ObjetoTransferencia.pdb
+C:\Users\Admin\Desktop\SolutionTrevezaneSoftware\Negocio\obj\Debug\Negocio.csprojResolveAssemblyReference.cache
+C:\Users\Admin\Desktop\SolutionTrevezaneSoftware\Negocio\obj\Debug\Negocio.dll
+C:\Users\Admin\Desktop\SolutionTrevezaneSoftware\Negocio\obj\Debug\Negocio.pdb
+C:\Users\Fabio\Desktop\SolutionTrevezaneSoftware 09-10-2022\SolutionTrevezaneSoftware\Negocio\bin\Debug\Negocio.dll
+C:\Users\Fabio\Desktop\SolutionTrevezaneSoftware 09-10-2022\SolutionTrevezaneSoftware\Negocio\bin\Debug\Negocio.pdb
+C:\Users\Fabio\Desktop\SolutionTrevezaneSoftware 09-10-2022\SolutionTrevezaneSoftware\Negocio\bin\Debug\AcessoDados.dll
+C:\Users\Fabio\Desktop\SolutionTrevezaneSoftware 09-10-2022\SolutionTrevezaneSoftware\Negocio\bin\Debug\ObjetoTransferencia.dll
+C:\Users\Fabio\Desktop\SolutionTrevezaneSoftware 09-10-2022\SolutionTrevezaneSoftware\Negocio\bin\Debug\AcessoDados.pdb
+C:\Users\Fabio\Desktop\SolutionTrevezaneSoftware 09-10-2022\SolutionTrevezaneSoftware\Negocio\bin\Debug\ObjetoTransferencia.pdb
+C:\Users\Fabio\Desktop\SolutionTrevezaneSoftware 09-10-2022\SolutionTrevezaneSoftware\Negocio\obj\Debug\Negocio.csprojResolveAssemblyReference.cache
+C:\Users\Fabio\Desktop\SolutionTrevezaneSoftware 09-10-2022\SolutionTrevezaneSoftware\Negocio\obj\Debug\Negocio.dll
+C:\Users\Fabio\Desktop\SolutionTrevezaneSoftware 09-10-2022\SolutionTrevezaneSoftware\Negocio\obj\Debug\Negocio.pdb
+C:\Users\Admin\Desktop\SolutionTrevezaneSoftware 10-10-2022\SolutionTrevezaneSoftware\Negocio\bin\Debug\Negocio.dll
+C:\Users\Admin\Desktop\SolutionTrevezaneSoftware 10-10-2022\SolutionTrevezaneSoftware\Negocio\bin\Debug\Negocio.pdb
+C:\Users\Admin\Desktop\SolutionTrevezaneSoftware 10-10-2022\SolutionTrevezaneSoftware\Negocio\bin\Debug\AcessoDados.dll
+C:\Users\Admin\Desktop\SolutionTrevezaneSoftware 10-10-2022\SolutionTrevezaneSoftware\Negocio\bin\Debug\ObjetoTransferencia.dll
+C:\Users\Admin\Desktop\SolutionTrevezaneSoftware 10-10-2022\SolutionTrevezaneSoftware\Negocio\bin\Debug\AcessoDados.pdb
+C:\Users\Admin\Desktop\SolutionTrevezaneSoftware 10-10-2022\SolutionTrevezaneSoftware\Negocio\bin\Debug\ObjetoTransferencia.pdb
+C:\Users\Admin\Desktop\SolutionTrevezaneSoftware 10-10-2022\SolutionTrevezaneSoftware\Negocio\obj\Debug\Negocio.csprojResolveAssemblyReference.cache
+C:\Users\Admin\Desktop\SolutionTrevezaneSoftware 10-10-2022\SolutionTrevezaneSoftware\Negocio\obj\Debug\Negocio.dll
+C:\Users\Admin\Desktop\SolutionTrevezaneSoftware 10-10-2022\SolutionTrevezaneSoftware\Negocio\obj\Debug\Negocio.pdb
+C:\Users\Fabio\Desktop\SolutionTrevezaneSoftware 16-10-2022\SolutionTrevezaneSoftware 10-10-2022\SolutionTrevezaneSoftware\Negocio\bin\Debug\Negocio.dll
+C:\Users\Fabio\Desktop\SolutionTrevezaneSoftware 16-10-2022\SolutionTrevezaneSoftware 10-10-2022\SolutionTrevezaneSoftware\Negocio\bin\Debug\Negocio.pdb
+C:\Users\Fabio\Desktop\SolutionTrevezaneSoftware 16-10-2022\SolutionTrevezaneSoftware 10-10-2022\SolutionTrevezaneSoftware\Negocio\bin\Debug\AcessoDados.dll
+C:\Users\Fabio\Desktop\SolutionTrevezaneSoftware 16-10-2022\SolutionTrevezaneSoftware 10-10-2022\SolutionTrevezaneSoftware\Negocio\bin\Debug\ObjetoTransferencia.dll
+C:\Users\Fabio\Desktop\SolutionTrevezaneSoftware 16-10-2022\SolutionTrevezaneSoftware 10-10-2022\SolutionTrevezaneSoftware\Negocio\bin\Debug\AcessoDados.pdb
+C:\Users\Fabio\Desktop\SolutionTrevezaneSoftware 16-10-2022\SolutionTrevezaneSoftware 10-10-2022\SolutionTrevezaneSoftware\Negocio\bin\Debug\ObjetoTransferencia.pdb
+C:\Users\Fabio\Desktop\SolutionTrevezaneSoftware 16-10-2022\SolutionTrevezaneSoftware 10-10-2022\SolutionTrevezaneSoftware\Negocio\obj\Debug\Negocio.csprojResolveAssemblyReference.cache
+C:\Users\Fabio\Desktop\SolutionTrevezaneSoftware 16-10-2022\SolutionTrevezaneSoftware 10-10-2022\SolutionTrevezaneSoftware\Negocio\obj\Debug\Negocio.dll
+C:\Users\Fabio\Desktop\SolutionTrevezaneSoftware 16-10-2022\SolutionTrevezaneSoftware 10-10-2022\SolutionTrevezaneSoftware\Negocio\obj\Debug\Negocio.pdb
+C:\Users\Fabio\Desktop\TrevezneSoftware\Negocio\bin\Debug\Negocio.dll
+C:\Users\Fabio\Desktop\TrevezneSoftware\Negocio\bin\Debug\Negocio.pdb
+C:\Users\Fabio\Desktop\TrevezneSoftware\Negocio\bin\Debug\AcessoDados.dll
+C:\Users\Fabio\Desktop\TrevezneSoftware\Negocio\bin\Debug\ObjetoTransferencia.dll
+C:\Users\Fabio\Desktop\TrevezneSoftware\Negocio\bin\Debug\AcessoDados.pdb
+C:\Users\Fabio\Desktop\TrevezneSoftware\Negocio\bin\Debug\ObjetoTransferencia.pdb
+C:\Users\Fabio\Desktop\TrevezneSoftware\Negocio\obj\Debug\Negocio.csprojResolveAssemblyReference.cache
+C:\Users\Fabio\Desktop\TrevezneSoftware\Negocio\obj\Debug\Negocio.dll
+C:\Users\Fabio\Desktop\TrevezneSoftware\Negocio\obj\Debug\Negocio.pdb
+C:\Users\Fabio\Desktop\Sistema.02\Negocio\bin\Debug\Negocio.dll
+C:\Users\Fabio\Desktop\Sistema.02\Negocio\bin\Debug\Negocio.pdb
+C:\Users\Fabio\Desktop\Sistema.02\Negocio\bin\Debug\AcessoDados.dll
+C:\Users\Fabio\Desktop\Sistema.02\Negocio\bin\Debug\ObjetoTransferencia.dll
+C:\Users\Fabio\Desktop\Sistema.02\Negocio\bin\Debug\AcessoDados.pdb
+C:\Users\Fabio\Desktop\Sistema.02\Negocio\bin\Debug\ObjetoTransferencia.pdb
+C:\Users\Fabio\Desktop\Sistema.02\Negocio\obj\Debug\Negocio.dll
+C:\Users\Fabio\Desktop\Sistema.02\Negocio\obj\Debug\Negocio.pdb
+C:\Users\Admin\Desktop\Sistema2.0\Negocio\bin\Debug\Negocio.dll
+C:\Users\Admin\Desktop\Sistema2.0\Negocio\bin\Debug\Negocio.pdb
+C:\Users\Admin\Desktop\Sistema2.0\Negocio\bin\Debug\AcessoDados.dll
+C:\Users\Admin\Desktop\Sistema2.0\Negocio\bin\Debug\ObjetoTransferencia.dll
+C:\Users\Admin\Desktop\Sistema2.0\Negocio\bin\Debug\AcessoDados.pdb
+C:\Users\Admin\Desktop\Sistema2.0\Negocio\bin\Debug\ObjetoTransferencia.pdb
+C:\Users\Admin\Desktop\Sistema2.0\Negocio\obj\Debug\Negocio.csprojResolveAssemblyReference.cache
+C:\Users\Admin\Desktop\Sistema2.0\Negocio\obj\Debug\Negocio.dll
+C:\Users\Admin\Desktop\Sistema2.0\Negocio\obj\Debug\Negocio.pdb
