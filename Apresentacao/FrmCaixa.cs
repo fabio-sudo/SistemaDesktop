@@ -198,26 +198,29 @@ namespace Apresentacao
         {
             if (dgvCaixa.Rows.Count > 0)
             {
-                //Buscal Local que a Solution Está sendo Executada no Computador
-                LocalSolution = Environment.CurrentDirectory;
-                // This will get the current PROJECT directory
-                LocalSolution = Directory.GetParent(LocalSolution).Parent.Parent.FullName;
+                if (dgvCaixa.CurrentRow.Cells[19].Value != null)
+                {
+                    //Buscal Local que a Solution Está sendo Executada no Computador
+                    LocalSolution = Environment.CurrentDirectory;
+                    // This will get the current PROJECT directory
+                    LocalSolution = Directory.GetParent(LocalSolution).Parent.Parent.FullName;
 
-                String imgProduto = (dgvCaixa.CurrentRow.Cells[19].Value).ToString();
-                //Verifica se a imagem existe
-                if (System.IO.File.Exists(LocalSolution + "\\Imagens\\" + imgProduto + ".jpeg") == true)
-                {
-                    //----------------Cria imagem para exibir 
-                    Image img;
-                    Bitmap img2;
-                    img = (System.Drawing.Image.FromFile(LocalSolution + "\\Imagens\\" + imgProduto + ".jpeg"));
-                    img2 = new Bitmap(img);
-                    img.Dispose();
-                    pbImagemProduto.Image = img2;
-                }
-                else
-                {
-                    pbImagemProduto.Image = global::Apresentacao.Properties.Resources.imgDefaut;
+                    String imgProduto = (dgvCaixa.CurrentRow.Cells[19].Value).ToString();
+                    //Verifica se a imagem existe
+                    if (System.IO.File.Exists(LocalSolution + "\\Imagens\\" + imgProduto + ".jpeg") == true)
+                    {
+                        //----------------Cria imagem para exibir 
+                        Image img;
+                        Bitmap img2;
+                        img = (System.Drawing.Image.FromFile(LocalSolution + "\\Imagens\\" + imgProduto + ".jpeg"));
+                        img2 = new Bitmap(img);
+                        img.Dispose();
+                        pbImagemProduto.Image = img2;
+                    }
+                    else
+                    {
+                        pbImagemProduto.Image = global::Apresentacao.Properties.Resources.imgDefaut;
+                    }
                 }
             }
 

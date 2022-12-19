@@ -18,6 +18,6 @@ C:\Users\Fabio\Desktop\TrevezneSoftware\AcessoDados\obj\Debug\AcessoDados.pdb
 C:\Users\Admin\Desktop\Sistema2.0\AcessoDados\bin\Debug\AcessoDados.dll.config
 C:\Users\Admin\Desktop\Sistema2.0\AcessoDados\bin\Debug\AcessoDados.dll
 C:\Users\Admin\Desktop\Sistema2.0\AcessoDados\bin\Debug\AcessoDados.pdb
+C:\Users\Admin\Desktop\Sistema2.0\AcessoDados\obj\Debug\AcessoDados.csprojResolveAssemblyReference.cache
 C:\Users\Admin\Desktop\Sistema2.0\AcessoDados\obj\Debug\AcessoDados.dll
 C:\Users\Admin\Desktop\Sistema2.0\AcessoDados\obj\Debug\AcessoDados.pdb
-C:\Users\Admin\Desktop\Sistema2.0\AcessoDados\obj\Debug\AcessoDados.csprojResolveAssemblyReference.cache
