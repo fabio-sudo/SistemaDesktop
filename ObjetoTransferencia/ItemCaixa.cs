@@ -7,7 +7,7 @@ namespace ObjetoTransferencia
 {
    public class ItemCaixa
     {
-
+     public int codigoItem { get; set; }
      public Venda Venda { get; set; }
      public string tipoVenda { get; set; }
      public FormaPagamento formaPagamento { get; set; }

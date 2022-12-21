@@ -126,14 +126,15 @@
             this.dataVenda = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.estatusItem = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.gbMovimentacaoCaixa = new System.Windows.Forms.GroupBox();
+            this.cbParcialDetalhada = new System.Windows.Forms.CheckBox();
             this.pbFuncionario = new System.Windows.Forms.PictureBox();
+            this.tgTipoCaixa = new CustomControls.RJControls.TouglleControl();
             this.pbCaixa = new System.Windows.Forms.PictureBox();
             this.lbCaixa = new System.Windows.Forms.Label();
             this.pbUsuario = new System.Windows.Forms.PictureBox();
             this.pbImagemProduto = new System.Windows.Forms.PictureBox();
             this.chartAnaliseVenda = new System.Windows.Forms.DataVisualization.Charting.Chart();
             this.chartPieAnalizeVenda = new System.Windows.Forms.DataVisualization.Charting.Chart();
-            this.tgTipoCaixa = new CustomControls.RJControls.TouglleControl();
             this.painelJuros.SuspendLayout();
             this.painelDinheiro.SuspendLayout();
             this.painelDesconto.SuspendLayout();
@@ -552,7 +553,7 @@
             this.dtpDataInicial.Name = "dtpDataInicial";
             this.dtpDataInicial.Size = new System.Drawing.Size(94, 23);
             this.dtpDataInicial.TabIndex = 112;
-            this.dtpDataInicial.Value = new System.DateTime(2022, 12, 12, 7, 51, 0, 0);
+            this.dtpDataInicial.Value = new System.DateTime(2021, 12, 12, 7, 51, 0, 0);
             // 
             // dtpDataFinal
             // 
@@ -730,8 +731,6 @@
             // cbCrediarioPendente
             // 
             this.cbCrediarioPendente.AutoSize = true;
-            this.cbCrediarioPendente.Checked = true;
-            this.cbCrediarioPendente.CheckState = System.Windows.Forms.CheckState.Checked;
             this.cbCrediarioPendente.Font = new System.Drawing.Font("Arial", 8F, System.Drawing.FontStyle.Bold);
             this.cbCrediarioPendente.Location = new System.Drawing.Point(4, 63);
             this.cbCrediarioPendente.Margin = new System.Windows.Forms.Padding(2);
@@ -759,8 +758,6 @@
             // cbCrediarioPago
             // 
             this.cbCrediarioPago.AutoSize = true;
-            this.cbCrediarioPago.Checked = true;
-            this.cbCrediarioPago.CheckState = System.Windows.Forms.CheckState.Checked;
             this.cbCrediarioPago.Font = new System.Drawing.Font("Arial", 8F, System.Drawing.FontStyle.Bold);
             this.cbCrediarioPago.Location = new System.Drawing.Point(4, 41);
             this.cbCrediarioPago.Margin = new System.Windows.Forms.Padding(2);
@@ -1160,6 +1157,7 @@
             // 
             // gbMovimentacaoCaixa
             // 
+            this.gbMovimentacaoCaixa.Controls.Add(this.cbParcialDetalhada);
             this.gbMovimentacaoCaixa.Controls.Add(this.pbFuncionario);
             this.gbMovimentacaoCaixa.Controls.Add(this.tgTipoCaixa);
             this.gbMovimentacaoCaixa.Controls.Add(this.pbCaixa);
@@ -1181,6 +1179,20 @@
             this.gbMovimentacaoCaixa.TabStop = false;
             this.gbMovimentacaoCaixa.Text = "Movimentação Caixa";
             // 
+            // cbParcialDetalhada
+            // 
+            this.cbParcialDetalhada.AutoSize = true;
+            this.cbParcialDetalhada.Checked = true;
+            this.cbParcialDetalhada.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.cbParcialDetalhada.Font = new System.Drawing.Font("Arial", 8F, System.Drawing.FontStyle.Bold);
+            this.cbParcialDetalhada.Location = new System.Drawing.Point(466, 26);
+            this.cbParcialDetalhada.Margin = new System.Windows.Forms.Padding(2);
+            this.cbParcialDetalhada.Name = "cbParcialDetalhada";
+            this.cbParcialDetalhada.Size = new System.Drawing.Size(118, 18);
+            this.cbParcialDetalhada.TabIndex = 164;
+            this.cbParcialDetalhada.Text = "Parcial Detalhada";
+            this.cbParcialDetalhada.UseVisualStyleBackColor = true;
+            // 
             // pbFuncionario
             // 
             this.pbFuncionario.Image = global::Apresentacao.Properties.Resources.FuncionarioAzul;
@@ -1191,6 +1203,24 @@
             this.pbFuncionario.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             this.pbFuncionario.TabIndex = 132;
             this.pbFuncionario.TabStop = false;
+            // 
+            // tgTipoCaixa
+            // 
+            this.tgTipoCaixa.AutoSize = true;
+            this.tgTipoCaixa.Checked = true;
+            this.tgTipoCaixa.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.tgTipoCaixa.Location = new System.Drawing.Point(36, 28);
+            this.tgTipoCaixa.Margin = new System.Windows.Forms.Padding(2);
+            this.tgTipoCaixa.MinimumSize = new System.Drawing.Size(34, 18);
+            this.tgTipoCaixa.Name = "tgTipoCaixa";
+            this.tgTipoCaixa.OffBackColor = System.Drawing.Color.Gray;
+            this.tgTipoCaixa.OffToggleColor = System.Drawing.Color.Gainsboro;
+            this.tgTipoCaixa.OnBackColor = System.Drawing.Color.DeepPink;
+            this.tgTipoCaixa.OnToggleColor = System.Drawing.Color.WhiteSmoke;
+            this.tgTipoCaixa.Size = new System.Drawing.Size(34, 18);
+            this.tgTipoCaixa.TabIndex = 159;
+            this.tgTipoCaixa.UseVisualStyleBackColor = true;
+            this.tgTipoCaixa.CheckedChanged += new System.EventHandler(this.tgTipoCaixa_CheckedChanged);
             // 
             // pbCaixa
             // 
@@ -1214,6 +1244,7 @@
             this.lbCaixa.Size = new System.Drawing.Size(108, 20);
             this.lbCaixa.TabIndex = 158;
             this.lbCaixa.Text = "Caixa Detalhado";
+            this.lbCaixa.Click += new System.EventHandler(this.lbCaixa_Click);
             // 
             // pbUsuario
             // 
@@ -1266,24 +1297,6 @@
             this.chartPieAnalizeVenda.TabIndex = 191;
             this.chartPieAnalizeVenda.Text = "chart1";
             this.chartPieAnalizeVenda.Visible = false;
-            // 
-            // tgTipoCaixa
-            // 
-            this.tgTipoCaixa.AutoSize = true;
-            this.tgTipoCaixa.Checked = true;
-            this.tgTipoCaixa.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.tgTipoCaixa.Location = new System.Drawing.Point(36, 28);
-            this.tgTipoCaixa.Margin = new System.Windows.Forms.Padding(2);
-            this.tgTipoCaixa.MinimumSize = new System.Drawing.Size(34, 18);
-            this.tgTipoCaixa.Name = "tgTipoCaixa";
-            this.tgTipoCaixa.OffBackColor = System.Drawing.Color.Gray;
-            this.tgTipoCaixa.OffToggleColor = System.Drawing.Color.Gainsboro;
-            this.tgTipoCaixa.OnBackColor = System.Drawing.Color.DeepPink;
-            this.tgTipoCaixa.OnToggleColor = System.Drawing.Color.WhiteSmoke;
-            this.tgTipoCaixa.Size = new System.Drawing.Size(34, 18);
-            this.tgTipoCaixa.TabIndex = 159;
-            this.tgTipoCaixa.UseVisualStyleBackColor = true;
-            this.tgTipoCaixa.CheckedChanged += new System.EventHandler(this.tgTipoCaixa_CheckedChanged);
             // 
             // FrmCaixa
             // 
@@ -1443,5 +1456,6 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn estatusItem;
         private System.Windows.Forms.DataVisualization.Charting.Chart chartAnaliseVenda;
         private System.Windows.Forms.DataVisualization.Charting.Chart chartPieAnalizeVenda;
+        private System.Windows.Forms.CheckBox cbParcialDetalhada;
     }
 }

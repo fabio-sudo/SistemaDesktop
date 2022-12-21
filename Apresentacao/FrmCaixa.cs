@@ -285,7 +285,41 @@ namespace Apresentacao
             dataInicio = dtpDataInicial.Value;
             dataFim = dtpDataFinal.Value;
 
-            listaItemCaixa = nCaixa.BuscarCaixaDetalhado(Avista, CrediarioPendente, CrediarioPago, nomeCliente, nomeFuncionario, strDinheiro, strPix, strCredito, strDebito, strCheque, strParcial, dataInicio, dataFim);
+            if (cbParcialDetalhada.Checked == false)
+            {
+
+                listaItemCaixa = nCaixa.BuscarCaixaDetalhado(Avista, CrediarioPendente, CrediarioPago, nomeCliente, nomeFuncionario, strDinheiro, strPix, strCredito, strDebito, strCheque, strParcial, dataInicio, dataFim);
+
+            }
+            else
+            {
+                listaItemCaixa = nCaixa.BuscarCaixaDetalhadoParciais(Avista, CrediarioPendente, CrediarioPago, nomeCliente, nomeFuncionario, strDinheiro, strPix, strCredito, strDebito, strCheque, strParcial, dataInicio, dataFim);
+                //atualizar valores das parciais na lista
+                metodoBuscarCaixaDetalhadoParcial();
+
+            }
+        }
+
+        //Exibe totais detalhados de compras parciais
+        private void metodoBuscarCaixaDetalhadoParcial()
+        {
+            ItemCaixaLista listaNova = new ItemCaixaLista();
+            int contador = 0;
+
+
+            foreach (ItemCaixa item in listaItemCaixa.Where
+                (p => p.tipoVenda == "PARCIAL AVISTA" && p.Venda.codigoVenda == 61)) {
+
+                    contador = (listaItemCaixa.Where(u => u.formaPagamento.formaPagamento == item.formaPagamento.formaPagamento && u.Venda.codigoVenda == item.Venda.codigoVenda).Count());
+                    item.recebidoItem = item.recebidoItem / contador;
+                        
+
+                    listaNova.Add(item);         
+            }
+
+
+            listaNova.Count();
+
         }
 
         //Método preenche lista de acordo com os filtros
@@ -544,9 +578,20 @@ namespace Apresentacao
             {
                 if (tgTipoCaixa.Checked == true)
                 {
-                    metodoBuscarCaixaDetalhado();
-                    metodoAtualizaDataGridDetalhado();
-                    metodoExibeImagemProduto();
+                    if (cbParcialDetalhada.Checked == false)
+                    {
+                        metodoBuscarCaixaDetalhado();
+                        metodoAtualizaDataGridDetalhado();
+                        metodoExibeImagemProduto();
+                    }
+                    else {
+                        //Parcial detalhado
+                        metodoBuscarCaixaDetalhado();
+                        metodoAtualizaDataGridDetalhado();
+                        metodoExibeImagemProduto();
+                    
+                    }
+
                 }
                 else {
 
@@ -599,7 +644,7 @@ namespace Apresentacao
                 tbFuncionario.Enabled = true;
                 btCliente.Enabled = true;
                 btFuncionario.Enabled = true;
-
+                cbParcialDetalhada.Visible = true;
 
                 this.dgvCaixa.Columns["codigoProduto"].Visible = true;
                 this.dgvCaixa.Columns["codigoProdutoCor"].Visible = false;
@@ -656,6 +701,7 @@ namespace Apresentacao
 
                 dgvCaixa.Size = new System.Drawing.Size(920, 385);
                 chartPieAnalizeVenda.Visible = true;
+                cbParcialDetalhada.Visible = false;
                 
             }
         }
@@ -849,6 +895,11 @@ namespace Apresentacao
         private void cbCredito_CheckedChanged(object sender, EventArgs e)
         {
             if (cbCredito.Checked == true) { cbFormaPagamento.Enabled = true; } else { cbFormaPagamento.Enabled = false; cbFormaPagamento.Items.Clear(); }
+        }
+
+        private void lbCaixa_Click(object sender, EventArgs e)
+        {
+
         }
 
 
