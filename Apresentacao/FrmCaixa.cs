@@ -306,19 +306,18 @@ namespace Apresentacao
             ItemCaixaLista listaNova = new ItemCaixaLista();
             int contador = 0;
 
+            foreach (ItemCaixa item in listaItemCaixa) {
 
-            foreach (ItemCaixa item in listaItemCaixa.Where
-                (p => p.tipoVenda == "PARCIAL AVISTA" && p.Venda.codigoVenda == 61)) {
-
+                if (item.tipoVenda == "PARCIAL AVISTA")
+                {
                     contador = (listaItemCaixa.Where(u => u.formaPagamento.formaPagamento == item.formaPagamento.formaPagamento && u.Venda.codigoVenda == item.Venda.codigoVenda).Count());
                     item.recebidoItem = item.recebidoItem / contador;
-                        
+                }
 
-                    listaNova.Add(item);         
+
+                    listaNova.Add(item);
+                
             }
-
-
-            listaNova.Count();
 
         }
 
@@ -384,6 +383,7 @@ namespace Apresentacao
             listaCaixa = nCaixa.BuscarCaixa(Avista, CrediarioPendente, CrediarioPago, strDinheiro, strPix, strCredito, strDebito, strCheque, strParcial, dataInicio, dataFim);
         }
 
+        //Valida data filtro
         private Boolean metodoValidaData() {
 
             if (dtpDataInicial.Value > dtpDataFinal.Value) {
@@ -407,6 +407,7 @@ namespace Apresentacao
             return true;
         }
 
+        //Gráficos
         private void metodoChartAnaliseVenda() {
 
             chartAnaliseVenda.Series.Clear();
@@ -555,6 +556,102 @@ namespace Apresentacao
             catch (Exception ex) { MessageBox.Show(ex.Message); }
         }
 
+        private void metodoChartAnaliseVendaDetalhada()
+        {
+
+            chartAnaliseVenda.Series.Clear();
+            chartAnaliseVenda.Titles.Clear();
+            chartAnaliseVenda.Legends.Clear();
+            chartAnaliseVenda.ChartAreas.Clear();
+
+            //Título do Gráfico
+            Title titulo = new Title();
+            titulo.Font = new Font("Arial Narrow", 12, FontStyle.Bold);
+            titulo.Text = "Análise de Pagamentos";
+            chartAnaliseVenda.Titles.Add(titulo);
+
+            //Legenda do Gráfico
+            Legend legenda = new Legend();
+            chartAnaliseVenda.Legends.Add(legenda);
+            chartAnaliseVenda.Legends[0].Title = "Legenda";
+
+            //Áreas
+            ChartArea chart = new ChartArea();
+            chart.Name = "ChartArea1";
+            chartAnaliseVenda.ChartAreas.Add(chart);
+
+            chartAnaliseVenda.ChartAreas["ChartArea1"].AxisY.Title = "Valores R$";
+            chartAnaliseVenda.ChartAreas["ChartArea1"].AxisY.TitleFont = new Font("Arial Narrow", 12, FontStyle.Bold);
+            chartAnaliseVenda.ChartAreas["ChartArea1"].AxisY.LabelStyle.Format = "{0:C2}";
+
+
+            chartAnaliseVenda.ChartAreas["ChartArea1"].AxisX.Interval = 1;  // a cada 1 coluna 1 label
+
+            //Remove linhas
+            chartAnaliseVenda.ChartAreas[0].AxisX.MajorGrid.LineWidth = 0;
+            chartAnaliseVenda.ChartAreas[0].AxisY.MajorGrid.LineWidth = 0;
+
+            //Método Agrupa e soma Valore por forma de pagamento
+            var ListaPagamentos = listaItemCaixa.GroupBy(c => c.formaPagamento.formaPagamento)
+                        .Select(gp => new
+                        {
+                            ID = gp.Key,
+                            Recebido = gp.Sum(r => r.recebidoItem),
+                            AReceber = gp.Sum(r => r.totalItem)
+                        });
+
+
+            //Criar cores aleatórias para o datagride
+            Random random = new Random();
+        
+            int contador = 0;
+            foreach(var item in ListaPagamentos){
+
+                if (item.ID.ToString() == "CREDIARIO")
+                {
+                    int corRed = random.Next(255);
+                    int corGreen = random.Next(255);
+                    int corBlue = random.Next(255);
+
+                    chartAnaliseVenda.Series.Add(item.ID.ToString());
+                    chartAnaliseVenda.Series[item.ID.ToString()].Color = System.Drawing.Color.FromArgb(corRed, corGreen, corBlue);
+
+                    chartAnaliseVenda.Series[0].ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Column;
+                    //chartAnaliseVenda.Series[0].LegendText = "Venda R$";
+                    chartAnaliseVenda.Series[0].BorderWidth = 4;
+                    //adiciona valores ao eixo X e eixo Y
+                    chartAnaliseVenda.Series[0].IsValueShownAsLabel = true;
+                    chartAnaliseVenda.Series[0].Points.AddXY(item.ID.ToString(), String.Format("{0:C2}", Convert.ToDouble(item.AReceber)));
+                    chartAnaliseVenda.Series[0].Points[contador].AxisLabel = item.ID.ToString();
+                    chartAnaliseVenda.Series[0].Points[contador].Color = System.Drawing.Color.FromArgb(corRed, corGreen, corBlue);
+                    chartAnaliseVenda.Series[0].Points[contador].LabelFormat = "{0:C2}";
+                }
+                else
+                {
+                    int corRed = random.Next(255);
+                    int corGreen = random.Next(255);
+                    int corBlue = random.Next(255);
+
+                    chartAnaliseVenda.Series.Add(item.ID.ToString());
+                    chartAnaliseVenda.Series[item.ID.ToString()].Color = System.Drawing.Color.FromArgb(corRed, corGreen, corBlue);
+
+                    chartAnaliseVenda.Series[0].ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Column;
+                    //chartAnaliseVenda.Series[0].LegendText = "Venda R$";
+                    chartAnaliseVenda.Series[0].BorderWidth = 4;
+                    //adiciona valores ao eixo X e eixo Y
+                    chartAnaliseVenda.Series[0].IsValueShownAsLabel = true;
+                    chartAnaliseVenda.Series[0].Points.AddXY(item.ID.ToString(), String.Format("{0:C2}", Convert.ToDouble(item.Recebido)));
+                    chartAnaliseVenda.Series[0].Points[contador].AxisLabel = item.ID.ToString();
+                    chartAnaliseVenda.Series[0].Points[contador].Color = System.Drawing.Color.FromArgb(corRed, corGreen, corBlue);
+                    chartAnaliseVenda.Series[0].Points[contador].LabelFormat = "{0:C2}";
+                }
+                contador++;
+            
+            }
+
+
+        }
+
 
         //-----------------------------------Formulário
         private void FrmCaixa_Load(object sender, EventArgs e)
@@ -601,9 +698,16 @@ namespace Apresentacao
                 }
 
                 metodoCalculaTotais();
+                if (cbParcialDetalhada.Checked == false)
+                {
+                    metodoChartAnaliseVenda();
+                    metodoChartAnalisePizzaVenda();
+                }
+                else {
 
-                metodoChartAnaliseVenda();
-                metodoChartAnalisePizzaVenda();
+                    metodoChartAnaliseVendaDetalhada();
+                
+                }
             }
         }
 
