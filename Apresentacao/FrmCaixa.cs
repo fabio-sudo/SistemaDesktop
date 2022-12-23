@@ -63,6 +63,14 @@ namespace Apresentacao
                         totalQuantidade = totalQuantidade + Convert.ToInt32(row.Cells[14].Value);
                         totalRecebido = totalRecebido + Convert.ToDouble(row.Cells[18].Value);
                     }
+                    if (row.Cells[1].Value.ToString() == "PARCIAL AVISTA")
+                    {
+                        totalVendaCaixa = totalVendaCaixa + Convert.ToDouble(row.Cells[17].Value);
+                        totalJuros = totalJuros + Convert.ToDouble(row.Cells[21].Value);
+                        totalDesconto = totalDesconto + Convert.ToDouble(row.Cells[20].Value);
+                        totalQuantidade = totalQuantidade + Convert.ToInt32(row.Cells[14].Value);
+                        totalRecebido = totalRecebido + Convert.ToDouble(row.Cells[18].Value);
+                    }
 
                     if (row.Cells[1].Value.ToString() == "CREDIARIO")
                     {
@@ -305,13 +313,20 @@ namespace Apresentacao
         {
             ItemCaixaLista listaNova = new ItemCaixaLista();
             int contador = 0;
-
+            int contadorFormaPagamento;
+         
             foreach (ItemCaixa item in listaItemCaixa) {
 
                 if (item.tipoVenda == "PARCIAL AVISTA")
                 {
-                    contador = (listaItemCaixa.Where(u => u.formaPagamento.formaPagamento == item.formaPagamento.formaPagamento && u.Venda.codigoVenda == item.Venda.codigoVenda).Count());
-                    item.recebidoItem = item.recebidoItem / contador;
+                    contador = (listaItemCaixa.Where(u => u.codigoItem == item.codigoItem && u.Venda.codigoVenda == item.Venda.codigoVenda).Count());
+                    contadorFormaPagamento = (listaItemCaixa.Where(u => u.formaPagamento.formaPagamento == item.formaPagamento.formaPagamento && u.Venda.codigoVenda == item.Venda.codigoVenda).Count());
+            
+                    item.totalItem = (item.totalItem / contador);
+                    item.jurosItem = item.jurosItem / contadorFormaPagamento;
+                    item.descontoItem = item.descontoItem / contadorFormaPagamento;
+                    item.recebidoItem = item.totalItem + item.jurosItem - item.descontoItem;
+                    item.quantidadeItem = 0;
                 }
 
 
@@ -652,13 +667,91 @@ namespace Apresentacao
 
         }
 
+        private void metodoCaixaConstrutor() {
+
+            if (tgTipoCaixa.Checked == true)
+            {
+
+                lbCaixa.Text = "Caixa Detalhado";
+                dgvCaixa.Rows.Clear();
+
+                tbBuscarCliente.Enabled = true;
+                tbFuncionario.Enabled = true;
+                btCliente.Enabled = true;
+                btFuncionario.Enabled = true;
+
+                this.dgvCaixa.Columns["codigoItemVenda"].Visible = true;
+                this.dgvCaixa.Columns["codigoProduto"].Visible = true;
+                this.dgvCaixa.Columns["codigoProdutoCor"].Visible = false;
+                this.dgvCaixa.Columns["descricaoProduto"].Visible = true;
+                this.dgvCaixa.Columns["referenciaProduto"].Visible = true;
+                this.dgvCaixa.Columns["sexoProduto"].Visible = true;
+                this.dgvCaixa.Columns["corProduto"].Visible = true;
+                this.dgvCaixa.Columns["generoProduto"].Visible = true;
+                this.dgvCaixa.Columns["gradeProduto"].Visible = true;
+                this.dgvCaixa.Columns["codigoTamanho"].Visible = true;
+                this.dgvCaixa.Columns["nomeTamanho"].Visible = true;
+                this.dgvCaixa.Columns["quantidadeProduto"].Visible = true;
+                this.dgvCaixa.Columns["precoCustoProduto"].Visible = true;
+                this.dgvCaixa.Columns["precoVendaProduto"].Visible = true;
+                this.dgvCaixa.Columns["imagemProduto"].Visible = true;
+                this.dgvCaixa.Columns["funcionarioVenda"].Visible = true;
+                this.dgvCaixa.Columns["nomeCliente"].Visible = true;
+                this.dgvCaixa.Columns["fornecedorProduto"].Visible = true;
+
+                pbImagemProduto.Visible = true;
+                dgvCaixa.Size = new System.Drawing.Size(larguraGride, 385);
+                chartPieAnalizeVenda.Visible = false;
+            }
+
+            else
+            {
+
+                lbCaixa.Text = "Caixa";
+                dgvCaixa.Rows.Clear();
+
+
+                tbBuscarCliente.Enabled = false;
+                tbFuncionario.Enabled = false;
+                btCliente.Enabled = false;
+                btFuncionario.Enabled = false;
+
+                this.dgvCaixa.Columns["codigoItemVenda"].Visible = false;
+                this.dgvCaixa.Columns["codigoProduto"].Visible = false;
+                this.dgvCaixa.Columns["codigoProdutoCor"].Visible = false;
+                this.dgvCaixa.Columns["descricaoProduto"].Visible = false;
+                this.dgvCaixa.Columns["referenciaProduto"].Visible = false;
+                this.dgvCaixa.Columns["sexoProduto"].Visible = false;
+                this.dgvCaixa.Columns["corProduto"].Visible = false;
+                this.dgvCaixa.Columns["generoProduto"].Visible = false;
+                this.dgvCaixa.Columns["gradeProduto"].Visible = false;
+                this.dgvCaixa.Columns["codigoTamanho"].Visible = false;
+                this.dgvCaixa.Columns["nomeTamanho"].Visible = false;
+                this.dgvCaixa.Columns["quantidadeProduto"].Visible = false;
+                this.dgvCaixa.Columns["precoCustoProduto"].Visible = false;
+                this.dgvCaixa.Columns["precoVendaProduto"].Visible = false;
+                this.dgvCaixa.Columns["imagemProduto"].Visible = false;
+                this.dgvCaixa.Columns["funcionarioVenda"].Visible = false;
+                this.dgvCaixa.Columns["nomeCliente"].Visible = false;
+                this.dgvCaixa.Columns["fornecedorProduto"].Visible = false;
+
+
+                dgvCaixa.Size = new System.Drawing.Size(920, 385);
+                chartPieAnalizeVenda.Visible = true;
+
+            }
+        
+        }
 
         //-----------------------------------Formulário
         private void FrmCaixa_Load(object sender, EventArgs e)
         {
             //Largura antiga
             larguraGride = dgvCaixa.Width;
+            metodoCaixaConstrutor();
+            btFiltrar.PerformClick();
             metodoCalculaTotais();
+
         }
 
         //Botões
@@ -738,76 +831,8 @@ namespace Apresentacao
 
         private void tgTipoCaixa_CheckedChanged(object sender, EventArgs e)
         {
-
-            if (tgTipoCaixa.Checked == true) { 
-
-                lbCaixa.Text = "Caixa Detalhado";
-                dgvCaixa.Rows.Clear();
-
-                tbBuscarCliente.Enabled = true;
-                tbFuncionario.Enabled = true;
-                btCliente.Enabled = true;
-                btFuncionario.Enabled = true;
-                cbParcialDetalhada.Visible = true;
-
-                this.dgvCaixa.Columns["codigoProduto"].Visible = true;
-                this.dgvCaixa.Columns["codigoProdutoCor"].Visible = false;
-                this.dgvCaixa.Columns["descricaoProduto"].Visible = true;
-                this.dgvCaixa.Columns["referenciaProduto"].Visible = true;
-                this.dgvCaixa.Columns["sexoProduto"].Visible = true;
-                this.dgvCaixa.Columns["corProduto"].Visible = true;
-                this.dgvCaixa.Columns["generoProduto"].Visible = true;
-                this.dgvCaixa.Columns["gradeProduto"].Visible = true;
-                this.dgvCaixa.Columns["codigoTamanho"].Visible = true;
-                this.dgvCaixa.Columns["nomeTamanho"].Visible = true;
-                this.dgvCaixa.Columns["quantidadeProduto"].Visible = true;
-                this.dgvCaixa.Columns["precoCustoProduto"].Visible = true;
-                this.dgvCaixa.Columns["precoVendaProduto"].Visible = true;
-                this.dgvCaixa.Columns["imagemProduto"].Visible = true;
-                this.dgvCaixa.Columns["funcionarioVenda"].Visible = true;
-                this.dgvCaixa.Columns["nomeCliente"].Visible = true;
-                this.dgvCaixa.Columns["fornecedorProduto"].Visible = true;
-
-                pbImagemProduto.Visible = true;
-                dgvCaixa.Size = new System.Drawing.Size(larguraGride, 385);
-                chartPieAnalizeVenda.Visible = false;
-            } 
-            
-            else { 
-
-                lbCaixa.Text = "Caixa";
-                dgvCaixa.Rows.Clear();
-
-
-                tbBuscarCliente.Enabled = false;
-                tbFuncionario.Enabled = false;
-                btCliente.Enabled = false;
-                btFuncionario.Enabled = false;
-
-                this.dgvCaixa.Columns["codigoProduto"].Visible = false;
-                this.dgvCaixa.Columns["codigoProdutoCor"].Visible = false;
-                this.dgvCaixa.Columns["descricaoProduto"].Visible = false;
-                this.dgvCaixa.Columns["referenciaProduto"].Visible = false;
-                this.dgvCaixa.Columns["sexoProduto"].Visible = false;
-                this.dgvCaixa.Columns["corProduto"].Visible = false;
-                this.dgvCaixa.Columns["generoProduto"].Visible = false;
-                this.dgvCaixa.Columns["gradeProduto"].Visible = false;
-                this.dgvCaixa.Columns["codigoTamanho"].Visible = false;
-                this.dgvCaixa.Columns["nomeTamanho"].Visible = false;
-                this.dgvCaixa.Columns["quantidadeProduto"].Visible = false;
-                this.dgvCaixa.Columns["precoCustoProduto"].Visible = false;
-                this.dgvCaixa.Columns["precoVendaProduto"].Visible = false;
-                this.dgvCaixa.Columns["imagemProduto"].Visible = false;
-                this.dgvCaixa.Columns["funcionarioVenda"].Visible = false;
-                this.dgvCaixa.Columns["nomeCliente"].Visible = false;
-                this.dgvCaixa.Columns["fornecedorProduto"].Visible = false;
-
-
-                dgvCaixa.Size = new System.Drawing.Size(920, 385);
-                chartPieAnalizeVenda.Visible = true;
-                cbParcialDetalhada.Visible = false;
-                
-            }
+            metodoCaixaConstrutor();
+            btFiltrar.PerformClick();
         }
 
         //CAIXA DE TEXTO
@@ -1001,10 +1026,6 @@ namespace Apresentacao
             if (cbCredito.Checked == true) { cbFormaPagamento.Enabled = true; } else { cbFormaPagamento.Enabled = false; cbFormaPagamento.Items.Clear(); }
         }
 
-        private void lbCaixa_Click(object sender, EventArgs e)
-        {
-
-        }
 
 
     }
