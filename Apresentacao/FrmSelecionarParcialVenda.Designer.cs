@@ -786,7 +786,7 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.ButtonHighlight;
-            this.ClientSize = new System.Drawing.Size(1028, 605);
+            this.ClientSize = new System.Drawing.Size(1095, 605);
             this.Controls.Add(this.btLimpar);
             this.Controls.Add(this.painelEstono);
             this.Controls.Add(this.painelDesconto);

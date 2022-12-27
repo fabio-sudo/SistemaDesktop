@@ -113,9 +113,11 @@
             this.gbFiltros.Controls.Add(this.dtpDataFinal);
             this.gbFiltros.Controls.Add(this.pbFiltrar);
             this.gbFiltros.Font = new System.Drawing.Font("Arial", 10F, System.Drawing.FontStyle.Bold);
-            this.gbFiltros.Location = new System.Drawing.Point(486, 4);
+            this.gbFiltros.Location = new System.Drawing.Point(364, 3);
+            this.gbFiltros.Margin = new System.Windows.Forms.Padding(2);
             this.gbFiltros.Name = "gbFiltros";
-            this.gbFiltros.Size = new System.Drawing.Size(693, 98);
+            this.gbFiltros.Padding = new System.Windows.Forms.Padding(2);
+            this.gbFiltros.Size = new System.Drawing.Size(520, 80);
             this.gbFiltros.TabIndex = 1;
             this.gbFiltros.TabStop = false;
             this.gbFiltros.Text = "Filtros:";
@@ -126,9 +128,10 @@
             this.cbPendente.Checked = true;
             this.cbPendente.CheckState = System.Windows.Forms.CheckState.Checked;
             this.cbPendente.Font = new System.Drawing.Font("Arial", 8F, System.Drawing.FontStyle.Bold);
-            this.cbPendente.Location = new System.Drawing.Point(6, 48);
+            this.cbPendente.Location = new System.Drawing.Point(4, 39);
+            this.cbPendente.Margin = new System.Windows.Forms.Padding(2);
             this.cbPendente.Name = "cbPendente";
-            this.cbPendente.Size = new System.Drawing.Size(98, 20);
+            this.cbPendente.Size = new System.Drawing.Size(79, 18);
             this.cbPendente.TabIndex = 1;
             this.cbPendente.Text = "Pendente";
             this.cbPendente.UseVisualStyleBackColor = true;
@@ -138,9 +141,10 @@
             // 
             this.cbPagos.AutoSize = true;
             this.cbPagos.Font = new System.Drawing.Font("Arial", 8F, System.Drawing.FontStyle.Bold);
-            this.cbPagos.Location = new System.Drawing.Point(6, 22);
+            this.cbPagos.Location = new System.Drawing.Point(4, 18);
+            this.cbPagos.Margin = new System.Windows.Forms.Padding(2);
             this.cbPagos.Name = "cbPagos";
-            this.cbPagos.Size = new System.Drawing.Size(73, 20);
+            this.cbPagos.Size = new System.Drawing.Size(60, 18);
             this.cbPagos.TabIndex = 0;
             this.cbPagos.Text = "Pagos";
             this.cbPagos.UseVisualStyleBackColor = true;
@@ -149,9 +153,10 @@
             // pbLimpar
             // 
             this.pbLimpar.Image = global::Apresentacao.Properties.Resources.Clear;
-            this.pbLimpar.Location = new System.Drawing.Point(660, 63);
+            this.pbLimpar.Location = new System.Drawing.Point(495, 51);
+            this.pbLimpar.Margin = new System.Windows.Forms.Padding(2);
             this.pbLimpar.Name = "pbLimpar";
-            this.pbLimpar.Size = new System.Drawing.Size(27, 27);
+            this.pbLimpar.Size = new System.Drawing.Size(20, 22);
             this.pbLimpar.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             this.pbLimpar.TabIndex = 148;
             this.pbLimpar.TabStop = false;
@@ -163,9 +168,10 @@
             this.cbEstatus.Checked = true;
             this.cbEstatus.CheckState = System.Windows.Forms.CheckState.Checked;
             this.cbEstatus.Font = new System.Drawing.Font("Arial", 8F, System.Drawing.FontStyle.Bold);
-            this.cbEstatus.Location = new System.Drawing.Point(6, 74);
+            this.cbEstatus.Location = new System.Drawing.Point(4, 60);
+            this.cbEstatus.Margin = new System.Windows.Forms.Padding(2);
             this.cbEstatus.Name = "cbEstatus";
-            this.cbEstatus.Size = new System.Drawing.Size(114, 20);
+            this.cbEstatus.Size = new System.Drawing.Size(91, 18);
             this.cbEstatus.TabIndex = 2;
             this.cbEstatus.Text = "Bloqueados";
             this.cbEstatus.UseVisualStyleBackColor = true;
@@ -174,10 +180,11 @@
             // mtbCpf
             // 
             this.mtbCpf.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.mtbCpf.Location = new System.Drawing.Point(203, 64);
+            this.mtbCpf.Location = new System.Drawing.Point(152, 52);
+            this.mtbCpf.Margin = new System.Windows.Forms.Padding(2);
             this.mtbCpf.Mask = "999,999,999-99";
             this.mtbCpf.Name = "mtbCpf";
-            this.mtbCpf.Size = new System.Drawing.Size(158, 27);
+            this.mtbCpf.Size = new System.Drawing.Size(120, 23);
             this.mtbCpf.TabIndex = 4;
             this.mtbCpf.TextMaskFormat = System.Windows.Forms.MaskFormat.ExcludePromptAndLiterals;
             this.mtbCpf.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.mtbCpf_KeyPress);
@@ -186,9 +193,10 @@
             // 
             this.lbCpf.AutoSize = true;
             this.lbCpf.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lbCpf.Location = new System.Drawing.Point(155, 71);
+            this.lbCpf.Location = new System.Drawing.Point(116, 58);
+            this.lbCpf.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.lbCpf.Name = "lbCpf";
-            this.lbCpf.Size = new System.Drawing.Size(42, 20);
+            this.lbCpf.Size = new System.Drawing.Size(34, 17);
             this.lbCpf.TabIndex = 3;
             this.lbCpf.Text = "CPF";
             // 
@@ -196,18 +204,20 @@
             // 
             this.dtpDataInicial.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F);
             this.dtpDataInicial.Format = System.Windows.Forms.DateTimePickerFormat.Short;
-            this.dtpDataInicial.Location = new System.Drawing.Point(367, 64);
+            this.dtpDataInicial.Location = new System.Drawing.Point(275, 52);
+            this.dtpDataInicial.Margin = new System.Windows.Forms.Padding(2);
             this.dtpDataInicial.Name = "dtpDataInicial";
-            this.dtpDataInicial.Size = new System.Drawing.Size(124, 27);
+            this.dtpDataInicial.Size = new System.Drawing.Size(94, 23);
             this.dtpDataInicial.TabIndex = 6;
             // 
             // lbDataInicial
             // 
             this.lbDataInicial.AutoSize = true;
             this.lbDataInicial.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F);
-            this.lbDataInicial.Location = new System.Drawing.Point(363, 40);
+            this.lbDataInicial.Location = new System.Drawing.Point(272, 32);
+            this.lbDataInicial.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.lbDataInicial.Name = "lbDataInicial";
-            this.lbDataInicial.Size = new System.Drawing.Size(93, 20);
+            this.lbDataInicial.Size = new System.Drawing.Size(77, 17);
             this.lbDataInicial.TabIndex = 5;
             this.lbDataInicial.Text = "Data Inicial";
             // 
@@ -215,9 +225,10 @@
             // 
             this.lbDataFinal.AutoSize = true;
             this.lbDataFinal.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F);
-            this.lbDataFinal.Location = new System.Drawing.Point(493, 40);
+            this.lbDataFinal.Location = new System.Drawing.Point(370, 32);
+            this.lbDataFinal.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.lbDataFinal.Name = "lbDataFinal";
-            this.lbDataFinal.Size = new System.Drawing.Size(86, 20);
+            this.lbDataFinal.Size = new System.Drawing.Size(72, 17);
             this.lbDataFinal.TabIndex = 7;
             this.lbDataFinal.Text = "Data Final";
             // 
@@ -225,18 +236,20 @@
             // 
             this.dtpDataFinal.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F);
             this.dtpDataFinal.Format = System.Windows.Forms.DateTimePickerFormat.Short;
-            this.dtpDataFinal.Location = new System.Drawing.Point(497, 64);
+            this.dtpDataFinal.Location = new System.Drawing.Point(373, 52);
+            this.dtpDataFinal.Margin = new System.Windows.Forms.Padding(2);
             this.dtpDataFinal.Name = "dtpDataFinal";
-            this.dtpDataFinal.Size = new System.Drawing.Size(124, 27);
+            this.dtpDataFinal.Size = new System.Drawing.Size(94, 23);
             this.dtpDataFinal.TabIndex = 8;
             // 
             // pbFiltrar
             // 
             this.pbFiltrar.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.pbFiltrar.Image = global::Apresentacao.Properties.Resources.FiltroImg;
-            this.pbFiltrar.Location = new System.Drawing.Point(627, 64);
+            this.pbFiltrar.Location = new System.Drawing.Point(470, 52);
+            this.pbFiltrar.Margin = new System.Windows.Forms.Padding(2);
             this.pbFiltrar.Name = "pbFiltrar";
-            this.pbFiltrar.Size = new System.Drawing.Size(27, 27);
+            this.pbFiltrar.Size = new System.Drawing.Size(21, 22);
             this.pbFiltrar.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             this.pbFiltrar.TabIndex = 110;
             this.pbFiltrar.TabStop = false;
@@ -245,9 +258,10 @@
             // panelBuscarCliente
             // 
             this.panelBuscarCliente.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(51)))), ((int)(((byte)(51)))), ((int)(((byte)(76)))));
-            this.panelBuscarCliente.Location = new System.Drawing.Point(70, 99);
+            this.panelBuscarCliente.Location = new System.Drawing.Point(52, 80);
+            this.panelBuscarCliente.Margin = new System.Windows.Forms.Padding(2);
             this.panelBuscarCliente.Name = "panelBuscarCliente";
-            this.panelBuscarCliente.Size = new System.Drawing.Size(343, 2);
+            this.panelBuscarCliente.Size = new System.Drawing.Size(257, 2);
             this.panelBuscarCliente.TabIndex = 5;
             // 
             // tbBuscarClienteCrediario
@@ -256,9 +270,10 @@
             this.tbBuscarClienteCrediario.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.tbBuscarClienteCrediario.Font = new System.Drawing.Font("Arial", 10F, System.Drawing.FontStyle.Bold);
             this.tbBuscarClienteCrediario.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(51)))), ((int)(((byte)(51)))), ((int)(((byte)(76)))));
-            this.tbBuscarClienteCrediario.Location = new System.Drawing.Point(71, 77);
+            this.tbBuscarClienteCrediario.Location = new System.Drawing.Point(53, 63);
+            this.tbBuscarClienteCrediario.Margin = new System.Windows.Forms.Padding(2);
             this.tbBuscarClienteCrediario.Name = "tbBuscarClienteCrediario";
-            this.tbBuscarClienteCrediario.Size = new System.Drawing.Size(343, 20);
+            this.tbBuscarClienteCrediario.Size = new System.Drawing.Size(257, 16);
             this.tbBuscarClienteCrediario.TabIndex = 0;
             this.tbBuscarClienteCrediario.Text = "Digite o nome do cliente ...";
             this.tbBuscarClienteCrediario.Enter += new System.EventHandler(this.tbBuscarClienteCrediario_Enter);
@@ -272,9 +287,10 @@
             this.painelCrediarioTotal.BackColor = System.Drawing.Color.Yellow;
             this.painelCrediarioTotal.Controls.Add(this.lbTituloTotalCrediario);
             this.painelCrediarioTotal.Controls.Add(this.lbCrediarioTotal);
-            this.painelCrediarioTotal.Location = new System.Drawing.Point(1643, 28);
+            this.painelCrediarioTotal.Location = new System.Drawing.Point(1233, 24);
+            this.painelCrediarioTotal.Margin = new System.Windows.Forms.Padding(2);
             this.painelCrediarioTotal.Name = "painelCrediarioTotal";
-            this.painelCrediarioTotal.Size = new System.Drawing.Size(181, 74);
+            this.painelCrediarioTotal.Size = new System.Drawing.Size(136, 60);
             this.painelCrediarioTotal.TabIndex = 4;
             // 
             // lbTituloTotalCrediario
@@ -282,9 +298,10 @@
             this.lbTituloTotalCrediario.AutoSize = true;
             this.lbTituloTotalCrediario.Font = new System.Drawing.Font("Arial", 12F, System.Drawing.FontStyle.Bold);
             this.lbTituloTotalCrediario.ForeColor = System.Drawing.Color.Black;
-            this.lbTituloTotalCrediario.Location = new System.Drawing.Point(3, 7);
+            this.lbTituloTotalCrediario.Location = new System.Drawing.Point(2, 6);
+            this.lbTituloTotalCrediario.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.lbTituloTotalCrediario.Name = "lbTituloTotalCrediario";
-            this.lbTituloTotalCrediario.Size = new System.Drawing.Size(149, 24);
+            this.lbTituloTotalCrediario.Size = new System.Drawing.Size(120, 19);
             this.lbTituloTotalCrediario.TabIndex = 86;
             this.lbTituloTotalCrediario.Text = "Total Crediario";
             this.lbTituloTotalCrediario.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -294,9 +311,10 @@
             this.lbCrediarioTotal.AutoSize = true;
             this.lbCrediarioTotal.Font = new System.Drawing.Font("Arial", 12F, System.Drawing.FontStyle.Bold);
             this.lbCrediarioTotal.ForeColor = System.Drawing.Color.Black;
-            this.lbCrediarioTotal.Location = new System.Drawing.Point(3, 39);
+            this.lbCrediarioTotal.Location = new System.Drawing.Point(2, 32);
+            this.lbCrediarioTotal.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.lbCrediarioTotal.Name = "lbCrediarioTotal";
-            this.lbCrediarioTotal.Size = new System.Drawing.Size(80, 24);
+            this.lbCrediarioTotal.Size = new System.Drawing.Size(65, 19);
             this.lbCrediarioTotal.TabIndex = 84;
             this.lbCrediarioTotal.Text = "R$ 0,00";
             this.lbCrediarioTotal.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -309,17 +327,19 @@
             this.painelTotalCliente.Controls.Add(this.pbOk);
             this.painelTotalCliente.Controls.Add(this.lbTituloTotalCliente);
             this.painelTotalCliente.Controls.Add(this.lbTotalCliente);
-            this.painelTotalCliente.Location = new System.Drawing.Point(1185, 28);
+            this.painelTotalCliente.Location = new System.Drawing.Point(890, 24);
+            this.painelTotalCliente.Margin = new System.Windows.Forms.Padding(2);
             this.painelTotalCliente.Name = "painelTotalCliente";
-            this.painelTotalCliente.Size = new System.Drawing.Size(265, 74);
+            this.painelTotalCliente.Size = new System.Drawing.Size(199, 60);
             this.painelTotalCliente.TabIndex = 2;
             // 
             // pbOk
             // 
             this.pbOk.Image = global::Apresentacao.Properties.Resources.DialogErro;
-            this.pbOk.Location = new System.Drawing.Point(239, 3);
+            this.pbOk.Location = new System.Drawing.Point(179, 2);
+            this.pbOk.Margin = new System.Windows.Forms.Padding(2);
             this.pbOk.Name = "pbOk";
-            this.pbOk.Size = new System.Drawing.Size(23, 23);
+            this.pbOk.Size = new System.Drawing.Size(17, 19);
             this.pbOk.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             this.pbOk.TabIndex = 147;
             this.pbOk.TabStop = false;
@@ -330,9 +350,10 @@
             this.lbTituloTotalCliente.AutoSize = true;
             this.lbTituloTotalCliente.Font = new System.Drawing.Font("Arial", 12F, System.Drawing.FontStyle.Bold);
             this.lbTituloTotalCliente.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
-            this.lbTituloTotalCliente.Location = new System.Drawing.Point(3, 7);
+            this.lbTituloTotalCliente.Location = new System.Drawing.Point(2, 6);
+            this.lbTituloTotalCliente.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.lbTituloTotalCliente.Name = "lbTituloTotalCliente";
-            this.lbTituloTotalCliente.Size = new System.Drawing.Size(137, 24);
+            this.lbTituloTotalCliente.Size = new System.Drawing.Size(112, 19);
             this.lbTituloTotalCliente.TabIndex = 87;
             this.lbTituloTotalCliente.Text = "Conta Cliente";
             this.lbTituloTotalCliente.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -342,9 +363,10 @@
             this.lbTotalCliente.AutoSize = true;
             this.lbTotalCliente.Font = new System.Drawing.Font("Arial", 12F, System.Drawing.FontStyle.Bold);
             this.lbTotalCliente.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
-            this.lbTotalCliente.Location = new System.Drawing.Point(3, 39);
+            this.lbTotalCliente.Location = new System.Drawing.Point(2, 32);
+            this.lbTotalCliente.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.lbTotalCliente.Name = "lbTotalCliente";
-            this.lbTotalCliente.Size = new System.Drawing.Size(80, 24);
+            this.lbTotalCliente.Size = new System.Drawing.Size(65, 19);
             this.lbTotalCliente.TabIndex = 84;
             this.lbTotalCliente.Text = "R$ 0,00";
             this.lbTotalCliente.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -357,9 +379,10 @@
             this.btCancelar.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btCancelar.Font = new System.Drawing.Font("Arial Narrow", 10.2F, System.Drawing.FontStyle.Bold);
             this.btCancelar.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
-            this.btCancelar.Location = new System.Drawing.Point(284, 584);
+            this.btCancelar.Location = new System.Drawing.Point(213, 583);
+            this.btCancelar.Margin = new System.Windows.Forms.Padding(2);
             this.btCancelar.Name = "btCancelar";
-            this.btCancelar.Size = new System.Drawing.Size(130, 42);
+            this.btCancelar.Size = new System.Drawing.Size(98, 34);
             this.btCancelar.TabIndex = 9;
             this.btCancelar.Text = "F2 Cancelar";
             this.btCancelar.UseVisualStyleBackColor = false;
@@ -373,9 +396,10 @@
             this.btReceber.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btReceber.Font = new System.Drawing.Font("Arial Narrow", 10.2F, System.Drawing.FontStyle.Bold);
             this.btReceber.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
-            this.btReceber.Location = new System.Drawing.Point(148, 584);
+            this.btReceber.Location = new System.Drawing.Point(111, 583);
+            this.btReceber.Margin = new System.Windows.Forms.Padding(2);
             this.btReceber.Name = "btReceber";
-            this.btReceber.Size = new System.Drawing.Size(130, 42);
+            this.btReceber.Size = new System.Drawing.Size(98, 34);
             this.btReceber.TabIndex = 8;
             this.btReceber.Text = "F10 Receber";
             this.btReceber.UseVisualStyleBackColor = false;
@@ -388,9 +412,10 @@
             this.painelQuantidade.BackColor = System.Drawing.Color.DeepPink;
             this.painelQuantidade.Controls.Add(this.lbTituloQuantidade);
             this.painelQuantidade.Controls.Add(this.lbQuantidadeCrediario);
-            this.painelQuantidade.Location = new System.Drawing.Point(1456, 27);
+            this.painelQuantidade.Location = new System.Drawing.Point(1093, 23);
+            this.painelQuantidade.Margin = new System.Windows.Forms.Padding(2);
             this.painelQuantidade.Name = "painelQuantidade";
-            this.painelQuantidade.Size = new System.Drawing.Size(181, 74);
+            this.painelQuantidade.Size = new System.Drawing.Size(136, 60);
             this.painelQuantidade.TabIndex = 3;
             // 
             // lbTituloQuantidade
@@ -398,9 +423,10 @@
             this.lbTituloQuantidade.AutoSize = true;
             this.lbTituloQuantidade.Font = new System.Drawing.Font("Arial", 12F, System.Drawing.FontStyle.Bold);
             this.lbTituloQuantidade.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
-            this.lbTituloQuantidade.Location = new System.Drawing.Point(3, 7);
+            this.lbTituloQuantidade.Location = new System.Drawing.Point(2, 6);
+            this.lbTituloQuantidade.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.lbTituloQuantidade.Name = "lbTituloQuantidade";
-            this.lbTituloQuantidade.Size = new System.Drawing.Size(119, 24);
+            this.lbTituloQuantidade.Size = new System.Drawing.Size(97, 19);
             this.lbTituloQuantidade.TabIndex = 87;
             this.lbTituloQuantidade.Text = "Quantidade";
             this.lbTituloQuantidade.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -410,9 +436,10 @@
             this.lbQuantidadeCrediario.AutoSize = true;
             this.lbQuantidadeCrediario.Font = new System.Drawing.Font("Arial", 12F, System.Drawing.FontStyle.Bold);
             this.lbQuantidadeCrediario.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
-            this.lbQuantidadeCrediario.Location = new System.Drawing.Point(3, 39);
+            this.lbQuantidadeCrediario.Location = new System.Drawing.Point(2, 32);
+            this.lbQuantidadeCrediario.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.lbQuantidadeCrediario.Name = "lbQuantidadeCrediario";
-            this.lbQuantidadeCrediario.Size = new System.Drawing.Size(21, 24);
+            this.lbQuantidadeCrediario.Size = new System.Drawing.Size(18, 19);
             this.lbQuantidadeCrediario.TabIndex = 84;
             this.lbQuantidadeCrediario.Text = "0";
             this.lbQuantidadeCrediario.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -460,14 +487,15 @@
             dataGridViewCellStyle6.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
             this.dgvCrediario.DefaultCellStyle = dataGridViewCellStyle6;
             this.dgvCrediario.GridColor = System.Drawing.SystemColors.ButtonFace;
-            this.dgvCrediario.Location = new System.Drawing.Point(12, 108);
+            this.dgvCrediario.Location = new System.Drawing.Point(9, 88);
+            this.dgvCrediario.Margin = new System.Windows.Forms.Padding(2);
             this.dgvCrediario.Name = "dgvCrediario";
             this.dgvCrediario.ReadOnly = true;
             dataGridViewCellStyle7.Font = new System.Drawing.Font("Arial Narrow", 10F, System.Drawing.FontStyle.Bold);
             this.dgvCrediario.RowsDefaultCellStyle = dataGridViewCellStyle7;
             this.dgvCrediario.RowTemplate.Height = 24;
             this.dgvCrediario.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.dgvCrediario.Size = new System.Drawing.Size(1812, 470);
+            this.dgvCrediario.Size = new System.Drawing.Size(1360, 491);
             this.dgvCrediario.TabIndex = 6;
             this.dgvCrediario.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvCrediario_CellClick);
             this.dgvCrediario.CellMouseDoubleClick += new System.Windows.Forms.DataGridViewCellMouseEventHandler(this.dgvCrediario_CellMouseDoubleClick);
@@ -593,9 +621,10 @@
             this.btSair.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btSair.Font = new System.Drawing.Font("Arial Narrow", 10.2F, System.Drawing.FontStyle.Bold);
             this.btSair.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
-            this.btSair.Location = new System.Drawing.Point(1694, 587);
+            this.btSair.Location = new System.Drawing.Point(1447, 586);
+            this.btSair.Margin = new System.Windows.Forms.Padding(2);
             this.btSair.Name = "btSair";
-            this.btSair.Size = new System.Drawing.Size(130, 42);
+            this.btSair.Size = new System.Drawing.Size(98, 34);
             this.btSair.TabIndex = 11;
             this.btSair.Text = "Esc Sair";
             this.btSair.UseVisualStyleBackColor = false;
@@ -608,9 +637,10 @@
             this.btParcial.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btParcial.Font = new System.Drawing.Font("Arial Narrow", 10.2F, System.Drawing.FontStyle.Bold);
             this.btParcial.ForeColor = System.Drawing.Color.White;
-            this.btParcial.Location = new System.Drawing.Point(420, 584);
+            this.btParcial.Location = new System.Drawing.Point(315, 583);
+            this.btParcial.Margin = new System.Windows.Forms.Padding(2);
             this.btParcial.Name = "btParcial";
-            this.btParcial.Size = new System.Drawing.Size(130, 42);
+            this.btParcial.Size = new System.Drawing.Size(98, 34);
             this.btParcial.TabIndex = 10;
             this.btParcial.Text = "Buscar Parcial";
             this.btParcial.UseVisualStyleBackColor = false;
@@ -624,9 +654,10 @@
             this.btBuscar.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btBuscar.Font = new System.Drawing.Font("Arial Narrow", 10.2F, System.Drawing.FontStyle.Bold);
             this.btBuscar.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
-            this.btBuscar.Location = new System.Drawing.Point(12, 584);
+            this.btBuscar.Location = new System.Drawing.Point(9, 583);
+            this.btBuscar.Margin = new System.Windows.Forms.Padding(2);
             this.btBuscar.Name = "btBuscar";
-            this.btBuscar.Size = new System.Drawing.Size(130, 42);
+            this.btBuscar.Size = new System.Drawing.Size(98, 34);
             this.btBuscar.TabIndex = 7;
             this.btBuscar.Text = "F5 Buscar";
             this.btBuscar.UseVisualStyleBackColor = false;
@@ -635,9 +666,10 @@
             // pbBuscarCrediario
             // 
             this.pbBuscarCrediario.Image = global::Apresentacao.Properties.Resources.Selecionar;
-            this.pbBuscarCrediario.Location = new System.Drawing.Point(453, 75);
+            this.pbBuscarCrediario.Location = new System.Drawing.Point(340, 61);
+            this.pbBuscarCrediario.Margin = new System.Windows.Forms.Padding(2);
             this.pbBuscarCrediario.Name = "pbBuscarCrediario";
-            this.pbBuscarCrediario.Size = new System.Drawing.Size(27, 27);
+            this.pbBuscarCrediario.Size = new System.Drawing.Size(20, 22);
             this.pbBuscarCrediario.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             this.pbBuscarCrediario.TabIndex = 126;
             this.pbBuscarCrediario.TabStop = false;
@@ -646,9 +678,10 @@
             // pbCliente
             // 
             this.pbCliente.Image = global::Apresentacao.Properties.Resources.ClienteAzul;
-            this.pbCliente.Location = new System.Drawing.Point(420, 74);
+            this.pbCliente.Location = new System.Drawing.Point(315, 60);
+            this.pbCliente.Margin = new System.Windows.Forms.Padding(2);
             this.pbCliente.Name = "pbCliente";
-            this.pbCliente.Size = new System.Drawing.Size(27, 27);
+            this.pbCliente.Size = new System.Drawing.Size(20, 22);
             this.pbCliente.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             this.pbCliente.TabIndex = 125;
             this.pbCliente.TabStop = false;
@@ -657,9 +690,10 @@
             // pbCrediario
             // 
             this.pbCrediario.Image = global::Apresentacao.Properties.Resources.CrediarioIcone;
-            this.pbCrediario.Location = new System.Drawing.Point(12, 50);
+            this.pbCrediario.Location = new System.Drawing.Point(9, 41);
+            this.pbCrediario.Margin = new System.Windows.Forms.Padding(2);
             this.pbCrediario.Name = "pbCrediario";
-            this.pbCrediario.Size = new System.Drawing.Size(52, 52);
+            this.pbCrediario.Size = new System.Drawing.Size(39, 42);
             this.pbCrediario.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             this.pbCrediario.TabIndex = 121;
             this.pbCrediario.TabStop = false;
@@ -667,9 +701,10 @@
             // pbCrediarioAviso
             // 
             this.pbCrediarioAviso.Image = global::Apresentacao.Properties.Resources.CrediarioPendenteAviso;
-            this.pbCrediarioAviso.Location = new System.Drawing.Point(12, 4);
+            this.pbCrediarioAviso.Location = new System.Drawing.Point(9, 3);
+            this.pbCrediarioAviso.Margin = new System.Windows.Forms.Padding(2);
             this.pbCrediarioAviso.Name = "pbCrediarioAviso";
-            this.pbCrediarioAviso.Size = new System.Drawing.Size(38, 34);
+            this.pbCrediarioAviso.Size = new System.Drawing.Size(28, 28);
             this.pbCrediarioAviso.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             this.pbCrediarioAviso.TabIndex = 129;
             this.pbCrediarioAviso.TabStop = false;
@@ -680,20 +715,21 @@
             this.lbAvisoCrediario.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.lbAvisoCrediario.Font = new System.Drawing.Font("Arial", 9F, System.Drawing.FontStyle.Bold);
             this.lbAvisoCrediario.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(51)))), ((int)(((byte)(51)))), ((int)(((byte)(76)))));
-            this.lbAvisoCrediario.Location = new System.Drawing.Point(56, 12);
+            this.lbAvisoCrediario.Location = new System.Drawing.Point(42, 10);
+            this.lbAvisoCrediario.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.lbAvisoCrediario.Name = "lbAvisoCrediario";
-            this.lbAvisoCrediario.Size = new System.Drawing.Size(147, 18);
+            this.lbAvisoCrediario.Size = new System.Drawing.Size(116, 15);
             this.lbAvisoCrediario.TabIndex = 130;
             this.lbAvisoCrediario.Text = "Crediario Pendente";
             // 
             // FrmCrediario
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.AutoScroll = true;
             this.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
             this.BackColor = System.Drawing.SystemColors.ButtonHighlight;
-            this.ClientSize = new System.Drawing.Size(1836, 641);
+            this.ClientSize = new System.Drawing.Size(1380, 630);
             this.Controls.Add(this.lbAvisoCrediario);
             this.Controls.Add(this.pbCrediarioAviso);
             this.Controls.Add(this.btBuscar);
@@ -714,7 +750,9 @@
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.KeyPreview = true;
+            this.Margin = new System.Windows.Forms.Padding(2);
             this.Name = "FrmCrediario";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Crediario";
             this.WindowState = System.Windows.Forms.FormWindowState.Maximized;
             this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.FrmCrediario_KeyDown);

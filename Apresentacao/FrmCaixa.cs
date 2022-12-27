@@ -26,6 +26,7 @@ namespace Apresentacao
         //Variaveis
         String LocalSolution;
         int larguraGride = 0;
+
         double totalVendaCaixa = 0;//Total c
         double totalCrediario = 0;
         double totalCrediarioPago = 0;
@@ -700,7 +701,8 @@ namespace Apresentacao
                 this.dgvCaixa.Columns["fornecedorProduto"].Visible = true;
 
                 pbImagemProduto.Visible = true;
-                dgvCaixa.Size = new System.Drawing.Size(larguraGride, 385);
+               // dgvCaixa.Size = new System.Drawing.Size(larguraGride, 385);
+                dgvCaixa.Size = new System.Drawing.Size(this.Width - 15, 385);
                 chartPieAnalizeVenda.Visible = false;
             }
 
@@ -747,7 +749,7 @@ namespace Apresentacao
         private void FrmCaixa_Load(object sender, EventArgs e)
         {
             //Largura antiga
-            larguraGride = dgvCaixa.Width;
+            //larguraGride = dgvCaixa.Width;
             metodoCaixaConstrutor();
             btFiltrar.PerformClick();
             metodoCalculaTotais();
@@ -757,9 +759,10 @@ namespace Apresentacao
         //Botões
         private void btVenda_Click(object sender, EventArgs e)
         {
+            this.Visible = false;
             FrmVendaPendente frmVendaPendente = new FrmVendaPendente();
             frmVendaPendente.ShowDialog();
-
+            this.Visible = true;
         }
 
         private void btFiltrar_Click(object sender, EventArgs e)
@@ -806,21 +809,35 @@ namespace Apresentacao
 
         private void btCancelaVenda_Click(object sender, EventArgs e)
         {
-
+            this.Visible = false;
             FrmCancelamento frmCancelamento = new FrmCancelamento("");
             frmCancelamento.ShowDialog();
+            this.Visible = true;
         }
 
         private void btCrediario_Click(object sender, EventArgs e)
         {
-            FrmCrediario frmCrediario = new FrmCrediario();
-            frmCrediario.ShowDialog();
+            this.Visible = false;
+           // FrmCrediario frmCrediario = new FrmCrediario();
+            //frmCrediario.WindowState = FormWindowState.Normal;
+           // frmCrediario.ShowDialog();
+            this.Visible = true;
         }
 
         private void btSangria_Click(object sender, EventArgs e)
         {
+            this.Visible = false;
             FrmSangria frmSangria = new FrmSangria();
             frmSangria.ShowDialog();
+            this.Visible = true;
+        }
+
+        private void btParcial_Click(object sender, EventArgs e)
+        {
+            this.Visible = false;
+            FrmSelecionarParcialVenda frmParcial = new FrmSelecionarParcialVenda();
+            frmParcial.ShowDialog();
+            this.Visible = true;
         }
 
         //DataGrid
@@ -1026,6 +1043,33 @@ namespace Apresentacao
             if (cbCredito.Checked == true) { cbFormaPagamento.Enabled = true; } else { cbFormaPagamento.Enabled = false; cbFormaPagamento.Items.Clear(); }
         }
 
+        private void FrmCaixa_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode.Equals(Keys.F5) == true)
+            {
+                btFiltrar.PerformClick();
+            }
+            if (e.KeyCode.Equals(Keys.F10) == true)
+            {
+                btVenda.PerformClick();
+            }
+            if (e.KeyCode.Equals(Keys.F2) == true)
+            {
+                btCancelaVenda.PerformClick();
+            }
+            if (e.KeyCode.Equals(Keys.F12) == true)
+            {
+                btCrediario.PerformClick();
+            }
+            if (e.KeyCode.Equals(Keys.F4) == true)
+            {
+                btCrediario.PerformClick();
+            }
+            if (e.KeyCode.Equals(Keys.F6) == true)
+            {
+                btSangria.PerformClick();
+            }
+        }
 
 
     }

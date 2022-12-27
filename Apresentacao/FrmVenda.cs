@@ -1485,6 +1485,7 @@ namespace Apresentacao
         private void pbCrediario_Click(object sender, EventArgs e)
         {
             FrmCrediario frmCrediario = new FrmCrediario();
+            frmCrediario.WindowState = FormWindowState.Normal;
             frmCrediario.ShowDialog();
         }
 

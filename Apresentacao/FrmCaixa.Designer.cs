@@ -32,10 +32,6 @@
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle11 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle12 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataVisualization.Charting.Legend legend1 = new System.Windows.Forms.DataVisualization.Charting.Legend();
-            System.Windows.Forms.DataVisualization.Charting.Series series1 = new System.Windows.Forms.DataVisualization.Charting.Series();
-            System.Windows.Forms.DataVisualization.Charting.Legend legend2 = new System.Windows.Forms.DataVisualization.Charting.Legend();
-            System.Windows.Forms.DataVisualization.Charting.Series series2 = new System.Windows.Forms.DataVisualization.Charting.Series();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle4 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle5 = new System.Windows.Forms.DataGridViewCellStyle();
@@ -44,6 +40,10 @@
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle8 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle9 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle10 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataVisualization.Charting.Legend legend1 = new System.Windows.Forms.DataVisualization.Charting.Legend();
+            System.Windows.Forms.DataVisualization.Charting.Series series1 = new System.Windows.Forms.DataVisualization.Charting.Series();
+            System.Windows.Forms.DataVisualization.Charting.Legend legend2 = new System.Windows.Forms.DataVisualization.Charting.Legend();
+            System.Windows.Forms.DataVisualization.Charting.Series series2 = new System.Windows.Forms.DataVisualization.Charting.Series();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FrmCaixa));
             this.lbJuros = new System.Windows.Forms.Label();
             this.lbTituloJuros = new System.Windows.Forms.Label();
@@ -76,6 +76,8 @@
             this.lbDataInicial = new System.Windows.Forms.Label();
             this.lbDataFinal = new System.Windows.Forms.Label();
             this.gbDataVenda = new System.Windows.Forms.GroupBox();
+            this.dtpDataFinal = new System.Windows.Forms.DateTimePicker();
+            this.dtpDataInicial = new System.Windows.Forms.DateTimePicker();
             this.btFiltrar = new System.Windows.Forms.Button();
             this.gbTiposVenda = new System.Windows.Forms.GroupBox();
             this.cbParcial = new System.Windows.Forms.CheckBox();
@@ -96,17 +98,6 @@
             this.lbTituloEstorno = new System.Windows.Forms.Label();
             this.lbTotalEstorno = new System.Windows.Forms.Label();
             this.dgvCaixa = new System.Windows.Forms.DataGridView();
-            this.gbMovimentacaoCaixa = new System.Windows.Forms.GroupBox();
-            this.cbParcialDetalhada = new System.Windows.Forms.CheckBox();
-            this.pbFuncionario = new System.Windows.Forms.PictureBox();
-            this.pbCaixa = new System.Windows.Forms.PictureBox();
-            this.lbCaixa = new System.Windows.Forms.Label();
-            this.pbUsuario = new System.Windows.Forms.PictureBox();
-            this.pbImagemProduto = new System.Windows.Forms.PictureBox();
-            this.chartAnaliseVenda = new System.Windows.Forms.DataVisualization.Charting.Chart();
-            this.chartPieAnalizeVenda = new System.Windows.Forms.DataVisualization.Charting.Chart();
-            this.dtpDataInicial = new System.Windows.Forms.DateTimePicker();
-            this.dtpDataFinal = new System.Windows.Forms.DateTimePicker();
             this.codigoItemVenda = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.tipoVenda = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.codigoPagamento = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -134,6 +125,16 @@
             this.fornecedorProduto = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.dataVenda = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.estatusItem = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.gbMovimentacaoCaixa = new System.Windows.Forms.GroupBox();
+            this.pbFuncionario = new System.Windows.Forms.PictureBox();
+            this.pbUsuario = new System.Windows.Forms.PictureBox();
+            this.cbParcialDetalhada = new System.Windows.Forms.CheckBox();
+            this.pbCaixa = new System.Windows.Forms.PictureBox();
+            this.lbCaixa = new System.Windows.Forms.Label();
+            this.pbImagemProduto = new System.Windows.Forms.PictureBox();
+            this.chartAnaliseVenda = new System.Windows.Forms.DataVisualization.Charting.Chart();
+            this.chartPieAnalizeVenda = new System.Windows.Forms.DataVisualization.Charting.Chart();
+            this.btParcial = new System.Windows.Forms.Button();
             this.tgTipoCaixa = new CustomControls.RJControls.TouglleControl();
             this.painelJuros.SuspendLayout();
             this.painelDinheiro.SuspendLayout();
@@ -148,8 +149,8 @@
             ((System.ComponentModel.ISupportInitialize)(this.dgvCaixa)).BeginInit();
             this.gbMovimentacaoCaixa.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pbFuncionario)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pbCaixa)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pbUsuario)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pbCaixa)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pbImagemProduto)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.chartAnaliseVenda)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.chartPieAnalizeVenda)).BeginInit();
@@ -393,15 +394,15 @@
             // btVenda
             // 
             this.btVenda.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.btVenda.BackColor = System.Drawing.Color.Turquoise;
+            this.btVenda.BackColor = System.Drawing.Color.White;
             this.btVenda.FlatAppearance.BorderColor = System.Drawing.Color.Black;
             this.btVenda.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btVenda.Font = new System.Drawing.Font("Arial Narrow", 10.2F, System.Drawing.FontStyle.Bold);
-            this.btVenda.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
-            this.btVenda.Location = new System.Drawing.Point(163, 719);
+            this.btVenda.ForeColor = System.Drawing.Color.Black;
+            this.btVenda.Location = new System.Drawing.Point(103, 717);
             this.btVenda.Margin = new System.Windows.Forms.Padding(2);
             this.btVenda.Name = "btVenda";
-            this.btVenda.Size = new System.Drawing.Size(98, 34);
+            this.btVenda.Size = new System.Drawing.Size(88, 34);
             this.btVenda.TabIndex = 97;
             this.btVenda.Text = "F10 Venda";
             this.btVenda.UseVisualStyleBackColor = false;
@@ -410,17 +411,17 @@
             // btCrediario
             // 
             this.btCrediario.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.btCrediario.BackColor = System.Drawing.Color.Yellow;
+            this.btCrediario.BackColor = System.Drawing.Color.Turquoise;
             this.btCrediario.FlatAppearance.BorderColor = System.Drawing.Color.Black;
             this.btCrediario.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btCrediario.Font = new System.Drawing.Font("Arial Narrow", 10.2F, System.Drawing.FontStyle.Bold);
             this.btCrediario.ForeColor = System.Drawing.Color.Black;
-            this.btCrediario.Location = new System.Drawing.Point(265, 719);
+            this.btCrediario.Location = new System.Drawing.Point(203, 717);
             this.btCrediario.Margin = new System.Windows.Forms.Padding(2);
             this.btCrediario.Name = "btCrediario";
-            this.btCrediario.Size = new System.Drawing.Size(98, 34);
+            this.btCrediario.Size = new System.Drawing.Size(88, 34);
             this.btCrediario.TabIndex = 100;
-            this.btCrediario.Text = "F12 Crediario";
+            this.btCrediario.Text = "F12 Caixa";
             this.btCrediario.UseVisualStyleBackColor = false;
             this.btCrediario.Click += new System.EventHandler(this.btCrediario_Click);
             // 
@@ -432,10 +433,10 @@
             this.btSangria.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btSangria.Font = new System.Drawing.Font("Arial Narrow", 10.2F, System.Drawing.FontStyle.Bold);
             this.btSangria.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
-            this.btSangria.Location = new System.Drawing.Point(367, 719);
+            this.btSangria.Location = new System.Drawing.Point(387, 717);
             this.btSangria.Margin = new System.Windows.Forms.Padding(2);
             this.btSangria.Name = "btSangria";
-            this.btSangria.Size = new System.Drawing.Size(98, 34);
+            this.btSangria.Size = new System.Drawing.Size(88, 34);
             this.btSangria.TabIndex = 101;
             this.btSangria.Text = "F6 Sangria";
             this.btSangria.UseVisualStyleBackColor = false;
@@ -449,10 +450,10 @@
             this.btCancelaVenda.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btCancelaVenda.Font = new System.Drawing.Font("Arial Narrow", 10.2F, System.Drawing.FontStyle.Bold);
             this.btCancelaVenda.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
-            this.btCancelaVenda.Location = new System.Drawing.Point(469, 719);
+            this.btCancelaVenda.Location = new System.Drawing.Point(479, 718);
             this.btCancelaVenda.Margin = new System.Windows.Forms.Padding(2);
             this.btCancelaVenda.Name = "btCancelaVenda";
-            this.btCancelaVenda.Size = new System.Drawing.Size(98, 34);
+            this.btCancelaVenda.Size = new System.Drawing.Size(88, 34);
             this.btCancelaVenda.TabIndex = 102;
             this.btCancelaVenda.Text = "F2 Cancelar";
             this.btCancelaVenda.UseVisualStyleBackColor = false;
@@ -582,6 +583,26 @@
             this.gbDataVenda.TabStop = false;
             this.gbDataVenda.Text = "Data Venda";
             // 
+            // dtpDataFinal
+            // 
+            this.dtpDataFinal.Checked = false;
+            this.dtpDataFinal.Format = System.Windows.Forms.DateTimePickerFormat.Short;
+            this.dtpDataFinal.Location = new System.Drawing.Point(103, 52);
+            this.dtpDataFinal.Name = "dtpDataFinal";
+            this.dtpDataFinal.Size = new System.Drawing.Size(98, 21);
+            this.dtpDataFinal.TabIndex = 116;
+            this.dtpDataFinal.Value = new System.DateTime(2022, 12, 23, 8, 46, 59, 0);
+            // 
+            // dtpDataInicial
+            // 
+            this.dtpDataInicial.CalendarFont = new System.Drawing.Font("Microsoft Sans Serif", 10.2F);
+            this.dtpDataInicial.Format = System.Windows.Forms.DateTimePickerFormat.Short;
+            this.dtpDataInicial.Location = new System.Drawing.Point(5, 52);
+            this.dtpDataInicial.Name = "dtpDataInicial";
+            this.dtpDataInicial.Size = new System.Drawing.Size(94, 21);
+            this.dtpDataInicial.TabIndex = 115;
+            this.dtpDataInicial.Value = new System.DateTime(2022, 12, 23, 8, 46, 53, 0);
+            // 
             // btFiltrar
             // 
             this.btFiltrar.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
@@ -590,10 +611,10 @@
             this.btFiltrar.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btFiltrar.Font = new System.Drawing.Font("Arial Narrow", 10.2F, System.Drawing.FontStyle.Bold);
             this.btFiltrar.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
-            this.btFiltrar.Location = new System.Drawing.Point(11, 719);
+            this.btFiltrar.Location = new System.Drawing.Point(11, 717);
             this.btFiltrar.Margin = new System.Windows.Forms.Padding(2);
             this.btFiltrar.Name = "btFiltrar";
-            this.btFiltrar.Size = new System.Drawing.Size(98, 34);
+            this.btFiltrar.Size = new System.Drawing.Size(88, 34);
             this.btFiltrar.TabIndex = 136;
             this.btFiltrar.Text = "F5 Gerar";
             this.btFiltrar.UseVisualStyleBackColor = false;
@@ -922,144 +943,6 @@
             this.dgvCaixa.TabIndex = 131;
             this.dgvCaixa.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvCaixa_CellClick);
             // 
-            // gbMovimentacaoCaixa
-            // 
-            this.gbMovimentacaoCaixa.Controls.Add(this.pbFuncionario);
-            this.gbMovimentacaoCaixa.Controls.Add(this.tbFuncionario);
-            this.gbMovimentacaoCaixa.Controls.Add(this.btFuncionario);
-            this.gbMovimentacaoCaixa.Controls.Add(this.panelFuncionario);
-            this.gbMovimentacaoCaixa.Controls.Add(this.pbUsuario);
-            this.gbMovimentacaoCaixa.Controls.Add(this.tbBuscarCliente);
-            this.gbMovimentacaoCaixa.Controls.Add(this.btCliente);
-            this.gbMovimentacaoCaixa.Controls.Add(this.panelBuscarCliente);
-            this.gbMovimentacaoCaixa.Font = new System.Drawing.Font("Arial", 9F, System.Drawing.FontStyle.Bold);
-            this.gbMovimentacaoCaixa.Location = new System.Drawing.Point(11, 45);
-            this.gbMovimentacaoCaixa.Margin = new System.Windows.Forms.Padding(2);
-            this.gbMovimentacaoCaixa.Name = "gbMovimentacaoCaixa";
-            this.gbMovimentacaoCaixa.Padding = new System.Windows.Forms.Padding(2);
-            this.gbMovimentacaoCaixa.Size = new System.Drawing.Size(588, 91);
-            this.gbMovimentacaoCaixa.TabIndex = 188;
-            this.gbMovimentacaoCaixa.TabStop = false;
-            this.gbMovimentacaoCaixa.Text = "Filtros";
-            // 
-            // cbParcialDetalhada
-            // 
-            this.cbParcialDetalhada.AutoSize = true;
-            this.cbParcialDetalhada.Font = new System.Drawing.Font("Arial", 8F, System.Drawing.FontStyle.Bold);
-            this.cbParcialDetalhada.Location = new System.Drawing.Point(193, 21);
-            this.cbParcialDetalhada.Margin = new System.Windows.Forms.Padding(2);
-            this.cbParcialDetalhada.Name = "cbParcialDetalhada";
-            this.cbParcialDetalhada.Size = new System.Drawing.Size(162, 18);
-            this.cbParcialDetalhada.TabIndex = 164;
-            this.cbParcialDetalhada.Text = "Movimentação Detalhada";
-            this.cbParcialDetalhada.UseVisualStyleBackColor = true;
-            // 
-            // pbFuncionario
-            // 
-            this.pbFuncionario.Image = global::Apresentacao.Properties.Resources.FuncionarioAzul;
-            this.pbFuncionario.Location = new System.Drawing.Point(297, 52);
-            this.pbFuncionario.Margin = new System.Windows.Forms.Padding(2);
-            this.pbFuncionario.Name = "pbFuncionario";
-            this.pbFuncionario.Size = new System.Drawing.Size(26, 28);
-            this.pbFuncionario.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
-            this.pbFuncionario.TabIndex = 132;
-            this.pbFuncionario.TabStop = false;
-            // 
-            // pbCaixa
-            // 
-            this.pbCaixa.Image = global::Apresentacao.Properties.Resources.CaixaForm;
-            this.pbCaixa.Location = new System.Drawing.Point(11, 11);
-            this.pbCaixa.Margin = new System.Windows.Forms.Padding(2);
-            this.pbCaixa.Name = "pbCaixa";
-            this.pbCaixa.Size = new System.Drawing.Size(28, 28);
-            this.pbCaixa.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
-            this.pbCaixa.TabIndex = 163;
-            this.pbCaixa.TabStop = false;
-            // 
-            // lbCaixa
-            // 
-            this.lbCaixa.AutoSize = true;
-            this.lbCaixa.Font = new System.Drawing.Font("Arial Narrow", 12F, System.Drawing.FontStyle.Bold);
-            this.lbCaixa.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(51)))), ((int)(((byte)(51)))), ((int)(((byte)(76)))));
-            this.lbCaixa.Location = new System.Drawing.Point(81, 19);
-            this.lbCaixa.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
-            this.lbCaixa.Name = "lbCaixa";
-            this.lbCaixa.Size = new System.Drawing.Size(108, 20);
-            this.lbCaixa.TabIndex = 158;
-            this.lbCaixa.Text = "Caixa Detalhado";
-            // 
-            // pbUsuario
-            // 
-            this.pbUsuario.Image = global::Apresentacao.Properties.Resources.ClienteAzul;
-            this.pbUsuario.Location = new System.Drawing.Point(4, 50);
-            this.pbUsuario.Margin = new System.Windows.Forms.Padding(2);
-            this.pbUsuario.Name = "pbUsuario";
-            this.pbUsuario.Size = new System.Drawing.Size(26, 29);
-            this.pbUsuario.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
-            this.pbUsuario.TabIndex = 121;
-            this.pbUsuario.TabStop = false;
-            // 
-            // pbImagemProduto
-            // 
-            this.pbImagemProduto.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.pbImagemProduto.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.pbImagemProduto.Image = global::Apresentacao.Properties.Resources.imgDefaut;
-            this.pbImagemProduto.Location = new System.Drawing.Point(1262, 22);
-            this.pbImagemProduto.Margin = new System.Windows.Forms.Padding(2);
-            this.pbImagemProduto.Name = "pbImagemProduto";
-            this.pbImagemProduto.Size = new System.Drawing.Size(160, 114);
-            this.pbImagemProduto.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
-            this.pbImagemProduto.TabIndex = 184;
-            this.pbImagemProduto.TabStop = false;
-            // 
-            // chartAnaliseVenda
-            // 
-            legend1.Name = "Legend1";
-            this.chartAnaliseVenda.Legends.Add(legend1);
-            this.chartAnaliseVenda.Location = new System.Drawing.Point(572, 552);
-            this.chartAnaliseVenda.Name = "chartAnaliseVenda";
-            series1.Legend = "Legend1";
-            series1.Name = "Series1";
-            this.chartAnaliseVenda.Series.Add(series1);
-            this.chartAnaliseVenda.Size = new System.Drawing.Size(850, 201);
-            this.chartAnaliseVenda.TabIndex = 190;
-            this.chartAnaliseVenda.Text = "chart1";
-            // 
-            // chartPieAnalizeVenda
-            // 
-            legend2.Name = "Legend1";
-            this.chartPieAnalizeVenda.Legends.Add(legend2);
-            this.chartPieAnalizeVenda.Location = new System.Drawing.Point(935, 142);
-            this.chartPieAnalizeVenda.Name = "chartPieAnalizeVenda";
-            series2.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Pie;
-            series2.Legend = "Legend1";
-            series2.Name = "Series1";
-            this.chartPieAnalizeVenda.Series.Add(series2);
-            this.chartPieAnalizeVenda.Size = new System.Drawing.Size(486, 361);
-            this.chartPieAnalizeVenda.TabIndex = 191;
-            this.chartPieAnalizeVenda.Text = "chart1";
-            this.chartPieAnalizeVenda.Visible = false;
-            // 
-            // dtpDataInicial
-            // 
-            this.dtpDataInicial.CalendarFont = new System.Drawing.Font("Microsoft Sans Serif", 10.2F);
-            this.dtpDataInicial.Format = System.Windows.Forms.DateTimePickerFormat.Short;
-            this.dtpDataInicial.Location = new System.Drawing.Point(5, 52);
-            this.dtpDataInicial.Name = "dtpDataInicial";
-            this.dtpDataInicial.Size = new System.Drawing.Size(94, 21);
-            this.dtpDataInicial.TabIndex = 115;
-            this.dtpDataInicial.Value = new System.DateTime(2022, 12, 23, 8, 46, 53, 0);
-            // 
-            // dtpDataFinal
-            // 
-            this.dtpDataFinal.Checked = false;
-            this.dtpDataFinal.Format = System.Windows.Forms.DateTimePickerFormat.Short;
-            this.dtpDataFinal.Location = new System.Drawing.Point(103, 52);
-            this.dtpDataFinal.Name = "dtpDataFinal";
-            this.dtpDataFinal.Size = new System.Drawing.Size(98, 21);
-            this.dtpDataFinal.TabIndex = 116;
-            this.dtpDataFinal.Value = new System.DateTime(2022, 12, 23, 8, 46, 59, 0);
-            // 
             // codigoItemVenda
             // 
             this.codigoItemVenda.HeaderText = "Venda";
@@ -1275,10 +1158,147 @@
             this.estatusItem.Name = "estatusItem";
             this.estatusItem.ToolTipText = "Estatus fechamento do caixa";
             // 
+            // gbMovimentacaoCaixa
+            // 
+            this.gbMovimentacaoCaixa.Controls.Add(this.pbFuncionario);
+            this.gbMovimentacaoCaixa.Controls.Add(this.tbFuncionario);
+            this.gbMovimentacaoCaixa.Controls.Add(this.btFuncionario);
+            this.gbMovimentacaoCaixa.Controls.Add(this.panelFuncionario);
+            this.gbMovimentacaoCaixa.Controls.Add(this.pbUsuario);
+            this.gbMovimentacaoCaixa.Controls.Add(this.tbBuscarCliente);
+            this.gbMovimentacaoCaixa.Controls.Add(this.btCliente);
+            this.gbMovimentacaoCaixa.Controls.Add(this.panelBuscarCliente);
+            this.gbMovimentacaoCaixa.Font = new System.Drawing.Font("Arial", 9F, System.Drawing.FontStyle.Bold);
+            this.gbMovimentacaoCaixa.Location = new System.Drawing.Point(11, 45);
+            this.gbMovimentacaoCaixa.Margin = new System.Windows.Forms.Padding(2);
+            this.gbMovimentacaoCaixa.Name = "gbMovimentacaoCaixa";
+            this.gbMovimentacaoCaixa.Padding = new System.Windows.Forms.Padding(2);
+            this.gbMovimentacaoCaixa.Size = new System.Drawing.Size(588, 91);
+            this.gbMovimentacaoCaixa.TabIndex = 188;
+            this.gbMovimentacaoCaixa.TabStop = false;
+            this.gbMovimentacaoCaixa.Text = "Filtros";
+            // 
+            // pbFuncionario
+            // 
+            this.pbFuncionario.Image = global::Apresentacao.Properties.Resources.FuncionarioAzul;
+            this.pbFuncionario.Location = new System.Drawing.Point(297, 52);
+            this.pbFuncionario.Margin = new System.Windows.Forms.Padding(2);
+            this.pbFuncionario.Name = "pbFuncionario";
+            this.pbFuncionario.Size = new System.Drawing.Size(26, 28);
+            this.pbFuncionario.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.pbFuncionario.TabIndex = 132;
+            this.pbFuncionario.TabStop = false;
+            // 
+            // pbUsuario
+            // 
+            this.pbUsuario.Image = global::Apresentacao.Properties.Resources.ClienteAzul;
+            this.pbUsuario.Location = new System.Drawing.Point(4, 50);
+            this.pbUsuario.Margin = new System.Windows.Forms.Padding(2);
+            this.pbUsuario.Name = "pbUsuario";
+            this.pbUsuario.Size = new System.Drawing.Size(26, 29);
+            this.pbUsuario.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.pbUsuario.TabIndex = 121;
+            this.pbUsuario.TabStop = false;
+            // 
+            // cbParcialDetalhada
+            // 
+            this.cbParcialDetalhada.AutoSize = true;
+            this.cbParcialDetalhada.Font = new System.Drawing.Font("Arial", 8F, System.Drawing.FontStyle.Bold);
+            this.cbParcialDetalhada.Location = new System.Drawing.Point(84, 31);
+            this.cbParcialDetalhada.Margin = new System.Windows.Forms.Padding(2);
+            this.cbParcialDetalhada.Name = "cbParcialDetalhada";
+            this.cbParcialDetalhada.Size = new System.Drawing.Size(162, 18);
+            this.cbParcialDetalhada.TabIndex = 164;
+            this.cbParcialDetalhada.Text = "Movimentação Detalhada";
+            this.cbParcialDetalhada.UseVisualStyleBackColor = true;
+            // 
+            // pbCaixa
+            // 
+            this.pbCaixa.Image = global::Apresentacao.Properties.Resources.CaixaForm;
+            this.pbCaixa.Location = new System.Drawing.Point(11, 11);
+            this.pbCaixa.Margin = new System.Windows.Forms.Padding(2);
+            this.pbCaixa.Name = "pbCaixa";
+            this.pbCaixa.Size = new System.Drawing.Size(28, 28);
+            this.pbCaixa.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.pbCaixa.TabIndex = 163;
+            this.pbCaixa.TabStop = false;
+            // 
+            // lbCaixa
+            // 
+            this.lbCaixa.AutoSize = true;
+            this.lbCaixa.Font = new System.Drawing.Font("Arial Narrow", 12F, System.Drawing.FontStyle.Bold);
+            this.lbCaixa.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(51)))), ((int)(((byte)(51)))), ((int)(((byte)(76)))));
+            this.lbCaixa.Location = new System.Drawing.Point(80, 9);
+            this.lbCaixa.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.lbCaixa.Name = "lbCaixa";
+            this.lbCaixa.Size = new System.Drawing.Size(108, 20);
+            this.lbCaixa.TabIndex = 158;
+            this.lbCaixa.Text = "Caixa Detalhado";
+            // 
+            // pbImagemProduto
+            // 
+            this.pbImagemProduto.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.pbImagemProduto.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.pbImagemProduto.Image = global::Apresentacao.Properties.Resources.imgDefaut;
+            this.pbImagemProduto.Location = new System.Drawing.Point(1262, 22);
+            this.pbImagemProduto.Margin = new System.Windows.Forms.Padding(2);
+            this.pbImagemProduto.Name = "pbImagemProduto";
+            this.pbImagemProduto.Size = new System.Drawing.Size(160, 114);
+            this.pbImagemProduto.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.pbImagemProduto.TabIndex = 184;
+            this.pbImagemProduto.TabStop = false;
+            // 
+            // chartAnaliseVenda
+            // 
+            legend1.Name = "Legend1";
+            this.chartAnaliseVenda.Legends.Add(legend1);
+            this.chartAnaliseVenda.Location = new System.Drawing.Point(572, 551);
+            this.chartAnaliseVenda.Name = "chartAnaliseVenda";
+            series1.Legend = "Legend1";
+            series1.Name = "Series1";
+            this.chartAnaliseVenda.Series.Add(series1);
+            this.chartAnaliseVenda.Size = new System.Drawing.Size(847, 201);
+            this.chartAnaliseVenda.TabIndex = 190;
+            this.chartAnaliseVenda.Text = "chart1";
+            // 
+            // chartPieAnalizeVenda
+            // 
+            legend2.Name = "Legend1";
+            this.chartPieAnalizeVenda.Legends.Add(legend2);
+            this.chartPieAnalizeVenda.Location = new System.Drawing.Point(936, 141);
+            this.chartPieAnalizeVenda.Name = "chartPieAnalizeVenda";
+            series2.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Pie;
+            series2.Legend = "Legend1";
+            series2.Name = "Series1";
+            this.chartPieAnalizeVenda.Series.Add(series2);
+            this.chartPieAnalizeVenda.Size = new System.Drawing.Size(486, 404);
+            this.chartPieAnalizeVenda.TabIndex = 191;
+            this.chartPieAnalizeVenda.Text = "chart1";
+            this.chartPieAnalizeVenda.Visible = false;
+            // 
+            // btParcial
+            // 
+            this.btParcial.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.btParcial.BackColor = System.Drawing.Color.DeepSkyBlue;
+            this.btParcial.FlatAppearance.BorderColor = System.Drawing.Color.Black;
+            this.btParcial.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btParcial.Font = new System.Drawing.Font("Arial Narrow", 10.2F, System.Drawing.FontStyle.Bold);
+            this.btParcial.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
+            this.btParcial.Location = new System.Drawing.Point(295, 717);
+            this.btParcial.Margin = new System.Windows.Forms.Padding(2);
+            this.btParcial.Name = "btParcial";
+            this.btParcial.Size = new System.Drawing.Size(88, 34);
+            this.btParcial.TabIndex = 194;
+            this.btParcial.Text = "F8 Parcial";
+            this.btParcial.UseVisualStyleBackColor = false;
+            this.btParcial.Click += new System.EventHandler(this.btParcial_Click);
+            // 
             // tgTipoCaixa
             // 
             this.tgTipoCaixa.AutoSize = true;
-            this.tgTipoCaixa.Location = new System.Drawing.Point(43, 21);
+            this.tgTipoCaixa.Checked = true;
+            this.tgTipoCaixa.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.tgTipoCaixa.Location = new System.Drawing.Point(42, 12);
             this.tgTipoCaixa.Margin = new System.Windows.Forms.Padding(2);
             this.tgTipoCaixa.MinimumSize = new System.Drawing.Size(34, 18);
             this.tgTipoCaixa.Name = "tgTipoCaixa";
@@ -1298,6 +1318,7 @@
             this.AutoScroll = true;
             this.BackColor = System.Drawing.SystemColors.ButtonHighlight;
             this.ClientSize = new System.Drawing.Size(1431, 764);
+            this.Controls.Add(this.btParcial);
             this.Controls.Add(this.cbParcialDetalhada);
             this.Controls.Add(this.pbCaixa);
             this.Controls.Add(this.tgTipoCaixa);
@@ -1329,6 +1350,7 @@
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Caixa";
             this.Load += new System.EventHandler(this.FrmCaixa_Load);
+            this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.FrmCaixa_KeyDown);
             this.painelJuros.ResumeLayout(false);
             this.painelJuros.PerformLayout();
             this.painelDinheiro.ResumeLayout(false);
@@ -1353,8 +1375,8 @@
             this.gbMovimentacaoCaixa.ResumeLayout(false);
             this.gbMovimentacaoCaixa.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pbFuncionario)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pbCaixa)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pbUsuario)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pbCaixa)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pbImagemProduto)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.chartAnaliseVenda)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.chartPieAnalizeVenda)).EndInit();
@@ -1455,5 +1477,6 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn fornecedorProduto;
         private System.Windows.Forms.DataGridViewTextBoxColumn dataVenda;
         private System.Windows.Forms.DataGridViewTextBoxColumn estatusItem;
+        private System.Windows.Forms.Button btParcial;
     }
 }
