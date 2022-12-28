@@ -126,16 +126,16 @@
             this.dataVenda = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.estatusItem = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.gbMovimentacaoCaixa = new System.Windows.Forms.GroupBox();
-            this.pbFuncionario = new System.Windows.Forms.PictureBox();
-            this.pbUsuario = new System.Windows.Forms.PictureBox();
             this.cbParcialDetalhada = new System.Windows.Forms.CheckBox();
-            this.pbCaixa = new System.Windows.Forms.PictureBox();
             this.lbCaixa = new System.Windows.Forms.Label();
-            this.pbImagemProduto = new System.Windows.Forms.PictureBox();
             this.chartAnaliseVenda = new System.Windows.Forms.DataVisualization.Charting.Chart();
             this.chartPieAnalizeVenda = new System.Windows.Forms.DataVisualization.Charting.Chart();
             this.btParcial = new System.Windows.Forms.Button();
             this.tgTipoCaixa = new CustomControls.RJControls.TouglleControl();
+            this.pbCaixa = new System.Windows.Forms.PictureBox();
+            this.pbFuncionario = new System.Windows.Forms.PictureBox();
+            this.pbUsuario = new System.Windows.Forms.PictureBox();
+            this.pbImagemProduto = new System.Windows.Forms.PictureBox();
             this.painelJuros.SuspendLayout();
             this.painelDinheiro.SuspendLayout();
             this.painelDesconto.SuspendLayout();
@@ -148,12 +148,12 @@
             this.painelEstorno.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvCaixa)).BeginInit();
             this.gbMovimentacaoCaixa.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.pbFuncionario)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pbUsuario)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pbCaixa)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pbImagemProduto)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.chartAnaliseVenda)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.chartPieAnalizeVenda)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pbCaixa)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pbFuncionario)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pbUsuario)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pbImagemProduto)).BeginInit();
             this.SuspendLayout();
             // 
             // lbJuros
@@ -1178,28 +1178,6 @@
             this.gbMovimentacaoCaixa.TabStop = false;
             this.gbMovimentacaoCaixa.Text = "Filtros";
             // 
-            // pbFuncionario
-            // 
-            this.pbFuncionario.Image = global::Apresentacao.Properties.Resources.FuncionarioAzul;
-            this.pbFuncionario.Location = new System.Drawing.Point(297, 52);
-            this.pbFuncionario.Margin = new System.Windows.Forms.Padding(2);
-            this.pbFuncionario.Name = "pbFuncionario";
-            this.pbFuncionario.Size = new System.Drawing.Size(26, 28);
-            this.pbFuncionario.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
-            this.pbFuncionario.TabIndex = 132;
-            this.pbFuncionario.TabStop = false;
-            // 
-            // pbUsuario
-            // 
-            this.pbUsuario.Image = global::Apresentacao.Properties.Resources.ClienteAzul;
-            this.pbUsuario.Location = new System.Drawing.Point(4, 50);
-            this.pbUsuario.Margin = new System.Windows.Forms.Padding(2);
-            this.pbUsuario.Name = "pbUsuario";
-            this.pbUsuario.Size = new System.Drawing.Size(26, 29);
-            this.pbUsuario.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
-            this.pbUsuario.TabIndex = 121;
-            this.pbUsuario.TabStop = false;
-            // 
             // cbParcialDetalhada
             // 
             this.cbParcialDetalhada.AutoSize = true;
@@ -1212,17 +1190,6 @@
             this.cbParcialDetalhada.Text = "Movimentação Detalhada";
             this.cbParcialDetalhada.UseVisualStyleBackColor = true;
             // 
-            // pbCaixa
-            // 
-            this.pbCaixa.Image = global::Apresentacao.Properties.Resources.CaixaForm;
-            this.pbCaixa.Location = new System.Drawing.Point(11, 11);
-            this.pbCaixa.Margin = new System.Windows.Forms.Padding(2);
-            this.pbCaixa.Name = "pbCaixa";
-            this.pbCaixa.Size = new System.Drawing.Size(28, 28);
-            this.pbCaixa.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
-            this.pbCaixa.TabIndex = 163;
-            this.pbCaixa.TabStop = false;
-            // 
             // lbCaixa
             // 
             this.lbCaixa.AutoSize = true;
@@ -1234,19 +1201,6 @@
             this.lbCaixa.Size = new System.Drawing.Size(108, 20);
             this.lbCaixa.TabIndex = 158;
             this.lbCaixa.Text = "Caixa Detalhado";
-            // 
-            // pbImagemProduto
-            // 
-            this.pbImagemProduto.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.pbImagemProduto.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.pbImagemProduto.Image = global::Apresentacao.Properties.Resources.imgDefaut;
-            this.pbImagemProduto.Location = new System.Drawing.Point(1262, 22);
-            this.pbImagemProduto.Margin = new System.Windows.Forms.Padding(2);
-            this.pbImagemProduto.Name = "pbImagemProduto";
-            this.pbImagemProduto.Size = new System.Drawing.Size(160, 114);
-            this.pbImagemProduto.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
-            this.pbImagemProduto.TabIndex = 184;
-            this.pbImagemProduto.TabStop = false;
             // 
             // chartAnaliseVenda
             // 
@@ -1311,6 +1265,52 @@
             this.tgTipoCaixa.UseVisualStyleBackColor = true;
             this.tgTipoCaixa.CheckedChanged += new System.EventHandler(this.tgTipoCaixa_CheckedChanged);
             // 
+            // pbCaixa
+            // 
+            this.pbCaixa.Image = global::Apresentacao.Properties.Resources.CaixaForm;
+            this.pbCaixa.Location = new System.Drawing.Point(11, 11);
+            this.pbCaixa.Margin = new System.Windows.Forms.Padding(2);
+            this.pbCaixa.Name = "pbCaixa";
+            this.pbCaixa.Size = new System.Drawing.Size(28, 28);
+            this.pbCaixa.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.pbCaixa.TabIndex = 163;
+            this.pbCaixa.TabStop = false;
+            // 
+            // pbFuncionario
+            // 
+            this.pbFuncionario.Image = global::Apresentacao.Properties.Resources.FuncionarioAzul;
+            this.pbFuncionario.Location = new System.Drawing.Point(297, 52);
+            this.pbFuncionario.Margin = new System.Windows.Forms.Padding(2);
+            this.pbFuncionario.Name = "pbFuncionario";
+            this.pbFuncionario.Size = new System.Drawing.Size(26, 28);
+            this.pbFuncionario.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.pbFuncionario.TabIndex = 132;
+            this.pbFuncionario.TabStop = false;
+            // 
+            // pbUsuario
+            // 
+            this.pbUsuario.Image = global::Apresentacao.Properties.Resources.ClienteAzul;
+            this.pbUsuario.Location = new System.Drawing.Point(4, 50);
+            this.pbUsuario.Margin = new System.Windows.Forms.Padding(2);
+            this.pbUsuario.Name = "pbUsuario";
+            this.pbUsuario.Size = new System.Drawing.Size(26, 29);
+            this.pbUsuario.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.pbUsuario.TabIndex = 121;
+            this.pbUsuario.TabStop = false;
+            // 
+            // pbImagemProduto
+            // 
+            this.pbImagemProduto.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.pbImagemProduto.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.pbImagemProduto.Image = global::Apresentacao.Properties.Resources.imgDefaut;
+            this.pbImagemProduto.Location = new System.Drawing.Point(1262, 22);
+            this.pbImagemProduto.Margin = new System.Windows.Forms.Padding(2);
+            this.pbImagemProduto.Name = "pbImagemProduto";
+            this.pbImagemProduto.Size = new System.Drawing.Size(160, 114);
+            this.pbImagemProduto.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.pbImagemProduto.TabIndex = 184;
+            this.pbImagemProduto.TabStop = false;
+            // 
             // FrmCaixa
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -1374,12 +1374,12 @@
             ((System.ComponentModel.ISupportInitialize)(this.dgvCaixa)).EndInit();
             this.gbMovimentacaoCaixa.ResumeLayout(false);
             this.gbMovimentacaoCaixa.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.pbFuncionario)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pbUsuario)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pbCaixa)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pbImagemProduto)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.chartAnaliseVenda)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.chartPieAnalizeVenda)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pbCaixa)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pbFuncionario)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pbUsuario)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pbImagemProduto)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 

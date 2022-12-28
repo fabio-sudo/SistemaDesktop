@@ -213,6 +213,18 @@
     <Compile Include="FrmCaixaDialogoOpcoes.Designer.cs">
       <DependentUpon>FrmCaixaDialogoOpcoes.cs</DependentUpon>
     </Compile>
+    <Compile Include="FrmCaixaPendente.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FrmCaixaPendente.Designer.cs">
+      <DependentUpon>FrmCaixaPendente.cs</DependentUpon>
+    </Compile>
+    <Compile Include="FrmCaixaSelecionar.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FrmCaixaSelecionar.Designer.cs">
+      <DependentUpon>FrmCaixaSelecionar.cs</DependentUpon>
+    </Compile>
     <Compile Include="FrmCancelamento.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -589,6 +601,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="FrmCaixaDialogoOpcoes.resx">
       <DependentUpon>FrmCaixaDialogoOpcoes.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FrmCaixaPendente.resx">
+      <DependentUpon>FrmCaixaPendente.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FrmCaixaSelecionar.resx">
+      <DependentUpon>FrmCaixaSelecionar.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="FrmCancelamento.resx">
       <DependentUpon>FrmCancelamento.cs</DependentUpon>
