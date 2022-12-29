@@ -40,6 +40,14 @@
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle8 = new System.Windows.Forms.DataGridViewCellStyle();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FrmCaixaSelecionar));
             this.dgvCaixa = new System.Windows.Forms.DataGridView();
+            this.totalVenda = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.totalRecebido = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.trocoCaixa = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.estornoCaixa = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.descontoVenda = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.jurosVenda = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dataVenda = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.estatusItem = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.painelEstorno = new System.Windows.Forms.Panel();
             this.lbTituloEstorno = new System.Windows.Forms.Label();
             this.lbTotalEstorno = new System.Windows.Forms.Label();
@@ -67,14 +75,6 @@
             this.cbFinalizado = new System.Windows.Forms.CheckBox();
             this.gbDataVenda = new System.Windows.Forms.GroupBox();
             this.lbPagamentosCaixa = new System.Windows.Forms.Label();
-            this.totalVenda = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.totalRecebido = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.trocoCaixa = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.estornoCaixa = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.descontoVenda = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.jurosVenda = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.dataVenda = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.estatusItem = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.painelTrocoCaixa = new System.Windows.Forms.Panel();
             this.lbTituloTrocoCaixa = new System.Windows.Forms.Label();
             this.lbTotalTrocoCaixa = new System.Windows.Forms.Label();
@@ -136,6 +136,75 @@
             this.dgvCaixa.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.dgvCaixa.Size = new System.Drawing.Size(837, 284);
             this.dgvCaixa.TabIndex = 165;
+            // 
+            // totalVenda
+            // 
+            dataGridViewCellStyle3.Format = "C2";
+            dataGridViewCellStyle3.NullValue = null;
+            this.totalVenda.DefaultCellStyle = dataGridViewCellStyle3;
+            this.totalVenda.HeaderText = "Recebido";
+            this.totalVenda.Name = "totalVenda";
+            this.totalVenda.ReadOnly = true;
+            this.totalVenda.ToolTipText = "Total do Item Venda";
+            // 
+            // totalRecebido
+            // 
+            dataGridViewCellStyle4.Format = "C2";
+            dataGridViewCellStyle4.NullValue = null;
+            this.totalRecebido.DefaultCellStyle = dataGridViewCellStyle4;
+            this.totalRecebido.HeaderText = "Líquido";
+            this.totalRecebido.Name = "totalRecebido";
+            this.totalRecebido.ReadOnly = true;
+            this.totalRecebido.ToolTipText = "Total Recebido";
+            // 
+            // trocoCaixa
+            // 
+            this.trocoCaixa.HeaderText = "Troco";
+            this.trocoCaixa.Name = "trocoCaixa";
+            // 
+            // estornoCaixa
+            // 
+            dataGridViewCellStyle5.Format = "C2";
+            dataGridViewCellStyle5.NullValue = null;
+            this.estornoCaixa.DefaultCellStyle = dataGridViewCellStyle5;
+            this.estornoCaixa.HeaderText = "Estorno";
+            this.estornoCaixa.Name = "estornoCaixa";
+            this.estornoCaixa.ToolTipText = "Estorno dos cancelamentos do caixa";
+            // 
+            // descontoVenda
+            // 
+            dataGridViewCellStyle6.Format = "C2";
+            dataGridViewCellStyle6.NullValue = null;
+            this.descontoVenda.DefaultCellStyle = dataGridViewCellStyle6;
+            this.descontoVenda.HeaderText = "Desconto";
+            this.descontoVenda.Name = "descontoVenda";
+            this.descontoVenda.ToolTipText = "total descontos do caixa";
+            this.descontoVenda.Width = 90;
+            // 
+            // jurosVenda
+            // 
+            dataGridViewCellStyle7.NullValue = null;
+            this.jurosVenda.DefaultCellStyle = dataGridViewCellStyle7;
+            this.jurosVenda.HeaderText = "Juros";
+            this.jurosVenda.Name = "jurosVenda";
+            this.jurosVenda.ToolTipText = "total de juros do caixa";
+            this.jurosVenda.Width = 90;
+            // 
+            // dataVenda
+            // 
+            dataGridViewCellStyle8.Format = "d";
+            dataGridViewCellStyle8.NullValue = null;
+            this.dataVenda.DefaultCellStyle = dataGridViewCellStyle8;
+            this.dataVenda.HeaderText = "Data";
+            this.dataVenda.Name = "dataVenda";
+            this.dataVenda.ToolTipText = "Data movimentação do caixa";
+            // 
+            // estatusItem
+            // 
+            this.estatusItem.HeaderText = "Estatus";
+            this.estatusItem.Name = "estatusItem";
+            this.estatusItem.ToolTipText = "Estatus fechamento do caixa";
+            this.estatusItem.Width = 90;
             // 
             // painelEstorno
             // 
@@ -497,80 +566,11 @@
             this.lbPagamentosCaixa.TabIndex = 232;
             this.lbPagamentosCaixa.Text = "Movimentação do Caixa";
             // 
-            // totalVenda
-            // 
-            dataGridViewCellStyle3.Format = "C2";
-            dataGridViewCellStyle3.NullValue = null;
-            this.totalVenda.DefaultCellStyle = dataGridViewCellStyle3;
-            this.totalVenda.HeaderText = "Recebido";
-            this.totalVenda.Name = "totalVenda";
-            this.totalVenda.ReadOnly = true;
-            this.totalVenda.ToolTipText = "Total do Item Venda";
-            // 
-            // totalRecebido
-            // 
-            dataGridViewCellStyle4.Format = "C2";
-            dataGridViewCellStyle4.NullValue = null;
-            this.totalRecebido.DefaultCellStyle = dataGridViewCellStyle4;
-            this.totalRecebido.HeaderText = "Líquido";
-            this.totalRecebido.Name = "totalRecebido";
-            this.totalRecebido.ReadOnly = true;
-            this.totalRecebido.ToolTipText = "Total Recebido";
-            // 
-            // trocoCaixa
-            // 
-            this.trocoCaixa.HeaderText = "Troco";
-            this.trocoCaixa.Name = "trocoCaixa";
-            // 
-            // estornoCaixa
-            // 
-            dataGridViewCellStyle5.Format = "C2";
-            dataGridViewCellStyle5.NullValue = null;
-            this.estornoCaixa.DefaultCellStyle = dataGridViewCellStyle5;
-            this.estornoCaixa.HeaderText = "Estorno";
-            this.estornoCaixa.Name = "estornoCaixa";
-            this.estornoCaixa.ToolTipText = "Estorno dos cancelamentos do caixa";
-            // 
-            // descontoVenda
-            // 
-            dataGridViewCellStyle6.Format = "C2";
-            dataGridViewCellStyle6.NullValue = null;
-            this.descontoVenda.DefaultCellStyle = dataGridViewCellStyle6;
-            this.descontoVenda.HeaderText = "Desconto";
-            this.descontoVenda.Name = "descontoVenda";
-            this.descontoVenda.ToolTipText = "total descontos do caixa";
-            this.descontoVenda.Width = 90;
-            // 
-            // jurosVenda
-            // 
-            dataGridViewCellStyle7.NullValue = null;
-            this.jurosVenda.DefaultCellStyle = dataGridViewCellStyle7;
-            this.jurosVenda.HeaderText = "Juros";
-            this.jurosVenda.Name = "jurosVenda";
-            this.jurosVenda.ToolTipText = "total de juros do caixa";
-            this.jurosVenda.Width = 90;
-            // 
-            // dataVenda
-            // 
-            dataGridViewCellStyle8.Format = "d";
-            dataGridViewCellStyle8.NullValue = null;
-            this.dataVenda.DefaultCellStyle = dataGridViewCellStyle8;
-            this.dataVenda.HeaderText = "Data";
-            this.dataVenda.Name = "dataVenda";
-            this.dataVenda.ToolTipText = "Data movimentação do caixa";
-            // 
-            // estatusItem
-            // 
-            this.estatusItem.HeaderText = "Estatus";
-            this.estatusItem.Name = "estatusItem";
-            this.estatusItem.ToolTipText = "Estatus fechamento do caixa";
-            this.estatusItem.Width = 90;
-            // 
             // painelTrocoCaixa
             // 
             this.painelTrocoCaixa.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.painelTrocoCaixa.AutoScroll = true;
-            this.painelTrocoCaixa.BackColor = System.Drawing.Color.MediumSeaGreen;
+            this.painelTrocoCaixa.BackColor = System.Drawing.Color.DeepSkyBlue;
             this.painelTrocoCaixa.Controls.Add(this.lbTituloTrocoCaixa);
             this.painelTrocoCaixa.Controls.Add(this.lbTotalTrocoCaixa);
             this.painelTrocoCaixa.Location = new System.Drawing.Point(711, 348);
