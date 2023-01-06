@@ -244,7 +244,6 @@ namespace Negocio
             }
         }
 
-
         //uspBuscarCaixaDetalhado Itens Vendidos no Caixa
         public CaixaLista BuscarCaixa(string Avista, string CrediarioPendente, string CrediarioPago,
             string strDinheiro, string strPix, string strCredito, string strDebito, string strCheque, string strParcial, DateTime dataInicio, DateTime dataFim)
@@ -304,7 +303,44 @@ namespace Negocio
             }
         }
     
+//----------------------------------Caixa Finalização
+        public CaixaLista BuscarMovimentacaoCaixa(string statusCaixa, DateTime dataInicial, DateTime dataFinal) {
+            try
+            {
+                sqlServer.LimparParametros();
+                sqlServer.AdicionarParametro(new SqlParameter("@estatusCaixa",statusCaixa));
+                sqlServer.AdicionarParametro(new SqlParameter("@dataInicial", dataInicial)); 
+                sqlServer.AdicionarParametro(new SqlParameter("@dataFinal", dataFinal));
 
+                string comando = "exec uspBuscarMovimentacaoCaixa @estatusCaixa, @dataInicial, @dataFinal";
+
+                DataTable tabelaRetorno = sqlServer.ExecutarConsulta(comando, CommandType.Text);
+
+                CaixaLista lista = new CaixaLista();
+                Caixa caixa = new Caixa();
+
+                foreach (DataRow registro in tabelaRetorno.Rows) {
+                    
+                    caixa = new Caixa();
+
+                    caixa.recebidoCaixa = Convert.ToDouble(registro[0]);
+                    caixa.totalCaixa = Convert.ToDouble(registro[1]);
+                    caixa.trocoCaixa = Convert.ToDouble(registro[2]);
+                    caixa.estornoCaixa = Convert.ToDouble(registro[3]);
+                    caixa.jurosCaixa = Convert.ToDouble(registro[4]);
+                    caixa.descontoCaixa = Convert.ToDouble(registro[5]);
+                    caixa.dataCaixa = Convert.ToDateTime(registro[6]);
+                    caixa.estatusCaixa = registro[7].ToString();
+
+                    lista.Add(caixa);              
+                }
+
+                return lista;
+
+            }
+            catch (Exception ex) { throw new Exception("Não foi possível buscar dados do Movimentação do Caixa. [Negócios]. Motivo: " + ex.Message); }
+        
+        }
 
     }
 }

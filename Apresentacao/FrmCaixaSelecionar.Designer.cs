@@ -466,6 +466,7 @@
             this.btFiltrar.TabIndex = 195;
             this.btFiltrar.Text = "F5 Gerar";
             this.btFiltrar.UseVisualStyleBackColor = false;
+            this.btFiltrar.Click += new System.EventHandler(this.btFiltrar_Click);
             // 
             // btSair
             // 

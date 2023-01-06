@@ -1,4 +1,6 @@
-﻿using System;
+﻿using Negocio;
+using ObjetoTransferencia;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -12,9 +14,22 @@ namespace Apresentacao
 {
     public partial class FrmCaixaSelecionar : Form
     {
+        NegCaixa nCaixa = new NegCaixa();
+        Caixa objCaixa = new Caixa();
+        CaixaLista listaCaixa = new CaixaLista();
+
+
+
         public FrmCaixaSelecionar()
         {
             InitializeComponent();
+        }
+
+        //Controles
+        private void btFiltrar_Click(object sender, EventArgs e)
+        {
+            listaCaixa = nCaixa.BuscarMovimentacaoCaixa("", dtpDataInicial.Value, dtpDataFinal.Value);
+            listaCaixa.Count();
         }
     }
 }

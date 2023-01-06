@@ -10,6 +10,9 @@ namespace ObjetoTransferencia
     {
        public string tipoVenda { get; set; }
        public double recebidoCaixa { get; set; }
+       public double totalCaixa { get; set; }
+       public double trocoCaixa { get; set; }
+       public double estornoCaixa { get; set; }
        public double valorCaixa { get; set; }
        public double jurosCaixa { get; set; }
        public double descontoCaixa { get; set; }
