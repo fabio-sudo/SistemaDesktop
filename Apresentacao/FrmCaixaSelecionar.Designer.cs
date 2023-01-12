@@ -30,14 +30,15 @@
         {
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle9 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle10 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle11 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle4 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle5 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle6 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle7 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle8 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle9 = new System.Windows.Forms.DataGridViewCellStyle();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FrmCaixaSelecionar));
             this.dgvCaixa = new System.Windows.Forms.DataGridView();
             this.totalVenda = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -118,20 +119,20 @@
             this.jurosVenda,
             this.dataVenda,
             this.estatusItem});
-            dataGridViewCellStyle9.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle9.BackColor = System.Drawing.SystemColors.Window;
-            dataGridViewCellStyle9.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle9.ForeColor = System.Drawing.SystemColors.ControlText;
-            dataGridViewCellStyle9.SelectionBackColor = System.Drawing.Color.DeepPink;
-            dataGridViewCellStyle9.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle9.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
-            this.dgvCaixa.DefaultCellStyle = dataGridViewCellStyle9;
+            dataGridViewCellStyle10.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle10.BackColor = System.Drawing.SystemColors.Window;
+            dataGridViewCellStyle10.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle10.ForeColor = System.Drawing.SystemColors.ControlText;
+            dataGridViewCellStyle10.SelectionBackColor = System.Drawing.Color.DeepPink;
+            dataGridViewCellStyle10.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle10.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
+            this.dgvCaixa.DefaultCellStyle = dataGridViewCellStyle10;
             this.dgvCaixa.GridColor = System.Drawing.SystemColors.ButtonFace;
             this.dgvCaixa.Location = new System.Drawing.Point(11, 60);
             this.dgvCaixa.Margin = new System.Windows.Forms.Padding(2);
             this.dgvCaixa.Name = "dgvCaixa";
-            dataGridViewCellStyle10.Font = new System.Drawing.Font("Arial Narrow", 10F, System.Drawing.FontStyle.Bold);
-            this.dgvCaixa.RowsDefaultCellStyle = dataGridViewCellStyle10;
+            dataGridViewCellStyle11.Font = new System.Drawing.Font("Arial Narrow", 10F, System.Drawing.FontStyle.Bold);
+            this.dgvCaixa.RowsDefaultCellStyle = dataGridViewCellStyle11;
             this.dgvCaixa.RowTemplate.Height = 24;
             this.dgvCaixa.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.dgvCaixa.Size = new System.Drawing.Size(837, 284);
@@ -159,23 +160,27 @@
             // 
             // trocoCaixa
             // 
+            dataGridViewCellStyle5.Format = "C2";
+            dataGridViewCellStyle5.NullValue = null;
+            this.trocoCaixa.DefaultCellStyle = dataGridViewCellStyle5;
             this.trocoCaixa.HeaderText = "Troco";
             this.trocoCaixa.Name = "trocoCaixa";
+            this.trocoCaixa.ToolTipText = "Troco do caixa";
             // 
             // estornoCaixa
             // 
-            dataGridViewCellStyle5.Format = "C2";
-            dataGridViewCellStyle5.NullValue = null;
-            this.estornoCaixa.DefaultCellStyle = dataGridViewCellStyle5;
+            dataGridViewCellStyle6.Format = "C2";
+            dataGridViewCellStyle6.NullValue = null;
+            this.estornoCaixa.DefaultCellStyle = dataGridViewCellStyle6;
             this.estornoCaixa.HeaderText = "Estorno";
             this.estornoCaixa.Name = "estornoCaixa";
             this.estornoCaixa.ToolTipText = "Estorno dos cancelamentos do caixa";
             // 
             // descontoVenda
             // 
-            dataGridViewCellStyle6.Format = "C2";
-            dataGridViewCellStyle6.NullValue = null;
-            this.descontoVenda.DefaultCellStyle = dataGridViewCellStyle6;
+            dataGridViewCellStyle7.Format = "C2";
+            dataGridViewCellStyle7.NullValue = null;
+            this.descontoVenda.DefaultCellStyle = dataGridViewCellStyle7;
             this.descontoVenda.HeaderText = "Desconto";
             this.descontoVenda.Name = "descontoVenda";
             this.descontoVenda.ToolTipText = "total descontos do caixa";
@@ -183,8 +188,8 @@
             // 
             // jurosVenda
             // 
-            dataGridViewCellStyle7.NullValue = null;
-            this.jurosVenda.DefaultCellStyle = dataGridViewCellStyle7;
+            dataGridViewCellStyle8.NullValue = null;
+            this.jurosVenda.DefaultCellStyle = dataGridViewCellStyle8;
             this.jurosVenda.HeaderText = "Juros";
             this.jurosVenda.Name = "jurosVenda";
             this.jurosVenda.ToolTipText = "total de juros do caixa";
@@ -192,9 +197,9 @@
             // 
             // dataVenda
             // 
-            dataGridViewCellStyle8.Format = "d";
-            dataGridViewCellStyle8.NullValue = null;
-            this.dataVenda.DefaultCellStyle = dataGridViewCellStyle8;
+            dataGridViewCellStyle9.Format = "d";
+            dataGridViewCellStyle9.NullValue = null;
+            this.dataVenda.DefaultCellStyle = dataGridViewCellStyle9;
             this.dataVenda.HeaderText = "Data";
             this.dataVenda.Name = "dataVenda";
             this.dataVenda.ToolTipText = "Data movimentação do caixa";
@@ -525,12 +530,11 @@
             this.cbPendente.TabIndex = 200;
             this.cbPendente.Text = "Pendente";
             this.cbPendente.UseVisualStyleBackColor = true;
+            this.cbPendente.CheckedChanged += new System.EventHandler(this.cbPendente_CheckedChanged);
             // 
             // cbFinalizado
             // 
             this.cbFinalizado.AutoSize = true;
-            this.cbFinalizado.Checked = true;
-            this.cbFinalizado.CheckState = System.Windows.Forms.CheckState.Checked;
             this.cbFinalizado.Font = new System.Drawing.Font("Arial", 8F, System.Drawing.FontStyle.Bold);
             this.cbFinalizado.Location = new System.Drawing.Point(87, 25);
             this.cbFinalizado.Margin = new System.Windows.Forms.Padding(2);
@@ -539,6 +543,7 @@
             this.cbFinalizado.TabIndex = 201;
             this.cbFinalizado.Text = "Finalizado";
             this.cbFinalizado.UseVisualStyleBackColor = true;
+            this.cbFinalizado.CheckedChanged += new System.EventHandler(this.cbFinalizado_CheckedChanged);
             // 
             // gbDataVenda
             // 
@@ -686,6 +691,9 @@
         private System.Windows.Forms.CheckBox cbFinalizado;
         private System.Windows.Forms.GroupBox gbDataVenda;
         private System.Windows.Forms.Label lbPagamentosCaixa;
+        private System.Windows.Forms.Panel painelTrocoCaixa;
+        private System.Windows.Forms.Label lbTituloTrocoCaixa;
+        private System.Windows.Forms.Label lbTotalTrocoCaixa;
         private System.Windows.Forms.DataGridViewTextBoxColumn totalVenda;
         private System.Windows.Forms.DataGridViewTextBoxColumn totalRecebido;
         private System.Windows.Forms.DataGridViewTextBoxColumn trocoCaixa;
@@ -694,8 +702,5 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn jurosVenda;
         private System.Windows.Forms.DataGridViewTextBoxColumn dataVenda;
         private System.Windows.Forms.DataGridViewTextBoxColumn estatusItem;
-        private System.Windows.Forms.Panel painelTrocoCaixa;
-        private System.Windows.Forms.Label lbTituloTrocoCaixa;
-        private System.Windows.Forms.Label lbTotalTrocoCaixa;
     }
 }

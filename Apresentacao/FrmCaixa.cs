@@ -25,7 +25,6 @@ namespace Apresentacao
 
         //Variaveis
         String LocalSolution;
-        int larguraGride = 0;
 
         double totalVendaCaixa = 0;//Total c
         double totalCrediario = 0;
