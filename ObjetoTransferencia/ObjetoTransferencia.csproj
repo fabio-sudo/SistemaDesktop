@@ -44,6 +44,7 @@
     <Compile Include="Crediario.cs" />
     <Compile Include="Cliente.cs" />
     <Compile Include="Cor.cs" />
+    <Compile Include="DespesaCaixa.cs" />
     <Compile Include="EntradaEstoque.cs" />
     <Compile Include="Estoque.cs" />
     <Compile Include="FormaPagamento.cs" />

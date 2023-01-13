@@ -48,10 +48,11 @@ namespace Apresentacao
                 this.dgvCaixa[1, indice].Value = item.totalCaixa;
                 this.dgvCaixa[2, indice].Value = item.trocoCaixa;
                 this.dgvCaixa[3, indice].Value = item.estornoCaixa;
-                this.dgvCaixa[4, indice].Value = item.descontoCaixa;
-                this.dgvCaixa[5, indice].Value = item.jurosCaixa;
-                this.dgvCaixa[6, indice].Value = item.dataCaixa;
-                this.dgvCaixa[7, indice].Value = item.estatusCaixa;
+                this.dgvCaixa[4, indice].Value = item.valorCaixa;//Vai ficar aqui as despesas no valor
+                this.dgvCaixa[5, indice].Value = item.descontoCaixa;
+                this.dgvCaixa[6, indice].Value = item.jurosCaixa;
+                this.dgvCaixa[7, indice].Value = item.dataCaixa;
+                this.dgvCaixa[8, indice].Value = item.estatusCaixa;
 
                 indice++;
             }
@@ -111,6 +112,55 @@ namespace Apresentacao
         private void cbPendente_CheckedChanged(object sender, EventArgs e)
         {
             if (cbPendente.Checked == true) { cbFinalizado.Checked = false; }
+        }
+
+        private void btSair_Click(object sender, EventArgs e)
+        {
+            DialogResult resposta;
+            //Criando Caixa de dialogo
+            FrmCaixaDialogo frmCaixa = new FrmCaixaDialogo("Confirmação",
+            " Deseja realmente sair da Seleção de Movimento do Caixa?",
+            Properties.Resources.DialogQuestion,
+            System.Drawing.Color.FromArgb(((int)(((byte)(51)))), ((int)(((byte)(51)))), ((int)(((byte)(76))))),
+            Color.White,
+            "Sim", "Não",
+            false);
+
+            resposta = frmCaixa.ShowDialog();
+            if (resposta == DialogResult.Yes)
+            {
+                this.Close();
+
+            }
+        }
+
+        private void btSelecionar_Click(object sender, EventArgs e)
+        {
+            if (dgvCaixa.Rows.Count > 0)
+            {
+                objCaixa = new Caixa();
+
+                objCaixa.recebidoCaixa = Convert.ToDouble(dgvCaixa.CurrentRow.Cells[0].Value);
+                objCaixa.totalCaixa = Convert.ToDouble(dgvCaixa.CurrentRow.Cells[1].Value);
+                objCaixa.trocoCaixa = Convert.ToDouble(dgvCaixa.CurrentRow.Cells[2].Value);
+                objCaixa.estornoCaixa = Convert.ToDouble(dgvCaixa.CurrentRow.Cells[3].Value);
+                objCaixa.descontoCaixa = Convert.ToDouble(dgvCaixa.CurrentRow.Cells[5].Value);
+                objCaixa.jurosCaixa = Convert.ToDouble(dgvCaixa.CurrentRow.Cells[6].Value);
+                objCaixa.dataCaixa = Convert.ToDateTime(dgvCaixa.CurrentRow.Cells[7].Value);
+                objCaixa.estatusCaixa = (dgvCaixa.CurrentRow.Cells[8].Value).ToString();
+
+                DialogResult resultado;
+                FrmCaixaPendente frmCaixaPendente = new FrmCaixaPendente(objCaixa);
+                resultado = frmCaixaPendente.ShowDialog();
+
+                if (resultado == DialogResult.Yes)
+                {
+
+                    btFiltrar.PerformClick();
+
+                }
+            }
+
         }
     }
 }
