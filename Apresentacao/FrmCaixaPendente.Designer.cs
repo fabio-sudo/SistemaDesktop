@@ -33,15 +33,15 @@
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle8 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle9 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle10 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle11 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle12 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle13 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle4 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle5 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle6 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle7 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle10 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle11 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle12 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle13 = new System.Windows.Forms.DataGridViewCellStyle();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FrmCaixaPendente));
             this.painelTrocoCaixa = new System.Windows.Forms.Panel();
             this.lbTituloTrocoCaixa = new System.Windows.Forms.Label();
@@ -61,6 +61,12 @@
             this.lbTrocoCaixa = new System.Windows.Forms.Label();
             this.tbTrocoCaixa = new System.Windows.Forms.TextBox();
             this.dgvCaixa = new System.Windows.Forms.DataGridView();
+            this.Caixa = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.formaPagamento = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dataGridViewTextBoxColumn2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.liquidoPagamento = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dataGridViewTextBoxColumn4 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dataGridViewTextBoxColumn5 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.lbEstatusCaixa = new System.Windows.Forms.Label();
             this.dtpDataCaixa = new System.Windows.Forms.DateTimePicker();
             this.lbDataCaixa = new System.Windows.Forms.Label();
@@ -110,12 +116,8 @@
             this.lbTituloDespesaCaixa = new System.Windows.Forms.Label();
             this.btSair = new System.Windows.Forms.Button();
             this.btFinalizar = new System.Windows.Forms.Button();
-            this.Caixa = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.formaPagamento = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.dataGridViewTextBoxColumn2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.liquidoPagamento = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.dataGridViewTextBoxColumn4 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.dataGridViewTextBoxColumn5 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.lbEstorno = new System.Windows.Forms.Label();
+            this.tbEstorno = new System.Windows.Forms.TextBox();
             this.painelTrocoCaixa.SuspendLayout();
             this.paneRecebidoCaixa.SuspendLayout();
             this.painelLiquidoCaixa.SuspendLayout();
@@ -336,7 +338,7 @@
             this.lbTrocoCaixa.AutoSize = true;
             this.lbTrocoCaixa.Font = new System.Drawing.Font("Arial", 10F, System.Drawing.FontStyle.Bold);
             this.lbTrocoCaixa.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(51)))), ((int)(((byte)(51)))), ((int)(((byte)(76)))));
-            this.lbTrocoCaixa.Location = new System.Drawing.Point(295, 2);
+            this.lbTrocoCaixa.Location = new System.Drawing.Point(233, 2);
             this.lbTrocoCaixa.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.lbTrocoCaixa.Name = "lbTrocoCaixa";
             this.lbTrocoCaixa.Size = new System.Drawing.Size(51, 16);
@@ -348,9 +350,9 @@
             this.tbTrocoCaixa.Enabled = false;
             this.tbTrocoCaixa.Font = new System.Drawing.Font("Arial Narrow", 10F, System.Drawing.FontStyle.Bold);
             this.tbTrocoCaixa.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(51)))), ((int)(((byte)(51)))), ((int)(((byte)(76)))));
-            this.tbTrocoCaixa.Location = new System.Drawing.Point(298, 21);
+            this.tbTrocoCaixa.Location = new System.Drawing.Point(236, 21);
             this.tbTrocoCaixa.Name = "tbTrocoCaixa";
-            this.tbTrocoCaixa.Size = new System.Drawing.Size(141, 23);
+            this.tbTrocoCaixa.Size = new System.Drawing.Size(103, 23);
             this.tbTrocoCaixa.TabIndex = 234;
             // 
             // dgvCaixa
@@ -395,6 +397,64 @@
             this.dgvCaixa.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.dgvCaixa.Size = new System.Drawing.Size(615, 289);
             this.dgvCaixa.TabIndex = 230;
+            // 
+            // Caixa
+            // 
+            dataGridViewCellStyle3.Format = "C2";
+            dataGridViewCellStyle3.NullValue = null;
+            this.Caixa.DefaultCellStyle = dataGridViewCellStyle3;
+            this.Caixa.HeaderText = "CaixaR$";
+            this.Caixa.Name = "Caixa";
+            this.Caixa.ToolTipText = "Total do Caixa";
+            // 
+            // formaPagamento
+            // 
+            this.formaPagamento.HeaderText = "Pagamento";
+            this.formaPagamento.Name = "formaPagamento";
+            this.formaPagamento.ReadOnly = true;
+            this.formaPagamento.ToolTipText = "Forma de Pagamento";
+            // 
+            // dataGridViewTextBoxColumn2
+            // 
+            dataGridViewCellStyle4.Format = "C2";
+            dataGridViewCellStyle4.NullValue = null;
+            this.dataGridViewTextBoxColumn2.DefaultCellStyle = dataGridViewCellStyle4;
+            this.dataGridViewTextBoxColumn2.HeaderText = "Recebido";
+            this.dataGridViewTextBoxColumn2.Name = "dataGridViewTextBoxColumn2";
+            this.dataGridViewTextBoxColumn2.ReadOnly = true;
+            this.dataGridViewTextBoxColumn2.ToolTipText = "Total Recebido";
+            this.dataGridViewTextBoxColumn2.Width = 90;
+            // 
+            // liquidoPagamento
+            // 
+            dataGridViewCellStyle5.Format = "C2";
+            dataGridViewCellStyle5.NullValue = null;
+            this.liquidoPagamento.DefaultCellStyle = dataGridViewCellStyle5;
+            this.liquidoPagamento.HeaderText = "Líquido";
+            this.liquidoPagamento.Name = "liquidoPagamento";
+            this.liquidoPagamento.ReadOnly = true;
+            this.liquidoPagamento.Width = 90;
+            // 
+            // dataGridViewTextBoxColumn4
+            // 
+            dataGridViewCellStyle6.Format = "C2";
+            dataGridViewCellStyle6.NullValue = null;
+            this.dataGridViewTextBoxColumn4.DefaultCellStyle = dataGridViewCellStyle6;
+            this.dataGridViewTextBoxColumn4.HeaderText = "Desconto";
+            this.dataGridViewTextBoxColumn4.Name = "dataGridViewTextBoxColumn4";
+            this.dataGridViewTextBoxColumn4.ReadOnly = true;
+            this.dataGridViewTextBoxColumn4.ToolTipText = "total descontos do caixa";
+            this.dataGridViewTextBoxColumn4.Width = 90;
+            // 
+            // dataGridViewTextBoxColumn5
+            // 
+            dataGridViewCellStyle7.NullValue = null;
+            this.dataGridViewTextBoxColumn5.DefaultCellStyle = dataGridViewCellStyle7;
+            this.dataGridViewTextBoxColumn5.HeaderText = "Juros";
+            this.dataGridViewTextBoxColumn5.Name = "dataGridViewTextBoxColumn5";
+            this.dataGridViewTextBoxColumn5.ReadOnly = true;
+            this.dataGridViewTextBoxColumn5.ToolTipText = "total de juros do caixa";
+            this.dataGridViewTextBoxColumn5.Width = 90;
             // 
             // lbEstatusCaixa
             // 
@@ -1027,6 +1087,7 @@
             this.btSair.TabIndex = 259;
             this.btSair.Text = "Esc Sair";
             this.btSair.UseVisualStyleBackColor = false;
+            this.btSair.Click += new System.EventHandler(this.btSair_Click);
             // 
             // btFinalizar
             // 
@@ -1044,63 +1105,27 @@
             this.btFinalizar.Text = "F10 Finalizar";
             this.btFinalizar.UseVisualStyleBackColor = false;
             // 
-            // Caixa
+            // lbEstorno
             // 
-            dataGridViewCellStyle3.Format = "C2";
-            dataGridViewCellStyle3.NullValue = null;
-            this.Caixa.DefaultCellStyle = dataGridViewCellStyle3;
-            this.Caixa.HeaderText = "CaixaR$";
-            this.Caixa.Name = "Caixa";
-            this.Caixa.ToolTipText = "Total do Caixa";
+            this.lbEstorno.AutoSize = true;
+            this.lbEstorno.Font = new System.Drawing.Font("Arial", 10F, System.Drawing.FontStyle.Bold);
+            this.lbEstorno.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(51)))), ((int)(((byte)(51)))), ((int)(((byte)(76)))));
+            this.lbEstorno.Location = new System.Drawing.Point(344, 2);
+            this.lbEstorno.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.lbEstorno.Name = "lbEstorno";
+            this.lbEstorno.Size = new System.Drawing.Size(63, 16);
+            this.lbEstorno.TabIndex = 262;
+            this.lbEstorno.Text = "Estorno";
             // 
-            // formaPagamento
+            // tbEstorno
             // 
-            this.formaPagamento.HeaderText = "Pagamento";
-            this.formaPagamento.Name = "formaPagamento";
-            this.formaPagamento.ReadOnly = true;
-            this.formaPagamento.ToolTipText = "Forma de Pagamento";
-            // 
-            // dataGridViewTextBoxColumn2
-            // 
-            dataGridViewCellStyle4.Format = "C2";
-            dataGridViewCellStyle4.NullValue = null;
-            this.dataGridViewTextBoxColumn2.DefaultCellStyle = dataGridViewCellStyle4;
-            this.dataGridViewTextBoxColumn2.HeaderText = "Recebido";
-            this.dataGridViewTextBoxColumn2.Name = "dataGridViewTextBoxColumn2";
-            this.dataGridViewTextBoxColumn2.ReadOnly = true;
-            this.dataGridViewTextBoxColumn2.ToolTipText = "Total Recebido";
-            this.dataGridViewTextBoxColumn2.Width = 90;
-            // 
-            // liquidoPagamento
-            // 
-            dataGridViewCellStyle5.Format = "C2";
-            dataGridViewCellStyle5.NullValue = null;
-            this.liquidoPagamento.DefaultCellStyle = dataGridViewCellStyle5;
-            this.liquidoPagamento.HeaderText = "Líquido";
-            this.liquidoPagamento.Name = "liquidoPagamento";
-            this.liquidoPagamento.ReadOnly = true;
-            this.liquidoPagamento.Width = 90;
-            // 
-            // dataGridViewTextBoxColumn4
-            // 
-            dataGridViewCellStyle6.Format = "C2";
-            dataGridViewCellStyle6.NullValue = null;
-            this.dataGridViewTextBoxColumn4.DefaultCellStyle = dataGridViewCellStyle6;
-            this.dataGridViewTextBoxColumn4.HeaderText = "Desconto";
-            this.dataGridViewTextBoxColumn4.Name = "dataGridViewTextBoxColumn4";
-            this.dataGridViewTextBoxColumn4.ReadOnly = true;
-            this.dataGridViewTextBoxColumn4.ToolTipText = "total descontos do caixa";
-            this.dataGridViewTextBoxColumn4.Width = 90;
-            // 
-            // dataGridViewTextBoxColumn5
-            // 
-            dataGridViewCellStyle7.NullValue = null;
-            this.dataGridViewTextBoxColumn5.DefaultCellStyle = dataGridViewCellStyle7;
-            this.dataGridViewTextBoxColumn5.HeaderText = "Juros";
-            this.dataGridViewTextBoxColumn5.Name = "dataGridViewTextBoxColumn5";
-            this.dataGridViewTextBoxColumn5.ReadOnly = true;
-            this.dataGridViewTextBoxColumn5.ToolTipText = "total de juros do caixa";
-            this.dataGridViewTextBoxColumn5.Width = 90;
+            this.tbEstorno.Enabled = false;
+            this.tbEstorno.Font = new System.Drawing.Font("Arial Narrow", 10F, System.Drawing.FontStyle.Bold);
+            this.tbEstorno.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(51)))), ((int)(((byte)(51)))), ((int)(((byte)(76)))));
+            this.tbEstorno.Location = new System.Drawing.Point(345, 21);
+            this.tbEstorno.Name = "tbEstorno";
+            this.tbEstorno.Size = new System.Drawing.Size(94, 23);
+            this.tbEstorno.TabIndex = 261;
             // 
             // FrmCaixaPendente
             // 
@@ -1108,6 +1133,8 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.ButtonHighlight;
             this.ClientSize = new System.Drawing.Size(1171, 534);
+            this.Controls.Add(this.lbEstorno);
+            this.Controls.Add(this.tbEstorno);
             this.Controls.Add(this.btFinalizar);
             this.Controls.Add(this.btSair);
             this.Controls.Add(this.lbTituloMovimentacaoCaixa);
@@ -1248,5 +1275,7 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn liquidoPagamento;
         private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn4;
         private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn5;
+        private System.Windows.Forms.Label lbEstorno;
+        private System.Windows.Forms.TextBox tbEstorno;
     }
 }

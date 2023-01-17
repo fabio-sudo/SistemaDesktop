@@ -41,6 +41,15 @@
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle9 = new System.Windows.Forms.DataGridViewCellStyle();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FrmCaixaSelecionar));
             this.dgvCaixa = new System.Windows.Forms.DataGridView();
+            this.totalVenda = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.totalRecebido = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.trocoCaixa = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.estornoCaixa = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.despesaCaixa = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.descontoVenda = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.jurosVenda = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dataVenda = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.estatusItem = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.painelEstorno = new System.Windows.Forms.Panel();
             this.lbTituloEstorno = new System.Windows.Forms.Label();
             this.lbTotalEstorno = new System.Windows.Forms.Label();
@@ -56,10 +65,10 @@
             this.painelJuros = new System.Windows.Forms.Panel();
             this.lbTituloJuros = new System.Windows.Forms.Label();
             this.lbJuros = new System.Windows.Forms.Label();
-            this.dtpDataInicial = new System.Windows.Forms.DateTimePicker();
+            this.dtpDataFinal = new System.Windows.Forms.DateTimePicker();
             this.lbDataInicial = new System.Windows.Forms.Label();
             this.lbDataFinal = new System.Windows.Forms.Label();
-            this.dtpDataFinal = new System.Windows.Forms.DateTimePicker();
+            this.dtpDataInicial = new System.Windows.Forms.DateTimePicker();
             this.btFiltrar = new System.Windows.Forms.Button();
             this.btSair = new System.Windows.Forms.Button();
             this.btSelecionar = new System.Windows.Forms.Button();
@@ -71,15 +80,6 @@
             this.painelTrocoCaixa = new System.Windows.Forms.Panel();
             this.lbTituloTrocoCaixa = new System.Windows.Forms.Label();
             this.lbTotalTrocoCaixa = new System.Windows.Forms.Label();
-            this.totalVenda = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.totalRecebido = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.trocoCaixa = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.estornoCaixa = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.despesaCaixa = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.descontoVenda = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.jurosVenda = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.dataVenda = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.estatusItem = new System.Windows.Forms.DataGridViewTextBoxColumn();
             ((System.ComponentModel.ISupportInitialize)(this.dgvCaixa)).BeginInit();
             this.painelEstorno.SuspendLayout();
             this.painelDinheiro.SuspendLayout();
@@ -139,6 +139,86 @@
             this.dgvCaixa.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.dgvCaixa.Size = new System.Drawing.Size(837, 284);
             this.dgvCaixa.TabIndex = 165;
+            // 
+            // totalVenda
+            // 
+            dataGridViewCellStyle3.Format = "C2";
+            dataGridViewCellStyle3.NullValue = null;
+            this.totalVenda.DefaultCellStyle = dataGridViewCellStyle3;
+            this.totalVenda.HeaderText = "Recebido";
+            this.totalVenda.Name = "totalVenda";
+            this.totalVenda.ReadOnly = true;
+            this.totalVenda.ToolTipText = "Total do Item Venda";
+            // 
+            // totalRecebido
+            // 
+            dataGridViewCellStyle4.Format = "C2";
+            dataGridViewCellStyle4.NullValue = null;
+            this.totalRecebido.DefaultCellStyle = dataGridViewCellStyle4;
+            this.totalRecebido.HeaderText = "Líquido";
+            this.totalRecebido.Name = "totalRecebido";
+            this.totalRecebido.ReadOnly = true;
+            this.totalRecebido.ToolTipText = "Total Recebido";
+            // 
+            // trocoCaixa
+            // 
+            dataGridViewCellStyle5.Format = "C2";
+            dataGridViewCellStyle5.NullValue = null;
+            this.trocoCaixa.DefaultCellStyle = dataGridViewCellStyle5;
+            this.trocoCaixa.HeaderText = "Troco";
+            this.trocoCaixa.Name = "trocoCaixa";
+            this.trocoCaixa.ToolTipText = "Troco do caixa";
+            // 
+            // estornoCaixa
+            // 
+            dataGridViewCellStyle6.Format = "C2";
+            dataGridViewCellStyle6.NullValue = null;
+            this.estornoCaixa.DefaultCellStyle = dataGridViewCellStyle6;
+            this.estornoCaixa.HeaderText = "Estorno";
+            this.estornoCaixa.Name = "estornoCaixa";
+            this.estornoCaixa.ToolTipText = "Estorno dos cancelamentos do caixa";
+            // 
+            // despesaCaixa
+            // 
+            this.despesaCaixa.HeaderText = "Despesas";
+            this.despesaCaixa.Name = "despesaCaixa";
+            this.despesaCaixa.ReadOnly = true;
+            this.despesaCaixa.ToolTipText = "Despesas do Caixa";
+            // 
+            // descontoVenda
+            // 
+            dataGridViewCellStyle7.Format = "C2";
+            dataGridViewCellStyle7.NullValue = null;
+            this.descontoVenda.DefaultCellStyle = dataGridViewCellStyle7;
+            this.descontoVenda.HeaderText = "Desconto";
+            this.descontoVenda.Name = "descontoVenda";
+            this.descontoVenda.ToolTipText = "total descontos do caixa";
+            this.descontoVenda.Width = 90;
+            // 
+            // jurosVenda
+            // 
+            dataGridViewCellStyle8.NullValue = null;
+            this.jurosVenda.DefaultCellStyle = dataGridViewCellStyle8;
+            this.jurosVenda.HeaderText = "Juros";
+            this.jurosVenda.Name = "jurosVenda";
+            this.jurosVenda.ToolTipText = "total de juros do caixa";
+            this.jurosVenda.Width = 90;
+            // 
+            // dataVenda
+            // 
+            dataGridViewCellStyle9.Format = "d";
+            dataGridViewCellStyle9.NullValue = null;
+            this.dataVenda.DefaultCellStyle = dataGridViewCellStyle9;
+            this.dataVenda.HeaderText = "Data";
+            this.dataVenda.Name = "dataVenda";
+            this.dataVenda.ToolTipText = "Data movimentação do caixa";
+            // 
+            // estatusItem
+            // 
+            this.estatusItem.HeaderText = "Estatus";
+            this.estatusItem.Name = "estatusItem";
+            this.estatusItem.ToolTipText = "Estatus fechamento do caixa";
+            this.estatusItem.Width = 90;
             // 
             // painelEstorno
             // 
@@ -336,17 +416,17 @@
             this.lbJuros.Text = "R$ 1200,00";
             this.lbJuros.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
-            // dtpDataInicial
+            // dtpDataFinal
             // 
-            this.dtpDataInicial.CalendarTitleBackColor = System.Drawing.SystemColors.ControlText;
-            this.dtpDataInicial.CalendarTitleForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(51)))), ((int)(((byte)(51)))), ((int)(((byte)(76)))));
-            this.dtpDataInicial.Font = new System.Drawing.Font("Arial", 12F, System.Drawing.FontStyle.Bold);
-            this.dtpDataInicial.Format = System.Windows.Forms.DateTimePickerFormat.Short;
-            this.dtpDataInicial.Location = new System.Drawing.Point(567, 30);
-            this.dtpDataInicial.Margin = new System.Windows.Forms.Padding(2);
-            this.dtpDataInicial.Name = "dtpDataInicial";
-            this.dtpDataInicial.Size = new System.Drawing.Size(138, 26);
-            this.dtpDataInicial.TabIndex = 190;
+            this.dtpDataFinal.CalendarTitleBackColor = System.Drawing.SystemColors.ControlText;
+            this.dtpDataFinal.CalendarTitleForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(51)))), ((int)(((byte)(51)))), ((int)(((byte)(76)))));
+            this.dtpDataFinal.Font = new System.Drawing.Font("Arial", 12F, System.Drawing.FontStyle.Bold);
+            this.dtpDataFinal.Format = System.Windows.Forms.DateTimePickerFormat.Short;
+            this.dtpDataFinal.Location = new System.Drawing.Point(709, 30);
+            this.dtpDataFinal.Margin = new System.Windows.Forms.Padding(2);
+            this.dtpDataFinal.Name = "dtpDataFinal";
+            this.dtpDataFinal.Size = new System.Drawing.Size(138, 26);
+            this.dtpDataFinal.TabIndex = 190;
             // 
             // lbDataInicial
             // 
@@ -372,18 +452,19 @@
             this.lbDataFinal.TabIndex = 191;
             this.lbDataFinal.Text = "Data Final";
             // 
-            // dtpDataFinal
+            // dtpDataInicial
             // 
-            this.dtpDataFinal.CalendarForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(51)))), ((int)(((byte)(51)))), ((int)(((byte)(76)))));
-            this.dtpDataFinal.CalendarTitleBackColor = System.Drawing.SystemColors.ControlText;
-            this.dtpDataFinal.CalendarTitleForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(51)))), ((int)(((byte)(51)))), ((int)(((byte)(76)))));
-            this.dtpDataFinal.Font = new System.Drawing.Font("Arial", 12F, System.Drawing.FontStyle.Bold);
-            this.dtpDataFinal.Format = System.Windows.Forms.DateTimePickerFormat.Short;
-            this.dtpDataFinal.Location = new System.Drawing.Point(709, 30);
-            this.dtpDataFinal.Margin = new System.Windows.Forms.Padding(2);
-            this.dtpDataFinal.Name = "dtpDataFinal";
-            this.dtpDataFinal.Size = new System.Drawing.Size(138, 26);
-            this.dtpDataFinal.TabIndex = 192;
+            this.dtpDataInicial.CalendarForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(51)))), ((int)(((byte)(51)))), ((int)(((byte)(76)))));
+            this.dtpDataInicial.CalendarTitleBackColor = System.Drawing.SystemColors.ControlText;
+            this.dtpDataInicial.CalendarTitleForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(51)))), ((int)(((byte)(51)))), ((int)(((byte)(76)))));
+            this.dtpDataInicial.Font = new System.Drawing.Font("Arial", 12F, System.Drawing.FontStyle.Bold);
+            this.dtpDataInicial.Format = System.Windows.Forms.DateTimePickerFormat.Short;
+            this.dtpDataInicial.Location = new System.Drawing.Point(567, 30);
+            this.dtpDataInicial.Margin = new System.Windows.Forms.Padding(2);
+            this.dtpDataInicial.Name = "dtpDataInicial";
+            this.dtpDataInicial.Size = new System.Drawing.Size(138, 26);
+            this.dtpDataInicial.TabIndex = 192;
+            this.dtpDataInicial.Value = new System.DateTime(2023, 1, 16, 6, 59, 0, 0);
             // 
             // btFiltrar
             // 
@@ -542,86 +623,6 @@
             this.lbTotalTrocoCaixa.Text = "R$ 1200,00";
             this.lbTotalTrocoCaixa.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
-            // totalVenda
-            // 
-            dataGridViewCellStyle3.Format = "C2";
-            dataGridViewCellStyle3.NullValue = null;
-            this.totalVenda.DefaultCellStyle = dataGridViewCellStyle3;
-            this.totalVenda.HeaderText = "Recebido";
-            this.totalVenda.Name = "totalVenda";
-            this.totalVenda.ReadOnly = true;
-            this.totalVenda.ToolTipText = "Total do Item Venda";
-            // 
-            // totalRecebido
-            // 
-            dataGridViewCellStyle4.Format = "C2";
-            dataGridViewCellStyle4.NullValue = null;
-            this.totalRecebido.DefaultCellStyle = dataGridViewCellStyle4;
-            this.totalRecebido.HeaderText = "Líquido";
-            this.totalRecebido.Name = "totalRecebido";
-            this.totalRecebido.ReadOnly = true;
-            this.totalRecebido.ToolTipText = "Total Recebido";
-            // 
-            // trocoCaixa
-            // 
-            dataGridViewCellStyle5.Format = "C2";
-            dataGridViewCellStyle5.NullValue = null;
-            this.trocoCaixa.DefaultCellStyle = dataGridViewCellStyle5;
-            this.trocoCaixa.HeaderText = "Troco";
-            this.trocoCaixa.Name = "trocoCaixa";
-            this.trocoCaixa.ToolTipText = "Troco do caixa";
-            // 
-            // estornoCaixa
-            // 
-            dataGridViewCellStyle6.Format = "C2";
-            dataGridViewCellStyle6.NullValue = null;
-            this.estornoCaixa.DefaultCellStyle = dataGridViewCellStyle6;
-            this.estornoCaixa.HeaderText = "Estorno";
-            this.estornoCaixa.Name = "estornoCaixa";
-            this.estornoCaixa.ToolTipText = "Estorno dos cancelamentos do caixa";
-            // 
-            // despesaCaixa
-            // 
-            this.despesaCaixa.HeaderText = "Despesas";
-            this.despesaCaixa.Name = "despesaCaixa";
-            this.despesaCaixa.ReadOnly = true;
-            this.despesaCaixa.ToolTipText = "Despesas do Caixa";
-            // 
-            // descontoVenda
-            // 
-            dataGridViewCellStyle7.Format = "C2";
-            dataGridViewCellStyle7.NullValue = null;
-            this.descontoVenda.DefaultCellStyle = dataGridViewCellStyle7;
-            this.descontoVenda.HeaderText = "Desconto";
-            this.descontoVenda.Name = "descontoVenda";
-            this.descontoVenda.ToolTipText = "total descontos do caixa";
-            this.descontoVenda.Width = 90;
-            // 
-            // jurosVenda
-            // 
-            dataGridViewCellStyle8.NullValue = null;
-            this.jurosVenda.DefaultCellStyle = dataGridViewCellStyle8;
-            this.jurosVenda.HeaderText = "Juros";
-            this.jurosVenda.Name = "jurosVenda";
-            this.jurosVenda.ToolTipText = "total de juros do caixa";
-            this.jurosVenda.Width = 90;
-            // 
-            // dataVenda
-            // 
-            dataGridViewCellStyle9.Format = "d";
-            dataGridViewCellStyle9.NullValue = null;
-            this.dataVenda.DefaultCellStyle = dataGridViewCellStyle9;
-            this.dataVenda.HeaderText = "Data";
-            this.dataVenda.Name = "dataVenda";
-            this.dataVenda.ToolTipText = "Data movimentação do caixa";
-            // 
-            // estatusItem
-            // 
-            this.estatusItem.HeaderText = "Estatus";
-            this.estatusItem.Name = "estatusItem";
-            this.estatusItem.ToolTipText = "Estatus fechamento do caixa";
-            this.estatusItem.Width = 90;
-            // 
             // FrmCaixaSelecionar
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -635,10 +636,10 @@
             this.Controls.Add(this.btSelecionar);
             this.Controls.Add(this.btSair);
             this.Controls.Add(this.btFiltrar);
-            this.Controls.Add(this.dtpDataInicial);
+            this.Controls.Add(this.dtpDataFinal);
             this.Controls.Add(this.lbDataInicial);
             this.Controls.Add(this.lbDataFinal);
-            this.Controls.Add(this.dtpDataFinal);
+            this.Controls.Add(this.dtpDataInicial);
             this.Controls.Add(this.painelEstorno);
             this.Controls.Add(this.painelDinheiro);
             this.Controls.Add(this.painelTotalVenda);
@@ -690,10 +691,10 @@
         private System.Windows.Forms.Panel painelJuros;
         private System.Windows.Forms.Label lbTituloJuros;
         private System.Windows.Forms.Label lbJuros;
-        private System.Windows.Forms.DateTimePicker dtpDataInicial;
+        private System.Windows.Forms.DateTimePicker dtpDataFinal;
         private System.Windows.Forms.Label lbDataInicial;
         private System.Windows.Forms.Label lbDataFinal;
-        private System.Windows.Forms.DateTimePicker dtpDataFinal;
+        private System.Windows.Forms.DateTimePicker dtpDataInicial;
         private System.Windows.Forms.Button btFiltrar;
         private System.Windows.Forms.Button btSair;
         private System.Windows.Forms.Button btSelecionar;

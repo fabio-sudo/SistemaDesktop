@@ -303,7 +303,7 @@ namespace Negocio
             }
         }
     
-//----------------------------------Caixa Finalização
+//----------------------------------Caixa Selecionar -> Finalização
         public CaixaLista BuscarMovimentacaoCaixa(string statusCaixa, DateTime dataInicial, DateTime dataFinal) {
             try
             {
@@ -342,5 +342,44 @@ namespace Negocio
         
         }
 
+//----------------------------------Caixa Pendente -> Cadastro Caixa
+
+        public CaixaLista BuscarCaixaPendente(DateTime dataCaixa)
+        {
+            try
+            {
+                sqlServer.LimparParametros();
+                sqlServer.AdicionarParametro(new SqlParameter("@dataCaixa", dataCaixa));
+
+
+                string comando = "exec uspBuscarCaixaPendente @dataCaixa";
+
+                DataTable tabelaRetorno = sqlServer.ExecutarConsulta(comando, CommandType.Text);
+
+                CaixaLista lista = new CaixaLista();
+                Caixa caixa = new Caixa();
+
+                foreach (DataRow registro in tabelaRetorno.Rows)
+                {
+
+                    caixa = new Caixa();
+                    caixa.formaPagamento = new FormaPagamento();
+
+                    caixa.formaPagamento.formaPagamento = (registro[0]).ToString();
+                    caixa.recebidoCaixa = Convert.ToDouble(registro[1]);
+                    caixa.totalCaixa = Convert.ToDouble(registro[2]);
+                    caixa.jurosCaixa = Convert.ToDouble(registro[3]);
+                    caixa.descontoCaixa = Convert.ToDouble(registro[4]);
+
+
+                    lista.Add(caixa);
+                }
+
+                return lista;
+
+            }
+            catch (Exception ex) { throw new Exception("Não foi possível buscar dados do Movimentação do Caixa. [Negócios]. Motivo: " + ex.Message); }
+
+        }
     }
 }
