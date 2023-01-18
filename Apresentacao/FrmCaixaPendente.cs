@@ -9,6 +9,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using Apresentacao.Formulas;
 
 namespace Apresentacao
 {
@@ -17,6 +18,10 @@ namespace Apresentacao
         Caixa caixaSelecionado = new Caixa();
         CaixaLista listaCaixa = new CaixaLista();
         NegCaixa nCaixa = new NegCaixa();
+
+
+        Metodos metodos = new Metodos();
+        TextBox caixaTextoGride;
 
         public FrmCaixaPendente(Caixa caixa)
         {
@@ -81,6 +86,89 @@ namespace Apresentacao
         {
             FrmBackup bkp = new FrmBackup();
             bkp.Show();
+        }
+
+        //Evento TextoChanged do Gride
+        private void caixaTextoGride_TextChanged(object sender, EventArgs e)
+        {
+            metodos.metodoMoedaTB(ref caixaTextoGride);
+        }
+
+        private void caixaTextoGride_Leave(object sender, EventArgs e)
+        {
+            //Pega valor da caixa de testo para atualizar juros
+            if (caixaTextoGride.Text != null)
+            {
+                string valorRecebidoStr = String.Format("{0:C2}", Convert.ToDouble(dgvCaixa.CurrentRow.Cells[2].Value)).Replace("R$","");
+                double valorCaixaTexto = Convert.ToDouble(caixaTextoGride.Text);
+
+                if (Convert.ToDouble(valorRecebidoStr) != valorCaixaTexto)//Erro referencia objeto verificar
+                {
+                    FrmCaixaDialogo frmCaixaCad = new FrmCaixaDialogo("Erro Valores Caixa",
+                   "Caixa do sistema está diferente do caixa físico!",
+                    Properties.Resources.DialogErro,
+                    System.Drawing.Color.FromArgb(((int)(((byte)(51)))), ((int)(((byte)(51)))), ((int)(((byte)(76))))),
+                    Color.White,
+                    "Ok", "",
+                    false);
+                    frmCaixaCad.ShowDialog();
+                }
+            }
+        }
+
+        private void dgvCaixa_EditingControlShowing(object sender, DataGridViewEditingControlShowingEventArgs e)
+        {
+            try{
+                //-----------Adiciona o formato apenas na caixa de texto 
+                if (dgvCaixa.CurrentCell.ColumnIndex == 0)
+                {
+                    //if (caixaTextoGride != null)
+                    {
+                        caixaTextoGride = e.Control as TextBox;
+                        caixaTextoGride.TextChanged -= new EventHandler(caixaTextoGride_TextChanged);
+                        caixaTextoGride.TextChanged += caixaTextoGride_TextChanged;
+
+                        caixaTextoGride.Leave -= new EventHandler(caixaTextoGride_Leave);
+                        caixaTextoGride.Leave += caixaTextoGride_Leave;
+                    }
+                }
+                else
+                {
+
+                    caixaTextoGride = new TextBox();
+
+                }
+
+
+            }
+            catch (Exception ex)
+            {
+
+                MessageBox.Show(ex.Message);
+            }
+        }
+
+        private void pbCalculadora_Click(object sender, EventArgs e)
+        {
+            System.Diagnostics.Process.Start("C:\\Windows\\system32\\calc.exe");
+        }
+
+        private void dgvCaixa_CellValidating(object sender, DataGridViewCellValidatingEventArgs e)
+        {
+            //Valor da Parcial
+            if (dgvCaixa.Columns[e.ColumnIndex].Name == "caixaUsuario")
+            {
+                dgvCaixa.Rows[e.RowIndex].ErrorText = "";
+                double newDouble;
+
+                if (dgvCaixa.Rows[e.RowIndex].IsNewRow) { return; }
+                if (!double.TryParse(e.FormattedValue.ToString(),
+                    out newDouble) || newDouble <= 0)
+                {
+                    dgvCaixa.Rows[e.RowIndex].ErrorText = "Informe o valor da Parcial";
+                }
+
+            }
         }
     }
 }
