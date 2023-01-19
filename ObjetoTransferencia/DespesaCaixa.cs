@@ -14,5 +14,5 @@ namespace ObjetoTransferencia
        double valorDespesa { get; set; }
    }
 
-    public class listaDespesas:List<Caixa>{}
+    public class ListaDespesas:List<Caixa>{}
 }

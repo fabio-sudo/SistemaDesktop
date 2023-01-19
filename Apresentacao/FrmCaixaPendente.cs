@@ -19,9 +19,11 @@ namespace Apresentacao
         CaixaLista listaCaixa = new CaixaLista();
         NegCaixa nCaixa = new NegCaixa();
 
+        ListaDespesas listaDespesas = new ListaDespesas();
 
         Metodos metodos = new Metodos();
         TextBox caixaTextoGride;
+        int indiceGride = 0;
 
         public FrmCaixaPendente(Caixa caixa)
         {
@@ -97,7 +99,7 @@ namespace Apresentacao
         private void caixaTextoGride_Leave(object sender, EventArgs e)
         {
             //Pega valor da caixa de testo para atualizar juros
-            if (caixaTextoGride.Text != null)
+            if (caixaTextoGride.Text != "")
             {
                 string valorRecebidoStr = String.Format("{0:C2}", Convert.ToDouble(dgvCaixa.CurrentRow.Cells[2].Value)).Replace("R$","");
                 double valorCaixaTexto = Convert.ToDouble(caixaTextoGride.Text);
@@ -112,6 +114,7 @@ namespace Apresentacao
                     "Ok", "",
                     false);
                     frmCaixaCad.ShowDialog();
+
                 }
             }
         }
@@ -169,6 +172,65 @@ namespace Apresentacao
                 }
 
             }
+        }
+
+        //Gride Despesas
+        private void btAdicionar_Click(object sender, EventArgs e)
+        {
+            try
+            {
+
+                if (dgvDespesas.RowCount == 0)
+                {
+                    this.dgvDespesas.Rows.Add(1);
+                    dgvDespesas.CurrentRow.Cells[2].Value = indiceGride;
+                    DataGridViewRow row = dgvDespesas.Rows[0];
+                    row.Height = 30;
+
+                    dgvDespesas.CurrentRow.Cells[0].Value = "";
+                    dgvDespesas.CurrentRow.Cells[1].Value = "0,00";
+
+                }
+                else if(dgvDespesas.CurrentRow.Cells[0].Value.ToString() == "" ||
+                        dgvDespesas.CurrentRow.Cells[1].Value.ToString() == "0,00" || dgvDespesas.CurrentRow.Cells[1].Value.ToString() == "")
+                {
+                    FrmCaixaDialogo frmCaixaCad = new FrmCaixaDialogo("Informe a Despesa",
+                    "Despesa não foi informada corretamente.",
+                    Properties.Resources.DialogErro,
+                    System.Drawing.Color.FromArgb(((int)(((byte)(51)))), ((int)(((byte)(51)))), ((int)(((byte)(76))))),
+                    Color.White,
+                    "Ok", "",
+                    false);
+                    frmCaixaCad.ShowDialog();
+              
+
+
+                }else{
+                    //metodoCalculaTotais
+                    dgvDespesas.Rows.Add(1);
+                    indiceGride = dgvDespesas.RowCount - 1;
+                    dgvDespesas.CurrentCell = dgvDespesas.Rows[indiceGride].Cells[0];
+                    DataGridViewRow row = dgvDespesas.Rows[indiceGride];
+                    row.Height = 30;
+                    dgvDespesas.CurrentRow.Cells[0].Value = "";
+                    dgvDespesas.CurrentRow.Cells[1].Value = "0,00";
+                }
+            }
+
+            catch (Exception ex) { MessageBox.Show(null, ex.Message, "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error); }
+        }
+
+        private void btExcluir_Click(object sender, EventArgs e)
+        {
+            var indice = dgvDespesas.CurrentRow.Index;
+
+            if (indice >= 0)
+            {
+
+                dgvDespesas.Rows.RemoveAt(indice);
+            }
+
+            //metodoCalculaTotais();
         }
     }
 }
