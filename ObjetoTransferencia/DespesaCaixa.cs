@@ -10,6 +10,7 @@ namespace ObjetoTransferencia
     {
        int codigoDespesa { get; set; }
        Caixa caixaDespesa { get; set; }
+       FormaPagamento formaPagamento { get; set; }
        string descricaoDespesa { get; set; }
        double valorDespesa { get; set; }
    }

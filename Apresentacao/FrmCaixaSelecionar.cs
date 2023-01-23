@@ -162,5 +162,10 @@ namespace Apresentacao
             }
 
         }
+
+        private void dgvCaixa_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
+        {
+            btSelecionar.PerformClick();
+        }
     }
 }

@@ -20,9 +20,13 @@ namespace Apresentacao
         NegCaixa nCaixa = new NegCaixa();
 
         ListaDespesas listaDespesas = new ListaDespesas();
+        ListaFormaPagamento listaFormaPagamento = new ListaFormaPagamento();
+
+        NegFormaPagamento nFormaPagamento = new NegFormaPagamento();
 
         Metodos metodos = new Metodos();
         TextBox caixaTextoGride;
+        ComboBox comboDataGride;
         int indiceGride = 0;
 
         public FrmCaixaPendente(Caixa caixa)
@@ -32,6 +36,7 @@ namespace Apresentacao
             caixaSelecionado = caixa;
         }
 
+        //atualiza do dados da GRid
         private void metodoAtualizaGrid() {
 
             this.dgvCaixa.Rows.Clear(); // Limpa todos os registros atuais no grid de funcionários.
@@ -61,12 +66,16 @@ namespace Apresentacao
         
         }
 
+        //realiza criação do formulário preenhcido
         private void metodoConstrutor() {
 
             tbEstatusCaixa.Text = caixaSelecionado.estatusCaixa;
             dtpDataCaixa.Value = caixaSelecionado.dataCaixa;
             tbTrocoCaixa.Text = String.Format("{0:C2}", caixaSelecionado.trocoCaixa);
             tbEstorno.Text = String.Format("{0:C2}", caixaSelecionado.estornoCaixa);
+            
+            //Combo Despesas
+            metodoPreencheCombobox();
 
             listaCaixa = nCaixa.BuscarCaixaPendente(caixaSelecionado.dataCaixa);
             if (listaCaixa.Count > 0)
@@ -79,6 +88,49 @@ namespace Apresentacao
                   
         }
 
+        //Preeche caixa com os tatis armazenados no sistema
+        private void metodoPreencheAuto(string preencher)
+        {
+
+            if (preencher == "F5 Preencher")
+            {
+                foreach (DataGridViewRow col in dgvCaixa.Rows)
+                {
+
+                    col.Cells[0].Value = col.Cells[2].Value;
+                }
+            }
+            else if (preencher == "F5 Zerar")
+            {
+                foreach (DataGridViewRow col in dgvCaixa.Rows)
+                {
+
+                    col.Cells[0].Value = 0;
+                }
+            }
+        }
+
+        //Preenche Combobox das Despesas
+        public void metodoPreencheCombobox()
+        {
+
+            this.formaPagamentoDespesa.Items.Clear();
+            this.listaFormaPagamento = nFormaPagamento.BuscarFormaPagamentoPorNome("");
+
+            foreach (FormaPagamento pag in this.listaFormaPagamento)
+            {
+                if (pag.formaPagamento != "CREDIARIO" && pag.formaPagamento != "PARCIAL")
+                {
+                    {
+                        this.formaPagamentoDespesa.Items.IndexOf(pag.codigoFormaPagamento);
+                        //this.formaPagamentoParcial.Items.Add(pag.formaPagamento + " - " + pag.taxaFormaPagamento.ToString("F"));
+                        this.formaPagamentoDespesa.Items.Add(pag.formaPagamento);
+                    }
+                }
+            }
+        }
+
+        //----------------------------------Controles
         private void FrmCaixaPendente_Load(object sender, EventArgs e)
         {
             metodoConstrutor();
@@ -183,7 +235,7 @@ namespace Apresentacao
                 if (dgvDespesas.RowCount == 0)
                 {
                     this.dgvDespesas.Rows.Add(1);
-                    dgvDespesas.CurrentRow.Cells[2].Value = indiceGride;
+                    dgvDespesas.CurrentRow.Cells[3].Value = indiceGride;
                     DataGridViewRow row = dgvDespesas.Rows[0];
                     row.Height = 30;
 
@@ -192,7 +244,8 @@ namespace Apresentacao
 
                 }
                 else if(dgvDespesas.CurrentRow.Cells[0].Value.ToString() == "" ||
-                        dgvDespesas.CurrentRow.Cells[1].Value.ToString() == "0,00" || dgvDespesas.CurrentRow.Cells[1].Value.ToString() == "")
+                        dgvDespesas.CurrentRow.Cells[1].Value.ToString() == "0,00" || 
+                        dgvDespesas.CurrentRow.Cells[1].Value.ToString() == "" || dgvDespesas.CurrentRow.Cells[2].Value.ToString() == "")
                 {
                     FrmCaixaDialogo frmCaixaCad = new FrmCaixaDialogo("Informe a Despesa",
                     "Despesa não foi informada corretamente.",
@@ -222,6 +275,7 @@ namespace Apresentacao
 
         private void btExcluir_Click(object sender, EventArgs e)
         {
+            if(dgvDespesas.Rows.Count > 0){
             var indice = dgvDespesas.CurrentRow.Index;
 
             if (indice >= 0)
@@ -229,8 +283,83 @@ namespace Apresentacao
 
                 dgvDespesas.Rows.RemoveAt(indice);
             }
-
+            }
             //metodoCalculaTotais();
+        }
+
+        private void dgvDespesas_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (e.KeyChar == 13)
+            {
+
+                btAdicionar.PerformClick();
+            }
+            if (e.KeyChar == 46)
+            {
+
+                btExcluir.PerformClick();
+            }
+        }
+
+        private void btPreencher_Click(object sender, EventArgs e)
+        {
+            metodoPreencheAuto(btPreencher.Text);
+            if (btPreencher.Text == "F5 Preencher")
+            {
+                btPreencher.Text = "F5 Zerar";
+            }
+            else { btPreencher.Text = "F5 Preencher"; }
+        }
+
+        private void dgvDespesas_EditingControlShowing(object sender, DataGridViewEditingControlShowingEventArgs e)
+        {
+            try
+            {
+                comboDataGride = e.Control as ComboBox;
+                if (comboDataGride != null)
+                {
+                    comboDataGride.DropDown -= new EventHandler(comboDataGride__DropDown);
+                    comboDataGride.DropDown += comboDataGride__DropDown;
+                }
+            }
+            catch (Exception ex) { MessageBox.Show(ex.Message); }
+           }
+
+        //Evento DroDown Combo
+        private void comboDataGride__DropDown(object sender, EventArgs e)
+        {
+            metodoPreencheCombobox();
+        }
+
+        private void dgvDespesas_CellValidating(object sender, DataGridViewCellValidatingEventArgs e)
+        {
+            //Valor da Parcial
+            if (dgvDespesas.Columns[e.ColumnIndex].Name == "valorDespesa")
+            {
+                dgvDespesas.Rows[e.RowIndex].ErrorText = "";
+                double newDouble;
+
+                if (dgvDespesas.Rows[e.RowIndex].IsNewRow) { return; }
+                if (!double.TryParse(e.FormattedValue.ToString(),
+                    out newDouble) || newDouble <= 0)
+                {
+                    dgvDespesas.Rows[e.RowIndex].ErrorText = "Informe o valor da Despesa";
+                }
+            }
+            //FormaPagamento
+            if (dgvDespesas.Columns[e.ColumnIndex].Name == "formaPagamentoDespesa")
+            {
+
+                dgvDespesas.Rows[e.RowIndex].ErrorText = "";
+
+                if (dgvDespesas.Rows[e.RowIndex].IsNewRow) { return; }
+                if (e.FormattedValue.ToString() == "")
+                {
+                    dgvDespesas.Rows[e.RowIndex].ErrorText = "Informe a Forma de Pagamento Corretamente";
+                }
+
+            }
+
         }
     }
 }

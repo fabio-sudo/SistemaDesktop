@@ -126,6 +126,8 @@
             this.dataVenda = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.estatusItem = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.gbMovimentacaoCaixa = new System.Windows.Forms.GroupBox();
+            this.pbFuncionario = new System.Windows.Forms.PictureBox();
+            this.pbUsuario = new System.Windows.Forms.PictureBox();
             this.cbParcialDetalhada = new System.Windows.Forms.CheckBox();
             this.lbCaixa = new System.Windows.Forms.Label();
             this.chartAnaliseVenda = new System.Windows.Forms.DataVisualization.Charting.Chart();
@@ -133,8 +135,6 @@
             this.btParcial = new System.Windows.Forms.Button();
             this.tgTipoCaixa = new CustomControls.RJControls.TouglleControl();
             this.pbCaixa = new System.Windows.Forms.PictureBox();
-            this.pbFuncionario = new System.Windows.Forms.PictureBox();
-            this.pbUsuario = new System.Windows.Forms.PictureBox();
             this.pbImagemProduto = new System.Windows.Forms.PictureBox();
             this.painelJuros.SuspendLayout();
             this.painelDinheiro.SuspendLayout();
@@ -148,11 +148,11 @@
             this.painelEstorno.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvCaixa)).BeginInit();
             this.gbMovimentacaoCaixa.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pbFuncionario)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pbUsuario)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.chartAnaliseVenda)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.chartPieAnalizeVenda)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pbCaixa)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pbFuncionario)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pbUsuario)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pbImagemProduto)).BeginInit();
             this.SuspendLayout();
             // 
@@ -193,7 +193,7 @@
             this.painelJuros.Margin = new System.Windows.Forms.Padding(2);
             this.painelJuros.Name = "painelJuros";
             this.painelJuros.Size = new System.Drawing.Size(136, 60);
-            this.painelJuros.TabIndex = 91;
+            this.painelJuros.TabIndex = 10;
             // 
             // lbDinheiro
             // 
@@ -232,7 +232,7 @@
             this.painelDinheiro.Margin = new System.Windows.Forms.Padding(2);
             this.painelDinheiro.Name = "painelDinheiro";
             this.painelDinheiro.Size = new System.Drawing.Size(136, 60);
-            this.painelDinheiro.TabIndex = 89;
+            this.painelDinheiro.TabIndex = 8;
             // 
             // lbDesconto
             // 
@@ -271,7 +271,7 @@
             this.painelDesconto.Margin = new System.Windows.Forms.Padding(2);
             this.painelDesconto.Name = "painelDesconto";
             this.painelDesconto.Size = new System.Drawing.Size(136, 60);
-            this.painelDesconto.TabIndex = 92;
+            this.painelDesconto.TabIndex = 11;
             // 
             // lbQuantidade
             // 
@@ -310,7 +310,7 @@
             this.painelTroco.Margin = new System.Windows.Forms.Padding(2);
             this.painelTroco.Name = "painelTroco";
             this.painelTroco.Size = new System.Drawing.Size(136, 60);
-            this.painelTroco.TabIndex = 90;
+            this.painelTroco.TabIndex = 9;
             // 
             // lbValorTotalVenda
             // 
@@ -350,7 +350,7 @@
             this.painelTotalVenda.Margin = new System.Windows.Forms.Padding(2);
             this.painelTotalVenda.Name = "painelTotalVenda";
             this.painelTotalVenda.Size = new System.Drawing.Size(136, 60);
-            this.painelTotalVenda.TabIndex = 93;
+            this.painelTotalVenda.TabIndex = 12;
             // 
             // lbCrediario
             // 
@@ -389,7 +389,7 @@
             this.panelCrediario.Margin = new System.Windows.Forms.Padding(2);
             this.panelCrediario.Name = "panelCrediario";
             this.panelCrediario.Size = new System.Drawing.Size(136, 60);
-            this.panelCrediario.TabIndex = 92;
+            this.panelCrediario.TabIndex = 13;
             // 
             // btVenda
             // 
@@ -403,7 +403,7 @@
             this.btVenda.Margin = new System.Windows.Forms.Padding(2);
             this.btVenda.Name = "btVenda";
             this.btVenda.Size = new System.Drawing.Size(88, 34);
-            this.btVenda.TabIndex = 97;
+            this.btVenda.TabIndex = 17;
             this.btVenda.Text = "F10 Venda";
             this.btVenda.UseVisualStyleBackColor = false;
             this.btVenda.Click += new System.EventHandler(this.btVenda_Click);
@@ -420,7 +420,7 @@
             this.btCrediario.Margin = new System.Windows.Forms.Padding(2);
             this.btCrediario.Name = "btCrediario";
             this.btCrediario.Size = new System.Drawing.Size(88, 34);
-            this.btCrediario.TabIndex = 100;
+            this.btCrediario.TabIndex = 18;
             this.btCrediario.Text = "F12 Caixa";
             this.btCrediario.UseVisualStyleBackColor = false;
             this.btCrediario.Click += new System.EventHandler(this.btCrediario_Click);
@@ -437,7 +437,7 @@
             this.btSangria.Margin = new System.Windows.Forms.Padding(2);
             this.btSangria.Name = "btSangria";
             this.btSangria.Size = new System.Drawing.Size(88, 34);
-            this.btSangria.TabIndex = 101;
+            this.btSangria.TabIndex = 20;
             this.btSangria.Text = "F6 Sangria";
             this.btSangria.UseVisualStyleBackColor = false;
             this.btSangria.Click += new System.EventHandler(this.btSangria_Click);
@@ -454,7 +454,7 @@
             this.btCancelaVenda.Margin = new System.Windows.Forms.Padding(2);
             this.btCancelaVenda.Name = "btCancelaVenda";
             this.btCancelaVenda.Size = new System.Drawing.Size(88, 34);
-            this.btCancelaVenda.TabIndex = 102;
+            this.btCancelaVenda.TabIndex = 21;
             this.btCancelaVenda.Text = "F2 Cancelar";
             this.btCancelaVenda.UseVisualStyleBackColor = false;
             this.btCancelaVenda.Click += new System.EventHandler(this.btCancelaVenda_Click);
@@ -466,7 +466,7 @@
             this.panelFuncionario.Margin = new System.Windows.Forms.Padding(2);
             this.panelFuncionario.Name = "panelFuncionario";
             this.panelFuncionario.Size = new System.Drawing.Size(228, 2);
-            this.panelFuncionario.TabIndex = 131;
+            this.panelFuncionario.TabIndex = 5;
             // 
             // btFuncionario
             // 
@@ -481,7 +481,7 @@
             this.btFuncionario.Margin = new System.Windows.Forms.Padding(2);
             this.btFuncionario.Name = "btFuncionario";
             this.btFuncionario.Size = new System.Drawing.Size(55, 34);
-            this.btFuncionario.TabIndex = 130;
+            this.btFuncionario.TabIndex = 3;
             this.btFuncionario.Text = "Buscar";
             this.btFuncionario.UseVisualStyleBackColor = false;
             this.btFuncionario.Click += new System.EventHandler(this.btFuncionario_Click);
@@ -496,7 +496,7 @@
             this.tbFuncionario.Margin = new System.Windows.Forms.Padding(2);
             this.tbFuncionario.Name = "tbFuncionario";
             this.tbFuncionario.Size = new System.Drawing.Size(198, 14);
-            this.tbFuncionario.TabIndex = 129;
+            this.tbFuncionario.TabIndex = 2;
             this.tbFuncionario.Text = "Digite o nome do funcionário ...";
             this.tbFuncionario.Enter += new System.EventHandler(this.tbFuncionario_Enter);
             this.tbFuncionario.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.tbFuncionario_KeyPress);
@@ -509,7 +509,7 @@
             this.panelBuscarCliente.Margin = new System.Windows.Forms.Padding(2);
             this.panelBuscarCliente.Name = "panelBuscarCliente";
             this.panelBuscarCliente.Size = new System.Drawing.Size(228, 2);
-            this.panelBuscarCliente.TabIndex = 120;
+            this.panelBuscarCliente.TabIndex = 4;
             // 
             // btCliente
             // 
@@ -524,7 +524,7 @@
             this.btCliente.Margin = new System.Windows.Forms.Padding(2);
             this.btCliente.Name = "btCliente";
             this.btCliente.Size = new System.Drawing.Size(55, 34);
-            this.btCliente.TabIndex = 119;
+            this.btCliente.TabIndex = 1;
             this.btCliente.Text = "Buscar";
             this.btCliente.UseVisualStyleBackColor = false;
             this.btCliente.Click += new System.EventHandler(this.btCliente_Click);
@@ -539,7 +539,7 @@
             this.tbBuscarCliente.Margin = new System.Windows.Forms.Padding(2);
             this.tbBuscarCliente.Name = "tbBuscarCliente";
             this.tbBuscarCliente.Size = new System.Drawing.Size(198, 14);
-            this.tbBuscarCliente.TabIndex = 118;
+            this.tbBuscarCliente.TabIndex = 0;
             this.tbBuscarCliente.Text = "Digite o nome do cliente ...";
             this.tbBuscarCliente.Enter += new System.EventHandler(this.tbBuscarCliente_Enter);
             this.tbBuscarCliente.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.tbBuscarCliente_KeyPress);
@@ -553,7 +553,7 @@
             this.lbDataInicial.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.lbDataInicial.Name = "lbDataInicial";
             this.lbDataInicial.Size = new System.Drawing.Size(69, 15);
-            this.lbDataInicial.TabIndex = 111;
+            this.lbDataInicial.TabIndex = 0;
             this.lbDataInicial.Text = "Data Inicial";
             // 
             // lbDataFinal
@@ -564,7 +564,7 @@
             this.lbDataFinal.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.lbDataFinal.Name = "lbDataFinal";
             this.lbDataFinal.Size = new System.Drawing.Size(62, 15);
-            this.lbDataFinal.TabIndex = 113;
+            this.lbDataFinal.TabIndex = 2;
             this.lbDataFinal.Text = "Data Final";
             // 
             // gbDataVenda
@@ -579,7 +579,7 @@
             this.gbDataVenda.Name = "gbDataVenda";
             this.gbDataVenda.Padding = new System.Windows.Forms.Padding(2);
             this.gbDataVenda.Size = new System.Drawing.Size(206, 91);
-            this.gbDataVenda.TabIndex = 129;
+            this.gbDataVenda.TabIndex = 5;
             this.gbDataVenda.TabStop = false;
             this.gbDataVenda.Text = "Data Venda";
             // 
@@ -590,7 +590,7 @@
             this.dtpDataFinal.Location = new System.Drawing.Point(103, 52);
             this.dtpDataFinal.Name = "dtpDataFinal";
             this.dtpDataFinal.Size = new System.Drawing.Size(98, 21);
-            this.dtpDataFinal.TabIndex = 116;
+            this.dtpDataFinal.TabIndex = 3;
             this.dtpDataFinal.Value = new System.DateTime(2022, 12, 23, 8, 46, 59, 0);
             // 
             // dtpDataInicial
@@ -600,7 +600,7 @@
             this.dtpDataInicial.Location = new System.Drawing.Point(5, 52);
             this.dtpDataInicial.Name = "dtpDataInicial";
             this.dtpDataInicial.Size = new System.Drawing.Size(94, 21);
-            this.dtpDataInicial.TabIndex = 115;
+            this.dtpDataInicial.TabIndex = 1;
             this.dtpDataInicial.Value = new System.DateTime(2022, 12, 23, 8, 46, 53, 0);
             // 
             // btFiltrar
@@ -615,7 +615,7 @@
             this.btFiltrar.Margin = new System.Windows.Forms.Padding(2);
             this.btFiltrar.Name = "btFiltrar";
             this.btFiltrar.Size = new System.Drawing.Size(88, 34);
-            this.btFiltrar.TabIndex = 136;
+            this.btFiltrar.TabIndex = 16;
             this.btFiltrar.Text = "F5 Gerar";
             this.btFiltrar.UseVisualStyleBackColor = false;
             this.btFiltrar.Click += new System.EventHandler(this.btFiltrar_Click);
@@ -639,7 +639,7 @@
             this.gbTiposVenda.Name = "gbTiposVenda";
             this.gbTiposVenda.Padding = new System.Windows.Forms.Padding(2);
             this.gbTiposVenda.Size = new System.Drawing.Size(445, 91);
-            this.gbTiposVenda.TabIndex = 181;
+            this.gbTiposVenda.TabIndex = 4;
             this.gbTiposVenda.TabStop = false;
             this.gbTiposVenda.Text = "Tipo Venda";
             // 
@@ -653,7 +653,7 @@
             this.cbParcial.Margin = new System.Windows.Forms.Padding(2);
             this.cbParcial.Name = "cbParcial";
             this.cbParcial.Size = new System.Drawing.Size(62, 18);
-            this.cbParcial.TabIndex = 194;
+            this.cbParcial.TabIndex = 6;
             this.cbParcial.Text = "Parcial";
             this.cbParcial.UseVisualStyleBackColor = true;
             // 
@@ -667,7 +667,7 @@
             this.cbCheque.Margin = new System.Windows.Forms.Padding(2);
             this.cbCheque.Name = "cbCheque";
             this.cbCheque.Size = new System.Drawing.Size(69, 18);
-            this.cbCheque.TabIndex = 193;
+            this.cbCheque.TabIndex = 5;
             this.cbCheque.Text = "Cheque";
             this.cbCheque.UseVisualStyleBackColor = true;
             // 
@@ -681,7 +681,7 @@
             this.cbDebito.Margin = new System.Windows.Forms.Padding(2);
             this.cbDebito.Name = "cbDebito";
             this.cbDebito.Size = new System.Drawing.Size(61, 18);
-            this.cbDebito.TabIndex = 192;
+            this.cbDebito.TabIndex = 7;
             this.cbDebito.Text = "Débito";
             this.cbDebito.UseVisualStyleBackColor = true;
             // 
@@ -695,7 +695,7 @@
             this.cbCredito.Margin = new System.Windows.Forms.Padding(2);
             this.cbCredito.Name = "cbCredito";
             this.cbCredito.Size = new System.Drawing.Size(67, 18);
-            this.cbCredito.TabIndex = 191;
+            this.cbCredito.TabIndex = 8;
             this.cbCredito.Text = "Crédito";
             this.cbCredito.UseVisualStyleBackColor = true;
             this.cbCredito.CheckedChanged += new System.EventHandler(this.cbCredito_CheckedChanged);
@@ -710,7 +710,7 @@
             this.cbPix.Margin = new System.Windows.Forms.Padding(2);
             this.cbPix.Name = "cbPix";
             this.cbPix.Size = new System.Drawing.Size(43, 18);
-            this.cbPix.TabIndex = 161;
+            this.cbPix.TabIndex = 4;
             this.cbPix.Text = "PIX";
             this.cbPix.UseVisualStyleBackColor = true;
             // 
@@ -724,7 +724,7 @@
             this.cbDinheiro.Margin = new System.Windows.Forms.Padding(2);
             this.cbDinheiro.Name = "cbDinheiro";
             this.cbDinheiro.Size = new System.Drawing.Size(72, 18);
-            this.cbDinheiro.TabIndex = 189;
+            this.cbDinheiro.TabIndex = 3;
             this.cbDinheiro.Text = "Dinheiro";
             this.cbDinheiro.UseVisualStyleBackColor = true;
             // 
@@ -738,7 +738,7 @@
             this.cbCrediarioPendente.Margin = new System.Windows.Forms.Padding(2);
             this.cbCrediarioPendente.Name = "cbCrediarioPendente";
             this.cbCrediarioPendente.Size = new System.Drawing.Size(133, 18);
-            this.cbCrediarioPendente.TabIndex = 160;
+            this.cbCrediarioPendente.TabIndex = 2;
             this.cbCrediarioPendente.Text = "Crediario Pendente";
             this.cbCrediarioPendente.UseVisualStyleBackColor = true;
             // 
@@ -754,7 +754,7 @@
             this.cbFormaPagamento.Margin = new System.Windows.Forms.Padding(2);
             this.cbFormaPagamento.Name = "cbFormaPagamento";
             this.cbFormaPagamento.Size = new System.Drawing.Size(156, 25);
-            this.cbFormaPagamento.TabIndex = 156;
+            this.cbFormaPagamento.TabIndex = 10;
             this.cbFormaPagamento.DropDown += new System.EventHandler(this.cbFormaPagamento_DropDown);
             // 
             // cbCrediarioPago
@@ -767,7 +767,7 @@
             this.cbCrediarioPago.Margin = new System.Windows.Forms.Padding(2);
             this.cbCrediarioPago.Name = "cbCrediarioPago";
             this.cbCrediarioPago.Size = new System.Drawing.Size(107, 18);
-            this.cbCrediarioPago.TabIndex = 159;
+            this.cbCrediarioPago.TabIndex = 1;
             this.cbCrediarioPago.Text = "Crediario Pago";
             this.cbCrediarioPago.UseVisualStyleBackColor = true;
             // 
@@ -780,7 +780,7 @@
             this.lbFormaPagamento.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.lbFormaPagamento.Name = "lbFormaPagamento";
             this.lbFormaPagamento.Size = new System.Drawing.Size(98, 14);
-            this.lbFormaPagamento.TabIndex = 155;
+            this.lbFormaPagamento.TabIndex = 9;
             this.lbFormaPagamento.Text = "Crédito Parcelas";
             // 
             // cbVenda
@@ -793,7 +793,7 @@
             this.cbVenda.Margin = new System.Windows.Forms.Padding(2);
             this.cbVenda.Name = "cbVenda";
             this.cbVenda.Size = new System.Drawing.Size(60, 18);
-            this.cbVenda.TabIndex = 158;
+            this.cbVenda.TabIndex = 0;
             this.cbVenda.Text = "Venda";
             this.cbVenda.UseVisualStyleBackColor = true;
             // 
@@ -808,7 +808,7 @@
             this.painelCrediarioPago.Margin = new System.Windows.Forms.Padding(2);
             this.painelCrediarioPago.Name = "painelCrediarioPago";
             this.painelCrediarioPago.Size = new System.Drawing.Size(136, 60);
-            this.painelCrediarioPago.TabIndex = 182;
+            this.painelCrediarioPago.TabIndex = 14;
             // 
             // lbTituloCrediarioPago
             // 
@@ -847,7 +847,7 @@
             this.painelEstorno.Margin = new System.Windows.Forms.Padding(2);
             this.painelEstorno.Name = "painelEstorno";
             this.painelEstorno.Size = new System.Drawing.Size(136, 60);
-            this.painelEstorno.TabIndex = 183;
+            this.painelEstorno.TabIndex = 15;
             // 
             // lbTituloEstorno
             // 
@@ -940,7 +940,7 @@
             this.dgvCaixa.RowTemplate.Height = 24;
             this.dgvCaixa.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.dgvCaixa.Size = new System.Drawing.Size(1411, 407);
-            this.dgvCaixa.TabIndex = 131;
+            this.dgvCaixa.TabIndex = 6;
             this.dgvCaixa.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvCaixa_CellClick);
             // 
             // codigoItemVenda
@@ -1174,107 +1174,9 @@
             this.gbMovimentacaoCaixa.Name = "gbMovimentacaoCaixa";
             this.gbMovimentacaoCaixa.Padding = new System.Windows.Forms.Padding(2);
             this.gbMovimentacaoCaixa.Size = new System.Drawing.Size(588, 91);
-            this.gbMovimentacaoCaixa.TabIndex = 188;
+            this.gbMovimentacaoCaixa.TabIndex = 3;
             this.gbMovimentacaoCaixa.TabStop = false;
             this.gbMovimentacaoCaixa.Text = "Filtros";
-            // 
-            // cbParcialDetalhada
-            // 
-            this.cbParcialDetalhada.AutoSize = true;
-            this.cbParcialDetalhada.Font = new System.Drawing.Font("Arial", 8F, System.Drawing.FontStyle.Bold);
-            this.cbParcialDetalhada.Location = new System.Drawing.Point(84, 31);
-            this.cbParcialDetalhada.Margin = new System.Windows.Forms.Padding(2);
-            this.cbParcialDetalhada.Name = "cbParcialDetalhada";
-            this.cbParcialDetalhada.Size = new System.Drawing.Size(162, 18);
-            this.cbParcialDetalhada.TabIndex = 164;
-            this.cbParcialDetalhada.Text = "Movimentação Detalhada";
-            this.cbParcialDetalhada.UseVisualStyleBackColor = true;
-            // 
-            // lbCaixa
-            // 
-            this.lbCaixa.AutoSize = true;
-            this.lbCaixa.Font = new System.Drawing.Font("Arial Narrow", 12F, System.Drawing.FontStyle.Bold);
-            this.lbCaixa.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(51)))), ((int)(((byte)(51)))), ((int)(((byte)(76)))));
-            this.lbCaixa.Location = new System.Drawing.Point(80, 9);
-            this.lbCaixa.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
-            this.lbCaixa.Name = "lbCaixa";
-            this.lbCaixa.Size = new System.Drawing.Size(108, 20);
-            this.lbCaixa.TabIndex = 158;
-            this.lbCaixa.Text = "Caixa Detalhado";
-            // 
-            // chartAnaliseVenda
-            // 
-            legend1.Name = "Legend1";
-            this.chartAnaliseVenda.Legends.Add(legend1);
-            this.chartAnaliseVenda.Location = new System.Drawing.Point(572, 551);
-            this.chartAnaliseVenda.Name = "chartAnaliseVenda";
-            series1.Legend = "Legend1";
-            series1.Name = "Series1";
-            this.chartAnaliseVenda.Series.Add(series1);
-            this.chartAnaliseVenda.Size = new System.Drawing.Size(847, 201);
-            this.chartAnaliseVenda.TabIndex = 190;
-            this.chartAnaliseVenda.Text = "chart1";
-            // 
-            // chartPieAnalizeVenda
-            // 
-            legend2.Name = "Legend1";
-            this.chartPieAnalizeVenda.Legends.Add(legend2);
-            this.chartPieAnalizeVenda.Location = new System.Drawing.Point(936, 141);
-            this.chartPieAnalizeVenda.Name = "chartPieAnalizeVenda";
-            series2.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Pie;
-            series2.Legend = "Legend1";
-            series2.Name = "Series1";
-            this.chartPieAnalizeVenda.Series.Add(series2);
-            this.chartPieAnalizeVenda.Size = new System.Drawing.Size(486, 404);
-            this.chartPieAnalizeVenda.TabIndex = 191;
-            this.chartPieAnalizeVenda.Text = "chart1";
-            this.chartPieAnalizeVenda.Visible = false;
-            // 
-            // btParcial
-            // 
-            this.btParcial.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.btParcial.BackColor = System.Drawing.Color.DeepSkyBlue;
-            this.btParcial.FlatAppearance.BorderColor = System.Drawing.Color.Black;
-            this.btParcial.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btParcial.Font = new System.Drawing.Font("Arial Narrow", 10.2F, System.Drawing.FontStyle.Bold);
-            this.btParcial.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
-            this.btParcial.Location = new System.Drawing.Point(295, 717);
-            this.btParcial.Margin = new System.Windows.Forms.Padding(2);
-            this.btParcial.Name = "btParcial";
-            this.btParcial.Size = new System.Drawing.Size(88, 34);
-            this.btParcial.TabIndex = 194;
-            this.btParcial.Text = "F8 Parcial";
-            this.btParcial.UseVisualStyleBackColor = false;
-            this.btParcial.Click += new System.EventHandler(this.btParcial_Click);
-            // 
-            // tgTipoCaixa
-            // 
-            this.tgTipoCaixa.AutoSize = true;
-            this.tgTipoCaixa.Checked = true;
-            this.tgTipoCaixa.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.tgTipoCaixa.Location = new System.Drawing.Point(42, 12);
-            this.tgTipoCaixa.Margin = new System.Windows.Forms.Padding(2);
-            this.tgTipoCaixa.MinimumSize = new System.Drawing.Size(34, 18);
-            this.tgTipoCaixa.Name = "tgTipoCaixa";
-            this.tgTipoCaixa.OffBackColor = System.Drawing.Color.Gray;
-            this.tgTipoCaixa.OffToggleColor = System.Drawing.Color.Gainsboro;
-            this.tgTipoCaixa.OnBackColor = System.Drawing.Color.DeepPink;
-            this.tgTipoCaixa.OnToggleColor = System.Drawing.Color.WhiteSmoke;
-            this.tgTipoCaixa.Size = new System.Drawing.Size(34, 18);
-            this.tgTipoCaixa.TabIndex = 159;
-            this.tgTipoCaixa.UseVisualStyleBackColor = true;
-            this.tgTipoCaixa.CheckedChanged += new System.EventHandler(this.tgTipoCaixa_CheckedChanged);
-            // 
-            // pbCaixa
-            // 
-            this.pbCaixa.Image = global::Apresentacao.Properties.Resources.CaixaForm;
-            this.pbCaixa.Location = new System.Drawing.Point(11, 11);
-            this.pbCaixa.Margin = new System.Windows.Forms.Padding(2);
-            this.pbCaixa.Name = "pbCaixa";
-            this.pbCaixa.Size = new System.Drawing.Size(28, 28);
-            this.pbCaixa.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
-            this.pbCaixa.TabIndex = 163;
-            this.pbCaixa.TabStop = false;
             // 
             // pbFuncionario
             // 
@@ -1297,6 +1199,104 @@
             this.pbUsuario.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             this.pbUsuario.TabIndex = 121;
             this.pbUsuario.TabStop = false;
+            // 
+            // cbParcialDetalhada
+            // 
+            this.cbParcialDetalhada.AutoSize = true;
+            this.cbParcialDetalhada.Font = new System.Drawing.Font("Arial", 8F, System.Drawing.FontStyle.Bold);
+            this.cbParcialDetalhada.Location = new System.Drawing.Point(84, 31);
+            this.cbParcialDetalhada.Margin = new System.Windows.Forms.Padding(2);
+            this.cbParcialDetalhada.Name = "cbParcialDetalhada";
+            this.cbParcialDetalhada.Size = new System.Drawing.Size(162, 18);
+            this.cbParcialDetalhada.TabIndex = 2;
+            this.cbParcialDetalhada.Text = "Movimentação Detalhada";
+            this.cbParcialDetalhada.UseVisualStyleBackColor = true;
+            // 
+            // lbCaixa
+            // 
+            this.lbCaixa.AutoSize = true;
+            this.lbCaixa.Font = new System.Drawing.Font("Arial Narrow", 12F, System.Drawing.FontStyle.Bold);
+            this.lbCaixa.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(51)))), ((int)(((byte)(51)))), ((int)(((byte)(76)))));
+            this.lbCaixa.Location = new System.Drawing.Point(80, 9);
+            this.lbCaixa.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.lbCaixa.Name = "lbCaixa";
+            this.lbCaixa.Size = new System.Drawing.Size(108, 20);
+            this.lbCaixa.TabIndex = 1;
+            this.lbCaixa.Text = "Caixa Detalhado";
+            // 
+            // chartAnaliseVenda
+            // 
+            legend1.Name = "Legend1";
+            this.chartAnaliseVenda.Legends.Add(legend1);
+            this.chartAnaliseVenda.Location = new System.Drawing.Point(572, 551);
+            this.chartAnaliseVenda.Name = "chartAnaliseVenda";
+            series1.Legend = "Legend1";
+            series1.Name = "Series1";
+            this.chartAnaliseVenda.Series.Add(series1);
+            this.chartAnaliseVenda.Size = new System.Drawing.Size(847, 201);
+            this.chartAnaliseVenda.TabIndex = 22;
+            this.chartAnaliseVenda.Text = "chart1";
+            // 
+            // chartPieAnalizeVenda
+            // 
+            legend2.Name = "Legend1";
+            this.chartPieAnalizeVenda.Legends.Add(legend2);
+            this.chartPieAnalizeVenda.Location = new System.Drawing.Point(936, 141);
+            this.chartPieAnalizeVenda.Name = "chartPieAnalizeVenda";
+            series2.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Pie;
+            series2.Legend = "Legend1";
+            series2.Name = "Series1";
+            this.chartPieAnalizeVenda.Series.Add(series2);
+            this.chartPieAnalizeVenda.Size = new System.Drawing.Size(486, 404);
+            this.chartPieAnalizeVenda.TabIndex = 7;
+            this.chartPieAnalizeVenda.Text = "chart1";
+            this.chartPieAnalizeVenda.Visible = false;
+            // 
+            // btParcial
+            // 
+            this.btParcial.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.btParcial.BackColor = System.Drawing.Color.DeepSkyBlue;
+            this.btParcial.FlatAppearance.BorderColor = System.Drawing.Color.Black;
+            this.btParcial.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btParcial.Font = new System.Drawing.Font("Arial Narrow", 10.2F, System.Drawing.FontStyle.Bold);
+            this.btParcial.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
+            this.btParcial.Location = new System.Drawing.Point(295, 717);
+            this.btParcial.Margin = new System.Windows.Forms.Padding(2);
+            this.btParcial.Name = "btParcial";
+            this.btParcial.Size = new System.Drawing.Size(88, 34);
+            this.btParcial.TabIndex = 19;
+            this.btParcial.Text = "F8 Parcial";
+            this.btParcial.UseVisualStyleBackColor = false;
+            this.btParcial.Click += new System.EventHandler(this.btParcial_Click);
+            // 
+            // tgTipoCaixa
+            // 
+            this.tgTipoCaixa.AutoSize = true;
+            this.tgTipoCaixa.Checked = true;
+            this.tgTipoCaixa.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.tgTipoCaixa.Location = new System.Drawing.Point(42, 12);
+            this.tgTipoCaixa.Margin = new System.Windows.Forms.Padding(2);
+            this.tgTipoCaixa.MinimumSize = new System.Drawing.Size(34, 18);
+            this.tgTipoCaixa.Name = "tgTipoCaixa";
+            this.tgTipoCaixa.OffBackColor = System.Drawing.Color.Gray;
+            this.tgTipoCaixa.OffToggleColor = System.Drawing.Color.Gainsboro;
+            this.tgTipoCaixa.OnBackColor = System.Drawing.Color.DeepPink;
+            this.tgTipoCaixa.OnToggleColor = System.Drawing.Color.WhiteSmoke;
+            this.tgTipoCaixa.Size = new System.Drawing.Size(34, 18);
+            this.tgTipoCaixa.TabIndex = 0;
+            this.tgTipoCaixa.UseVisualStyleBackColor = true;
+            this.tgTipoCaixa.CheckedChanged += new System.EventHandler(this.tgTipoCaixa_CheckedChanged);
+            // 
+            // pbCaixa
+            // 
+            this.pbCaixa.Image = global::Apresentacao.Properties.Resources.CaixaForm;
+            this.pbCaixa.Location = new System.Drawing.Point(11, 11);
+            this.pbCaixa.Margin = new System.Windows.Forms.Padding(2);
+            this.pbCaixa.Name = "pbCaixa";
+            this.pbCaixa.Size = new System.Drawing.Size(28, 28);
+            this.pbCaixa.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.pbCaixa.TabIndex = 163;
+            this.pbCaixa.TabStop = false;
             // 
             // pbImagemProduto
             // 
@@ -1374,11 +1374,11 @@
             ((System.ComponentModel.ISupportInitialize)(this.dgvCaixa)).EndInit();
             this.gbMovimentacaoCaixa.ResumeLayout(false);
             this.gbMovimentacaoCaixa.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pbFuncionario)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pbUsuario)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.chartAnaliseVenda)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.chartPieAnalizeVenda)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pbCaixa)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pbFuncionario)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pbUsuario)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pbImagemProduto)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();

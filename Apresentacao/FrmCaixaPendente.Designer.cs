@@ -116,8 +116,10 @@
             this.btFinalizar = new System.Windows.Forms.Button();
             this.lbEstorno = new System.Windows.Forms.Label();
             this.tbEstorno = new System.Windows.Forms.TextBox();
+            this.btPreencher = new System.Windows.Forms.Button();
             this.descricaoDespesa = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.valorDespesa = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.formaPagamentoDespesa = new System.Windows.Forms.DataGridViewComboBoxColumn();
             this.contador = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.painelTrocoCaixa.SuspendLayout();
             this.paneRecebidoCaixa.SuspendLayout();
@@ -554,7 +556,7 @@
             this.panelDespesas.BackColor = System.Drawing.Color.MediumSeaGreen;
             this.panelDespesas.Controls.Add(this.lbTituloDespesas);
             this.panelDespesas.Controls.Add(this.lbTotalDespesas);
-            this.panelDespesas.Location = new System.Drawing.Point(1024, 13);
+            this.panelDespesas.Location = new System.Drawing.Point(1184, 13);
             this.panelDespesas.Margin = new System.Windows.Forms.Padding(2);
             this.panelDespesas.Name = "panelDespesas";
             this.panelDespesas.Size = new System.Drawing.Size(136, 60);
@@ -981,7 +983,7 @@
             this.btAdicionar.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btAdicionar.Font = new System.Drawing.Font("Arial Narrow", 10.2F, System.Drawing.FontStyle.Bold);
             this.btAdicionar.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
-            this.btAdicionar.Location = new System.Drawing.Point(960, 431);
+            this.btAdicionar.Location = new System.Drawing.Point(1120, 431);
             this.btAdicionar.Margin = new System.Windows.Forms.Padding(2);
             this.btAdicionar.Name = "btAdicionar";
             this.btAdicionar.Size = new System.Drawing.Size(98, 34);
@@ -997,7 +999,7 @@
             this.btExcluir.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btExcluir.Font = new System.Drawing.Font("Arial Narrow", 10.2F, System.Drawing.FontStyle.Bold);
             this.btExcluir.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
-            this.btExcluir.Location = new System.Drawing.Point(1062, 431);
+            this.btExcluir.Location = new System.Drawing.Point(1222, 431);
             this.btExcluir.Margin = new System.Windows.Forms.Padding(2);
             this.btExcluir.Name = "btExcluir";
             this.btExcluir.Size = new System.Drawing.Size(98, 34);
@@ -1026,6 +1028,7 @@
             this.dgvDespesas.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.descricaoDespesa,
             this.valorDespesa,
+            this.formaPagamentoDespesa,
             this.contador});
             dataGridViewCellStyle12.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
             dataGridViewCellStyle12.BackColor = System.Drawing.SystemColors.Window;
@@ -1043,8 +1046,11 @@
             this.dgvDespesas.RowsDefaultCellStyle = dataGridViewCellStyle13;
             this.dgvDespesas.RowTemplate.Height = 24;
             this.dgvDespesas.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.dgvDespesas.Size = new System.Drawing.Size(385, 350);
+            this.dgvDespesas.Size = new System.Drawing.Size(545, 350);
             this.dgvDespesas.TabIndex = 255;
+            this.dgvDespesas.CellValidating += new System.Windows.Forms.DataGridViewCellValidatingEventHandler(this.dgvDespesas_CellValidating);
+            this.dgvDespesas.EditingControlShowing += new System.Windows.Forms.DataGridViewEditingControlShowingEventHandler(this.dgvDespesas_EditingControlShowing);
+            this.dgvDespesas.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.dgvDespesas_KeyPress);
             // 
             // pbDespesas
             // 
@@ -1078,7 +1084,7 @@
             this.btSair.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btSair.Font = new System.Drawing.Font("Arial Narrow", 10.2F, System.Drawing.FontStyle.Bold);
             this.btSair.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
-            this.btSair.Location = new System.Drawing.Point(113, 489);
+            this.btSair.Location = new System.Drawing.Point(215, 489);
             this.btSair.Margin = new System.Windows.Forms.Padding(2);
             this.btSair.Name = "btSair";
             this.btSair.Size = new System.Drawing.Size(98, 34);
@@ -1125,6 +1131,23 @@
             this.tbEstorno.Size = new System.Drawing.Size(94, 23);
             this.tbEstorno.TabIndex = 261;
             // 
+            // btPreencher
+            // 
+            this.btPreencher.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.btPreencher.BackColor = System.Drawing.Color.DeepSkyBlue;
+            this.btPreencher.FlatAppearance.BorderColor = System.Drawing.Color.Black;
+            this.btPreencher.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btPreencher.Font = new System.Drawing.Font("Arial Narrow", 10.2F, System.Drawing.FontStyle.Bold);
+            this.btPreencher.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
+            this.btPreencher.Location = new System.Drawing.Point(113, 489);
+            this.btPreencher.Margin = new System.Windows.Forms.Padding(2);
+            this.btPreencher.Name = "btPreencher";
+            this.btPreencher.Size = new System.Drawing.Size(98, 34);
+            this.btPreencher.TabIndex = 263;
+            this.btPreencher.Text = "F5 Preencher";
+            this.btPreencher.UseVisualStyleBackColor = false;
+            this.btPreencher.Click += new System.EventHandler(this.btPreencher_Click);
+            // 
             // descricaoDespesa
             // 
             this.descricaoDespesa.HeaderText = "Descrição";
@@ -1138,6 +1161,13 @@
             this.valorDespesa.Name = "valorDespesa";
             this.valorDespesa.ToolTipText = "valor da despesa";
             // 
+            // formaPagamentoDespesa
+            // 
+            this.formaPagamentoDespesa.HeaderText = "Pagamento";
+            this.formaPagamentoDespesa.Name = "formaPagamentoDespesa";
+            this.formaPagamentoDespesa.ToolTipText = "Forma de Pagamento da Despesa";
+            this.formaPagamentoDespesa.Width = 140;
+            // 
             // contador
             // 
             this.contador.HeaderText = "contador";
@@ -1149,7 +1179,8 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.ButtonHighlight;
-            this.ClientSize = new System.Drawing.Size(1171, 534);
+            this.ClientSize = new System.Drawing.Size(1331, 534);
+            this.Controls.Add(this.btPreencher);
             this.Controls.Add(this.lbEstorno);
             this.Controls.Add(this.tbEstorno);
             this.Controls.Add(this.btFinalizar);
@@ -1292,8 +1323,10 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn liquidoPagamento;
         private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn4;
         private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn5;
+        private System.Windows.Forms.Button btPreencher;
         private System.Windows.Forms.DataGridViewTextBoxColumn descricaoDespesa;
         private System.Windows.Forms.DataGridViewTextBoxColumn valorDespesa;
+        private System.Windows.Forms.DataGridViewComboBoxColumn formaPagamentoDespesa;
         private System.Windows.Forms.DataGridViewTextBoxColumn contador;
     }
 }
