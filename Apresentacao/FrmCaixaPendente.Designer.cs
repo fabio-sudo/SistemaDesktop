@@ -86,15 +86,10 @@
             this.panel1 = new System.Windows.Forms.Panel();
             this.lbCaixaSistema = new System.Windows.Forms.Label();
             this.lbTotalCaixaSistema = new System.Windows.Forms.Label();
-            this.lbDespesaUsuario = new System.Windows.Forms.Label();
-            this.lbEstornoLiquido = new System.Windows.Forms.Label();
+            this.lbCaixaCliente = new System.Windows.Forms.Label();
             this.lbDespesasSistema = new System.Windows.Forms.Label();
             this.panelCalculoVenda = new System.Windows.Forms.Panel();
             this.pbCalculadora = new System.Windows.Forms.PictureBox();
-            this.lbDescontoUsuario = new System.Windows.Forms.Label();
-            this.lbJurosUsuario = new System.Windows.Forms.Label();
-            this.lbTrocoUsuario = new System.Windows.Forms.Label();
-            this.lbRecebidoUsuario = new System.Windows.Forms.Label();
             this.pbOk = new System.Windows.Forms.PictureBox();
             this.lbTrocoSistema = new System.Windows.Forms.Label();
             this.lbVendaLiquido = new System.Windows.Forms.Label();
@@ -110,6 +105,10 @@
             this.btAdicionar = new System.Windows.Forms.Button();
             this.btExcluir = new System.Windows.Forms.Button();
             this.dgvDespesas = new System.Windows.Forms.DataGridView();
+            this.descricaoDespesa = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.valorDespesa = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.formaPagamentoDespesa = new System.Windows.Forms.DataGridViewComboBoxColumn();
+            this.contador = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.pbDespesas = new System.Windows.Forms.PictureBox();
             this.lbTituloDespesaCaixa = new System.Windows.Forms.Label();
             this.btSair = new System.Windows.Forms.Button();
@@ -117,10 +116,6 @@
             this.lbEstorno = new System.Windows.Forms.Label();
             this.tbEstorno = new System.Windows.Forms.TextBox();
             this.btPreencher = new System.Windows.Forms.Button();
-            this.descricaoDespesa = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.valorDespesa = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.formaPagamentoDespesa = new System.Windows.Forms.DataGridViewComboBoxColumn();
-            this.contador = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.painelTrocoCaixa.SuspendLayout();
             this.paneRecebidoCaixa.SuspendLayout();
             this.painelLiquidoCaixa.SuspendLayout();
@@ -619,15 +614,10 @@
             this.panelParcialAltExc.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.panelParcialAltExc.Controls.Add(this.lbTituloCaixaReal);
             this.panelParcialAltExc.Controls.Add(this.panel1);
-            this.panelParcialAltExc.Controls.Add(this.lbDespesaUsuario);
-            this.panelParcialAltExc.Controls.Add(this.lbEstornoLiquido);
+            this.panelParcialAltExc.Controls.Add(this.lbCaixaCliente);
             this.panelParcialAltExc.Controls.Add(this.lbDespesasSistema);
             this.panelParcialAltExc.Controls.Add(this.panelCalculoVenda);
             this.panelParcialAltExc.Controls.Add(this.pbCalculadora);
-            this.panelParcialAltExc.Controls.Add(this.lbDescontoUsuario);
-            this.panelParcialAltExc.Controls.Add(this.lbJurosUsuario);
-            this.panelParcialAltExc.Controls.Add(this.lbTrocoUsuario);
-            this.panelParcialAltExc.Controls.Add(this.lbRecebidoUsuario);
             this.panelParcialAltExc.Controls.Add(this.pbOk);
             this.panelParcialAltExc.Controls.Add(this.lbTrocoSistema);
             this.panelParcialAltExc.Controls.Add(this.lbVendaLiquido);
@@ -720,31 +710,18 @@
             this.lbTotalCaixaSistema.Text = "R$ 1200,00";
             this.lbTotalCaixaSistema.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
-            // lbDespesaUsuario
+            // lbCaixaCliente
             // 
-            this.lbDespesaUsuario.AutoSize = true;
-            this.lbDespesaUsuario.Font = new System.Drawing.Font("Arial", 9F, System.Drawing.FontStyle.Bold);
-            this.lbDespesaUsuario.ForeColor = System.Drawing.Color.Red;
-            this.lbDespesaUsuario.Location = new System.Drawing.Point(94, 76);
-            this.lbDespesaUsuario.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
-            this.lbDespesaUsuario.Name = "lbDespesaUsuario";
-            this.lbDespesaUsuario.Size = new System.Drawing.Size(59, 15);
-            this.lbDespesaUsuario.TabIndex = 251;
-            this.lbDespesaUsuario.Text = "§ R$ 0,00";
-            this.lbDespesaUsuario.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            // 
-            // lbEstornoLiquido
-            // 
-            this.lbEstornoLiquido.AutoSize = true;
-            this.lbEstornoLiquido.Font = new System.Drawing.Font("Arial", 9F, System.Drawing.FontStyle.Bold);
-            this.lbEstornoLiquido.ForeColor = System.Drawing.Color.Red;
-            this.lbEstornoLiquido.Location = new System.Drawing.Point(94, 99);
-            this.lbEstornoLiquido.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
-            this.lbEstornoLiquido.Name = "lbEstornoLiquido";
-            this.lbEstornoLiquido.Size = new System.Drawing.Size(59, 15);
-            this.lbEstornoLiquido.TabIndex = 9;
-            this.lbEstornoLiquido.Text = " - R$ 0,00";
-            this.lbEstornoLiquido.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.lbCaixaCliente.AutoSize = true;
+            this.lbCaixaCliente.Font = new System.Drawing.Font("Arial", 9F, System.Drawing.FontStyle.Bold);
+            this.lbCaixaCliente.ForeColor = System.Drawing.Color.Red;
+            this.lbCaixaCliente.Location = new System.Drawing.Point(94, 99);
+            this.lbCaixaCliente.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.lbCaixaCliente.Name = "lbCaixaCliente";
+            this.lbCaixaCliente.Size = new System.Drawing.Size(59, 15);
+            this.lbCaixaCliente.TabIndex = 9;
+            this.lbCaixaCliente.Text = " - R$ 0,00";
+            this.lbCaixaCliente.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // lbDespesasSistema
             // 
@@ -773,7 +750,7 @@
             // pbCalculadora
             // 
             this.pbCalculadora.Image = global::Apresentacao.Properties.Resources.Calculator;
-            this.pbCalculadora.Location = new System.Drawing.Point(223, 49);
+            this.pbCalculadora.Location = new System.Drawing.Point(110, 32);
             this.pbCalculadora.Margin = new System.Windows.Forms.Padding(2);
             this.pbCalculadora.Name = "pbCalculadora";
             this.pbCalculadora.Size = new System.Drawing.Size(34, 34);
@@ -781,58 +758,6 @@
             this.pbCalculadora.TabIndex = 252;
             this.pbCalculadora.TabStop = false;
             this.pbCalculadora.Click += new System.EventHandler(this.pbCalculadora_Click);
-            // 
-            // lbDescontoUsuario
-            // 
-            this.lbDescontoUsuario.AutoSize = true;
-            this.lbDescontoUsuario.Font = new System.Drawing.Font("Arial", 9F, System.Drawing.FontStyle.Bold);
-            this.lbDescontoUsuario.ForeColor = System.Drawing.Color.Red;
-            this.lbDescontoUsuario.Location = new System.Drawing.Point(94, 40);
-            this.lbDescontoUsuario.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
-            this.lbDescontoUsuario.Name = "lbDescontoUsuario";
-            this.lbDescontoUsuario.Size = new System.Drawing.Size(59, 15);
-            this.lbDescontoUsuario.TabIndex = 8;
-            this.lbDescontoUsuario.Text = " - R$ 0,00";
-            this.lbDescontoUsuario.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            // 
-            // lbJurosUsuario
-            // 
-            this.lbJurosUsuario.AutoSize = true;
-            this.lbJurosUsuario.Font = new System.Drawing.Font("Arial", 9F, System.Drawing.FontStyle.Bold);
-            this.lbJurosUsuario.ForeColor = System.Drawing.Color.Red;
-            this.lbJurosUsuario.Location = new System.Drawing.Point(94, 22);
-            this.lbJurosUsuario.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
-            this.lbJurosUsuario.Name = "lbJurosUsuario";
-            this.lbJurosUsuario.Size = new System.Drawing.Size(58, 15);
-            this.lbJurosUsuario.TabIndex = 7;
-            this.lbJurosUsuario.Text = "%R$ 0,00";
-            this.lbJurosUsuario.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            // 
-            // lbTrocoUsuario
-            // 
-            this.lbTrocoUsuario.AutoSize = true;
-            this.lbTrocoUsuario.Font = new System.Drawing.Font("Arial", 9F, System.Drawing.FontStyle.Bold);
-            this.lbTrocoUsuario.ForeColor = System.Drawing.Color.Red;
-            this.lbTrocoUsuario.Location = new System.Drawing.Point(93, 58);
-            this.lbTrocoUsuario.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
-            this.lbTrocoUsuario.Name = "lbTrocoUsuario";
-            this.lbTrocoUsuario.Size = new System.Drawing.Size(60, 15);
-            this.lbTrocoUsuario.TabIndex = 155;
-            this.lbTrocoUsuario.Text = " * R$ 0,00";
-            this.lbTrocoUsuario.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            // 
-            // lbRecebidoUsuario
-            // 
-            this.lbRecebidoUsuario.AutoSize = true;
-            this.lbRecebidoUsuario.Font = new System.Drawing.Font("Arial", 9F, System.Drawing.FontStyle.Bold);
-            this.lbRecebidoUsuario.ForeColor = System.Drawing.Color.Red;
-            this.lbRecebidoUsuario.Location = new System.Drawing.Point(94, 4);
-            this.lbRecebidoUsuario.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
-            this.lbRecebidoUsuario.Name = "lbRecebidoUsuario";
-            this.lbRecebidoUsuario.Size = new System.Drawing.Size(59, 15);
-            this.lbRecebidoUsuario.TabIndex = 6;
-            this.lbRecebidoUsuario.Text = "+ R$ 0,00";
-            this.lbRecebidoUsuario.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // pbOk
             // 
@@ -1052,6 +977,32 @@
             this.dgvDespesas.EditingControlShowing += new System.Windows.Forms.DataGridViewEditingControlShowingEventHandler(this.dgvDespesas_EditingControlShowing);
             this.dgvDespesas.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.dgvDespesas_KeyPress);
             // 
+            // descricaoDespesa
+            // 
+            this.descricaoDespesa.HeaderText = "Descrição";
+            this.descricaoDespesa.Name = "descricaoDespesa";
+            this.descricaoDespesa.ToolTipText = "Descrição da despesa";
+            this.descricaoDespesa.Width = 240;
+            // 
+            // valorDespesa
+            // 
+            this.valorDespesa.HeaderText = "Valor R$";
+            this.valorDespesa.Name = "valorDespesa";
+            this.valorDespesa.ToolTipText = "valor da despesa";
+            // 
+            // formaPagamentoDespesa
+            // 
+            this.formaPagamentoDespesa.HeaderText = "Pagamento";
+            this.formaPagamentoDespesa.Name = "formaPagamentoDespesa";
+            this.formaPagamentoDespesa.ToolTipText = "Forma de Pagamento da Despesa";
+            this.formaPagamentoDespesa.Width = 140;
+            // 
+            // contador
+            // 
+            this.contador.HeaderText = "contador";
+            this.contador.Name = "contador";
+            this.contador.Visible = false;
+            // 
             // pbDespesas
             // 
             this.pbDespesas.Image = global::Apresentacao.Properties.Resources.wallet;
@@ -1147,32 +1098,6 @@
             this.btPreencher.Text = "F5 Preencher";
             this.btPreencher.UseVisualStyleBackColor = false;
             this.btPreencher.Click += new System.EventHandler(this.btPreencher_Click);
-            // 
-            // descricaoDespesa
-            // 
-            this.descricaoDespesa.HeaderText = "Descrição";
-            this.descricaoDespesa.Name = "descricaoDespesa";
-            this.descricaoDespesa.ToolTipText = "Descrição da despesa";
-            this.descricaoDespesa.Width = 240;
-            // 
-            // valorDespesa
-            // 
-            this.valorDespesa.HeaderText = "Valor R$";
-            this.valorDespesa.Name = "valorDespesa";
-            this.valorDespesa.ToolTipText = "valor da despesa";
-            // 
-            // formaPagamentoDespesa
-            // 
-            this.formaPagamentoDespesa.HeaderText = "Pagamento";
-            this.formaPagamentoDespesa.Name = "formaPagamentoDespesa";
-            this.formaPagamentoDespesa.ToolTipText = "Forma de Pagamento da Despesa";
-            this.formaPagamentoDespesa.Width = 140;
-            // 
-            // contador
-            // 
-            this.contador.HeaderText = "contador";
-            this.contador.Name = "contador";
-            this.contador.Visible = false;
             // 
             // FrmCaixaPendente
             // 
@@ -1281,14 +1206,9 @@
         private System.Windows.Forms.PictureBox pictureBox1;
         private System.Windows.Forms.Label lbTituloCaixa;
         private System.Windows.Forms.Panel panelParcialAltExc;
-        private System.Windows.Forms.Label lbDespesaUsuario;
-        private System.Windows.Forms.Label lbEstornoLiquido;
+        private System.Windows.Forms.Label lbCaixaCliente;
         private System.Windows.Forms.Label lbDespesasSistema;
         private System.Windows.Forms.Panel panelCalculoVenda;
-        private System.Windows.Forms.Label lbDescontoUsuario;
-        private System.Windows.Forms.Label lbJurosUsuario;
-        private System.Windows.Forms.Label lbTrocoUsuario;
-        private System.Windows.Forms.Label lbRecebidoUsuario;
         private System.Windows.Forms.PictureBox pbOk;
         private System.Windows.Forms.Label lbTrocoSistema;
         private System.Windows.Forms.Label lbVendaLiquido;

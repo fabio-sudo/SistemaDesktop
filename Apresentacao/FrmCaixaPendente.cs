@@ -26,6 +26,7 @@ namespace Apresentacao
 
         Metodos metodos = new Metodos();
         TextBox caixaTextoGride;
+        TextBox caixaTextoGrideDespesa;
         ComboBox comboDataGride;
         int indiceGride = 0;
 
@@ -73,7 +74,11 @@ namespace Apresentacao
             dtpDataCaixa.Value = caixaSelecionado.dataCaixa;
             tbTrocoCaixa.Text = String.Format("{0:C2}", caixaSelecionado.trocoCaixa);
             tbEstorno.Text = String.Format("{0:C2}", caixaSelecionado.estornoCaixa);
-            
+
+
+            lbTotalTrocoCaixa.Text = String.Format("{0:C2}", caixaSelecionado.trocoCaixa);
+            lbTrocoSistema.Text = String.Format("{0:C2}", caixaSelecionado.trocoCaixa);
+            lbTotalEstorno.Text = String.Format("{0:C2}", caixaSelecionado.estornoCaixa);
             //Combo Despesas
             metodoPreencheCombobox();
 
@@ -111,7 +116,7 @@ namespace Apresentacao
         }
 
         //Preenche Combobox das Despesas
-        public void metodoPreencheCombobox()
+        private void metodoPreencheCombobox()
         {
 
             this.formaPagamentoDespesa.Items.Clear();
@@ -130,6 +135,71 @@ namespace Apresentacao
             }
         }
 
+        //Calcula os totais do caixa
+        private void metodoCalculaTotais() {
+            //---Variaveis
+            double valorRecebidoCaixa = 0;
+            double valorRecebidoUsuario = 0;
+            double valorLiquidoCaixa = 0;
+            double descontoCaixa = 0;
+            double jurosCaixa = 0;
+            double valorDespesaCaixa = 0;
+
+            foreach (DataGridViewRow row in dgvCaixa.Rows) {
+
+                valorRecebidoUsuario = valorRecebidoUsuario + Convert.ToDouble(row.Cells[0].Value);
+                valorRecebidoCaixa = valorRecebidoCaixa + Convert.ToDouble(row.Cells[2].Value);
+                valorLiquidoCaixa = valorLiquidoCaixa + Convert.ToDouble(row.Cells[3].Value);
+                descontoCaixa = descontoCaixa + Convert.ToDouble(row.Cells[4].Value);
+                jurosCaixa = jurosCaixa + Convert.ToDouble(row.Cells[5].Value);            
+            }
+            //Caso houver despesas
+            if (dgvDespesas.Rows.Count > 0) {
+                foreach (DataGridViewRow row in dgvDespesas.Rows)
+                {
+                    valorDespesaCaixa = valorDespesaCaixa + Convert.ToDouble(row.Cells[1].Value);
+                }
+            }
+
+
+            //Comparação dos caixas
+            lbTotalCaixaReal.Text = String.Format("{0:C2}", valorRecebidoUsuario + valorDespesaCaixa);
+            lbTotalCaixaSistema.Text = String.Format("{0:C2}", valorRecebidoUsuario);
+
+            if (valorRecebidoCaixa == (valorRecebidoUsuario + valorDespesaCaixa))
+            {
+                lbTituloCaixaReal.BackColor = Color.Turquoise;
+                lbCaixaCliente.ForeColor = Color.Turquoise;
+                panelCalculoVenda.BackColor = Color.Turquoise;
+            }
+            else {
+                lbTituloCaixaReal.BackColor = Color.Red;
+                lbCaixaCliente.ForeColor = Color.Red;
+                panelCalculoVenda.BackColor = Color.Red;
+            
+            }
+
+
+
+            //Fechamento Usuário
+            lbTotalRecebidoCaixa.Text = String.Format("{0:C2}", valorRecebidoUsuario + valorDespesaCaixa);
+            lbCaixaCliente.Text = String.Format("{0:C2}", valorRecebidoUsuario + valorDespesaCaixa);
+            
+            //Caixa Sistema
+            lbTotalMovimentacaoCaixa.Text = "+" + String.Format("{0:C2}", valorRecebidoCaixa);
+            lbRecebidoSistema.Text = "+" + String.Format("{0:C2}", valorRecebidoCaixa);
+            lbTotalLiquidoCaixa.Text = String.Format("{0:C2}", valorLiquidoCaixa);
+            lbVendaLiquido.Text = String.Format("{0:C2}", valorLiquidoCaixa);
+            lbTotalJurosCaixa.Text = "%" + String.Format("{0:C2}", jurosCaixa);
+            lbJurosSistema.Text = "%"+String.Format("{0:C2}", jurosCaixa);
+            lbTotalDescontoCaixa.Text ="-"+ String.Format("{0:C2}", descontoCaixa);
+            lbDescontoSistema.Text = " -"+ String.Format("{0:C2}", descontoCaixa);
+
+            //Despesas
+            lbTotalDespesas.Text = "§" + String.Format("{0:C2}", valorDespesaCaixa);
+            lbDespesasSistema.Text = "§" + String.Format("{0:C2}", valorDespesaCaixa);
+
+        }
         //----------------------------------Controles
         private void FrmCaixaPendente_Load(object sender, EventArgs e)
         {
@@ -138,11 +208,14 @@ namespace Apresentacao
 
         private void btSair_Click(object sender, EventArgs e)
         {
+            metodoCalculaTotais();
+            
+            
             FrmBackup bkp = new FrmBackup();
             bkp.Show();
         }
 
-        //Evento TextoChanged do Gride
+        //------------------Gride Caixa
         private void caixaTextoGride_TextChanged(object sender, EventArgs e)
         {
             metodos.metodoMoedaTB(ref caixaTextoGride);
@@ -226,7 +299,7 @@ namespace Apresentacao
             }
         }
 
-        //Gride Despesas
+        //--------------------Gride Despesas
         private void btAdicionar_Click(object sender, EventArgs e)
         {
             try
@@ -321,11 +394,34 @@ namespace Apresentacao
                     comboDataGride.DropDown -= new EventHandler(comboDataGride__DropDown);
                     comboDataGride.DropDown += comboDataGride__DropDown;
                 }
+
+                //--------------------Caixa de Texto
+                    if (dgvDespesas.CurrentCell.ColumnIndex == 1)
+                    {
+                        {
+                            caixaTextoGrideDespesa = e.Control as TextBox;
+                            caixaTextoGrideDespesa.TextChanged -= new EventHandler(caixaTextoGrideDespesa_TextChanged);
+                            caixaTextoGrideDespesa.TextChanged += caixaTextoGrideDespesa_TextChanged;
+                        }
+                    }
+                    else
+                    {
+
+                        caixaTextoGrideDespesa = new TextBox();
+
+                    }
+
             }
             catch (Exception ex) { MessageBox.Show(ex.Message); }
            }
+        
+        //---------------Evento Caixa de Texto
+        private void caixaTextoGrideDespesa_TextChanged(object sender, EventArgs e)
+        {
+            metodos.metodoMoedaTB(ref caixaTextoGrideDespesa);
+        }
 
-        //Evento DroDown Combo
+        //---------------Evento DroDown Combo
         private void comboDataGride__DropDown(object sender, EventArgs e)
         {
             metodoPreencheCombobox();
