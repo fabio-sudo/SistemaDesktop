@@ -54,11 +54,12 @@ namespace Apresentacao
             int indice = 0;
             foreach (Caixa caixa in this.listaCaixa)
             {
-                this.dgvCaixa[1, indice].Value = caixa.formaPagamento.formaPagamento;
-                this.dgvCaixa[2, indice].Value = caixa.totalCaixa;
-                this.dgvCaixa[3, indice].Value = caixa.recebidoCaixa;
-                this.dgvCaixa[4, indice].Value = caixa.descontoCaixa;
-                this.dgvCaixa[5, indice].Value = caixa.jurosCaixa;
+                this.dgvCaixa[1, indice].Value = caixa.sangriaCaixa;
+                this.dgvCaixa[2, indice].Value = caixa.formaPagamento.formaPagamento;
+                this.dgvCaixa[3, indice].Value = caixa.totalCaixa;
+                this.dgvCaixa[4, indice].Value = caixa.recebidoCaixa;
+                this.dgvCaixa[5, indice].Value = caixa.descontoCaixa;
+                this.dgvCaixa[6, indice].Value = caixa.jurosCaixa;
  
                 indice++;
             }
@@ -120,11 +121,13 @@ namespace Apresentacao
         {
 
             this.formaPagamentoDespesa.Items.Clear();
-            this.listaFormaPagamento = nFormaPagamento.BuscarFormaPagamentoPorNome("");
+            this.listaFormaPagamento = nFormaPagamento.BuscarFormaPagamentoCombobox();
+            
+
 
             foreach (FormaPagamento pag in this.listaFormaPagamento)
             {
-                if (pag.formaPagamento != "CREDIARIO" && pag.formaPagamento != "PARCIAL")
+                if (pag.formaPagamento != "CREDIARIO" || pag.formaPagamento != "PARCIAL")
                 {
                     {
                         this.formaPagamentoDespesa.Items.IndexOf(pag.codigoFormaPagamento);
@@ -137,6 +140,14 @@ namespace Apresentacao
 
         //Calcula os totais do caixa
         private void metodoCalculaTotais() {
+
+           // caixaSelecionado.sangriaCaixa
+            //Adicionar no gride e no fechamento de caixa
+
+
+
+
+
             //---Variaveis
             double valorRecebidoCaixa = 0;
             double valorRecebidoUsuario = 0;
@@ -164,22 +175,22 @@ namespace Apresentacao
 
             //Comparação dos caixas
             lbTotalCaixaReal.Text = String.Format("{0:C2}", valorRecebidoUsuario + valorDespesaCaixa);
-            lbTotalCaixaSistema.Text = String.Format("{0:C2}", valorRecebidoUsuario);
+            lbTotalCaixaSistema.Text = String.Format("{0:C2}", valorRecebidoCaixa);
 
             if (valorRecebidoCaixa == (valorRecebidoUsuario + valorDespesaCaixa))
             {
                 lbTituloCaixaReal.BackColor = Color.Turquoise;
                 lbCaixaCliente.ForeColor = Color.Turquoise;
                 panelCalculoVenda.BackColor = Color.Turquoise;
+                pbOk.Image = Properties.Resources.DialogOK;
             }
             else {
                 lbTituloCaixaReal.BackColor = Color.Red;
                 lbCaixaCliente.ForeColor = Color.Red;
                 panelCalculoVenda.BackColor = Color.Red;
+                pbOk.Image = Properties.Resources.DialogErro;
             
             }
-
-
 
             //Fechamento Usuário
             lbTotalRecebidoCaixa.Text = String.Format("{0:C2}", valorRecebidoUsuario + valorDespesaCaixa);
@@ -188,17 +199,35 @@ namespace Apresentacao
             //Caixa Sistema
             lbTotalMovimentacaoCaixa.Text = "+" + String.Format("{0:C2}", valorRecebidoCaixa);
             lbRecebidoSistema.Text = "+" + String.Format("{0:C2}", valorRecebidoCaixa);
+            //Liquido
             lbTotalLiquidoCaixa.Text = String.Format("{0:C2}", valorLiquidoCaixa);
             lbVendaLiquido.Text = String.Format("{0:C2}", valorLiquidoCaixa);
+            //Juros
             lbTotalJurosCaixa.Text = "%" + String.Format("{0:C2}", jurosCaixa);
             lbJurosSistema.Text = "%"+String.Format("{0:C2}", jurosCaixa);
-            lbTotalDescontoCaixa.Text ="-"+ String.Format("{0:C2}", descontoCaixa);
-            lbDescontoSistema.Text = " -"+ String.Format("{0:C2}", descontoCaixa);
+            //Desconto
+            lbTotalDescontoCaixa.Text ="- "+ String.Format("{0:C2}", descontoCaixa);
+            lbDescontoSistema.Text = "- "+ String.Format("{0:C2}", descontoCaixa);
 
             //Despesas
             lbTotalDespesas.Text = "§" + String.Format("{0:C2}", valorDespesaCaixa);
             lbDespesasSistema.Text = "§" + String.Format("{0:C2}", valorDespesaCaixa);
 
+        }
+
+        //Valida preenchimento do dataGrid
+        private Boolean metodoValidaDespesa() {
+
+            if (dgvDespesas.Rows.Count == 0) { return true; }
+
+            foreach (DataGridViewRow row in dgvDespesas.Rows) {
+
+                if (row.Cells[0].Value.ToString() == "") { return false; }
+                if (row.Cells[1].Value.ToString() == "0,00") { return false; }
+                if (row.Cells[2].Value == null) { return false; }         
+            }
+
+            return true;
         }
         //----------------------------------Controles
         private void FrmCaixaPendente_Load(object sender, EventArgs e)
@@ -393,6 +422,7 @@ namespace Apresentacao
                 {
                     comboDataGride.DropDown -= new EventHandler(comboDataGride__DropDown);
                     comboDataGride.DropDown += comboDataGride__DropDown;
+                    comboDataGride.SelectedIndexChanged += comboDataGride_SelectedIndexChanged;
                 }
 
                 //--------------------Caixa de Texto
@@ -415,7 +445,7 @@ namespace Apresentacao
             catch (Exception ex) { MessageBox.Show(ex.Message); }
            }
         
-        //---------------Evento Caixa de Texto
+         //---------------Evento Caixa de Texto
         private void caixaTextoGrideDespesa_TextChanged(object sender, EventArgs e)
         {
             metodos.metodoMoedaTB(ref caixaTextoGrideDespesa);
@@ -425,6 +455,23 @@ namespace Apresentacao
         private void comboDataGride__DropDown(object sender, EventArgs e)
         {
             metodoPreencheCombobox();
+        }
+
+         //Pega o valor utilizado no data gride
+        private void comboDataGride_SelectedIndexChanged(object sender, EventArgs e)
+        {
+
+            //Pegando valor do index do combobox
+            int indiceLista = (sender as ComboBox).SelectedIndex;
+
+            if (indiceLista >= 0)
+            {
+                //Instanciando objeto forma de pagamento
+                FormaPagamento formaPagamento = new FormaPagamento();
+                formaPagamento = listaFormaPagamento[indiceLista];
+
+                dgvDespesas.CurrentRow.Cells[4].Value = formaPagamento.codigoFormaPagamento;
+            }
         }
 
         private void dgvDespesas_CellValidating(object sender, DataGridViewCellValidatingEventArgs e)
@@ -455,6 +502,58 @@ namespace Apresentacao
                 }
 
             }
+
+        }
+        
+        //--------------Troco
+        private void tbTrocoDeixado_TextChanged(object sender, EventArgs e)
+        {
+            metodos.metodoMoedaTB(ref tbTrocoDeixado);
+        }
+
+        //Toco tem que ser removido do valor total de feichameto do Caixa -Remove fica pro próximo caixa
+        //Troco anterior tem que ser somado ao Valor atual do caixa -Adiciona no caixa atual
+
+        //----------------------------------Botões
+        private void btFinalizar_Click(object sender, EventArgs e)
+        {
+            //Metodo valida fechamento do caixa
+            Caixa caixaCadastro = new Caixa();
+
+            //Valida despesas preenchidas corretamente
+            #region Despesas - Validação - Criação de Lista
+            if (dgvDespesas.Rows.Count > 0)
+            {
+                if (metodoValidaDespesa() == true)
+                {
+                    listaDespesas = new ListaDespesas();
+
+                    foreach (DataGridViewRow row in dgvDespesas.Rows)
+                    {
+                        DespesaCaixa despesaAdd = new DespesaCaixa();
+                        despesaAdd.formaPagamento = new FormaPagamento();
+
+                        despesaAdd.descricaoDespesa = row.Cells[0].Value.ToString();
+                        despesaAdd.valorDespesa = Convert.ToDouble(row.Cells[1].Value);
+                        despesaAdd.formaPagamento.codigoFormaPagamento = Convert.ToInt32(row.Cells[4].Value);
+                    }
+                }
+                else { 
+                
+                  FrmCaixaDialogo frmCaixa = new FrmCaixaDialogo("Erro Grid Despesas",
+                  " Preencha as despesas corretamente !",
+                  Properties.Resources.DialogErro,
+                  System.Drawing.Color.FromArgb(((int)(((byte)(51)))), ((int)(((byte)(51)))), ((int)(((byte)(76))))),
+                  Color.White,
+                  "OK", "",
+                  false);
+
+                  frmCaixa.ShowDialog();
+                }
+            }
+            #endregion
+
+
 
         }
     }

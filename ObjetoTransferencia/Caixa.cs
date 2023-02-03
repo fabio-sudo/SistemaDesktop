@@ -9,6 +9,7 @@ namespace ObjetoTransferencia
    public class Caixa
     {
        public string tipoVenda { get; set; }
+       public double sangriaCaixa { get; set; }
        public double recebidoCaixa { get; set; }
        public double totalCaixa { get; set; }
        public double trocoCaixa { get; set; }
@@ -16,6 +17,7 @@ namespace ObjetoTransferencia
        public double valorCaixa { get; set; }
        public double jurosCaixa { get; set; }
        public double descontoCaixa { get; set; }
+
        public FormaPagamento formaPagamento { get; set; }
        public DateTime dataCaixa { get; set; }
        public string estatusCaixa { get; set; }

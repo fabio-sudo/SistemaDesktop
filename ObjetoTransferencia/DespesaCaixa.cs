@@ -8,11 +8,11 @@ namespace ObjetoTransferencia
 {
    public class DespesaCaixa
     {
-       int codigoDespesa { get; set; }
-       Caixa caixaDespesa { get; set; }
-       FormaPagamento formaPagamento { get; set; }
-       string descricaoDespesa { get; set; }
-       double valorDespesa { get; set; }
+      public int codigoDespesa { get; set; }
+      public Caixa caixaDespesa { get; set; }
+      public FormaPagamento formaPagamento { get; set; }
+      public string descricaoDespesa { get; set; }
+      public double valorDespesa { get; set; }
    }
 
     public class ListaDespesas:List<Caixa>{}

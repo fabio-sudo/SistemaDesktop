@@ -649,10 +649,12 @@
             this.Controls.Add(this.dgvCaixa);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
+            this.KeyPreview = true;
             this.MaximizeBox = false;
             this.Name = "FrmCaixaSelecionar";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Fechamento Caixa";
+            this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.FrmCaixaSelecionar_KeyDown);
             ((System.ComponentModel.ISupportInitialize)(this.dgvCaixa)).EndInit();
             this.painelEstorno.ResumeLayout(false);
             this.painelEstorno.PerformLayout();

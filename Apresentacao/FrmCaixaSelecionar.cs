@@ -167,5 +167,23 @@ namespace Apresentacao
         {
             btSelecionar.PerformClick();
         }
+
+        private void FrmCaixaSelecionar_KeyDown(object sender, KeyEventArgs e)
+        {
+            //atalho da tecla de atalho ESC
+            if (e.KeyCode.Equals(Keys.Escape) == true)
+            {
+                btSair.PerformClick();
+            }
+            //atalho para o botão cadastrar
+            else if (e.KeyCode.Equals(Keys.F10) == true)
+            {
+                btSelecionar.PerformClick();
+            }
+            else if (e.KeyCode.Equals(Keys.F5) == true)
+            {
+                btFiltrar.PerformClick();
+            }
+        }
     }
 }

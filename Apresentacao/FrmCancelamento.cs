@@ -505,15 +505,7 @@ namespace Apresentacao
 
         private void btCancelar_Click(object sender, EventArgs e)
         {
-           FrmVendaPendente venda21 = new FrmVendaPendente();
-            venda21.ShowDialog();
-
-            FrmSangria sangria  = new FrmSangria();
-            sangria.ShowDialog();
-            
-            
-            
-            
+                        
             if (this.dgvVendaCancela.Rows.Count > 0)
             {
                 int indiceRegistroSelecionado = Convert.ToInt32(dgvVendaCancela.CurrentRow.Cells[0].Value);

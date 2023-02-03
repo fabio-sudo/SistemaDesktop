@@ -406,7 +406,7 @@ namespace Apresentacao
         {
 
             this.formaPagamentoParcial.Items.Clear();
-            this.listaFormaPagamento = nFormaPagamento.BuscarFormaPagamentoPorNome("");
+            this.listaFormaPagamento = nFormaPagamento.BuscarFormaPagamentoCombobox();
 
             foreach (FormaPagamento pag in this.listaFormaPagamento)
             {
