@@ -84,6 +84,26 @@ namespace Apresentacao
             metodoPreencheCombobox();
 
             listaCaixa = nCaixa.BuscarCaixaPendente(caixaSelecionado.dataCaixa);
+
+            SangriaLista listaSangria = new SangriaLista();
+            listaSangria = nCaixa.BuscarSangriaFechamentoCaixa(caixaSelecionado.dataCaixa);
+
+            //Adiciona valor da Sangria ao Caixa
+            foreach (Sangria sangria in listaSangria) {
+
+                foreach (Caixa caixa in listaCaixa) {
+
+                    if (sangria.pagamentoSangria.formaPagamento == caixa.formaPagamento.formaPagamento) {
+
+                        caixa.sangriaCaixa = - sangria.valorSangria;
+                        break;
+                    }     
+                }                 
+            }
+
+
+
+
             if (listaCaixa.Count > 0)
             {
                 metodoAtualizaGrid();
@@ -255,7 +275,7 @@ namespace Apresentacao
             //Pega valor da caixa de testo para atualizar juros
             if (caixaTextoGride.Text != "")
             {
-                string valorRecebidoStr = String.Format("{0:C2}", Convert.ToDouble(dgvCaixa.CurrentRow.Cells[2].Value)).Replace("R$","");
+                string valorRecebidoStr = String.Format("{0:C2}", Convert.ToDouble(dgvCaixa.CurrentRow.Cells[3].Value)).Replace("R$","");
                 double valorCaixaTexto = Convert.ToDouble(caixaTextoGride.Text);
 
                 if (Convert.ToDouble(valorRecebidoStr) != valorCaixaTexto)//Erro referencia objeto verificar

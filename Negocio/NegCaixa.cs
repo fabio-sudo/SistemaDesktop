@@ -381,5 +381,41 @@ namespace Negocio
             catch (Exception ex) { throw new Exception("Não foi possível buscar dados do Movimentação do Caixa. [Negócios]. Motivo: " + ex.Message); }
 
         }
+
+        //Busca sangria realizada no caixa
+        public SangriaLista BuscarSangriaFechamentoCaixa(DateTime dataCaixa) {
+
+            try
+            {
+                sqlServer.LimparParametros();
+                sqlServer.AdicionarParametro(new SqlParameter("@dataCaixa", dataCaixa));
+
+                string comando = "uspBuscarCaixaSangria @dataCaixa";
+
+                DataTable tabela = sqlServer.ExecutarConsulta(comando, CommandType.Text);
+
+                SangriaLista sangriaLista = new SangriaLista();
+                Sangria sangria = new Sangria();
+
+                foreach (DataRow registro in tabela.Rows)
+                {
+
+                    sangria = new Sangria();
+                    sangria.pagamentoSangria = new FormaPagamento();
+
+                    sangria.valorSangria = Convert.ToDouble(registro[0]);
+                    sangria.pagamentoSangria.codigoFormaPagamento = Convert.ToInt32(registro[1]);
+                    sangria.pagamentoSangria.formaPagamento = (registro[2]).ToString();
+
+                    sangriaLista.Add(sangria);
+                }
+
+                return sangriaLista;
+            }
+            catch (Exception ex) { throw new Exception("Não foi possível buscar dados do Movimentação da Sangria do Caixa. [Negócios]. Motivo: " + ex.Message); }
+
+        }
+
+
     }
 }
