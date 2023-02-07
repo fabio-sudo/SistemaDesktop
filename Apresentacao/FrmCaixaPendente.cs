@@ -54,12 +54,14 @@ namespace Apresentacao
             int indice = 0;
             foreach (Caixa caixa in this.listaCaixa)
             {
+                this.dgvCaixa[0, indice].Value = "0,00";
                 this.dgvCaixa[1, indice].Value = caixa.sangriaCaixa;
                 this.dgvCaixa[2, indice].Value = caixa.formaPagamento.formaPagamento;
                 this.dgvCaixa[3, indice].Value = caixa.totalCaixa;
                 this.dgvCaixa[4, indice].Value = caixa.recebidoCaixa;
-                this.dgvCaixa[5, indice].Value = caixa.descontoCaixa;
-                this.dgvCaixa[6, indice].Value = caixa.jurosCaixa;
+                this.dgvCaixa[5, indice].Value = caixa.jurosCaixa;
+                this.dgvCaixa[6, indice].Value = caixa.descontoCaixa;
+                
  
                 indice++;
             }
@@ -161,13 +163,6 @@ namespace Apresentacao
         //Calcula os totais do caixa
         private void metodoCalculaTotais() {
 
-           // caixaSelecionado.sangriaCaixa
-            //Adicionar no gride e no fechamento de caixa
-
-
-
-
-
             //---Variaveis
             double valorRecebidoCaixa = 0;
             double valorRecebidoUsuario = 0;
@@ -175,14 +170,18 @@ namespace Apresentacao
             double descontoCaixa = 0;
             double jurosCaixa = 0;
             double valorDespesaCaixa = 0;
+            double valorSangria = 0;
 
             foreach (DataGridViewRow row in dgvCaixa.Rows) {
 
                 valorRecebidoUsuario = valorRecebidoUsuario + Convert.ToDouble(row.Cells[0].Value);
-                valorRecebidoCaixa = valorRecebidoCaixa + Convert.ToDouble(row.Cells[2].Value);
-                valorLiquidoCaixa = valorLiquidoCaixa + Convert.ToDouble(row.Cells[3].Value);
-                descontoCaixa = descontoCaixa + Convert.ToDouble(row.Cells[4].Value);
-                jurosCaixa = jurosCaixa + Convert.ToDouble(row.Cells[5].Value);            
+                valorSangria = valorSangria + Convert.ToDouble(row.Cells[1].Value);
+                valorRecebidoCaixa = valorRecebidoCaixa + Convert.ToDouble(row.Cells[3].Value);
+                valorLiquidoCaixa = valorLiquidoCaixa + Convert.ToDouble(row.Cells[4].Value);
+                descontoCaixa = descontoCaixa + Convert.ToDouble(row.Cells[5].Value);
+                jurosCaixa = jurosCaixa + Convert.ToDouble(row.Cells[6].Value);
+
+                if ((valorRecebidoCaixa - valorSangria) < 1) { row.DefaultCellStyle.ForeColor = Color.Green; }
             }
             //Caso houver despesas
             if (dgvDespesas.Rows.Count > 0) {
@@ -272,23 +271,32 @@ namespace Apresentacao
 
         private void caixaTextoGride_Leave(object sender, EventArgs e)
         {
+
             //Pega valor da caixa de testo para atualizar juros
-            if (caixaTextoGride.Text != "")
+            if (caixaTextoGride.Text != "0,00")
             {
-                string valorRecebidoStr = String.Format("{0:C2}", Convert.ToDouble(dgvCaixa.CurrentRow.Cells[3].Value)).Replace("R$","");
+                string valorRecebidoStr = String.Format("{0:C2}", Convert.ToDouble(dgvCaixa.CurrentRow.Cells[3].Value)).Replace("R$", "");
                 double valorCaixaTexto = Convert.ToDouble(caixaTextoGride.Text);
+                double valor1 = Math.Truncate(Convert.ToDouble(dgvCaixa.CurrentRow.Cells[3].Value));
+                double valor2 = Math.Truncate(Convert.ToDouble(dgvCaixa.CurrentRow.Cells[1].Value));
 
-                if (Convert.ToDouble(valorRecebidoStr) != valorCaixaTexto)//Erro referencia objeto verificar
+                double valida = valor1 + valor2 - Math.Truncate(valorCaixaTexto);
+
+                if (valida != 0)
                 {
-                    FrmCaixaDialogo frmCaixaCad = new FrmCaixaDialogo("Erro Valores Caixa",
-                   "Caixa do sistema está diferente do caixa físico!",
-                    Properties.Resources.DialogErro,
-                    System.Drawing.Color.FromArgb(((int)(((byte)(51)))), ((int)(((byte)(51)))), ((int)(((byte)(76))))),
-                    Color.White,
-                    "Ok", "",
-                    false);
-                    frmCaixaCad.ShowDialog();
 
+                    if (Convert.ToDouble(valorRecebidoStr) != valorCaixaTexto)//Erro referencia objeto verificar
+                    {
+                        FrmCaixaDialogo frmCaixaCad = new FrmCaixaDialogo("Erro Valores Caixa",
+                       "Caixa do sistema está diferente do caixa físico!",
+                        Properties.Resources.DialogErro,
+                        System.Drawing.Color.FromArgb(((int)(((byte)(51)))), ((int)(((byte)(51)))), ((int)(((byte)(76))))),
+                        Color.White,
+                        "Ok", "",
+                        false);
+                        frmCaixaCad.ShowDialog();
+
+                    }
                 }
             }
         }
