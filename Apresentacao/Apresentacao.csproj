@@ -123,11 +123,23 @@
     <Compile Include="FrmAlterarExcluirUsuarioSenha.Designer.cs">
       <DependentUpon>FrmAlterarExcluirUsuarioSenha.cs</DependentUpon>
     </Compile>
+    <Compile Include="FrmAterarExcluirDespesa.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FrmAterarExcluirDespesa.Designer.cs">
+      <DependentUpon>FrmAterarExcluirDespesa.cs</DependentUpon>
+    </Compile>
     <Compile Include="FrmBackup.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="FrmBackup.Designer.cs">
       <DependentUpon>FrmBackup.cs</DependentUpon>
+    </Compile>
+    <Compile Include="FrmCadastrarDespesa.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FrmCadastrarDespesa.Designer.cs">
+      <DependentUpon>FrmCadastrarDespesa.cs</DependentUpon>
     </Compile>
     <Compile Include="FrmCadastroSangria.cs">
       <SubType>Form</SubType>
@@ -381,6 +393,12 @@
     <Compile Include="FrmSelecionarCorProduto.Designer.cs">
       <DependentUpon>FrmSelecionarCorProduto.cs</DependentUpon>
     </Compile>
+    <Compile Include="FrmSelecionarDespesa.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FrmSelecionarDespesa.Designer.cs">
+      <DependentUpon>FrmSelecionarDespesa.cs</DependentUpon>
+    </Compile>
     <Compile Include="FrmSelecionarFornecedor.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -557,8 +575,14 @@
     <EmbeddedResource Include="FrmAlterarExcluirUsuarioSenha.resx">
       <DependentUpon>FrmAlterarExcluirUsuarioSenha.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="FrmAterarExcluirDespesa.resx">
+      <DependentUpon>FrmAterarExcluirDespesa.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="FrmBackup.resx">
       <DependentUpon>FrmBackup.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FrmCadastrarDespesa.resx">
+      <DependentUpon>FrmCadastrarDespesa.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="FrmCadastroSangria.resx">
       <DependentUpon>FrmCadastroSangria.cs</DependentUpon>
@@ -685,6 +709,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="FrmSelecionarCorProduto.resx">
       <DependentUpon>FrmSelecionarCorProduto.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FrmSelecionarDespesa.resx">
+      <DependentUpon>FrmSelecionarDespesa.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="FrmSelecionarFornecedor.resx">
       <DependentUpon>FrmSelecionarFornecedor.cs</DependentUpon>
@@ -1118,6 +1145,9 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\CaixaForm.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\DespesasPequena.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

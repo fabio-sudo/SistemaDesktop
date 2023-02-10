@@ -80,7 +80,7 @@ namespace Apresentacao
 
 
             lbTotalTrocoCaixa.Text = String.Format("{0:C2}", caixaSelecionado.trocoCaixa);
-            lbTrocoSistema.Text = String.Format("{0:C2}", caixaSelecionado.trocoCaixa);
+            lbTrocoSistema.Text = "+"+String.Format("{0:C2}", caixaSelecionado.trocoCaixa);
             lbTotalEstorno.Text = String.Format("{0:C2}", caixaSelecionado.estornoCaixa);
             //Combo Despesas
             metodoPreencheCombobox();
@@ -109,7 +109,7 @@ namespace Apresentacao
             if (listaCaixa.Count > 0)
             {
                 metodoAtualizaGrid();
-
+                metodoCalculaTotais();
             }
             else
             { this.Close(); }
@@ -125,7 +125,8 @@ namespace Apresentacao
                 foreach (DataGridViewRow col in dgvCaixa.Rows)
                 {
 
-                    col.Cells[0].Value = col.Cells[2].Value;
+                    col.Cells[0].Value = Convert.ToDouble(col.Cells[3].Value) + Convert.ToDouble(col.Cells[1].Value);
+                    metodoCalculaTotais();
                 }
             }
             else if (preencher == "F5 Zerar")
@@ -134,6 +135,7 @@ namespace Apresentacao
                 {
 
                     col.Cells[0].Value = 0;
+                    metodoCalculaTotais();
                 }
             }
         }
@@ -193,44 +195,51 @@ namespace Apresentacao
 
 
             //Comparação dos caixas
-            lbTotalCaixaReal.Text = String.Format("{0:C2}", valorRecebidoUsuario + valorDespesaCaixa);
+            lbTotalCaixaReal.Text = String.Format("{0:C2}", valorRecebidoUsuario + valorDespesaCaixa - valorSangria);
             lbTotalCaixaSistema.Text = String.Format("{0:C2}", valorRecebidoCaixa);
 
-            if (valorRecebidoCaixa == (valorRecebidoUsuario + valorDespesaCaixa))
+            if (Math.Round(valorRecebidoCaixa) == Math.Round(valorRecebidoUsuario + valorDespesaCaixa - valorSangria))
             {
                 lbTituloCaixaReal.BackColor = Color.Turquoise;
                 lbCaixaCliente.ForeColor = Color.Turquoise;
                 panelCalculoVenda.BackColor = Color.Turquoise;
                 pbOk.Image = Properties.Resources.DialogOK;
+                lbSangria.ForeColor = Color.Turquoise;
+                lbDespesasSistema.ForeColor = Color.Turquoise;
             }
             else {
                 lbTituloCaixaReal.BackColor = Color.Red;
                 lbCaixaCliente.ForeColor = Color.Red;
                 panelCalculoVenda.BackColor = Color.Red;
+                lbSangria.ForeColor = Color.Red;
                 pbOk.Image = Properties.Resources.DialogErro;
+                lbDespesasSistema.ForeColor = Color.Red;
             
             }
 
             //Fechamento Usuário
-            lbTotalRecebidoCaixa.Text = String.Format("{0:C2}", valorRecebidoUsuario + valorDespesaCaixa);
-            lbCaixaCliente.Text = String.Format("{0:C2}", valorRecebidoUsuario + valorDespesaCaixa);
+            lbTotalMovimentacaoCaixa.Text = "+" + String.Format("{0:C2}", valorRecebidoUsuario + valorDespesaCaixa - valorSangria);       
+            lbCaixaCliente.Text = String.Format("{0:C2}", valorRecebidoUsuario + valorDespesaCaixa - valorSangria);
+            //Sangria
+            lbTotalSangria.Text = "+" + String.Format("{0:C2}", -valorSangria);
+            lbSangria.Text = "+"+String.Format("{0:C2}", - valorSangria);
             
             //Caixa Sistema
-            lbTotalMovimentacaoCaixa.Text = "+" + String.Format("{0:C2}", valorRecebidoCaixa);
-            lbRecebidoSistema.Text = "+" + String.Format("{0:C2}", valorRecebidoCaixa);
+            lbTotalLiquidoCaixa.Text = String.Format("{0:C2}", valorLiquidoCaixa );
+            lbRecebidoSistema.Text = "+" + String.Format("{0:C2}", valorLiquidoCaixa);
             //Liquido
-            lbTotalLiquidoCaixa.Text = String.Format("{0:C2}", valorLiquidoCaixa);
-            lbVendaLiquido.Text = String.Format("{0:C2}", valorLiquidoCaixa);
+            lbTotalRecebidoCaixa.Text = String.Format("{0:C2}", valorRecebidoCaixa);
+            lbVendaLiquido.Text = String.Format("{0:C2}", valorRecebidoCaixa);
             //Juros
-            lbTotalJurosCaixa.Text = "%" + String.Format("{0:C2}", jurosCaixa);
+            lbTotalJurosCaixa.Text = "%"+String.Format("{0:C2}", jurosCaixa);
             lbJurosSistema.Text = "%"+String.Format("{0:C2}", jurosCaixa);
             //Desconto
             lbTotalDescontoCaixa.Text ="- "+ String.Format("{0:C2}", descontoCaixa);
             lbDescontoSistema.Text = "- "+ String.Format("{0:C2}", descontoCaixa);
 
             //Despesas
-            lbTotalDespesas.Text = "§" + String.Format("{0:C2}", valorDespesaCaixa);
-            lbDespesasSistema.Text = "§" + String.Format("{0:C2}", valorDespesaCaixa);
+            lbTotalDespesas.Text = "- " + String.Format("{0:C2}", valorDespesaCaixa);
+            lbDespesasSistema.Text = "- " + String.Format("{0:C2}", valorDespesaCaixa);
 
         }
 
@@ -284,9 +293,6 @@ namespace Apresentacao
 
                 if (valida != 0)
                 {
-
-                    if (Convert.ToDouble(valorRecebidoStr) != valorCaixaTexto)//Erro referencia objeto verificar
-                    {
                         FrmCaixaDialogo frmCaixaCad = new FrmCaixaDialogo("Erro Valores Caixa",
                        "Caixa do sistema está diferente do caixa físico!",
                         Properties.Resources.DialogErro,
@@ -295,10 +301,10 @@ namespace Apresentacao
                         "Ok", "",
                         false);
                         frmCaixaCad.ShowDialog();
-
-                    }
                 }
             }
+
+            metodoCalculaTotais();
         }
 
         private void dgvCaixa_EditingControlShowing(object sender, DataGridViewEditingControlShowingEventArgs e)
@@ -460,6 +466,9 @@ namespace Apresentacao
                             caixaTextoGrideDespesa = e.Control as TextBox;
                             caixaTextoGrideDespesa.TextChanged -= new EventHandler(caixaTextoGrideDespesa_TextChanged);
                             caixaTextoGrideDespesa.TextChanged += caixaTextoGrideDespesa_TextChanged;
+
+                            caixaTextoGrideDespesa.Leave -= new EventHandler(caixaTextoGrideDespesa_Leave);
+                            caixaTextoGrideDespesa.Leave += caixaTextoGrideDespesa_Leave;
                         }
                     }
                     else
@@ -477,6 +486,11 @@ namespace Apresentacao
         private void caixaTextoGrideDespesa_TextChanged(object sender, EventArgs e)
         {
             metodos.metodoMoedaTB(ref caixaTextoGrideDespesa);
+        }
+
+        private void caixaTextoGrideDespesa_Leave(object sender, EventArgs e)
+        {
+            metodoCalculaTotais();
         }
 
         //---------------Evento DroDown Combo

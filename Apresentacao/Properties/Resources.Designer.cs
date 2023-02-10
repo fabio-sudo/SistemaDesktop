@@ -343,6 +343,16 @@ namespace Apresentacao.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap DespesasPequena {
+            get {
+                object obj = ResourceManager.GetObject("DespesasPequena", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap DialogErro {
             get {
                 object obj = ResourceManager.GetObject("DialogErro", resourceCulture);

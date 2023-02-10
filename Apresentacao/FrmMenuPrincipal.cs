@@ -310,6 +310,7 @@ namespace Apresentacao
             panelMenu.Visible = true;
             btLogin.Visible = true;
             pictureLogo.Visible = true;
+            mstMenus.Visible = true;
         }
 
         private void metodoResetaMenu()
@@ -320,6 +321,7 @@ namespace Apresentacao
             panelMenu.Visible = false;
             btLogin.Visible = false;
             pictureLogo.Visible = false;
+            mstMenus.Visible = false;
             panelDesktop.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(39)))), ((int)(((byte)(39)))), ((int)(((byte)(58)))));
         }
         

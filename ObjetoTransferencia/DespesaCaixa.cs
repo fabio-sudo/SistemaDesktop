@@ -13,6 +13,7 @@ namespace ObjetoTransferencia
       public FormaPagamento formaPagamento { get; set; }
       public string descricaoDespesa { get; set; }
       public double valorDespesa { get; set; }
+      public DateTime dataDespesa { get; set; }
    }
 
     public class ListaDespesas:List<Caixa>{}
