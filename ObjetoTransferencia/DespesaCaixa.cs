@@ -16,5 +16,5 @@ namespace ObjetoTransferencia
       public DateTime dataDespesa { get; set; }
    }
 
-    public class ListaDespesas:List<Caixa>{}
+   public class ListaDespesas : List<DespesaCaixa> { }
 }

@@ -42,6 +42,7 @@
     <Compile Include="NegBackupBancoDeDados.cs" />
     <Compile Include="NegCaixa.cs" />
     <Compile Include="NegCrediario.cs" />
+    <Compile Include="NegDespesa.cs" />
     <Compile Include="NegEntradaEstoque.cs" />
     <Compile Include="NegEstoque.cs" />
     <Compile Include="NegFormaPagamento.cs" />
