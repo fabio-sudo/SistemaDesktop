@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FrmCadastrarDespesa));
             this.btSair = new System.Windows.Forms.Button();
             this.btCadastrar = new System.Windows.Forms.Button();
@@ -40,7 +41,9 @@
             this.lbFormaPagamento = new System.Windows.Forms.Label();
             this.dtpDataDespesa = new System.Windows.Forms.DateTimePicker();
             this.lbDataDespesa = new System.Windows.Forms.Label();
+            this.epDespesa = new System.Windows.Forms.ErrorProvider(this.components);
             ((System.ComponentModel.ISupportInitialize)(this.pbDespesa)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.epDespesa)).BeginInit();
             this.SuspendLayout();
             // 
             // btSair
@@ -54,9 +57,10 @@
             this.btSair.Margin = new System.Windows.Forms.Padding(2);
             this.btSair.Name = "btSair";
             this.btSair.Size = new System.Drawing.Size(98, 34);
-            this.btSair.TabIndex = 16;
+            this.btSair.TabIndex = 9;
             this.btSair.Text = "Esc Sair";
             this.btSair.UseVisualStyleBackColor = false;
+            this.btSair.Click += new System.EventHandler(this.btSair_Click);
             // 
             // btCadastrar
             // 
@@ -69,9 +73,10 @@
             this.btCadastrar.Margin = new System.Windows.Forms.Padding(2);
             this.btCadastrar.Name = "btCadastrar";
             this.btCadastrar.Size = new System.Drawing.Size(98, 34);
-            this.btCadastrar.TabIndex = 15;
+            this.btCadastrar.TabIndex = 8;
             this.btCadastrar.Text = "F10 Cadastrar";
             this.btCadastrar.UseVisualStyleBackColor = false;
+            this.btCadastrar.Click += new System.EventHandler(this.btCadastrar_Click);
             // 
             // mtbValorDespesa
             // 
@@ -79,7 +84,9 @@
             this.mtbValorDespesa.Location = new System.Drawing.Point(12, 80);
             this.mtbValorDespesa.Name = "mtbValorDespesa";
             this.mtbValorDespesa.Size = new System.Drawing.Size(123, 23);
-            this.mtbValorDespesa.TabIndex = 34;
+            this.mtbValorDespesa.TabIndex = 1;
+            this.mtbValorDespesa.TextChanged += new System.EventHandler(this.mtbValorDespesa_TextChanged);
+            this.mtbValorDespesa.Leave += new System.EventHandler(this.mtbValorDespesa_Leave);
             // 
             // lbValorDespesa
             // 
@@ -88,7 +95,7 @@
             this.lbValorDespesa.Location = new System.Drawing.Point(12, 61);
             this.lbValorDespesa.Name = "lbValorDespesa";
             this.lbValorDespesa.Size = new System.Drawing.Size(54, 15);
-            this.lbValorDespesa.TabIndex = 33;
+            this.lbValorDespesa.TabIndex = 0;
             this.lbValorDespesa.Text = "Valor R$";
             // 
             // tbDescricao
@@ -98,7 +105,8 @@
             this.tbDescricao.Multiline = true;
             this.tbDescricao.Name = "tbDescricao";
             this.tbDescricao.Size = new System.Drawing.Size(364, 165);
-            this.tbDescricao.TabIndex = 36;
+            this.tbDescricao.TabIndex = 7;
+            this.tbDescricao.Leave += new System.EventHandler(this.tbDescricao_Leave);
             // 
             // lbDescricao
             // 
@@ -107,7 +115,7 @@
             this.lbDescricao.Location = new System.Drawing.Point(12, 115);
             this.lbDescricao.Name = "lbDescricao";
             this.lbDescricao.Size = new System.Drawing.Size(65, 15);
-            this.lbDescricao.TabIndex = 35;
+            this.lbDescricao.TabIndex = 6;
             this.lbDescricao.Text = "Descrição";
             // 
             // pbDespesa
@@ -133,7 +141,8 @@
             this.cbFormaPagamento.Margin = new System.Windows.Forms.Padding(2);
             this.cbFormaPagamento.Name = "cbFormaPagamento";
             this.cbFormaPagamento.Size = new System.Drawing.Size(138, 25);
-            this.cbFormaPagamento.TabIndex = 93;
+            this.cbFormaPagamento.TabIndex = 3;
+            this.cbFormaPagamento.DropDown += new System.EventHandler(this.cbFormaPagamento_DropDown);
             // 
             // lbFormaPagamento
             // 
@@ -144,7 +153,7 @@
             this.lbFormaPagamento.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.lbFormaPagamento.Name = "lbFormaPagamento";
             this.lbFormaPagamento.Size = new System.Drawing.Size(111, 15);
-            this.lbFormaPagamento.TabIndex = 92;
+            this.lbFormaPagamento.TabIndex = 2;
             this.lbFormaPagamento.Text = "Forma Pagamento";
             // 
             // dtpDataDespesa
@@ -156,7 +165,7 @@
             this.dtpDataDespesa.Margin = new System.Windows.Forms.Padding(2);
             this.dtpDataDespesa.Name = "dtpDataDespesa";
             this.dtpDataDespesa.Size = new System.Drawing.Size(94, 23);
-            this.dtpDataDespesa.TabIndex = 261;
+            this.dtpDataDespesa.TabIndex = 5;
             // 
             // lbDataDespesa
             // 
@@ -167,8 +176,12 @@
             this.lbDataDespesa.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.lbDataDespesa.Name = "lbDataDespesa";
             this.lbDataDespesa.Size = new System.Drawing.Size(33, 15);
-            this.lbDataDespesa.TabIndex = 262;
+            this.lbDataDespesa.TabIndex = 4;
             this.lbDataDespesa.Text = "Data";
+            // 
+            // epDespesa
+            // 
+            this.epDespesa.ContainerControl = this;
             // 
             // FrmCadastrarDespesa
             // 
@@ -195,6 +208,7 @@
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Cadastro de Despesas";
             ((System.ComponentModel.ISupportInitialize)(this.pbDespesa)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.epDespesa)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -213,5 +227,6 @@
         private System.Windows.Forms.Label lbFormaPagamento;
         private System.Windows.Forms.DateTimePicker dtpDataDespesa;
         private System.Windows.Forms.Label lbDataDespesa;
+        private System.Windows.Forms.ErrorProvider epDespesa;
     }
 }

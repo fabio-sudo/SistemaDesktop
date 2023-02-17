@@ -1,4 +1,5 @@
-﻿using System;
+﻿using ObjetoTransferencia;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -12,9 +13,17 @@ namespace Apresentacao
 {
     public partial class FrmAterarExcluirDespesa : Form
     {
-        public FrmAterarExcluirDespesa()
+        public FrmAterarExcluirDespesa(DespesaCaixa despesaSelecionada)
         {
             InitializeComponent();
+        }
+
+
+        private void metodoConstrutor() { 
+        
+        
+        
+        
         }
     }
 }

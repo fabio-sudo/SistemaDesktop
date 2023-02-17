@@ -162,8 +162,42 @@ namespace Negocio
                 return listaDespesa;
 
             }
-            catch (Exception ex) { throw new Exception("Erro na camada de negócios Buscar Cor Por Nome " + ex.Message); }
+            catch (Exception ex) { throw new Exception("Erro na camada de negócios Buscar Despesa Por Data " + ex.Message); }
         }
 
+        //[uspBuscarDespesaTemporariaPorNome]
+        public ListaDespesas BuscarDespesaPorDescricao(string nomeDespesa)
+        {
+            try
+            {
+                sqlserver.LimparParametros();
+                sqlserver.AdicionarParametro(new System.Data.SqlClient.SqlParameter("@descricao", nomeDespesa));
+
+                ListaDespesas listaDespesa = new ListaDespesas();
+                DespesaCaixa despesa = new DespesaCaixa();
+                DataTable tabelaResultado;
+
+                string comando = "exec uspBuscarDespesaTemporariaPorNome @descricao";
+                tabelaResultado = sqlserver.ExecutarConsulta(comando, CommandType.Text);
+
+                foreach (DataRow registro in tabelaResultado.Rows)
+                {
+                    despesa = new DespesaCaixa();
+                    despesa.formaPagamento = new FormaPagamento();
+
+                    despesa.codigoDespesa = Convert.ToInt32(registro[0]);
+                    despesa.descricaoDespesa = registro[1].ToString();
+                    despesa.formaPagamento.codigoFormaPagamento = Convert.ToInt32(registro[2]);
+                    despesa.formaPagamento.formaPagamento = registro[3].ToString();
+                    despesa.valorDespesa = Convert.ToDouble(registro[4]);
+                    despesa.dataDespesa = Convert.ToDateTime(registro[5]);
+
+                    listaDespesa.Add(despesa);
+                }
+                return listaDespesa;
+
+            }
+            catch (Exception ex) { throw new Exception("Erro na camada de negócios Buscar Despesa Por Nome " + ex.Message); }
+        }
     }
 }
