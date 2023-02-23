@@ -32,9 +32,9 @@
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle5 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle6 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FrmSelecionarDespesa));
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle4 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FrmSelecionarDespesa));
             this.btSair = new System.Windows.Forms.Button();
             this.btSelecionar = new System.Windows.Forms.Button();
             this.btCadastrar = new System.Windows.Forms.Button();
@@ -42,18 +42,18 @@
             this.panelBuscarDespesa = new System.Windows.Forms.Panel();
             this.tbBuscarDespesa = new System.Windows.Forms.TextBox();
             this.dgvDespesas = new System.Windows.Forms.DataGridView();
-            this.dtpDataInicial = new System.Windows.Forms.DateTimePicker();
-            this.dtpDataFinal = new System.Windows.Forms.DateTimePicker();
-            this.lbDataInicial = new System.Windows.Forms.Label();
-            this.lbDataFinal = new System.Windows.Forms.Label();
-            this.pbFiltrar = new System.Windows.Forms.PictureBox();
-            this.pbDespesa = new System.Windows.Forms.PictureBox();
             this.codigoDespesa = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.descricaoDespesa = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.valorDespesa = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.formaPagamentoDespesa = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.codigoFormaPagamentoSelecionado = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.dataDespesa = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dtpDataInicial = new System.Windows.Forms.DateTimePicker();
+            this.dtpDataFinal = new System.Windows.Forms.DateTimePicker();
+            this.lbDataInicial = new System.Windows.Forms.Label();
+            this.lbDataFinal = new System.Windows.Forms.Label();
+            this.pbFiltrar = new System.Windows.Forms.PictureBox();
+            this.pbDespesa = new System.Windows.Forms.PictureBox();
             ((System.ComponentModel.ISupportInitialize)(this.dgvDespesas)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pbFiltrar)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pbDespesa)).BeginInit();
@@ -189,6 +189,53 @@
             this.dgvDespesas.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.dgvDespesas.Size = new System.Drawing.Size(659, 348);
             this.dgvDespesas.TabIndex = 6;
+            this.dgvDespesas.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvDespesas_CellDoubleClick);
+            // 
+            // codigoDespesa
+            // 
+            this.codigoDespesa.HeaderText = "Cód";
+            this.codigoDespesa.Name = "codigoDespesa";
+            this.codigoDespesa.Width = 50;
+            // 
+            // descricaoDespesa
+            // 
+            this.descricaoDespesa.HeaderText = "Descrição";
+            this.descricaoDespesa.Name = "descricaoDespesa";
+            this.descricaoDespesa.ToolTipText = "Descrição da despesa";
+            this.descricaoDespesa.Width = 240;
+            // 
+            // valorDespesa
+            // 
+            dataGridViewCellStyle3.Format = "C2";
+            dataGridViewCellStyle3.NullValue = null;
+            this.valorDespesa.DefaultCellStyle = dataGridViewCellStyle3;
+            this.valorDespesa.HeaderText = "Valor R$";
+            this.valorDespesa.Name = "valorDespesa";
+            this.valorDespesa.ToolTipText = "valor da despesa";
+            // 
+            // formaPagamentoDespesa
+            // 
+            this.formaPagamentoDespesa.HeaderText = "Pagamento";
+            this.formaPagamentoDespesa.Name = "formaPagamentoDespesa";
+            this.formaPagamentoDespesa.Resizable = System.Windows.Forms.DataGridViewTriState.True;
+            this.formaPagamentoDespesa.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
+            this.formaPagamentoDespesa.ToolTipText = "Forma de Pagamento da Despesa";
+            this.formaPagamentoDespesa.Width = 140;
+            // 
+            // codigoFormaPagamentoSelecionado
+            // 
+            this.codigoFormaPagamentoSelecionado.HeaderText = "codigoFormaPagamento";
+            this.codigoFormaPagamentoSelecionado.Name = "codigoFormaPagamentoSelecionado";
+            this.codigoFormaPagamentoSelecionado.Visible = false;
+            // 
+            // dataDespesa
+            // 
+            dataGridViewCellStyle4.Format = "d";
+            dataGridViewCellStyle4.NullValue = null;
+            this.dataDespesa.DefaultCellStyle = dataGridViewCellStyle4;
+            this.dataDespesa.HeaderText = "Data";
+            this.dataDespesa.Name = "dataDespesa";
+            this.dataDespesa.Width = 80;
             // 
             // dtpDataInicial
             // 
@@ -259,52 +306,6 @@
             this.pbDespesa.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             this.pbDespesa.TabIndex = 13;
             this.pbDespesa.TabStop = false;
-            // 
-            // codigoDespesa
-            // 
-            this.codigoDespesa.HeaderText = "Cód";
-            this.codigoDespesa.Name = "codigoDespesa";
-            this.codigoDespesa.Width = 50;
-            // 
-            // descricaoDespesa
-            // 
-            this.descricaoDespesa.HeaderText = "Descrição";
-            this.descricaoDespesa.Name = "descricaoDespesa";
-            this.descricaoDespesa.ToolTipText = "Descrição da despesa";
-            this.descricaoDespesa.Width = 240;
-            // 
-            // valorDespesa
-            // 
-            dataGridViewCellStyle3.Format = "C2";
-            dataGridViewCellStyle3.NullValue = null;
-            this.valorDespesa.DefaultCellStyle = dataGridViewCellStyle3;
-            this.valorDespesa.HeaderText = "Valor R$";
-            this.valorDespesa.Name = "valorDespesa";
-            this.valorDespesa.ToolTipText = "valor da despesa";
-            // 
-            // formaPagamentoDespesa
-            // 
-            this.formaPagamentoDespesa.HeaderText = "Pagamento";
-            this.formaPagamentoDespesa.Name = "formaPagamentoDespesa";
-            this.formaPagamentoDespesa.Resizable = System.Windows.Forms.DataGridViewTriState.True;
-            this.formaPagamentoDespesa.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
-            this.formaPagamentoDespesa.ToolTipText = "Forma de Pagamento da Despesa";
-            this.formaPagamentoDespesa.Width = 140;
-            // 
-            // codigoFormaPagamentoSelecionado
-            // 
-            this.codigoFormaPagamentoSelecionado.HeaderText = "codigoFormaPagamento";
-            this.codigoFormaPagamentoSelecionado.Name = "codigoFormaPagamentoSelecionado";
-            this.codigoFormaPagamentoSelecionado.Visible = false;
-            // 
-            // dataDespesa
-            // 
-            dataGridViewCellStyle4.Format = "d";
-            dataGridViewCellStyle4.NullValue = null;
-            this.dataDespesa.DefaultCellStyle = dataGridViewCellStyle4;
-            this.dataDespesa.HeaderText = "Data";
-            this.dataDespesa.Name = "dataDespesa";
-            this.dataDespesa.Width = 80;
             // 
             // FrmSelecionarDespesa
             // 

@@ -170,6 +170,11 @@ namespace Apresentacao
             }
         }
 
+        private void dgvDespesas_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
+        {
+            btSelecionar.PerformClick();
+        }
+
 
     }
 }

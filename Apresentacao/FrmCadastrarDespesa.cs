@@ -176,7 +176,7 @@ namespace Apresentacao
                 catch (Exception ex)
                 {
                     FrmCaixaDialogo frmCaixa = new FrmCaixaDialogo("Erro",
-                    "Erro ao cadastrar Funcionário \r\n" + ex.Message,
+                    "Erro ao cadastrar Despesa \r\n" + ex.Message,
                     Properties.Resources.DialogErro,
                     System.Drawing.Color.FromArgb(((int)(((byte)(51)))), ((int)(((byte)(51)))), ((int)(((byte)(76))))),
                     Color.White,
@@ -202,6 +202,18 @@ namespace Apresentacao
                 }
             }
             catch (Exception ex) { MessageBox.Show(ex.Message); }
+        }
+
+        private void FrmCadastrarDespesa_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode.Equals(Keys.Escape) == true)
+            {
+                btSair.PerformClick();
+            }
+            if (e.KeyCode.Equals(Keys.F10) == true)
+            {
+                btCadastrar.PerformClick();
+            }
         }
 
 

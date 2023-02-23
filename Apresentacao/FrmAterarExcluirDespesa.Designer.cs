@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FrmAterarExcluirDespesa));
             this.lbDataDespesa = new System.Windows.Forms.Label();
             this.dtpDataDespesa = new System.Windows.Forms.DateTimePicker();
@@ -42,8 +43,10 @@
             this.pbDespesa = new System.Windows.Forms.PictureBox();
             this.btExcluir = new System.Windows.Forms.Button();
             this.lbCodigoDespesa = new System.Windows.Forms.Label();
-            this.tbTrocoCaixa = new System.Windows.Forms.TextBox();
+            this.tbCodigo = new System.Windows.Forms.TextBox();
+            this.epDespesa = new System.Windows.Forms.ErrorProvider(this.components);
             ((System.ComponentModel.ISupportInitialize)(this.pbDespesa)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.epDespesa)).BeginInit();
             this.SuspendLayout();
             // 
             // lbDataDespesa
@@ -103,6 +106,7 @@
             this.tbDescricao.Name = "tbDescricao";
             this.tbDescricao.Size = new System.Drawing.Size(348, 165);
             this.tbDescricao.TabIndex = 268;
+            this.tbDescricao.Leave += new System.EventHandler(this.tbDescricao_Leave);
             // 
             // lbDescricao
             // 
@@ -122,6 +126,8 @@
             this.mtbValorDespesa.Name = "mtbValorDespesa";
             this.mtbValorDespesa.Size = new System.Drawing.Size(123, 23);
             this.mtbValorDespesa.TabIndex = 266;
+            this.mtbValorDespesa.TextChanged += new System.EventHandler(this.mtbValorDespesa_TextChanged);
+            this.mtbValorDespesa.Leave += new System.EventHandler(this.mtbValorDespesa_Leave);
             // 
             // lbValorDespesa
             // 
@@ -148,6 +154,7 @@
             this.btSair.TabIndex = 264;
             this.btSair.Text = "Esc Sair";
             this.btSair.UseVisualStyleBackColor = false;
+            this.btSair.Click += new System.EventHandler(this.btSair_Click);
             // 
             // btAlterar
             // 
@@ -163,6 +170,7 @@
             this.btAlterar.TabIndex = 263;
             this.btAlterar.Text = "F10 Alterar";
             this.btAlterar.UseVisualStyleBackColor = false;
+            this.btAlterar.Click += new System.EventHandler(this.btAlterar_Click);
             // 
             // pbDespesa
             // 
@@ -189,6 +197,7 @@
             this.btExcluir.TabIndex = 274;
             this.btExcluir.Text = "F2 Excluir";
             this.btExcluir.UseVisualStyleBackColor = false;
+            this.btExcluir.Click += new System.EventHandler(this.btExcluir_Click);
             // 
             // lbCodigoDespesa
             // 
@@ -202,15 +211,19 @@
             this.lbCodigoDespesa.TabIndex = 276;
             this.lbCodigoDespesa.Text = "Código";
             // 
-            // tbTrocoCaixa
+            // tbCodigo
             // 
-            this.tbTrocoCaixa.Enabled = false;
-            this.tbTrocoCaixa.Font = new System.Drawing.Font("Arial Narrow", 10F, System.Drawing.FontStyle.Bold);
-            this.tbTrocoCaixa.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(51)))), ((int)(((byte)(51)))), ((int)(((byte)(76)))));
-            this.tbTrocoCaixa.Location = new System.Drawing.Point(59, 31);
-            this.tbTrocoCaixa.Name = "tbTrocoCaixa";
-            this.tbTrocoCaixa.Size = new System.Drawing.Size(76, 23);
-            this.tbTrocoCaixa.TabIndex = 275;
+            this.tbCodigo.Enabled = false;
+            this.tbCodigo.Font = new System.Drawing.Font("Arial Narrow", 10F, System.Drawing.FontStyle.Bold);
+            this.tbCodigo.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(51)))), ((int)(((byte)(51)))), ((int)(((byte)(76)))));
+            this.tbCodigo.Location = new System.Drawing.Point(59, 31);
+            this.tbCodigo.Name = "tbCodigo";
+            this.tbCodigo.Size = new System.Drawing.Size(76, 23);
+            this.tbCodigo.TabIndex = 275;
+            // 
+            // epDespesa
+            // 
+            this.epDespesa.ContainerControl = this;
             // 
             // FrmAterarExcluirDespesa
             // 
@@ -219,7 +232,7 @@
             this.BackColor = System.Drawing.SystemColors.ControlLightLight;
             this.ClientSize = new System.Drawing.Size(381, 380);
             this.Controls.Add(this.lbCodigoDespesa);
-            this.Controls.Add(this.tbTrocoCaixa);
+            this.Controls.Add(this.tbCodigo);
             this.Controls.Add(this.btExcluir);
             this.Controls.Add(this.lbDataDespesa);
             this.Controls.Add(this.dtpDataDespesa);
@@ -239,7 +252,10 @@
             this.Name = "FrmAterarExcluirDespesa";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Alterar & Excluir Despesa";
+            this.Load += new System.EventHandler(this.FrmAterarExcluirDespesa_Load);
+            this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.FrmAterarExcluirDespesa_KeyDown);
             ((System.ComponentModel.ISupportInitialize)(this.pbDespesa)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.epDespesa)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -260,6 +276,7 @@
         private System.Windows.Forms.Button btAlterar;
         private System.Windows.Forms.Button btExcluir;
         private System.Windows.Forms.Label lbCodigoDespesa;
-        private System.Windows.Forms.TextBox tbTrocoCaixa;
+        private System.Windows.Forms.TextBox tbCodigo;
+        private System.Windows.Forms.ErrorProvider epDespesa;
     }
 }

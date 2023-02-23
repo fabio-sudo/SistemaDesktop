@@ -207,6 +207,7 @@
             this.Name = "FrmCadastrarDespesa";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Cadastro de Despesas";
+            this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.FrmCadastrarDespesa_KeyDown);
             ((System.ComponentModel.ISupportInitialize)(this.pbDespesa)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.epDespesa)).EndInit();
             this.ResumeLayout(false);
