@@ -364,7 +364,7 @@
             this.panelTitulo.Location = new System.Drawing.Point(0, 25);
             this.panelTitulo.Margin = new System.Windows.Forms.Padding(2);
             this.panelTitulo.Name = "panelTitulo";
-            this.panelTitulo.Size = new System.Drawing.Size(724, 65);
+            this.panelTitulo.Size = new System.Drawing.Size(724, 40);
             this.panelTitulo.TabIndex = 7;
             // 
             // btLogin
@@ -379,7 +379,7 @@
             this.btLogin.Location = new System.Drawing.Point(634, 0);
             this.btLogin.Margin = new System.Windows.Forms.Padding(2);
             this.btLogin.Name = "btLogin";
-            this.btLogin.Size = new System.Drawing.Size(90, 65);
+            this.btLogin.Size = new System.Drawing.Size(90, 40);
             this.btLogin.TabIndex = 2;
             this.btLogin.Text = "Usuário";
             this.btLogin.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
@@ -396,7 +396,7 @@
             this.btFechar.Location = new System.Drawing.Point(0, 0);
             this.btFechar.Margin = new System.Windows.Forms.Padding(2);
             this.btFechar.Name = "btFechar";
-            this.btFechar.Size = new System.Drawing.Size(68, 65);
+            this.btFechar.Size = new System.Drawing.Size(68, 40);
             this.btFechar.TabIndex = 0;
             this.btFechar.UseVisualStyleBackColor = true;
             this.btFechar.Visible = false;
@@ -408,7 +408,7 @@
             this.lbTitulo.AutoSize = true;
             this.lbTitulo.Font = new System.Drawing.Font("Calibri", 16.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lbTitulo.ForeColor = System.Drawing.SystemColors.ControlLightLight;
-            this.lbTitulo.Location = new System.Drawing.Point(327, 18);
+            this.lbTitulo.Location = new System.Drawing.Point(327, 6);
             this.lbTitulo.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.lbTitulo.Name = "lbTitulo";
             this.lbTitulo.Size = new System.Drawing.Size(0, 27);
@@ -447,7 +447,7 @@
             this.clienteToolStripMenuItem.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(51)))), ((int)(((byte)(51)))), ((int)(((byte)(76)))));
             this.clienteToolStripMenuItem.ForeColor = System.Drawing.Color.White;
             this.clienteToolStripMenuItem.Name = "clienteToolStripMenuItem";
-            this.clienteToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.clienteToolStripMenuItem.Size = new System.Drawing.Size(140, 22);
             this.clienteToolStripMenuItem.Text = "Cliente";
             // 
             // funcionárioToolStripMenuItem
@@ -455,7 +455,7 @@
             this.funcionárioToolStripMenuItem.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(51)))), ((int)(((byte)(51)))), ((int)(((byte)(76)))));
             this.funcionárioToolStripMenuItem.ForeColor = System.Drawing.Color.White;
             this.funcionárioToolStripMenuItem.Name = "funcionárioToolStripMenuItem";
-            this.funcionárioToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.funcionárioToolStripMenuItem.Size = new System.Drawing.Size(140, 22);
             this.funcionárioToolStripMenuItem.Text = "Funcionário";
             // 
             // fornecedorToolStripMenuItem
@@ -463,7 +463,7 @@
             this.fornecedorToolStripMenuItem.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(51)))), ((int)(((byte)(51)))), ((int)(((byte)(76)))));
             this.fornecedorToolStripMenuItem.ForeColor = System.Drawing.Color.White;
             this.fornecedorToolStripMenuItem.Name = "fornecedorToolStripMenuItem";
-            this.fornecedorToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.fornecedorToolStripMenuItem.Size = new System.Drawing.Size(140, 22);
             this.fornecedorToolStripMenuItem.Text = "Fornecedor";
             // 
             // produtoToolStripMenuItem
@@ -471,7 +471,7 @@
             this.produtoToolStripMenuItem.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(51)))), ((int)(((byte)(51)))), ((int)(((byte)(76)))));
             this.produtoToolStripMenuItem.ForeColor = System.Drawing.Color.White;
             this.produtoToolStripMenuItem.Name = "produtoToolStripMenuItem";
-            this.produtoToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.produtoToolStripMenuItem.Size = new System.Drawing.Size(140, 22);
             this.produtoToolStripMenuItem.Text = "Produto";
             // 
             // estoqueToolStripMenuItem

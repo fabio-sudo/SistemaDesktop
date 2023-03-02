@@ -21,6 +21,7 @@ namespace Apresentacao
 
         ListaDespesas listaDespesas = new ListaDespesas();
         ListaFormaPagamento listaFormaPagamento = new ListaFormaPagamento();
+        NegDespesa nDespesa = new NegDespesa();
 
         NegFormaPagamento nFormaPagamento = new NegFormaPagamento();
 
@@ -30,11 +31,63 @@ namespace Apresentacao
         ComboBox comboDataGride;
         int indiceGride = 0;
 
+
+        //---Variaveis
+        double valorRecebidoCaixa = 0;
+        double valorRecebidoUsuario = 0;
+        double valorLiquidoCaixa = 0;
+        double descontoCaixa = 0;
+        double jurosCaixa = 0;
+        double valorDespesaCaixa = 0;
+        double valorSangria = 0;
+        double faltaCaixa = 0;
+
         public FrmCaixaPendente(Caixa caixa)
         {
             InitializeComponent();
 
             caixaSelecionado = caixa;
+        }
+
+
+        //Metodo verifica se há despesas pendentes a lançar
+        private void metodoPreencheDespesas() {
+
+            listaDespesas = nDespesa.BuscarDespesaPorData(caixaSelecionado.dataCaixa, caixaSelecionado.dataCaixa);
+
+            if (listaDespesas.Count > 0) {
+
+                this.dgvDespesas.Rows.Clear(); // Limpa todos os registros atuais no grid de funcionários.
+
+                if (this.listaDespesas.Count > 0)
+                {
+                    this.dgvDespesas.Rows.Add(this.listaDespesas.Count);
+                }
+                else
+                {
+                    return;
+                }
+
+                int indice = 0;
+
+                foreach (DespesaCaixa despesa in this.listaDespesas)
+                {
+                    this.dgvDespesas[0, indice].Value = despesa.descricaoDespesa;
+                    this.dgvDespesas[1, indice].Value = despesa.valorDespesa;
+                    this.dgvDespesas[2, indice].Value = despesa.formaPagamento.formaPagamento;
+                    this.dgvDespesas[3, indice].Value = indice;
+                    this.dgvDespesas[4, indice].Value = despesa.formaPagamento.codigoFormaPagamento;
+                    
+                    dgvDespesas.Rows[indice].ReadOnly = true;
+                    dgvDespesas.Rows[indice].ErrorText = "";
+
+                    indice++;
+                }
+
+                dgvDespesas.Update();
+            
+            }
+
         }
 
         //atualiza do dados da GRid
@@ -72,6 +125,8 @@ namespace Apresentacao
 
         //realiza criação do formulário preenhcido
         private void metodoConstrutor() {
+           
+            metodoPreencheDespesas();
 
             tbEstatusCaixa.Text = caixaSelecionado.estatusCaixa;
             dtpDataCaixa.Value = caixaSelecionado.dataCaixa;
@@ -80,7 +135,6 @@ namespace Apresentacao
 
 
             lbTotalTrocoCaixa.Text = String.Format("{0:C2}", caixaSelecionado.trocoCaixa);
-            lbTrocoSistema.Text = "+"+String.Format("{0:C2}", caixaSelecionado.trocoCaixa);
             lbTotalEstorno.Text = String.Format("{0:C2}", caixaSelecionado.estornoCaixa);
             //Combo Despesas
             metodoPreencheCombobox();
@@ -165,14 +219,18 @@ namespace Apresentacao
         //Calcula os totais do caixa
         private void metodoCalculaTotais() {
 
-            //---Variaveis
-            double valorRecebidoCaixa = 0;
-            double valorRecebidoUsuario = 0;
-            double valorLiquidoCaixa = 0;
-            double descontoCaixa = 0;
-            double jurosCaixa = 0;
-            double valorDespesaCaixa = 0;
-            double valorSangria = 0;
+
+             valorRecebidoCaixa = 0;
+             valorRecebidoUsuario = 0;
+             valorLiquidoCaixa = 0;
+             descontoCaixa = 0;
+             jurosCaixa = 0;
+             valorDespesaCaixa = 0;
+             valorSangria = 0;
+             faltaCaixa = 0;
+
+
+
 
             foreach (DataGridViewRow row in dgvCaixa.Rows) {
 
@@ -201,45 +259,51 @@ namespace Apresentacao
             if (Math.Round(valorRecebidoCaixa) == Math.Round(valorRecebidoUsuario + valorDespesaCaixa - valorSangria))
             {
                 lbTituloCaixaReal.BackColor = Color.Turquoise;
-                lbCaixaCliente.ForeColor = Color.Turquoise;
-                panelCalculoVenda.BackColor = Color.Turquoise;
                 pbOk.Image = Properties.Resources.DialogOK;
-                lbSangria.ForeColor = Color.Turquoise;
-                lbDespesasSistema.ForeColor = Color.Turquoise;
             }
             else {
                 lbTituloCaixaReal.BackColor = Color.Red;
-                lbCaixaCliente.ForeColor = Color.Red;
-                panelCalculoVenda.BackColor = Color.Red;
-                lbSangria.ForeColor = Color.Red;
                 pbOk.Image = Properties.Resources.DialogErro;
-                lbDespesasSistema.ForeColor = Color.Red;
             
             }
 
-            //Fechamento Usuário
-            lbTotalMovimentacaoCaixa.Text = "+" + String.Format("{0:C2}", valorRecebidoUsuario + valorDespesaCaixa - valorSangria);       
-            lbCaixaCliente.Text = String.Format("{0:C2}", valorRecebidoUsuario + valorDespesaCaixa - valorSangria);
+            //Fechamento Usuário Falta Caixa
+            faltaCaixa = (valorRecebidoUsuario + valorDespesaCaixa - valorSangria) - valorRecebidoCaixa;
+
+
+            if (faltaCaixa > 0) { 
+
+            lbTituloMovimentacaoCaixa.BackColor =   Color.Turquoise;
+            lbFaltouSobrou.Text = "Sobrou +";
+            }
+            else if (faltaCaixa < 0)
+            {
+
+
+                lbTituloMovimentacaoCaixa.BackColor = Color.Red;
+                lbFaltouSobrou.Text = "Faltou - +";
+            }
+            else {
+                lbTituloMovimentacaoCaixa.BackColor = Color.FromArgb(51, 51, 76);
+                lbFaltouSobrou.Text = "Valor Confirmado";        
+            }
+
+            //Caixa
+            lbTotalMovimentacaoCaixa.Text = String.Format("{0:C2}",  faltaCaixa);       
+           
+            //Liquido
+            lbTotalLiquidoCaixa.Text = "+" + String.Format("{0:C2}", valorLiquidoCaixa);
             //Sangria
             lbTotalSangria.Text = "+" + String.Format("{0:C2}", -valorSangria);
-            lbSangria.Text = "+"+String.Format("{0:C2}", - valorSangria);
-            
-            //Caixa Sistema
-            lbTotalLiquidoCaixa.Text = String.Format("{0:C2}", valorLiquidoCaixa );
-            lbRecebidoSistema.Text = "+" + String.Format("{0:C2}", valorLiquidoCaixa);
-            //Liquido
-            lbTotalRecebidoCaixa.Text = String.Format("{0:C2}", valorRecebidoCaixa);
-            lbVendaLiquido.Text = String.Format("{0:C2}", valorRecebidoCaixa);
+
             //Juros
             lbTotalJurosCaixa.Text = "%"+String.Format("{0:C2}", jurosCaixa);
-            lbJurosSistema.Text = "%"+String.Format("{0:C2}", jurosCaixa);
+            
             //Desconto
             lbTotalDescontoCaixa.Text ="- "+ String.Format("{0:C2}", descontoCaixa);
-            lbDescontoSistema.Text = "- "+ String.Format("{0:C2}", descontoCaixa);
 
             //Despesas
             lbTotalDespesas.Text = "- " + String.Format("{0:C2}", valorDespesaCaixa);
-            lbDespesasSistema.Text = "- " + String.Format("{0:C2}", valorDespesaCaixa);
 
         }
 
@@ -414,7 +478,9 @@ namespace Apresentacao
             if(dgvDespesas.Rows.Count > 0){
             var indice = dgvDespesas.CurrentRow.Index;
 
-            if (indice >= 0)
+
+
+            if (indice >= 0 && dgvDespesas.CurrentRow.ReadOnly == false)
             {
 
                 dgvDespesas.Rows.RemoveAt(indice);
@@ -597,6 +663,15 @@ namespace Apresentacao
 
 
 
+        }
+
+        private void btDespesas_Click(object sender, EventArgs e)
+        {
+            FrmSelecionarDespesa frmDespesa = new FrmSelecionarDespesa();
+            frmDespesa.ShowDialog();
+
+            metodoConstrutor();
+        
         }
     }
 }

@@ -29,6 +29,13 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle6 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle7 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle4 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle5 = new System.Windows.Forms.DataGridViewCellStyle();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FrmCadastrarDespesa));
             this.btSair = new System.Windows.Forms.Button();
             this.btCadastrar = new System.Windows.Forms.Button();
@@ -42,8 +49,18 @@
             this.dtpDataDespesa = new System.Windows.Forms.DateTimePicker();
             this.lbDataDespesa = new System.Windows.Forms.Label();
             this.epDespesa = new System.Windows.Forms.ErrorProvider(this.components);
+            this.dgvCaixa = new System.Windows.Forms.DataGridView();
+            this.lbTituloTotalVenda = new System.Windows.Forms.Label();
+            this.pictureBox1 = new System.Windows.Forms.PictureBox();
+            this.Caixa = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.valorRealCaixa = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.SangriaCaixa = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.formaPagamentoCaixa = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.estornoCaixa = new System.Windows.Forms.DataGridViewTextBoxColumn();
             ((System.ComponentModel.ISupportInitialize)(this.pbDespesa)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.epDespesa)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dgvCaixa)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.SuspendLayout();
             // 
             // btSair
@@ -183,12 +200,121 @@
             // 
             this.epDespesa.ContainerControl = this;
             // 
+            // dgvCaixa
+            // 
+            this.dgvCaixa.AllowUserToAddRows = false;
+            this.dgvCaixa.AllowUserToDeleteRows = false;
+            dataGridViewCellStyle1.BackColor = System.Drawing.SystemColors.ButtonFace;
+            dataGridViewCellStyle1.ForeColor = System.Drawing.Color.RoyalBlue;
+            this.dgvCaixa.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle1;
+            this.dgvCaixa.BackgroundColor = System.Drawing.SystemColors.ButtonHighlight;
+            dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle2.BackColor = System.Drawing.SystemColors.Control;
+            dataGridViewCellStyle2.Font = new System.Drawing.Font("Arial Narrow", 11F, System.Drawing.FontStyle.Bold);
+            dataGridViewCellStyle2.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle2.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle2.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.dgvCaixa.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle2;
+            this.dgvCaixa.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dgvCaixa.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.Caixa,
+            this.valorRealCaixa,
+            this.SangriaCaixa,
+            this.formaPagamentoCaixa,
+            this.estornoCaixa});
+            dataGridViewCellStyle6.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle6.BackColor = System.Drawing.SystemColors.Window;
+            dataGridViewCellStyle6.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle6.ForeColor = System.Drawing.SystemColors.ControlText;
+            dataGridViewCellStyle6.SelectionBackColor = System.Drawing.Color.DeepPink;
+            dataGridViewCellStyle6.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle6.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
+            this.dgvCaixa.DefaultCellStyle = dataGridViewCellStyle6;
+            this.dgvCaixa.GridColor = System.Drawing.SystemColors.ButtonFace;
+            this.dgvCaixa.Location = new System.Drawing.Point(384, 78);
+            this.dgvCaixa.Margin = new System.Windows.Forms.Padding(2);
+            this.dgvCaixa.Name = "dgvCaixa";
+            dataGridViewCellStyle7.Font = new System.Drawing.Font("Arial Narrow", 10F, System.Drawing.FontStyle.Bold);
+            this.dgvCaixa.RowsDefaultCellStyle = dataGridViewCellStyle7;
+            this.dgvCaixa.RowTemplate.Height = 24;
+            this.dgvCaixa.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
+            this.dgvCaixa.Size = new System.Drawing.Size(550, 220);
+            this.dgvCaixa.TabIndex = 231;
+            // 
+            // lbTituloTotalVenda
+            // 
+            this.lbTituloTotalVenda.AutoSize = true;
+            this.lbTituloTotalVenda.Font = new System.Drawing.Font("Arial", 12F, System.Drawing.FontStyle.Bold);
+            this.lbTituloTotalVenda.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(51)))), ((int)(((byte)(51)))), ((int)(((byte)(76)))));
+            this.lbTituloTotalVenda.Location = new System.Drawing.Point(420, 55);
+            this.lbTituloTotalVenda.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.lbTituloTotalVenda.Name = "lbTituloTotalVenda";
+            this.lbTituloTotalVenda.Size = new System.Drawing.Size(167, 19);
+            this.lbTituloTotalVenda.TabIndex = 232;
+            this.lbTituloTotalVenda.Text = "Movimentação Caixa";
+            this.lbTituloTotalVenda.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // pictureBox1
+            // 
+            this.pictureBox1.Image = global::Apresentacao.Properties.Resources.DialogVenda;
+            this.pictureBox1.Location = new System.Drawing.Point(384, 42);
+            this.pictureBox1.Margin = new System.Windows.Forms.Padding(2);
+            this.pictureBox1.Name = "pictureBox1";
+            this.pictureBox1.Size = new System.Drawing.Size(32, 32);
+            this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.pictureBox1.TabIndex = 248;
+            this.pictureBox1.TabStop = false;
+            // 
+            // Caixa
+            // 
+            this.Caixa.DataPropertyName = "caixaUsuario";
+            dataGridViewCellStyle3.Format = "C2";
+            dataGridViewCellStyle3.NullValue = null;
+            this.Caixa.DefaultCellStyle = dataGridViewCellStyle3;
+            this.Caixa.HeaderText = "Caixa";
+            this.Caixa.Name = "Caixa";
+            this.Caixa.ReadOnly = true;
+            this.Caixa.ToolTipText = "Total do Caixa";
+            // 
+            // valorRealCaixa
+            // 
+            dataGridViewCellStyle4.Format = "C2";
+            dataGridViewCellStyle4.NullValue = null;
+            this.valorRealCaixa.DefaultCellStyle = dataGridViewCellStyle4;
+            this.valorRealCaixa.HeaderText = "Recebimento";
+            this.valorRealCaixa.Name = "valorRealCaixa";
+            // 
+            // SangriaCaixa
+            // 
+            dataGridViewCellStyle5.Format = "C2";
+            dataGridViewCellStyle5.NullValue = null;
+            this.SangriaCaixa.DefaultCellStyle = dataGridViewCellStyle5;
+            this.SangriaCaixa.HeaderText = "Sangria";
+            this.SangriaCaixa.Name = "SangriaCaixa";
+            this.SangriaCaixa.ReadOnly = true;
+            // 
+            // formaPagamentoCaixa
+            // 
+            this.formaPagamentoCaixa.HeaderText = "Pagamento";
+            this.formaPagamentoCaixa.Name = "formaPagamentoCaixa";
+            this.formaPagamentoCaixa.ReadOnly = true;
+            this.formaPagamentoCaixa.ToolTipText = "Forma de Pagamento";
+            // 
+            // estornoCaixa
+            // 
+            this.estornoCaixa.HeaderText = "Estorno";
+            this.estornoCaixa.Name = "estornoCaixa";
+            // 
             // FrmCadastrarDespesa
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.ControlLightLight;
-            this.ClientSize = new System.Drawing.Size(391, 369);
+            this.ClientSize = new System.Drawing.Size(945, 369);
+            this.Controls.Add(this.pictureBox1);
+            this.Controls.Add(this.lbTituloTotalVenda);
+            this.Controls.Add(this.dgvCaixa);
             this.Controls.Add(this.lbDataDespesa);
             this.Controls.Add(this.dtpDataDespesa);
             this.Controls.Add(this.cbFormaPagamento);
@@ -210,6 +336,8 @@
             this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.FrmCadastrarDespesa_KeyDown);
             ((System.ComponentModel.ISupportInitialize)(this.pbDespesa)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.epDespesa)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dgvCaixa)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -229,5 +357,13 @@
         private System.Windows.Forms.DateTimePicker dtpDataDespesa;
         private System.Windows.Forms.Label lbDataDespesa;
         private System.Windows.Forms.ErrorProvider epDespesa;
+        private System.Windows.Forms.DataGridView dgvCaixa;
+        private System.Windows.Forms.Label lbTituloTotalVenda;
+        private System.Windows.Forms.PictureBox pictureBox1;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Caixa;
+        private System.Windows.Forms.DataGridViewTextBoxColumn valorRealCaixa;
+        private System.Windows.Forms.DataGridViewTextBoxColumn SangriaCaixa;
+        private System.Windows.Forms.DataGridViewTextBoxColumn formaPagamentoCaixa;
+        private System.Windows.Forms.DataGridViewTextBoxColumn estornoCaixa;
     }
 }

@@ -19,12 +19,48 @@ namespace Apresentacao
         ListaFormaPagamento listaPagamento = new ListaFormaPagamento();
         NegFormaPagamento nPagamento = new NegFormaPagamento();
 
+        CaixaLista listaCaixa = new CaixaLista();
+        NegCaixa nCaixa = new NegCaixa();
+
         public FrmCadastrarDespesa()
         {
             InitializeComponent();
         }
 
+        private void metodoConstrutor() { 
+        
+            listaCaixa = nCaixa.BuscarCaixaPendente(dtpDataDespesa.Value);
 
+            SangriaLista listaSangria = new SangriaLista();
+            listaSangria = nCaixa.BuscarSangriaFechamentoCaixa(dtpDataDespesa.Value);
+
+            //Adiciona valor da Sangria ao Caixa
+            foreach (Sangria sangria in listaSangria) {
+
+                foreach (Caixa caixa in listaCaixa) {
+
+                    if (sangria.pagamentoSangria.formaPagamento == caixa.formaPagamento.formaPagamento) {
+
+                        caixa.sangriaCaixa = - sangria.valorSangria;
+                        break;
+                    }     
+                }                 
+            }
+
+            if (listaCaixa.Count > 0)
+            {
+                metodoAtualizaGrid();
+                metodoCalculaTotais();
+            }
+            else
+            { this.Close(); }
+                  
+        }
+
+        private void metodoAtualizaGrid() { 
+        
+        
+        }
 
         //Metodo para validar campos
         public Boolean metodoValidaCampos()
