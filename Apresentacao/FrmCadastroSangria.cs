@@ -37,6 +37,37 @@ namespace Apresentacao
         }
 
 
+        private void metodoPreencheDespesa() {
+
+            ListaDespesas listaDespesas = new ListaDespesas();
+            NegDespesa nDespesa = new NegDespesa();
+
+            listaDespesas = nDespesa.BuscarDespesaPorData(dtpDataSangria.Value, dtpDataSangria.Value);
+
+            if (listaDespesas.Count > 0)
+            {
+                //Adiciona valor da Despesas ja cadastradas na sangria
+                foreach (DespesaCaixa despesa in listaDespesas)
+                {
+
+                    foreach (Sangria sangria in sangriaLista)
+                    {
+
+                        if (despesa.formaPagamento.formaPagamento == sangria.pagamentoSangria.formaPagamento)
+                        {
+
+                            sangria.despesaSangria = - despesa.valorDespesa;
+                            break;
+                        }
+                    }
+                }
+
+            }
+        
+        
+        
+        }
+
         //atualiza os valores no Data Grid
         private void AtualizarDataGrid()
         {
@@ -45,11 +76,13 @@ namespace Apresentacao
             if (this.sangriaLista.Count > 0)
             {
                 this.dgvSangria.Rows.Add(this.sangriaLista.Count);
+                metodoPreencheDespesa();
             }
             else
             {
                 return;
             }
+   
 
             int indice = 0;
             foreach (Sangria sang in this.sangriaLista)
@@ -57,12 +90,13 @@ namespace Apresentacao
                 this.dgvSangria[0, indice].Value = 0;//Valor será lançado
                 if (sang.retiradaSangria <= 0) { sang.retiradaSangria = 0; }
                 this.dgvSangria[1, indice].Value = sang.retiradaSangria;//Valor de lançamento ja realizados no dia 
-                this.dgvSangria[2, indice].Value = sang.valorSangria - sang.retiradaSangria;//Valor do Caixa
+                this.dgvSangria[2, indice].Value = sang.valorSangria - sang.retiradaSangria + sang.despesaSangria - sang.estornoSangria;//Valor do Caixa
                 this.dgvSangria[3, indice].Value = sang.pagamentoSangria.codigoFormaPagamento;               
                 this.dgvSangria[4, indice].Value = sang.pagamentoSangria.formaPagamento;
                 this.dgvSangria[5, indice].Value = sang.descontoItem;
                 this.dgvSangria[6, indice].Value = sang.JurosItem;
                 this.dgvSangria[7, indice].Value = 0;//Caso haja estorno no caixa
+                this.dgvSangria[9, indice].Value = sang.despesaSangria;//DespesaCaixa
                 this.dgvSangria[8, indice].Value = sang.ordemSangra;//Contador
 
                 indice++;
@@ -152,10 +186,7 @@ namespace Apresentacao
 
         //Calcula Totais
         private void metodoCalculaTotais() { 
-
-
-            //Mecher aqui
-
+            
             //Caixa
             double jurosSangria = 0;
             double descontoSangria = 0;
@@ -163,6 +194,7 @@ namespace Apresentacao
             double valorSangria = 0;
             double valorCaixaSangriaAnterior = 0;
             double valorEstornoCaixa = 0;
+            double despesaCaixa = 0;
             //-----------------------------------------Calcula Totais do Datagride
             //faz a soma dos totais dos valores do gride
 
@@ -175,11 +207,13 @@ namespace Apresentacao
                 descontoSangria = descontoSangria + Convert.ToDouble(col.Cells[5].Value);
                 jurosSangria = jurosSangria + Convert.ToDouble(col.Cells[6].Value);
                 valorEstornoCaixa = valorEstornoCaixa + Convert.ToDouble(col.Cells[7].Value);
+                despesaCaixa = despesaCaixa + Convert.ToDouble(col.Cells[9].Value);
             }
                 //-----------Venda
             lbCaixaTotal.Text = "+ " + String.Format("{0:C2}", (valorCaixaSangria + valorCaixaSangriaAnterior));
             lbSangriaTotal.Text = "-" + String.Format("{0:C2}", valorSangria);
             lbTotalEstorno.Text = "- " + String.Format("{0:C2}", valorEstornoCaixa);
+            lbTotalDespesas.Text = " " + String.Format("{0:C2}", (despesaCaixa));
             lbTaxa.Text = "% " + String.Format("{0:C2}", jurosSangria);
             lbDesconto.Text = "- " + String.Format("{0:C2}", descontoSangria);
             lbCaixaRestante.Text = "+ " + String.Format("{0:C2}", valorCaixaSangria - valorSangria);      

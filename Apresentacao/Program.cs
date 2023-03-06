@@ -18,6 +18,7 @@ namespace Apresentacao
             Application.SetCompatibleTextRenderingDefault(false);
             //Application.Run(new FrmBackup());
             Application.Run(new FrmCadastrarDespesa());
+            Application.Run(new FrmSangria());
         }
     }
 }

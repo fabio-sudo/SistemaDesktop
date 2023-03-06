@@ -368,8 +368,8 @@ namespace Negocio
                     caixa.formaPagamento.formaPagamento = (registro[0]).ToString();
                     caixa.recebidoCaixa = Convert.ToDouble(registro[1]);
                     caixa.totalCaixa = Convert.ToDouble(registro[2]);
-                    caixa.jurosCaixa = Convert.ToDouble(registro[3]);
-                    caixa.descontoCaixa = Convert.ToDouble(registro[4]);
+                    caixa.jurosCaixa = Convert.ToDouble(registro[4]);
+                    caixa.descontoCaixa = Convert.ToDouble(registro[3]);
 
 
                     lista.Add(caixa);

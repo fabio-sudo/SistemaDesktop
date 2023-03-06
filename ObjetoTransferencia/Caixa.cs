@@ -9,11 +9,14 @@ namespace ObjetoTransferencia
    public class Caixa
     {
        public string tipoVenda { get; set; }
-       public double sangriaCaixa { get; set; }
+       public double sangriaCaixa { get; set; }//Sangria
+       public double estornoCaixa { get; set; }//Estorno
+       public double despesaCaixa { get; set; }//Despesa
+
        public double recebidoCaixa { get; set; }
        public double totalCaixa { get; set; }
        public double trocoCaixa { get; set; }
-       public double estornoCaixa { get; set; }
+
        public double valorCaixa { get; set; }
        public double jurosCaixa { get; set; }
        public double descontoCaixa { get; set; }

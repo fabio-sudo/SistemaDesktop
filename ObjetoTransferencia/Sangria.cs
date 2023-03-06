@@ -13,6 +13,8 @@ namespace ObjetoTransferencia
         public double cancelamentoSangra { set; get; }
         public double descontoItem { get; set; }
         public double JurosItem { get; set; }
+        public double despesaSangria { get; set; }
+        public double estornoSangria { get; set; }
         public Funcionario funcionarioSangria { set; get; }
         public FormaPagamento pagamentoSangria { set; get; }
         public DateTime dataSangria  { set; get; }

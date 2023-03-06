@@ -164,6 +164,33 @@ namespace Negocio
             return pagamentos;
         }
 
+        public ListaFormaPagamento BuscarFormaPagamentoComboboxPorData(DateTime data)
+        {
+            this.sqlServer.LimparParametros();
+            this.sqlServer.AdicionarParametro(new SqlParameter("@dataPagamento", data));
+
+            string comandoSql = "exec uspBuscarFormaPagamentoPorData @dataPagamento";
+
+            DataTable tabelaRetorno = this.sqlServer.ExecutarConsulta(comandoSql, CommandType.Text);
+
+            ListaFormaPagamento pagamentos = new ListaFormaPagamento();
+            FormaPagamento pagamento;
+
+            foreach (DataRow registro in tabelaRetorno.Rows)
+            {
+                pagamento = new FormaPagamento();
+                pagamento.codigoFormaPagamento = Convert.ToInt32(registro[0]);
+                pagamento.formaPagamento = registro[1].ToString();
+
+                if (pagamento.formaPagamento != "CREDIARIO" || pagamento.formaPagamento != "PARCIAL")
+                {
+                    pagamentos.Add(pagamento);
+                }
+            }
+
+            return pagamentos;
+        }
+
         //metodo para buscar forma pagamento por Codigo
         public FormaPagamento BuscarFormaPagamentoPorCodigo(int codigo)
         {

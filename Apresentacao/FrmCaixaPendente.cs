@@ -20,9 +20,9 @@ namespace Apresentacao
         NegCaixa nCaixa = new NegCaixa();
 
         ListaDespesas listaDespesas = new ListaDespesas();
-        ListaFormaPagamento listaFormaPagamento = new ListaFormaPagamento();
         NegDespesa nDespesa = new NegDespesa();
 
+        ListaFormaPagamento listaFormaPagamento = new ListaFormaPagamento();
         NegFormaPagamento nFormaPagamento = new NegFormaPagamento();
 
         Metodos metodos = new Metodos();
