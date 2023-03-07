@@ -160,7 +160,7 @@ namespace Apresentacao
             foreach (Caixa caixa in this.listaCaixa)
             {
                 this.dgvCaixa[0, indice].Value = caixa.formaPagamento.formaPagamento;
-                this.dgvCaixa[1, indice].Value = caixa.totalCaixa - (caixa.sangriaCaixa - caixa.estornoCaixa - caixa.estornoCaixa - caixa.despesaCaixa);
+                this.dgvCaixa[1, indice].Value = caixa.totalCaixa + (caixa.sangriaCaixa - caixa.estornoCaixa - caixa.estornoCaixa + caixa.despesaCaixa);
                 this.dgvCaixa[2, indice].Value = caixa.recebidoCaixa;
                 this.dgvCaixa[3, indice].Value = caixa.sangriaCaixa;
                 this.dgvCaixa[4, indice].Value = caixa.estornoCaixa;

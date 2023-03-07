@@ -68,6 +68,9 @@
             this.btBuscar = new System.Windows.Forms.Button();
             this.pbFuncionario = new System.Windows.Forms.PictureBox();
             this.pbTitulo = new System.Windows.Forms.PictureBox();
+            this.panelDespesas = new System.Windows.Forms.Panel();
+            this.lbTituloDespesas = new System.Windows.Forms.Label();
+            this.lbTotalDespesas = new System.Windows.Forms.Label();
             this.valorParcialVenda = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.sangriaCaixa = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Venda = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -75,12 +78,9 @@
             this.formaPagamentoParcial = new System.Windows.Forms.DataGridViewComboBoxColumn();
             this.descontoVenda = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.porcentagemTaxa = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.estornoCaixa = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.estornoSangria = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.contador = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.despesaSangria = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.panelDespesas = new System.Windows.Forms.Panel();
-            this.lbTituloDespesas = new System.Windows.Forms.Label();
-            this.lbTotalDespesas = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.dgvSangria)).BeginInit();
             this.painelCaixa.SuspendLayout();
             this.painelDesconto.SuspendLayout();
@@ -118,7 +118,7 @@
             this.formaPagamentoParcial,
             this.descontoVenda,
             this.porcentagemTaxa,
-            this.estornoCaixa,
+            this.estornoSangria,
             this.contador,
             this.despesaSangria});
             dataGridViewCellStyle10.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
@@ -131,13 +131,13 @@
             this.dgvSangria.DefaultCellStyle = dataGridViewCellStyle10;
             this.dgvSangria.GridColor = System.Drawing.SystemColors.ButtonFace;
             this.dgvSangria.Location = new System.Drawing.Point(9, 57);
-            this.dgvSangria.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.dgvSangria.Margin = new System.Windows.Forms.Padding(2);
             this.dgvSangria.Name = "dgvSangria";
             dataGridViewCellStyle11.Font = new System.Drawing.Font("Arial Narrow", 14F, System.Drawing.FontStyle.Bold);
             this.dgvSangria.RowsDefaultCellStyle = dataGridViewCellStyle11;
             this.dgvSangria.RowTemplate.Height = 24;
             this.dgvSangria.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.dgvSangria.Size = new System.Drawing.Size(806, 448);
+            this.dgvSangria.Size = new System.Drawing.Size(911, 448);
             this.dgvSangria.TabIndex = 4;
             this.dgvSangria.CellValidating += new System.Windows.Forms.DataGridViewCellValidatingEventHandler(this.dgvSangria_CellValidating);
             this.dgvSangria.EditingControlShowing += new System.Windows.Forms.DataGridViewEditingControlShowingEventHandler(this.dgvSangria_EditingControlShowing);
@@ -148,8 +148,8 @@
             this.painelCaixa.BackColor = System.Drawing.Color.Turquoise;
             this.painelCaixa.Controls.Add(this.lbTituloCaixa);
             this.painelCaixa.Controls.Add(this.lbCaixaTotal);
-            this.painelCaixa.Location = new System.Drawing.Point(819, 57);
-            this.painelCaixa.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.painelCaixa.Location = new System.Drawing.Point(924, 57);
+            this.painelCaixa.Margin = new System.Windows.Forms.Padding(2);
             this.painelCaixa.Name = "painelCaixa";
             this.painelCaixa.Size = new System.Drawing.Size(149, 60);
             this.painelCaixa.TabIndex = 5;
@@ -186,8 +186,8 @@
             this.painelDesconto.BackColor = System.Drawing.Color.DeepPink;
             this.painelDesconto.Controls.Add(this.lbTituloDesconto);
             this.painelDesconto.Controls.Add(this.lbDesconto);
-            this.painelDesconto.Location = new System.Drawing.Point(819, 380);
-            this.painelDesconto.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.painelDesconto.Location = new System.Drawing.Point(924, 380);
+            this.painelDesconto.Margin = new System.Windows.Forms.Padding(2);
             this.painelDesconto.Name = "painelDesconto";
             this.painelDesconto.Size = new System.Drawing.Size(149, 60);
             this.painelDesconto.TabIndex = 9;
@@ -224,8 +224,8 @@
             this.painelTaxa.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(51)))), ((int)(((byte)(51)))), ((int)(((byte)(76)))));
             this.painelTaxa.Controls.Add(this.lbTituloTaxa);
             this.painelTaxa.Controls.Add(this.lbTaxa);
-            this.painelTaxa.Location = new System.Drawing.Point(819, 315);
-            this.painelTaxa.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.painelTaxa.Location = new System.Drawing.Point(924, 315);
+            this.painelTaxa.Margin = new System.Windows.Forms.Padding(2);
             this.painelTaxa.Name = "painelTaxa";
             this.painelTaxa.Size = new System.Drawing.Size(149, 60);
             this.painelTaxa.TabIndex = 8;
@@ -262,8 +262,8 @@
             this.painelSangria.BackColor = System.Drawing.Color.DeepSkyBlue;
             this.painelSangria.Controls.Add(this.lbTituloSangria);
             this.painelSangria.Controls.Add(this.lbSangriaTotal);
-            this.painelSangria.Location = new System.Drawing.Point(819, 122);
-            this.painelSangria.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.painelSangria.Location = new System.Drawing.Point(924, 122);
+            this.painelSangria.Margin = new System.Windows.Forms.Padding(2);
             this.painelSangria.Name = "painelSangria";
             this.painelSangria.Size = new System.Drawing.Size(149, 60);
             this.painelSangria.TabIndex = 6;
@@ -302,8 +302,8 @@
             this.panelCaixaRestante.Controls.Add(this.lbRestoCaixa);
             this.panelCaixaRestante.Controls.Add(this.lbCaixaRestante);
             this.panelCaixaRestante.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
-            this.panelCaixaRestante.Location = new System.Drawing.Point(819, 445);
-            this.panelCaixaRestante.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.panelCaixaRestante.Location = new System.Drawing.Point(924, 445);
+            this.panelCaixaRestante.Margin = new System.Windows.Forms.Padding(2);
             this.panelCaixaRestante.Name = "panelCaixaRestante";
             this.panelCaixaRestante.Size = new System.Drawing.Size(150, 60);
             this.panelCaixaRestante.TabIndex = 10;
@@ -340,8 +340,8 @@
             this.panelEstorno.BackColor = System.Drawing.Color.Red;
             this.panelEstorno.Controls.Add(this.lbTituloEstorno);
             this.panelEstorno.Controls.Add(this.lbTotalEstorno);
-            this.panelEstorno.Location = new System.Drawing.Point(819, 187);
-            this.panelEstorno.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.panelEstorno.Location = new System.Drawing.Point(924, 187);
+            this.panelEstorno.Margin = new System.Windows.Forms.Padding(2);
             this.panelEstorno.Name = "panelEstorno";
             this.panelEstorno.Size = new System.Drawing.Size(149, 60);
             this.panelEstorno.TabIndex = 7;
@@ -376,7 +376,7 @@
             // 
             this.panelBuscarFuncionario.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(51)))), ((int)(((byte)(51)))), ((int)(((byte)(76)))));
             this.panelBuscarFuncionario.Location = new System.Drawing.Point(52, 50);
-            this.panelBuscarFuncionario.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.panelBuscarFuncionario.Margin = new System.Windows.Forms.Padding(2);
             this.panelBuscarFuncionario.Name = "panelBuscarFuncionario";
             this.panelBuscarFuncionario.Size = new System.Drawing.Size(287, 2);
             this.panelBuscarFuncionario.TabIndex = 3;
@@ -387,7 +387,7 @@
             this.tbBuscarFuncionario.Font = new System.Drawing.Font("Arial", 12F, System.Drawing.FontStyle.Bold);
             this.tbBuscarFuncionario.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(51)))), ((int)(((byte)(51)))), ((int)(((byte)(76)))));
             this.tbBuscarFuncionario.Location = new System.Drawing.Point(82, 32);
-            this.tbBuscarFuncionario.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.tbBuscarFuncionario.Margin = new System.Windows.Forms.Padding(2);
             this.tbBuscarFuncionario.Name = "tbBuscarFuncionario";
             this.tbBuscarFuncionario.Size = new System.Drawing.Size(257, 19);
             this.tbBuscarFuncionario.TabIndex = 0;
@@ -404,8 +404,8 @@
             this.dtpDataSangria.CustomFormat = "dddd MM yyyy";
             this.dtpDataSangria.Enabled = false;
             this.dtpDataSangria.Font = new System.Drawing.Font("Arial", 12F, System.Drawing.FontStyle.Bold);
-            this.dtpDataSangria.Location = new System.Drawing.Point(616, 20);
-            this.dtpDataSangria.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.dtpDataSangria.Location = new System.Drawing.Point(721, 20);
+            this.dtpDataSangria.Margin = new System.Windows.Forms.Padding(2);
             this.dtpDataSangria.Name = "dtpDataSangria";
             this.dtpDataSangria.Size = new System.Drawing.Size(353, 26);
             this.dtpDataSangria.TabIndex = 2;
@@ -418,7 +418,7 @@
             this.btCadastrar.Font = new System.Drawing.Font("Arial Narrow", 10.2F, System.Drawing.FontStyle.Bold);
             this.btCadastrar.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
             this.btCadastrar.Location = new System.Drawing.Point(9, 523);
-            this.btCadastrar.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.btCadastrar.Margin = new System.Windows.Forms.Padding(2);
             this.btCadastrar.Name = "btCadastrar";
             this.btCadastrar.Size = new System.Drawing.Size(98, 34);
             this.btCadastrar.TabIndex = 11;
@@ -433,8 +433,8 @@
             this.btSair.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btSair.Font = new System.Drawing.Font("Arial Narrow", 10.2F, System.Drawing.FontStyle.Bold);
             this.btSair.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
-            this.btSair.Location = new System.Drawing.Point(870, 523);
-            this.btSair.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.btSair.Location = new System.Drawing.Point(976, 522);
+            this.btSair.Margin = new System.Windows.Forms.Padding(2);
             this.btSair.Name = "btSair";
             this.btSair.Size = new System.Drawing.Size(98, 34);
             this.btSair.TabIndex = 13;
@@ -450,7 +450,7 @@
             this.btSangriaTotal.Font = new System.Drawing.Font("Arial Narrow", 10.2F, System.Drawing.FontStyle.Bold);
             this.btSangriaTotal.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
             this.btSangriaTotal.Location = new System.Drawing.Point(111, 522);
-            this.btSangriaTotal.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.btSangriaTotal.Margin = new System.Windows.Forms.Padding(2);
             this.btSangriaTotal.Name = "btSangriaTotal";
             this.btSangriaTotal.Size = new System.Drawing.Size(98, 34);
             this.btSangriaTotal.TabIndex = 12;
@@ -466,7 +466,7 @@
             this.btBuscar.Font = new System.Drawing.Font("Arial Narrow", 10.2F, System.Drawing.FontStyle.Bold);
             this.btBuscar.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
             this.btBuscar.Location = new System.Drawing.Point(344, 20);
-            this.btBuscar.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.btBuscar.Margin = new System.Windows.Forms.Padding(2);
             this.btBuscar.Name = "btBuscar";
             this.btBuscar.Size = new System.Drawing.Size(98, 34);
             this.btBuscar.TabIndex = 1;
@@ -478,7 +478,7 @@
             // 
             this.pbFuncionario.Image = global::Apresentacao.Properties.Resources.FuncionarioAzul;
             this.pbFuncionario.Location = new System.Drawing.Point(52, 20);
-            this.pbFuncionario.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.pbFuncionario.Margin = new System.Windows.Forms.Padding(2);
             this.pbFuncionario.Name = "pbFuncionario";
             this.pbFuncionario.Size = new System.Drawing.Size(26, 29);
             this.pbFuncionario.SizeMode = System.Windows.Forms.PictureBoxSizeMode.CenterImage;
@@ -489,12 +489,50 @@
             // 
             this.pbTitulo.Image = global::Apresentacao.Properties.Resources.wallet;
             this.pbTitulo.Location = new System.Drawing.Point(9, 10);
-            this.pbTitulo.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.pbTitulo.Margin = new System.Windows.Forms.Padding(2);
             this.pbTitulo.Name = "pbTitulo";
             this.pbTitulo.Size = new System.Drawing.Size(39, 42);
             this.pbTitulo.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             this.pbTitulo.TabIndex = 1;
             this.pbTitulo.TabStop = false;
+            // 
+            // panelDespesas
+            // 
+            this.panelDespesas.AutoScroll = true;
+            this.panelDespesas.BackColor = System.Drawing.Color.MediumSeaGreen;
+            this.panelDespesas.Controls.Add(this.lbTituloDespesas);
+            this.panelDespesas.Controls.Add(this.lbTotalDespesas);
+            this.panelDespesas.Location = new System.Drawing.Point(924, 251);
+            this.panelDespesas.Margin = new System.Windows.Forms.Padding(2);
+            this.panelDespesas.Name = "panelDespesas";
+            this.panelDespesas.Size = new System.Drawing.Size(149, 60);
+            this.panelDespesas.TabIndex = 244;
+            // 
+            // lbTituloDespesas
+            // 
+            this.lbTituloDespesas.AutoSize = true;
+            this.lbTituloDespesas.Font = new System.Drawing.Font("Arial", 12F, System.Drawing.FontStyle.Bold);
+            this.lbTituloDespesas.ForeColor = System.Drawing.Color.White;
+            this.lbTituloDespesas.Location = new System.Drawing.Point(2, 6);
+            this.lbTituloDespesas.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.lbTituloDespesas.Name = "lbTituloDespesas";
+            this.lbTituloDespesas.Size = new System.Drawing.Size(89, 19);
+            this.lbTituloDespesas.TabIndex = 87;
+            this.lbTituloDespesas.Text = "Despesas ";
+            this.lbTituloDespesas.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // lbTotalDespesas
+            // 
+            this.lbTotalDespesas.AutoSize = true;
+            this.lbTotalDespesas.Font = new System.Drawing.Font("Arial", 12F, System.Drawing.FontStyle.Bold);
+            this.lbTotalDespesas.ForeColor = System.Drawing.Color.White;
+            this.lbTotalDespesas.Location = new System.Drawing.Point(21, 32);
+            this.lbTotalDespesas.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.lbTotalDespesas.Name = "lbTotalDespesas";
+            this.lbTotalDespesas.Size = new System.Drawing.Size(65, 19);
+            this.lbTotalDespesas.TabIndex = 84;
+            this.lbTotalDespesas.Text = "R$ 0,00";
+            this.lbTotalDespesas.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // valorParcialVenda
             // 
@@ -565,15 +603,14 @@
             this.porcentagemTaxa.ToolTipText = "Valor da Forma de Pagamento";
             this.porcentagemTaxa.Width = 95;
             // 
-            // estornoCaixa
+            // estornoSangria
             // 
             dataGridViewCellStyle8.Format = "C2";
             dataGridViewCellStyle8.NullValue = null;
-            this.estornoCaixa.DefaultCellStyle = dataGridViewCellStyle8;
-            this.estornoCaixa.HeaderText = "Estorno";
-            this.estornoCaixa.Name = "estornoCaixa";
-            this.estornoCaixa.ReadOnly = true;
-            this.estornoCaixa.Visible = false;
+            this.estornoSangria.DefaultCellStyle = dataGridViewCellStyle8;
+            this.estornoSangria.HeaderText = "Estorno";
+            this.estornoSangria.Name = "estornoSangria";
+            this.estornoSangria.ReadOnly = true;
             // 
             // contador
             // 
@@ -590,50 +627,12 @@
             this.despesaSangria.Name = "despesaSangria";
             this.despesaSangria.ToolTipText = "Despesas lançadas no sistema";
             // 
-            // panelDespesas
-            // 
-            this.panelDespesas.AutoScroll = true;
-            this.panelDespesas.BackColor = System.Drawing.Color.MediumSeaGreen;
-            this.panelDespesas.Controls.Add(this.lbTituloDespesas);
-            this.panelDespesas.Controls.Add(this.lbTotalDespesas);
-            this.panelDespesas.Location = new System.Drawing.Point(819, 251);
-            this.panelDespesas.Margin = new System.Windows.Forms.Padding(2);
-            this.panelDespesas.Name = "panelDespesas";
-            this.panelDespesas.Size = new System.Drawing.Size(149, 60);
-            this.panelDespesas.TabIndex = 244;
-            // 
-            // lbTituloDespesas
-            // 
-            this.lbTituloDespesas.AutoSize = true;
-            this.lbTituloDespesas.Font = new System.Drawing.Font("Arial", 12F, System.Drawing.FontStyle.Bold);
-            this.lbTituloDespesas.ForeColor = System.Drawing.Color.White;
-            this.lbTituloDespesas.Location = new System.Drawing.Point(2, 6);
-            this.lbTituloDespesas.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
-            this.lbTituloDespesas.Name = "lbTituloDespesas";
-            this.lbTituloDespesas.Size = new System.Drawing.Size(89, 19);
-            this.lbTituloDespesas.TabIndex = 87;
-            this.lbTituloDespesas.Text = "Despesas ";
-            this.lbTituloDespesas.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            // 
-            // lbTotalDespesas
-            // 
-            this.lbTotalDespesas.AutoSize = true;
-            this.lbTotalDespesas.Font = new System.Drawing.Font("Arial", 12F, System.Drawing.FontStyle.Bold);
-            this.lbTotalDespesas.ForeColor = System.Drawing.Color.White;
-            this.lbTotalDespesas.Location = new System.Drawing.Point(21, 32);
-            this.lbTotalDespesas.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
-            this.lbTotalDespesas.Name = "lbTotalDespesas";
-            this.lbTotalDespesas.Size = new System.Drawing.Size(92, 19);
-            this.lbTotalDespesas.TabIndex = 84;
-            this.lbTotalDespesas.Text = "R$ 1200,00";
-            this.lbTotalDespesas.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            // 
             // FrmCadastroSangria
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.ButtonHighlight;
-            this.ClientSize = new System.Drawing.Size(986, 570);
+            this.ClientSize = new System.Drawing.Size(1089, 570);
             this.Controls.Add(this.panelDespesas);
             this.Controls.Add(this.btSangriaTotal);
             this.Controls.Add(this.btCadastrar);
@@ -654,7 +653,7 @@
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.KeyPreview = true;
-            this.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.Margin = new System.Windows.Forms.Padding(2);
             this.MaximizeBox = false;
             this.Name = "FrmCadastroSangria";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
@@ -713,6 +712,9 @@
         private System.Windows.Forms.Button btSangriaTotal;
         private System.Windows.Forms.PictureBox pbFuncionario;
         private System.Windows.Forms.Button btBuscar;
+        private System.Windows.Forms.Panel panelDespesas;
+        private System.Windows.Forms.Label lbTituloDespesas;
+        private System.Windows.Forms.Label lbTotalDespesas;
         private System.Windows.Forms.DataGridViewTextBoxColumn valorParcialVenda;
         private System.Windows.Forms.DataGridViewTextBoxColumn sangriaCaixa;
         private System.Windows.Forms.DataGridViewTextBoxColumn Venda;
@@ -720,11 +722,8 @@
         private System.Windows.Forms.DataGridViewComboBoxColumn formaPagamentoParcial;
         private System.Windows.Forms.DataGridViewTextBoxColumn descontoVenda;
         private System.Windows.Forms.DataGridViewTextBoxColumn porcentagemTaxa;
-        private System.Windows.Forms.DataGridViewTextBoxColumn estornoCaixa;
+        private System.Windows.Forms.DataGridViewTextBoxColumn estornoSangria;
         private System.Windows.Forms.DataGridViewTextBoxColumn contador;
         private System.Windows.Forms.DataGridViewTextBoxColumn despesaSangria;
-        private System.Windows.Forms.Panel panelDespesas;
-        private System.Windows.Forms.Label lbTituloDespesas;
-        private System.Windows.Forms.Label lbTotalDespesas;
     }
 }

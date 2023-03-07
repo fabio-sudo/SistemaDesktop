@@ -207,7 +207,7 @@ namespace Apresentacao
                 descontoSangria = descontoSangria + Convert.ToDouble(col.Cells[5].Value);
                 jurosSangria = jurosSangria + Convert.ToDouble(col.Cells[6].Value);
                 valorEstornoCaixa = valorEstornoCaixa + Convert.ToDouble(col.Cells[7].Value);
-                despesaCaixa = despesaCaixa + Convert.ToDouble(col.Cells[9].Value);
+                despesaCaixa = despesaCaixa + Convert.ToDouble(col.Cells[9].Value)+0;
             }
                 //-----------Venda
             lbCaixaTotal.Text = "+ " + String.Format("{0:C2}", (valorCaixaSangria + valorCaixaSangriaAnterior));
