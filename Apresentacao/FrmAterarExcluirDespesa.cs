@@ -20,6 +20,12 @@ namespace Apresentacao
         NegFormaPagamento nPagamento = new NegFormaPagamento();
         NegDespesa nDespesa = new NegDespesa();
 
+
+
+        CaixaLista listaCaixa = new CaixaLista();
+        ListaDespesas listaDespesas = new ListaDespesas();
+        NegCaixa nCaixa = new NegCaixa();
+
         public FrmAterarExcluirDespesa(DespesaCaixa despesaSelecionada)
         {
 
@@ -29,6 +35,127 @@ namespace Apresentacao
 
         }
 
+        //-------------metodo valida preenchimento da despesa
+        private Boolean metodoValidaAlteracao()
+        {
+
+
+            foreach (Caixa caixa in listaCaixa)
+            {
+
+                if (cbFormaPagamento.SelectedItem.ToString() == caixa.formaPagamento.formaPagamento)
+                {
+
+                    if (Convert.ToDouble(mtbValorDespesa.Text) > (caixa.totalCaixa - caixa.despesaCaixa - caixa.sangriaCaixa - caixa.estornoCaixa))
+                    {
+
+                        MessageBox.Show("Valor da despesa maior que o valor do Caixa!", "Erro Valor Despesa", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        tbDescricao.Focus();
+                        return false;
+
+                    }
+
+                }
+            }
+            return true;
+
+
+        }
+
+        private void metodoConstrutorGrid() {
+
+
+            listaDespesas = nDespesa.BuscarDespesaPorData(dtpDataDespesa.Value, dtpDataDespesa.Value);
+            listaCaixa = nCaixa.BuscarCaixaPendente(dtpDataDespesa.Value);
+
+            SangriaLista listaSangria = new SangriaLista();
+            listaSangria = nCaixa.BuscarSangriaFechamentoCaixa(dtpDataDespesa.Value);
+
+            //------------------------------------Sangria
+            if (listaSangria.Count > 0)
+            {
+                //Adiciona valor da Sangria ao Caixa
+                foreach (Sangria sangria in listaSangria)
+                {
+
+                    foreach (Caixa caixa in listaCaixa)
+                    {
+
+                        if (sangria.pagamentoSangria.formaPagamento == caixa.formaPagamento.formaPagamento)
+                        {
+
+                            caixa.sangriaCaixa = -sangria.valorSangria;
+                            break;
+                        }
+                    }
+                }
+            }
+
+            //Remove a despesa atual que vai ser alterada
+            DespesaCaixa depesaRemovida = listaDespesas.Find(p => p.codigoDespesa == objDespesa.codigoDespesa);
+            listaDespesas.Remove(depesaRemovida);
+
+
+            //------------------------------------Despesa
+            if (listaDespesas.Count > 0)
+            {
+                //Adiciona valor da Despesas ja cadastradas na sangria
+                foreach (DespesaCaixa despesa in listaDespesas)
+                {
+
+                    foreach (Caixa caixa in listaCaixa)
+                    {
+
+                        if (despesa.formaPagamento.formaPagamento == caixa.formaPagamento.formaPagamento)
+                        {
+
+                            caixa.despesaCaixa = -despesa.valorDespesa;
+                            break;
+                        }
+                    }
+                }
+
+            }
+
+
+            //Preenche o gird
+            if (listaCaixa.Count > 0)
+            {
+                metodoAtualizaGrid();
+                metodoCalculaTotais();
+            }
+           
+        }
+
+        private void metodoAtualizaGrid()
+        {
+
+            this.dgvCaixa.Rows.Clear(); // Limpa todos os registros atuais no grid de funcionários.
+
+            if (this.listaCaixa.Count > 0)
+            {
+                this.dgvCaixa.Rows.Add(this.listaCaixa.Count);
+            }
+            else
+            {
+                return;
+            }
+
+            int indice = 0;
+            foreach (Caixa caixa in this.listaCaixa)
+            {
+                this.dgvCaixa[0, indice].Value = caixa.formaPagamento.formaPagamento;
+                this.dgvCaixa[1, indice].Value = caixa.totalCaixa + (caixa.sangriaCaixa - caixa.estornoCaixa - caixa.estornoCaixa + caixa.despesaCaixa);
+                this.dgvCaixa[2, indice].Value = caixa.recebidoCaixa;
+                this.dgvCaixa[3, indice].Value = caixa.sangriaCaixa;
+                this.dgvCaixa[4, indice].Value = caixa.estornoCaixa;
+                this.dgvCaixa[5, indice].Value = caixa.despesaCaixa;
+
+                indice++;
+            }
+
+            dgvCaixa.Update();
+        }
 
         private void metodoConstrutor() {
 
@@ -39,6 +166,8 @@ namespace Apresentacao
             dtpDataDespesa.Value = objDespesa.dataDespesa;
             tbDescricao.Text = objDespesa.descricaoDespesa;
             mtbValorDespesa.Text = (objDespesa.valorDespesa*100).ToString();
+
+            metodoConstrutorGrid();
 
                 cbFormaPagamento.Items.Clear();
                 this.listaPagamento = nPagamento.BuscarFormaPagamentoPorNome("");
@@ -54,6 +183,33 @@ namespace Apresentacao
             catch (Exception ex) { MessageBox.Show(ex.Message); }
         
         
+        }
+
+        private void metodoCalculaTotais()
+        {
+
+            //Caixa
+            double caixa = 0;
+            double sangria = 0;
+            double estorno = 0;
+            double despesa = 0;
+
+            //-----------------------------------------Calcula Totais do Datagride
+            //faz a soma dos totais dos valores do gride
+
+            foreach (DataGridViewRow col in dgvCaixa.Rows)
+            {
+                //Valor da Parcial
+                caixa = caixa + Convert.ToDouble(col.Cells[1].Value);
+                sangria = sangria + Convert.ToDouble(col.Cells[3].Value);
+                estorno = estorno + Convert.ToDouble(col.Cells[4].Value);
+                despesa = despesa + Convert.ToDouble(col.Cells[5].Value);
+            }
+            //-----------Venda
+            lbCaixaTotal.Text = String.Format("{0:C2}", caixa);
+            lbSangriaTotal.Text = String.Format("{0:C2}", sangria);
+            lbTotalEstorno.Text = String.Format("{0:C2}", estorno);
+            lbTotalDespesas.Text = String.Format("{0:C2}", despesa);
         }
 
         //Metodo para validar campos
@@ -220,40 +376,52 @@ namespace Apresentacao
             {
                 try
                 {
-                    NegDespesa nDespesa = new NegDespesa();
-                    DespesaCaixa despesa = new DespesaCaixa();
 
-                    despesa.codigoDespesa = Convert.ToInt32(tbCodigo.Text);
-                    despesa.descricaoDespesa = tbDescricao.Text;
-                    despesa.valorDespesa = Convert.ToDouble(mtbValorDespesa.Text);
-                    despesa.dataDespesa = dtpDataDespesa.Value;
-                    despesa.formaPagamento = listaPagamento.Where(p => p.formaPagamento == cbFormaPagamento.SelectedItem.ToString()).First();
-
-
-                    if (nDespesa.AtualizarDespesaTemp(despesa) == true)
+                    //Metodo Valida se e possivel realizar a alteração
+                    if (metodoValidaAlteracao() == true)
                     {
-                        DialogResult resposta;
-                        //Criando Caixa de dialogo
-                        FrmCaixaDialogo frmCaixa = new FrmCaixaDialogo("Confirmação",
-                        " Atualização Realizada com Sucesso! \r\n" +
-                        "Atualizações finalizadas ?",
-                        Properties.Resources.DialogOK,
-                        System.Drawing.Color.FromArgb(((int)(((byte)(51)))), ((int)(((byte)(51)))), ((int)(((byte)(76))))),
-                        Color.White,
-                        "Sim", "Não",
-                        false);
 
-                        resposta = frmCaixa.ShowDialog();
-                        if (resposta == DialogResult.Yes)
+                        NegDespesa nDespesa = new NegDespesa();
+                        DespesaCaixa despesa = new DespesaCaixa();
+
+                        despesa.codigoDespesa = Convert.ToInt32(tbCodigo.Text);
+                        despesa.descricaoDespesa = tbDescricao.Text;
+                        despesa.valorDespesa = Convert.ToDouble(mtbValorDespesa.Text);
+                        despesa.dataDespesa = dtpDataDespesa.Value;
+                        despesa.formaPagamento = listaPagamento.Where(p => p.formaPagamento == cbFormaPagamento.SelectedItem.ToString()).First();
+
+
+                        if (nDespesa.AtualizarDespesaTemp(despesa) == true)
                         {
-                            this.DialogResult = DialogResult.OK;
-                            this.Close();
+                            DialogResult resposta;
+                            //Criando Caixa de dialogo
+                            FrmCaixaDialogo frmCaixa = new FrmCaixaDialogo("Confirmação",
+                            " Atualização Realizada com Sucesso! \r\n" +
+                            "Atualizações finalizadas ?",
+                            Properties.Resources.DialogOK,
+                            System.Drawing.Color.FromArgb(((int)(((byte)(51)))), ((int)(((byte)(51)))), ((int)(((byte)(76))))),
+                            Color.White,
+                            "Sim", "Não",
+                            false);
 
+                            resposta = frmCaixa.ShowDialog();
+                            if (resposta == DialogResult.Yes)
+                            {
+                                this.DialogResult = DialogResult.OK;
+                                this.Close();
+
+                            }
+                        }
+                        else
+                        {
+                            MessageBox.Show("Não foi possível realizar as alterações da Despesa!", "Erro Alteração", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                            tbDescricao.Focus();
+                            return;
                         }
                     }
                     else
                     {
-                        MessageBox.Show("Não foi possível realizar as alterações da Despesa!", "Erro Cadastro", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        MessageBox.Show("Valor da despesa excede valor do caixa!", "Erro Valores Alteração", MessageBoxButtons.OK, MessageBoxIcon.Error);
                         tbDescricao.Focus();
                         return;
                     }

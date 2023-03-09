@@ -19,6 +19,9 @@ namespace Apresentacao
         ListaFormaPagamento listaPagamento = new ListaFormaPagamento();
         NegFormaPagamento nPagamento = new NegFormaPagamento();
 
+        Funcionario objFuncionario = new Funcionario();
+        NegFuncionario nFuncionario = new NegFuncionario();
+
         ListaDespesas listaDespesas = new ListaDespesas();
         NegDespesa nDespesa = new NegDespesa();
 
@@ -203,6 +206,18 @@ namespace Apresentacao
 
                 return false;
             }
+
+            else if (objFuncionario.nomeFuncionario == null)
+            {
+                MessageBox.Show("Informe o Funcinário que está lançando a Despesa!",
+                    "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                tbFuncionario.Clear();
+                tbFuncionario.Focus();
+
+
+                return false;
+            }
+
             else
                 return true;
 
@@ -286,6 +301,7 @@ namespace Apresentacao
                         despesa.descricaoDespesa = tbDescricao.Text;
                         despesa.valorDespesa = Convert.ToDouble(mtbValorDespesa.Text);
                         despesa.dataDespesa = dtpDataDespesa.Value;
+                        despesa.funcionario = objFuncionario;
                         despesa.formaPagamento = listaPagamento.Where(p => p.formaPagamento == cbFormaPagamento.SelectedItem.ToString()).First();
 
 
@@ -370,11 +386,75 @@ namespace Apresentacao
 
         private void FrmCadastrarDespesa_Load(object sender, EventArgs e)
         {
+
+            //Pega no formulario da venda o UsuarioLogado
+            if (FrmMenuPrincipal.userLogado != null)
+            {
+                objFuncionario = FrmMenuPrincipal.userLogado;
+                tbFuncionario.Text = objFuncionario.nomeFuncionario;
+            }
+
             metodoConstrutor();
         }
 
+        private void btFuncionario_Click(object sender, EventArgs e)
+        {
+            int n;
+            bool ehUmNumero = int.TryParse(tbFuncionario.Text, out n);
+            if (ehUmNumero == true)
+            {
+                objFuncionario = nFuncionario.BuscarFuncionarioPorCodigo(n);
+                if (objFuncionario != null)
+                {
+                    this.tbFuncionario.Text = objFuncionario.nomeFuncionario;
+                    mtbValorDespesa.Focus();
+                }
+                else
+                    tbFuncionario.Clear();
+            }
+            else
+            {
+                FrmSelecionarFuncionario frmSelecionarFuncionario = new FrmSelecionarFuncionario(tbFuncionario.Text);
+                DialogResult resultado = frmSelecionarFuncionario.ShowDialog();
 
-      
+                if (resultado == DialogResult.OK)
+                {
+
+                    this.objFuncionario = frmSelecionarFuncionario.FuncionarioSelecionado;
+                    this.tbFuncionario.Text = objFuncionario.nomeFuncionario;
+                    mtbValorDespesa.Focus();
+                }
+
+            }
+        }
+
+        private void tbFuncionario_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (e.KeyChar == 13)
+            {
+                btFuncionario.PerformClick();
+                e.Handled = true;
+            }
+        }
+
+        private void tbFuncionario_Leave(object sender, EventArgs e)
+        {
+            if (tbFuncionario.Text == "")
+            {
+                tbFuncionario.Text = "Digite o nome do funcionário ...";
+                pbFuncionario.Image = Properties.Resources.FuncionarioAzul;
+                panelFuncionario.BackColor = Color.FromArgb(((int)(((byte)(51)))), ((int)(((byte)(51)))), ((int)(((byte)(76)))));
+                tbFuncionario.ForeColor = Color.FromArgb(((int)(((byte)(51)))), ((int)(((byte)(51)))), ((int)(((byte)(76)))));
+
+            }
+        }
+
+        private void tbFuncionario_Enter(object sender, EventArgs e)
+        {
+            tbFuncionario.Clear();
+            pbFuncionario.Image = Properties.Resources.FuncionarioRosa;
+            panelFuncionario.BackColor = Color.DeepPink;
+        }
 
 
     }

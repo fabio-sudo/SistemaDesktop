@@ -22,13 +22,14 @@ namespace Negocio
             {
                 sqlserver.LimparParametros();
                 sqlserver.AdicionarParametro(new System.Data.SqlClient.SqlParameter("@descricaoDespesa", despesa.descricaoDespesa));
+                sqlserver.AdicionarParametro(new System.Data.SqlClient.SqlParameter("@funcionario", despesa.funcionario.codigoFuncionario));
                 sqlserver.AdicionarParametro(new System.Data.SqlClient.SqlParameter("@formaPagamento", despesa.formaPagamento.codigoFormaPagamento));
                 sqlserver.AdicionarParametro(new System.Data.SqlClient.SqlParameter("@valorDespesa", despesa.valorDespesa));
                 sqlserver.AdicionarParametro(new System.Data.SqlClient.SqlParameter("@dataDespesa", despesa.dataDespesa));
 
 
 
-                string comando = "exec uspCadastrarDespesaTemporaria @descricaoDespesa, @formaPagamento, @valorDespesa, @dataDespesa";
+                string comando = "exec uspCadastrarDespesaTemporaria @descricaoDespesa, @funcionario, @formaPagamento, @valorDespesa, @dataDespesa";
 
                 object Resposta = sqlserver.ExecutarScalar(comando, System.Data.CommandType.Text);
                 if (Convert.ToInt16(Resposta) == 2)
@@ -54,11 +55,12 @@ namespace Negocio
                 sqlserver.LimparParametros();
                 sqlserver.AdicionarParametro(new System.Data.SqlClient.SqlParameter("@codigoDespesa", despesa.codigoDespesa));
                 sqlserver.AdicionarParametro(new System.Data.SqlClient.SqlParameter("@descricaoDespesa", despesa.descricaoDespesa));
+                sqlserver.AdicionarParametro(new System.Data.SqlClient.SqlParameter("@funcionario", despesa.funcionario.codigoFuncionario));
                 sqlserver.AdicionarParametro(new System.Data.SqlClient.SqlParameter("@formaPagamento", despesa.formaPagamento.codigoFormaPagamento));
                 sqlserver.AdicionarParametro(new System.Data.SqlClient.SqlParameter("@valorDespesa", despesa.valorDespesa));
                 sqlserver.AdicionarParametro(new System.Data.SqlClient.SqlParameter("@dataDespesa", despesa.dataDespesa));
 
-                string comando = "exec uspAlterarDespesaTemporaria @codigoDespesa, @descricaoDespesa, @formaPagamento, @valorDespesa, @dataDespesa";
+                string comando = "exec uspAlterarDespesaTemporaria @codigoDespesa, @descricaoDespesa, @funcionario, @formaPagamento, @valorDespesa, @dataDespesa";
                 object resposta = sqlserver.ExecutarScalar(comando, System.Data.CommandType.Text);
 
                 if (Convert.ToInt32(resposta) == 2)
@@ -149,13 +151,16 @@ namespace Negocio
                 {
                     despesa = new DespesaCaixa();
                     despesa.formaPagamento = new FormaPagamento();
+                    despesa.funcionario = new Funcionario();
 
                     despesa.codigoDespesa = Convert.ToInt32(registro[0]);
                     despesa.descricaoDespesa = registro[1].ToString();
-                    despesa.formaPagamento.codigoFormaPagamento = Convert.ToInt32(registro[2]);
-                    despesa.formaPagamento.formaPagamento = registro[3].ToString();
-                    despesa.valorDespesa = Convert.ToDouble(registro[4]);
-                    despesa.dataDespesa = Convert.ToDateTime(registro[5]);
+                    despesa.funcionario.codigoFuncionario = Convert.ToInt32(registro[2]);
+                    despesa.funcionario.nomeFuncionario = (registro[3].ToString());
+                    despesa.formaPagamento.codigoFormaPagamento = Convert.ToInt32(registro[4]);
+                    despesa.formaPagamento.formaPagamento = registro[5].ToString();
+                    despesa.valorDespesa = Convert.ToDouble(registro[6]);
+                    despesa.dataDespesa = Convert.ToDateTime(registro[7]);
 
                     listaDespesa.Add(despesa);
                 }
@@ -184,13 +189,16 @@ namespace Negocio
                 {
                     despesa = new DespesaCaixa();
                     despesa.formaPagamento = new FormaPagamento();
+                    despesa.funcionario = new Funcionario();
 
                     despesa.codigoDespesa = Convert.ToInt32(registro[0]);
                     despesa.descricaoDespesa = registro[1].ToString();
-                    despesa.formaPagamento.codigoFormaPagamento = Convert.ToInt32(registro[2]);
-                    despesa.formaPagamento.formaPagamento = registro[3].ToString();
-                    despesa.valorDespesa = Convert.ToDouble(registro[4]);
-                    despesa.dataDespesa = Convert.ToDateTime(registro[5]);
+                    despesa.funcionario.codigoFuncionario = Convert.ToInt32(registro[2]);
+                    despesa.funcionario.nomeFuncionario = (registro[3].ToString());
+                    despesa.formaPagamento.codigoFormaPagamento = Convert.ToInt32(registro[4]);
+                    despesa.formaPagamento.formaPagamento = registro[5].ToString();
+                    despesa.valorDespesa = Convert.ToDouble(registro[6]);
+                    despesa.dataDespesa = Convert.ToDateTime(registro[7]);
 
                     listaDespesa.Add(despesa);
                 }

@@ -43,9 +43,10 @@ namespace Apresentacao
                 this.dgvDespesas[0, indice].Value = despesa.codigoDespesa;
                 this.dgvDespesas[1, indice].Value = despesa.descricaoDespesa;
                 this.dgvDespesas[2, indice].Value = despesa.valorDespesa;
-                this.dgvDespesas[4, indice].Value = despesa.formaPagamento.codigoFormaPagamento;
-                this.dgvDespesas[3, indice].Value = despesa.formaPagamento.formaPagamento;
-                this.dgvDespesas[5, indice].Value = despesa.dataDespesa;
+                this.dgvDespesas[3, indice].Value = despesa.funcionario.nomeFuncionario;
+                this.dgvDespesas[5, indice].Value = despesa.formaPagamento.codigoFormaPagamento;
+                this.dgvDespesas[4, indice].Value = despesa.formaPagamento.formaPagamento;
+                this.dgvDespesas[6, indice].Value = despesa.dataDespesa;
 
 
 
