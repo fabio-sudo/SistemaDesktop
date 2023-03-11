@@ -243,6 +243,12 @@
     <Compile Include="FrmCancelamento.Designer.cs">
       <DependentUpon>FrmCancelamento.cs</DependentUpon>
     </Compile>
+    <Compile Include="FrmCancelamentoDespesa.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FrmCancelamentoDespesa.Designer.cs">
+      <DependentUpon>FrmCancelamentoDespesa.cs</DependentUpon>
+    </Compile>
     <Compile Include="FrmCancelamentoSangria.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -634,6 +640,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="FrmCancelamento.resx">
       <DependentUpon>FrmCancelamento.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FrmCancelamentoDespesa.resx">
+      <DependentUpon>FrmCancelamentoDespesa.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="FrmCancelamentoSangria.resx">
       <DependentUpon>FrmCancelamentoSangria.cs</DependentUpon>

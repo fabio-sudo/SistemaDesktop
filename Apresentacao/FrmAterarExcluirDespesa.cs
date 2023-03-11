@@ -20,7 +20,8 @@ namespace Apresentacao
         NegFormaPagamento nPagamento = new NegFormaPagamento();
         NegDespesa nDespesa = new NegDespesa();
 
-
+        Funcionario objFuncionario = new Funcionario();
+        NegFuncionario nFuncionario = new NegFuncionario();
 
         CaixaLista listaCaixa = new CaixaLista();
         ListaDespesas listaDespesas = new ListaDespesas();
@@ -166,6 +167,12 @@ namespace Apresentacao
             dtpDataDespesa.Value = objDespesa.dataDespesa;
             tbDescricao.Text = objDespesa.descricaoDespesa;
             mtbValorDespesa.Text = (objDespesa.valorDespesa*100).ToString();
+            objFuncionario = objDespesa.funcionario;
+            tbFuncionario.Text = objDespesa.funcionario.nomeFuncionario;
+
+
+
+
 
             metodoConstrutorGrid();
 
@@ -385,6 +392,7 @@ namespace Apresentacao
                         DespesaCaixa despesa = new DespesaCaixa();
 
                         despesa.codigoDespesa = Convert.ToInt32(tbCodigo.Text);
+                        despesa.funcionario = objFuncionario;
                         despesa.descricaoDespesa = tbDescricao.Text;
                         despesa.valorDespesa = Convert.ToDouble(mtbValorDespesa.Text);
                         despesa.dataDespesa = dtpDataDespesa.Value;
@@ -442,6 +450,66 @@ namespace Apresentacao
                 }
             }
         }
+
+        private void btFuncionario_Click(object sender, EventArgs e)
+        {
+            int n;
+            bool ehUmNumero = int.TryParse(tbFuncionario.Text, out n);
+            if (ehUmNumero == true)
+            {
+                objFuncionario = nFuncionario.BuscarFuncionarioPorCodigo(n);
+                if (objFuncionario != null)
+                {
+                    this.tbFuncionario.Text = objFuncionario.nomeFuncionario;
+                    mtbValorDespesa.Focus();
+                }
+                else
+                    tbFuncionario.Clear();
+            }
+            else
+            {
+                FrmSelecionarFuncionario frmSelecionarFuncionario = new FrmSelecionarFuncionario(tbFuncionario.Text);
+                DialogResult resultado = frmSelecionarFuncionario.ShowDialog();
+
+                if (resultado == DialogResult.OK)
+                {
+
+                    this.objFuncionario = frmSelecionarFuncionario.FuncionarioSelecionado;
+                    this.tbFuncionario.Text = objFuncionario.nomeFuncionario;
+                    mtbValorDespesa.Focus();
+                }
+
+            }
+        }
+
+        private void tbFuncionario_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (e.KeyChar == 13)
+            {
+                btFuncionario.PerformClick();
+                e.Handled = true;
+            }
+        }
+
+        private void tbFuncionario_Leave(object sender, EventArgs e)
+        {
+            if (tbFuncionario.Text == "")
+            {
+                tbFuncionario.Text = "Digite o nome do funcionário ...";
+                pbFuncionario.Image = Properties.Resources.FuncionarioAzul;
+                panelFuncionario.BackColor = Color.FromArgb(((int)(((byte)(51)))), ((int)(((byte)(51)))), ((int)(((byte)(76)))));
+                tbFuncionario.ForeColor = Color.FromArgb(((int)(((byte)(51)))), ((int)(((byte)(51)))), ((int)(((byte)(76)))));
+
+            }
+        }
+
+        private void tbFuncionario_Enter(object sender, EventArgs e)
+        {
+            tbFuncionario.Clear();
+            pbFuncionario.Image = Properties.Resources.FuncionarioRosa;
+            panelFuncionario.BackColor = Color.DeepPink;
+        }
+
 
 
     }

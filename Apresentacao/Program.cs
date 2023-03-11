@@ -17,8 +17,7 @@ namespace Apresentacao
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
             //Application.Run(new FrmBackup());
-            Application.Run(new FrmVendaPendente());
-            Application.Run(new FrmCadastrarDespesa());
+            Application.Run(new FrmSelecionarDespesa());
         }
     }
 }

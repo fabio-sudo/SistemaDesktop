@@ -70,7 +70,7 @@ namespace Apresentacao
 
                 if (cbFormaPagamento.SelectedItem.ToString() == caixa.formaPagamento.formaPagamento) {
 
-                    if (Convert.ToDouble(mtbValorDespesa.Text) > (caixa.valorCaixa - caixa.despesaCaixa - caixa.sangriaCaixa - caixa.estornoCaixa)) {
+                    if (Convert.ToDouble(mtbValorDespesa.Text) > (caixa.totalCaixa - caixa.despesaCaixa - caixa.sangriaCaixa - caixa.estornoCaixa)) {
 
                         MessageBox.Show("Valor da despesa maior que o valor do Caixa!", "Erro Valor Despesa", MessageBoxButtons.OK, MessageBoxIcon.Error);
                         tbDescricao.Focus();
@@ -141,8 +141,6 @@ namespace Apresentacao
                 metodoAtualizaGrid();
                 metodoCalculaTotais();
             }
-            else
-            { this.Close(); }
                   
         }
 

@@ -505,46 +505,54 @@ namespace Apresentacao
 
         private void btCancelar_Click(object sender, EventArgs e)
         {
-                        
-            if (this.dgvVendaCancela.Rows.Count > 0)
+            try
             {
-                int indiceRegistroSelecionado = Convert.ToInt32(dgvVendaCancela.CurrentRow.Cells[0].Value);
-                int codigoCliente = Convert.ToInt32(dgvVendaCancela.CurrentRow.Cells[9].Value);
-                Crediario crediarioCancela = new Crediario();
 
-                //ItemVenda
-                if (dgvVendaCancela.CurrentRow.Cells[3].Value.ToString() == "AVista")
+                if (this.dgvVendaCancela.Rows.Count > 0)
                 {
-                    foreach (Venda venda in objVendaLista)
+                    int indiceRegistroSelecionado = Convert.ToInt32(dgvVendaCancela.CurrentRow.Cells[0].Value);
+                    int codigoCliente = Convert.ToInt32(dgvVendaCancela.CurrentRow.Cells[9].Value);
+                    Crediario crediarioCancela = new Crediario();
+
+                    //ItemVenda
+                    if (dgvVendaCancela.CurrentRow.Cells[3].Value.ToString() == "AVista")
                     {
-                        if (venda.codigoVenda == indiceRegistroSelecionado)
+                        foreach (Venda venda in objVendaLista)
                         {
-                            FrmItemVenda frmItemVenda = new FrmItemVenda(venda);
-                            frmItemVenda.ShowDialog();
+                            if (venda.codigoVenda == indiceRegistroSelecionado)
+                            {
+                                FrmItemVenda frmItemVenda = new FrmItemVenda(venda);
+                                frmItemVenda.ShowDialog();
+                            }
                         }
                     }
+                    //Crediario Pendente
+                    else if (dgvVendaCancela.CurrentRow.Cells[3].Value.ToString() == "Crediario Pendente")
+                    {
+                        crediarioCancela = nCrediario.BuscarCrediarioPorCodigo(codigoCliente);
+                        FrmItemCrediario frmitemCrediario = new FrmItemCrediario(crediarioCancela);
+                        frmitemCrediario.ShowDialog();
+
+
+                    }
+                    //Crediario Pago ou Pago Parcialmente
+                    else
+                    {
+
+                        crediarioCancela = nCrediario.BuscarCrediarioPagoPorCodigo(codigoCliente);
+                        FrmItemCrediarioPago frmitemCrediarioPago = new FrmItemCrediarioPago(crediarioCancela);
+                        frmitemCrediarioPago.ShowDialog();
+
+                    }
+
+                    //Atualiza dados do Gride
+                    btBuscar.PerformClick();
+
                 }
-                //Crediario Pendente
-                else if (dgvVendaCancela.CurrentRow.Cells[3].Value.ToString() == "Crediario Pendente")
-                {
-                   crediarioCancela = nCrediario.BuscarCrediarioPorCodigo(codigoCliente);
-                   FrmItemCrediario frmitemCrediario = new FrmItemCrediario(crediarioCancela);
-                   frmitemCrediario.ShowDialog();
-
-
-                }
-                //Crediario Pago ou Pago Parcialmente
-                else {
-
-                  crediarioCancela =  nCrediario.BuscarCrediarioPagoPorCodigo(codigoCliente);
-                  FrmItemCrediarioPago frmitemCrediarioPago = new FrmItemCrediarioPago(crediarioCancela);
-                  frmitemCrediarioPago.ShowDialog();
-                
-                }
-
-                //Atualiza dados do Gride
-                btBuscar.PerformClick();
-
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
             }
 
         }

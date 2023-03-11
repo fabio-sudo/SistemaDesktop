@@ -427,7 +427,7 @@ namespace Apresentacao
                         if (cancelamentoJaRealizado == false)
                         {
                           //Se não haver mais sangria pergunta se quer cancelar tudo
-                            if (nSangria.BuscarCancelamentoSangriaPorData(objVenda.dataVenda) == false)
+                            if (nSangria.BuscarCancelamentoSangriaPorData(objVenda.dataVenda) == false || nSangria.ValidaSangriaFormaPagamento(objVenda.dataVenda, objVenda.formaPagamento.codigoFormaPagamento) == false)
                             {
 
                                 #region Cancela Todos os Itens

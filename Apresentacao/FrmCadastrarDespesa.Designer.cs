@@ -494,9 +494,9 @@
             this.lbTotalDespesas.Location = new System.Drawing.Point(21, 32);
             this.lbTotalDespesas.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.lbTotalDespesas.Name = "lbTotalDespesas";
-            this.lbTotalDespesas.Size = new System.Drawing.Size(92, 19);
+            this.lbTotalDespesas.Size = new System.Drawing.Size(65, 19);
             this.lbTotalDespesas.TabIndex = 84;
-            this.lbTotalDespesas.Text = "R$ 1200,00";
+            this.lbTotalDespesas.Text = "R$ 0,00";
             this.lbTotalDespesas.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // pbFuncionario

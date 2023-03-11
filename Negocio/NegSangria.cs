@@ -576,5 +576,34 @@ namespace Negocio
 
         }
 
+        public Boolean ValidaSangriaFormaPagamento(DateTime data,int codigoPagamento) {
+            try
+            {
+                sqlServer.LimparParametros();
+                sqlServer.AdicionarParametro(new SqlParameter("@data", data));
+                sqlServer.AdicionarParametro(new SqlParameter("@pagamento", codigoPagamento));
+
+                string comandoSql = "exec uspValidaCancelamentoSangriaFormaPagamento @data, @pagamento";
+
+                DataTable tabelaRetorno = this.sqlServer.ExecutarConsulta(comandoSql, CommandType.Text);
+                Sangria sangria;
+
+
+                tabelaRetorno = this.sqlServer.ExecutarConsulta(comandoSql, CommandType.Text);
+
+                if (tabelaRetorno.Rows.Count > 0)
+                {
+                    return true;
+                }
+                else { return false; }
+            }
+            catch (Exception ex) {
+
+                throw new Exception("Não foi possível buscar dados da Sangria. [Negócios]. Motivo: " + ex.Message);
+            
+            }
+        
+        }
+
     }
 }

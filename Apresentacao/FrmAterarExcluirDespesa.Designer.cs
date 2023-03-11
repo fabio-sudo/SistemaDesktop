@@ -75,6 +75,10 @@
             this.SangriaCaixa = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.estornoCaixa = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.despesaCaixaGrid = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.pbFuncionario = new System.Windows.Forms.PictureBox();
+            this.panelFuncionario = new System.Windows.Forms.Panel();
+            this.btFuncionario = new System.Windows.Forms.Button();
+            this.tbFuncionario = new System.Windows.Forms.TextBox();
             ((System.ComponentModel.ISupportInitialize)(this.pbDespesa)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.epDespesa)).BeginInit();
             this.panelDespesas.SuspendLayout();
@@ -83,6 +87,7 @@
             this.painelCaixa.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dgvCaixa)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pbFuncionario)).BeginInit();
             this.SuspendLayout();
             // 
             // lbDataDespesa
@@ -90,7 +95,7 @@
             this.lbDataDespesa.AutoSize = true;
             this.lbDataDespesa.Font = new System.Drawing.Font("Arial", 9F, System.Drawing.FontStyle.Bold);
             this.lbDataDespesa.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(51)))), ((int)(((byte)(51)))), ((int)(((byte)(76)))));
-            this.lbDataDespesa.Location = new System.Drawing.Point(266, 12);
+            this.lbDataDespesa.Location = new System.Drawing.Point(247, 12);
             this.lbDataDespesa.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.lbDataDespesa.Name = "lbDataDespesa";
             this.lbDataDespesa.Size = new System.Drawing.Size(33, 15);
@@ -102,7 +107,7 @@
             this.dtpDataDespesa.CalendarForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(51)))), ((int)(((byte)(51)))), ((int)(((byte)(76)))));
             this.dtpDataDespesa.Font = new System.Drawing.Font("Arial Narrow", 10.2F, System.Drawing.FontStyle.Bold);
             this.dtpDataDespesa.Format = System.Windows.Forms.DateTimePickerFormat.Short;
-            this.dtpDataDespesa.Location = new System.Drawing.Point(269, 31);
+            this.dtpDataDespesa.Location = new System.Drawing.Point(250, 31);
             this.dtpDataDespesa.Margin = new System.Windows.Forms.Padding(2);
             this.dtpDataDespesa.Name = "dtpDataDespesa";
             this.dtpDataDespesa.Size = new System.Drawing.Size(94, 23);
@@ -117,7 +122,7 @@
             this.cbFormaPagamento.Enabled = false;
             this.cbFormaPagamento.Font = new System.Drawing.Font("Arial Narrow", 10.2F, System.Drawing.FontStyle.Bold);
             this.cbFormaPagamento.FormattingEnabled = true;
-            this.cbFormaPagamento.Location = new System.Drawing.Point(15, 82);
+            this.cbFormaPagamento.Location = new System.Drawing.Point(11, 120);
             this.cbFormaPagamento.Margin = new System.Windows.Forms.Padding(2);
             this.cbFormaPagamento.Name = "cbFormaPagamento";
             this.cbFormaPagamento.Size = new System.Drawing.Size(138, 25);
@@ -128,7 +133,7 @@
             this.lbFormaPagamento.AutoSize = true;
             this.lbFormaPagamento.Font = new System.Drawing.Font("Arial", 9F, System.Drawing.FontStyle.Bold);
             this.lbFormaPagamento.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(51)))), ((int)(((byte)(51)))), ((int)(((byte)(76)))));
-            this.lbFormaPagamento.Location = new System.Drawing.Point(12, 65);
+            this.lbFormaPagamento.Location = new System.Drawing.Point(8, 103);
             this.lbFormaPagamento.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.lbFormaPagamento.Name = "lbFormaPagamento";
             this.lbFormaPagamento.Size = new System.Drawing.Size(111, 15);
@@ -138,10 +143,10 @@
             // tbDescricao
             // 
             this.tbDescricao.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F);
-            this.tbDescricao.Location = new System.Drawing.Point(15, 133);
+            this.tbDescricao.Location = new System.Drawing.Point(15, 178);
             this.tbDescricao.Multiline = true;
             this.tbDescricao.Name = "tbDescricao";
-            this.tbDescricao.Size = new System.Drawing.Size(348, 165);
+            this.tbDescricao.Size = new System.Drawing.Size(361, 165);
             this.tbDescricao.TabIndex = 268;
             this.tbDescricao.Leave += new System.EventHandler(this.tbDescricao_Leave);
             // 
@@ -150,7 +155,7 @@
             this.lbDescricao.AutoSize = true;
             this.lbDescricao.Font = new System.Drawing.Font("Arial", 9F, System.Drawing.FontStyle.Bold);
             this.lbDescricao.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(51)))), ((int)(((byte)(51)))), ((int)(((byte)(76)))));
-            this.lbDescricao.Location = new System.Drawing.Point(12, 115);
+            this.lbDescricao.Location = new System.Drawing.Point(12, 160);
             this.lbDescricao.Name = "lbDescricao";
             this.lbDescricao.Size = new System.Drawing.Size(65, 15);
             this.lbDescricao.TabIndex = 267;
@@ -159,7 +164,7 @@
             // mtbValorDespesa
             // 
             this.mtbValorDespesa.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F);
-            this.mtbValorDespesa.Location = new System.Drawing.Point(141, 31);
+            this.mtbValorDespesa.Location = new System.Drawing.Point(122, 31);
             this.mtbValorDespesa.Name = "mtbValorDespesa";
             this.mtbValorDespesa.Size = new System.Drawing.Size(123, 23);
             this.mtbValorDespesa.TabIndex = 266;
@@ -171,7 +176,7 @@
             this.lbValorDespesa.AutoSize = true;
             this.lbValorDespesa.Font = new System.Drawing.Font("Arial", 9F, System.Drawing.FontStyle.Bold);
             this.lbValorDespesa.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(51)))), ((int)(((byte)(51)))), ((int)(((byte)(76)))));
-            this.lbValorDespesa.Location = new System.Drawing.Point(141, 12);
+            this.lbValorDespesa.Location = new System.Drawing.Point(122, 12);
             this.lbValorDespesa.Name = "lbValorDespesa";
             this.lbValorDespesa.Size = new System.Drawing.Size(54, 15);
             this.lbValorDespesa.TabIndex = 265;
@@ -184,7 +189,7 @@
             this.btSair.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btSair.Font = new System.Drawing.Font("Arial Narrow", 10.2F, System.Drawing.FontStyle.Bold);
             this.btSair.ForeColor = System.Drawing.Color.White;
-            this.btSair.Location = new System.Drawing.Point(265, 328);
+            this.btSair.Location = new System.Drawing.Point(265, 373);
             this.btSair.Margin = new System.Windows.Forms.Padding(2);
             this.btSair.Name = "btSair";
             this.btSair.Size = new System.Drawing.Size(98, 34);
@@ -200,7 +205,7 @@
             this.btAlterar.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btAlterar.Font = new System.Drawing.Font("Arial Narrow", 10.2F, System.Drawing.FontStyle.Bold);
             this.btAlterar.ForeColor = System.Drawing.Color.White;
-            this.btAlterar.Location = new System.Drawing.Point(11, 328);
+            this.btAlterar.Location = new System.Drawing.Point(11, 373);
             this.btAlterar.Margin = new System.Windows.Forms.Padding(2);
             this.btAlterar.Name = "btAlterar";
             this.btAlterar.Size = new System.Drawing.Size(98, 34);
@@ -227,7 +232,7 @@
             this.btExcluir.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btExcluir.Font = new System.Drawing.Font("Arial Narrow", 10.2F, System.Drawing.FontStyle.Bold);
             this.btExcluir.ForeColor = System.Drawing.Color.White;
-            this.btExcluir.Location = new System.Drawing.Point(113, 328);
+            this.btExcluir.Location = new System.Drawing.Point(113, 373);
             this.btExcluir.Margin = new System.Windows.Forms.Padding(2);
             this.btExcluir.Name = "btExcluir";
             this.btExcluir.Size = new System.Drawing.Size(98, 34);
@@ -255,7 +260,7 @@
             this.tbCodigo.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(51)))), ((int)(((byte)(51)))), ((int)(((byte)(76)))));
             this.tbCodigo.Location = new System.Drawing.Point(59, 31);
             this.tbCodigo.Name = "tbCodigo";
-            this.tbCodigo.Size = new System.Drawing.Size(76, 23);
+            this.tbCodigo.Size = new System.Drawing.Size(57, 23);
             this.tbCodigo.TabIndex = 275;
             // 
             // epDespesa
@@ -268,7 +273,7 @@
             this.panelDespesas.BackColor = System.Drawing.Color.MediumSeaGreen;
             this.panelDespesas.Controls.Add(this.lbTituloDespesas);
             this.panelDespesas.Controls.Add(this.lbTotalDespesas);
-            this.panelDespesas.Location = new System.Drawing.Point(377, 302);
+            this.panelDespesas.Location = new System.Drawing.Point(381, 347);
             this.panelDespesas.Margin = new System.Windows.Forms.Padding(2);
             this.panelDespesas.Name = "panelDespesas";
             this.panelDespesas.Size = new System.Drawing.Size(149, 60);
@@ -306,7 +311,7 @@
             this.panelEstorno.BackColor = System.Drawing.Color.Red;
             this.panelEstorno.Controls.Add(this.lbTituloEstorno);
             this.panelEstorno.Controls.Add(this.lbTotalEstorno);
-            this.panelEstorno.Location = new System.Drawing.Point(530, 302);
+            this.panelEstorno.Location = new System.Drawing.Point(534, 347);
             this.panelEstorno.Margin = new System.Windows.Forms.Padding(2);
             this.panelEstorno.Name = "panelEstorno";
             this.panelEstorno.Size = new System.Drawing.Size(149, 60);
@@ -344,7 +349,7 @@
             this.painelSangria.BackColor = System.Drawing.Color.DeepSkyBlue;
             this.painelSangria.Controls.Add(this.lbTituloSangria);
             this.painelSangria.Controls.Add(this.lbSangriaTotal);
-            this.painelSangria.Location = new System.Drawing.Point(683, 302);
+            this.painelSangria.Location = new System.Drawing.Point(687, 347);
             this.painelSangria.Margin = new System.Windows.Forms.Padding(2);
             this.painelSangria.Name = "painelSangria";
             this.painelSangria.Size = new System.Drawing.Size(149, 60);
@@ -382,7 +387,7 @@
             this.painelCaixa.BackColor = System.Drawing.Color.Turquoise;
             this.painelCaixa.Controls.Add(this.lbTituloCaixa);
             this.painelCaixa.Controls.Add(this.lbCaixaTotal);
-            this.painelCaixa.Location = new System.Drawing.Point(836, 302);
+            this.painelCaixa.Location = new System.Drawing.Point(840, 347);
             this.painelCaixa.Margin = new System.Windows.Forms.Padding(2);
             this.painelCaixa.Name = "painelCaixa";
             this.painelCaixa.Size = new System.Drawing.Size(149, 60);
@@ -417,7 +422,7 @@
             // pictureBox1
             // 
             this.pictureBox1.Image = global::Apresentacao.Properties.Resources.DialogVenda;
-            this.pictureBox1.Location = new System.Drawing.Point(377, 22);
+            this.pictureBox1.Location = new System.Drawing.Point(381, 67);
             this.pictureBox1.Margin = new System.Windows.Forms.Padding(2);
             this.pictureBox1.Name = "pictureBox1";
             this.pictureBox1.Size = new System.Drawing.Size(32, 32);
@@ -430,7 +435,7 @@
             this.lbTituloTotalVenda.AutoSize = true;
             this.lbTituloTotalVenda.Font = new System.Drawing.Font("Arial", 12F, System.Drawing.FontStyle.Bold);
             this.lbTituloTotalVenda.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(51)))), ((int)(((byte)(51)))), ((int)(((byte)(76)))));
-            this.lbTituloTotalVenda.Location = new System.Drawing.Point(413, 35);
+            this.lbTituloTotalVenda.Location = new System.Drawing.Point(417, 80);
             this.lbTituloTotalVenda.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.lbTituloTotalVenda.Name = "lbTituloTotalVenda";
             this.lbTituloTotalVenda.Size = new System.Drawing.Size(167, 19);
@@ -471,7 +476,7 @@
             dataGridViewCellStyle8.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
             this.dgvCaixa.DefaultCellStyle = dataGridViewCellStyle8;
             this.dgvCaixa.GridColor = System.Drawing.SystemColors.ButtonFace;
-            this.dgvCaixa.Location = new System.Drawing.Point(377, 58);
+            this.dgvCaixa.Location = new System.Drawing.Point(381, 103);
             this.dgvCaixa.Margin = new System.Windows.Forms.Padding(2);
             this.dgvCaixa.Name = "dgvCaixa";
             dataGridViewCellStyle9.Font = new System.Drawing.Font("Arial Narrow", 10F, System.Drawing.FontStyle.Bold);
@@ -537,12 +542,70 @@
             this.despesaCaixaGrid.Name = "despesaCaixaGrid";
             this.despesaCaixaGrid.Width = 95;
             // 
+            // pbFuncionario
+            // 
+            this.pbFuncionario.Image = global::Apresentacao.Properties.Resources.FuncionarioAzul;
+            this.pbFuncionario.Location = new System.Drawing.Point(11, 62);
+            this.pbFuncionario.Margin = new System.Windows.Forms.Padding(2);
+            this.pbFuncionario.Name = "pbFuncionario";
+            this.pbFuncionario.Size = new System.Drawing.Size(26, 28);
+            this.pbFuncionario.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.pbFuncionario.TabIndex = 287;
+            this.pbFuncionario.TabStop = false;
+            // 
+            // panelFuncionario
+            // 
+            this.panelFuncionario.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(51)))), ((int)(((byte)(51)))), ((int)(((byte)(76)))));
+            this.panelFuncionario.Location = new System.Drawing.Point(11, 92);
+            this.panelFuncionario.Margin = new System.Windows.Forms.Padding(2);
+            this.panelFuncionario.Name = "panelFuncionario";
+            this.panelFuncionario.Size = new System.Drawing.Size(258, 2);
+            this.panelFuncionario.TabIndex = 286;
+            // 
+            // btFuncionario
+            // 
+            this.btFuncionario.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(51)))), ((int)(((byte)(51)))), ((int)(((byte)(76)))));
+            this.btFuncionario.FlatAppearance.BorderColor = System.Drawing.Color.Black;
+            this.btFuncionario.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btFuncionario.Font = new System.Drawing.Font("Arial Narrow", 8F, System.Drawing.FontStyle.Bold);
+            this.btFuncionario.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
+            this.btFuncionario.ImageAlign = System.Drawing.ContentAlignment.TopLeft;
+            this.btFuncionario.ImageKey = "Cliente.png";
+            this.btFuncionario.Location = new System.Drawing.Point(272, 60);
+            this.btFuncionario.Margin = new System.Windows.Forms.Padding(2);
+            this.btFuncionario.Name = "btFuncionario";
+            this.btFuncionario.Size = new System.Drawing.Size(72, 34);
+            this.btFuncionario.TabIndex = 285;
+            this.btFuncionario.Text = "Buscar";
+            this.btFuncionario.UseVisualStyleBackColor = false;
+            this.btFuncionario.Click += new System.EventHandler(this.btFuncionario_Click);
+            // 
+            // tbFuncionario
+            // 
+            this.tbFuncionario.BackColor = System.Drawing.SystemColors.ButtonHighlight;
+            this.tbFuncionario.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.tbFuncionario.Font = new System.Drawing.Font("Arial", 10F, System.Drawing.FontStyle.Bold);
+            this.tbFuncionario.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(51)))), ((int)(((byte)(51)))), ((int)(((byte)(76)))));
+            this.tbFuncionario.Location = new System.Drawing.Point(41, 72);
+            this.tbFuncionario.Margin = new System.Windows.Forms.Padding(2);
+            this.tbFuncionario.Name = "tbFuncionario";
+            this.tbFuncionario.Size = new System.Drawing.Size(226, 16);
+            this.tbFuncionario.TabIndex = 284;
+            this.tbFuncionario.Text = "Digite o nome do funcionário ...";
+            this.tbFuncionario.Enter += new System.EventHandler(this.tbFuncionario_Enter);
+            this.tbFuncionario.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.tbFuncionario_KeyPress);
+            this.tbFuncionario.Leave += new System.EventHandler(this.tbFuncionario_Leave);
+            // 
             // FrmAterarExcluirDespesa
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.ControlLightLight;
-            this.ClientSize = new System.Drawing.Size(997, 380);
+            this.ClientSize = new System.Drawing.Size(1004, 429);
+            this.Controls.Add(this.pbFuncionario);
+            this.Controls.Add(this.panelFuncionario);
+            this.Controls.Add(this.btFuncionario);
+            this.Controls.Add(this.tbFuncionario);
             this.Controls.Add(this.panelDespesas);
             this.Controls.Add(this.panelEstorno);
             this.Controls.Add(this.painelSangria);
@@ -585,6 +648,7 @@
             this.painelCaixa.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.dgvCaixa)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pbFuncionario)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -628,5 +692,9 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn SangriaCaixa;
         private System.Windows.Forms.DataGridViewTextBoxColumn estornoCaixa;
         private System.Windows.Forms.DataGridViewTextBoxColumn despesaCaixaGrid;
+        private System.Windows.Forms.PictureBox pbFuncionario;
+        private System.Windows.Forms.Panel panelFuncionario;
+        private System.Windows.Forms.Button btFuncionario;
+        private System.Windows.Forms.TextBox tbFuncionario;
     }
 }
