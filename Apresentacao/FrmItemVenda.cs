@@ -40,6 +40,8 @@ namespace Apresentacao
         NegSangria nSangria = new NegSangria();
         Sangria sangria = new Sangria();
         NegCaixa nCaixa = new NegCaixa();
+        NegDespesa nDespesa = new NegDespesa();
+
 
         //Verifica se os itens ja foram excluidos
         Boolean cancelamentoJaRealizado = false;
@@ -265,7 +267,9 @@ namespace Apresentacao
             //Verifica se há sangria para realizar cancelamento
             foreach (ItemVenda item in listaItemVendaExclusao)
             {
+                //-----------------------------------------------------------------------------PARCIAL
                 if (item.Venda.formaPagamento.formaPagamento == "PARCIAL") {
+
                     //Verifica se há sangria no dia da parcial
                     if (nSangria.BuscarCancelamentoSangriaPorData(item.dataItemVenda) == true)
                     {
@@ -273,7 +277,9 @@ namespace Apresentacao
                         //Chama Formulario de cancelamento da Parcial
                         DialogResult resultadoParcial;
                         FrmAlterarExcluirParcialVenda FrmParcialVenda = new FrmAlterarExcluirParcialVenda(objVenda, listaItemVendaExclusao);
+
                         resultadoParcial = FrmParcialVenda.ShowDialog();
+
                         if (resultadoParcial == DialogResult.Yes)
                         {
                             //Se o retorno for Sim atualiza os dados da venda buscando venda por codigo
@@ -360,7 +366,128 @@ namespace Apresentacao
 
             return  true;
         }
+
+
+        private Boolean metodoValidaCancelamentoDespesa() { 
         
+          //Verifica se há sangria para realizar cancelamento
+            foreach (ItemVenda item in listaItemVendaExclusao)
+            {
+                #region Parcial Cancela
+                //---------------------------------------------------------------------------Parcial - Despesa -> Cancelamento
+                if (item.Venda.formaPagamento.formaPagamento == "PARCIAL")
+                {
+                     //Verifica se há despesa no dia da parcial
+                    if (nDespesa.BuscarCancelamentoDespesaPorData(item.dataItemVenda) == true)
+                    {
+                        //Chama Formulario de cancelamento da Parcial
+                        DialogResult resultadoParcial;
+                        FrmAlterarExcluirParcialVenda FrmParcialVenda = new FrmAlterarExcluirParcialVenda(objVenda, listaItemVendaExclusao);
+
+                        resultadoParcial = FrmParcialVenda.ShowDialog();
+
+                        if (resultadoParcial == DialogResult.Yes)
+                        {
+                            //Se o retorno for Sim atualiza os dados da venda buscando venda por codigo
+                            objVenda = nVenda.BuscarVendaPorCodigo(objVenda.codigoVenda);
+
+                            //Caso parcial e itens da venda forem excluidos retorna confimando cancelamento
+                            if (objVenda == null) {
+
+                                FrmCaixaDialogo frmCaixaCad = new FrmCaixaDialogo("Itens Cancelados",
+                               "Itens cancelados com sucesso!",
+                               Properties.Resources.DialogOK,
+                               System.Drawing.Color.FromArgb(((int)(((byte)(51)))), ((int)(((byte)(51)))), ((int)(((byte)(76))))),
+                               Color.White,
+                               "Ok", "",
+                               false);
+                               frmCaixaCad.ShowDialog();
+
+                               cancelamentoJaRealizado = true;
+                               this.DialogResult = DialogResult.Yes;
+                               this.Close();
+                               break;
+                            }
+
+                            metodoInicializaFormulario();
+                            break;
+                        }
+                        else
+                        {
+                            //Erro ao Cancelar Parcial
+                            FrmCaixaDialogo frmCaixaCad = new FrmCaixaDialogo("Erro ao Cancelar Parcial - Despesa",
+                            "Não foi possível cancelar as Parciais!",
+                            Properties.Resources.DialogErro,
+                            System.Drawing.Color.FromArgb(((int)(((byte)(51)))), ((int)(((byte)(51)))), ((int)(((byte)(76))))),
+                            Color.White,
+                            "Ok", "",
+                            false);
+                            frmCaixaCad.ShowDialog();
+
+                            return false;
+                        }
+                   
+                    }//Verifica se existe sangria no dia da Parcial
+
+                }//Verifica se existe Parcial no item
+                #endregion
+                //--------------------------------------------------------------Cancelamento da Parcial - Despesa
+                DespesaCaixa despesaValida = null;
+                //Item não tiver parcial cancelamento normal -> Despesa Recebe o valor restante do caixa
+                despesaValida = nDespesa.BuscarCancelamentoDespesa(item.dataItemVenda, item.Venda.formaPagamento.codigoFormaPagamento);
+                
+                if (despesaValida != null)
+                {
+
+                    //TotalExcluir
+                    despesaValida.dataDespesa = item.dataItemVenda; 
+                    double valorTotalItem = (from x in listaItemVendaExclusao where (x.Venda.formaPagamento.codigoFormaPagamento == despesaValida.formaPagamento.codigoFormaPagamento) select ((x.quantidadeVenda * x.precoVenda) + x.JurosItem - x.descontoItem)).Sum();
+
+                    //DESPESA
+                    ListaDespesas despesaLista = new ListaDespesas();
+                    despesaLista = nDespesa.BuscarDespesaPorData(despesaValida.dataDespesa, despesaValida.dataDespesa);
+                    double valorDespesa = (from d in despesaLista where (d.formaPagamento.codigoFormaPagamento == item.Venda.formaPagamento.codigoFormaPagamento) select (d.valorDespesa)).Sum();                 
+
+                    //SANGRIA
+                    SangriaLista sangriaLista = new SangriaLista();
+                    sangriaLista = nSangria.BuscarSangriaParaCancelamento(sangria.dataSangria);
+                    double valorSangria = (from s in sangriaLista where (s.pagamentoSangria.codigoFormaPagamento == item.Venda.formaPagamento.codigoFormaPagamento) select (s.valorSangria)).Sum();
+
+                    //CAIXA
+                    CaixaLista caixaLista = new CaixaLista();
+                    caixaLista = nCaixa.BuscarCaixaValores(despesaValida.dataDespesa);
+                    double valorCaixa = (from c in caixaLista where (c.formaPagamento.codigoFormaPagamento == item.Venda.formaPagamento.codigoFormaPagamento) select (c.valorCaixa)).Sum();
+
+
+                    //Despesa for maior que o resto que sobrou no caixa não necessita cancelamento
+                    if ((valorDespesa) >= (valorCaixa - valorTotalItem - valorSangria))
+                    {
+                        FrmCancelamentoDespesa frmDespesa
+                            = new FrmCancelamentoDespesa(despesaValida, caixaLista, sangriaLista, null, listaItemVendaExclusao, null, null);
+
+                        DialogResult resultadoAtualizacaoSangria = frmDespesa.ShowDialog();
+
+                        if (resultadoAtualizacaoSangria == DialogResult.Yes)
+                        {
+
+                            return true;
+
+                        }
+                        else
+                        {
+
+                            return false;
+
+                        }
+                    }
+                }
+
+            }//Foreach
+
+            return true;
+        }
+
+
         #endregion
         //----------------Formulário
         private void FrmItemVenda_Load(object sender, EventArgs e)
@@ -422,7 +549,8 @@ namespace Apresentacao
                     {
 
                     //método verifica se há sangria vinculada com venda para realizar atualização
-                    if (metodoValidaCancelamentoSangria() == true)
+                  if ( metodoValidaCancelamentoDespesa() == true)
+                      //metodoValidaCancelamentoSangria() == true &&
                     {
                         if (cancelamentoJaRealizado == false)
                         {

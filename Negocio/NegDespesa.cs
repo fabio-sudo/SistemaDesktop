@@ -3,6 +3,7 @@ using ObjetoTransferencia;
 using System;
 using System.Collections.Generic;
 using System.Data;
+using System.Data.SqlClient;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -207,5 +208,90 @@ namespace Negocio
             }
             catch (Exception ex) { throw new Exception("Erro na camada de negócios Buscar Despesa Por Nome " + ex.Message); }
         }
+
+      //---------------------------------Cancelamento Validações
+      //Retorna se há alguma despesa na data
+      public Boolean BuscarCancelamentoDespesaPorData(DateTime data)
+        {
+            try
+            {
+                sqlserver.LimparParametros();
+                sqlserver.AdicionarParametro(new SqlParameter("@data", data));
+
+                string comandoSql = "exec uspValidaCancelamentoDespesaPorData @data";
+
+                DataTable tabelaRetorno = this.sqlserver.ExecutarConsulta(comandoSql, CommandType.Text);
+                DespesaCaixa despesa;
+
+
+                tabelaRetorno = this.sqlserver.ExecutarConsulta(comandoSql, CommandType.Text);
+
+                if (tabelaRetorno.Rows.Count > 0)
+                {
+                    DataRow registro = tabelaRetorno.Rows[0];//Consulta só retorna uma objeto
+
+                    despesa = new DespesaCaixa();
+                    despesa.formaPagamento = new FormaPagamento();
+
+                    despesa.valorDespesa = Convert.ToDouble(registro[0]); //Valor restante Caixa
+                    despesa.formaPagamento.codigoFormaPagamento = Convert.ToInt32(registro[1]);
+                    despesa.formaPagamento.formaPagamento = (registro[2].ToString());
+
+
+                    return true;
+                }
+                else
+                    return false;
+
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Não foi possível buscar dados da Despesa. [Negócios]. Motivo: " + ex.Message);
+            }
+
+        }
+
+      //Verifica se há necessidade de cancelar a despesa
+      public DespesaCaixa BuscarCancelamentoDespesa(DateTime data, int codigoPagamento)
+      {
+          try
+          {
+              sqlserver.LimparParametros();
+              sqlserver.AdicionarParametro(new SqlParameter("@data", data));
+              sqlserver.AdicionarParametro(new SqlParameter("@pagamento", codigoPagamento));
+
+              string comandoSql = "exec uspValidaCancelamentoDespesaVenda @data, @pagamento";
+
+              DataTable tabelaRetorno = this.sqlserver.ExecutarConsulta(comandoSql, CommandType.Text);
+              DespesaCaixa despesa;
+
+
+              tabelaRetorno = this.sqlserver.ExecutarConsulta(comandoSql, CommandType.Text);
+
+              if (tabelaRetorno.Rows.Count > 0)
+              {
+                  DataRow registro = tabelaRetorno.Rows[0];//Consulta só retorna uma objeto
+
+                  despesa = new DespesaCaixa();
+                  despesa.formaPagamento = new FormaPagamento();
+
+                  despesa.valorDespesa = Convert.ToDouble(registro[0]); //Valor restante Caixa
+                  despesa.formaPagamento.codigoFormaPagamento = Convert.ToInt32(registro[1]);
+                  despesa.formaPagamento.formaPagamento = (registro[2].ToString());
+
+
+                  return despesa;
+              }
+              else
+                  return null;
+
+          }
+          catch (Exception ex)
+          {
+              throw new Exception("Não foi possível buscar dados da Sangria. [Negócios]. Motivo: " + ex.Message);
+          }
+
+      }
+
     }
 }
