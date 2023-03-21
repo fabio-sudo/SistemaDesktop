@@ -397,6 +397,7 @@ namespace Apresentacao
                         despesa.valorDespesa = Convert.ToDouble(mtbValorDespesa.Text);
                         despesa.dataDespesa = dtpDataDespesa.Value;
                         despesa.formaPagamento = listaPagamento.Where(p => p.formaPagamento == cbFormaPagamento.SelectedItem.ToString()).First();
+                        despesa.statusDespesa = "Pendente";
 
 
                         if (nDespesa.AtualizarDespesaTemp(despesa) == true)

@@ -15,6 +15,7 @@ namespace ObjetoTransferencia
       public string descricaoDespesa { get; set; }
       public double valorDespesa { get; set; }
       public DateTime dataDespesa { get; set; }
+      public string statusDespesa { get; set; }
    }
 
    public class ListaDespesas : List<DespesaCaixa> { }

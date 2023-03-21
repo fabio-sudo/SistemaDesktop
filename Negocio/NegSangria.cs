@@ -586,8 +586,6 @@ namespace Negocio
                 string comandoSql = "exec uspValidaCancelamentoSangriaFormaPagamento @data, @pagamento";
 
                 DataTable tabelaRetorno = this.sqlServer.ExecutarConsulta(comandoSql, CommandType.Text);
-                Sangria sangria;
-
 
                 tabelaRetorno = this.sqlServer.ExecutarConsulta(comandoSql, CommandType.Text);
 

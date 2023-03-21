@@ -60,8 +60,9 @@ namespace Negocio
                 sqlserver.AdicionarParametro(new System.Data.SqlClient.SqlParameter("@formaPagamento", despesa.formaPagamento.codigoFormaPagamento));
                 sqlserver.AdicionarParametro(new System.Data.SqlClient.SqlParameter("@valorDespesa", despesa.valorDespesa));
                 sqlserver.AdicionarParametro(new System.Data.SqlClient.SqlParameter("@dataDespesa", despesa.dataDespesa));
+                sqlserver.AdicionarParametro(new System.Data.SqlClient.SqlParameter("@statusDespesa", despesa.statusDespesa));
 
-                string comando = "exec uspAlterarDespesaTemporaria @codigoDespesa, @descricaoDespesa, @funcionario, @formaPagamento, @valorDespesa, @dataDespesa";
+                string comando = "exec uspAlterarDespesaTemporaria @codigoDespesa, @descricaoDespesa, @funcionario, @formaPagamento, @valorDespesa, @dataDespesa, @statusDespesa";
                 object resposta = sqlserver.ExecutarScalar(comando, System.Data.CommandType.Text);
 
                 if (Convert.ToInt32(resposta) == 2)
@@ -162,6 +163,7 @@ namespace Negocio
                     despesa.formaPagamento.formaPagamento = registro[5].ToString();
                     despesa.valorDespesa = Convert.ToDouble(registro[6]);
                     despesa.dataDespesa = Convert.ToDateTime(registro[7]);
+                    despesa.statusDespesa = (registro[8]).ToString();
 
                     listaDespesa.Add(despesa);
                 }
@@ -200,6 +202,7 @@ namespace Negocio
                     despesa.formaPagamento.formaPagamento = registro[5].ToString();
                     despesa.valorDespesa = Convert.ToDouble(registro[6]);
                     despesa.dataDespesa = Convert.ToDateTime(registro[7]);
+                    despesa.statusDespesa = (registro[8]).ToString();
 
                     listaDespesa.Add(despesa);
                 }

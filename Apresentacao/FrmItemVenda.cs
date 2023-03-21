@@ -450,7 +450,7 @@ namespace Apresentacao
 
                     //SANGRIA
                     SangriaLista sangriaLista = new SangriaLista();
-                    sangriaLista = nSangria.BuscarSangriaParaCancelamento(sangria.dataSangria);
+                    sangriaLista = nSangria.BuscarSangriaParaCancelamento(despesaValida.dataDespesa);
                     double valorSangria = (from s in sangriaLista where (s.pagamentoSangria.codigoFormaPagamento == item.Venda.formaPagamento.codigoFormaPagamento) select (s.valorSangria)).Sum();
 
                     //CAIXA
@@ -463,7 +463,7 @@ namespace Apresentacao
                     if ((valorDespesa) >= (valorCaixa - valorTotalItem - valorSangria))
                     {
                         FrmCancelamentoDespesa frmDespesa
-                            = new FrmCancelamentoDespesa(despesaValida, caixaLista, sangriaLista, null, listaItemVendaExclusao, null, null);
+                            = new FrmCancelamentoDespesa(null, listaItemVendaExclusao, null, null);
 
                         DialogResult resultadoAtualizacaoSangria = frmDespesa.ShowDialog();
 

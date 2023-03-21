@@ -47,7 +47,7 @@ namespace Apresentacao
                 this.dgvDespesas[5, indice].Value = despesa.formaPagamento.codigoFormaPagamento;
                 this.dgvDespesas[4, indice].Value = despesa.formaPagamento.formaPagamento;
                 this.dgvDespesas[6, indice].Value = despesa.dataDespesa;
-
+                this.dgvDespesas[7, indice].Value = despesa.statusDespesa;
 
 
                 indice++;
