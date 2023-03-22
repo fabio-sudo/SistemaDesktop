@@ -18,6 +18,7 @@ namespace Apresentacao
        ListaDespesas listaDespesaSelecionada = new ListaDespesas();
        SangriaLista  listaSangriaSelecionada = new SangriaLista();
        CaixaLista  listaCaixaSelecionado = new CaixaLista();
+       DespesaCaixa objDespesa = new DespesaCaixa();
 
        ParcialVendaLista  listaParcialSelecionado = new ParcialVendaLista();
        ItemVendaLista  listaItemVendaSelecionado = new ItemVendaLista();
@@ -27,6 +28,7 @@ namespace Apresentacao
        NegDespesa nDespesa = new NegDespesa();
        NegSangria nSangria = new NegSangria();
        NegCaixa nCaixa = new NegCaixa();
+       NegFuncionario nFuncionario = new NegFuncionario();
 
        public FrmCancelamentoDespesa([Optional] ParcialVendaLista listaParcialVenda, [Optional]  ItemVendaLista itemVenda, [Optional] ItemCrediarioLista itemCrediario, [Optional]  ItemCrediarioParcialLista itemCrediarioParcial)
         {
@@ -126,16 +128,13 @@ namespace Apresentacao
 
        }
 
+       //Valida atualização ou exclusão
        private void metodoValidaPreenchimento() {
-
-
-           // dgvSangria.Rows[indice].Cells["valorParcialVenda"].Style.ForeColor = Color.Red;
        
        
        
        }
-
-
+        //Preenchimento despesas a cancelar
        private void metodoConstrutorDespesa()
        {
            this.dgvDespesa.Rows.Clear(); // Limpa todos os registros atuais no grid de funcionários.
@@ -164,6 +163,8 @@ namespace Apresentacao
              }
        }
 
+
+
        private void FrmCancelamentoDespesa_Load(object sender, EventArgs e)
        {
            metodoConstrutorListas();//Busca Referencias dos lançamentos dos itens cancelados  Sangria - Caixa - Despesa
@@ -172,7 +173,6 @@ namespace Apresentacao
 
            dgvCancelamento.ClearSelection();
        }
-
 
        private void btSair_Click(object sender, EventArgs e)
        {
@@ -192,6 +192,156 @@ namespace Apresentacao
                this.Close();
 
            }
+       }
+
+        //---------------------Funcionario
+       private void btBuscar_Click(object sender, EventArgs e)
+       {
+           int n;
+           bool ehUmNumero = int.TryParse(tbBuscarFuncionario.Text, out n);
+           if (ehUmNumero == true)
+           {
+               objDespesa.funcionario = nFuncionario.BuscarFuncionarioPorCodigo(n);
+               if (objDespesa.funcionario != null)
+               {
+                   this.tbBuscarFuncionario.Text = objDespesa.funcionario.nomeFuncionario; ;
+                   dgvDespesa.Focus();
+               }
+               else
+                   tbBuscarFuncionario.Clear();
+           }
+           else
+           {
+               FrmSelecionarFuncionario frmSelecionarFuncionario = new FrmSelecionarFuncionario(tbBuscarFuncionario.Text);
+               DialogResult resultado = frmSelecionarFuncionario.ShowDialog();
+
+               if (resultado == DialogResult.OK)
+               {
+
+                   this.objDespesa.funcionario = frmSelecionarFuncionario.FuncionarioSelecionado;
+                   this.tbBuscarFuncionario.Text = objDespesa.funcionario.nomeFuncionario;
+                   dgvDespesa.Focus();
+               }
+
+           }
+       }
+
+       private void tbBuscarFuncionario_Leave(object sender, EventArgs e)
+       {
+           if (tbBuscarFuncionario.Text == "")
+           {
+               tbBuscarFuncionario.Text = "Digite o nome do funcionário ...";
+               pbFuncionario.Image = Properties.Resources.FuncionarioAzul;
+               panelBuscarFuncionario.BackColor = Color.FromArgb(((int)(((byte)(51)))), ((int)(((byte)(51)))), ((int)(((byte)(76)))));
+               tbBuscarFuncionario.ForeColor = Color.FromArgb(((int)(((byte)(51)))), ((int)(((byte)(51)))), ((int)(((byte)(76)))));
+
+           }
+       }
+
+       private void tbBuscarFuncionario_KeyPress(object sender, KeyPressEventArgs e)
+       {
+           if (e.KeyChar == 13)
+           {
+               btBuscar.PerformClick();
+               e.Handled = true;
+           }
+       }
+
+       private void tbBuscarFuncionario_Enter(object sender, EventArgs e)
+       {
+           tbBuscarFuncionario.Clear();
+           pbFuncionario.Image = Properties.Resources.FuncionarioRosa;
+           panelBuscarFuncionario.BackColor = Color.DeepPink;
+       }
+
+       private void btSugestao_Click(object sender, EventArgs e)
+       {
+           if (btSugestao.Text != "Desfazer")
+           {
+               var despesaSugestaoLista = listaDespesaSelecionada
+                  .GroupBy(p => new { p.formaPagamento.codigoFormaPagamento, p.dataDespesa })
+                  .Select(g => new
+                  {
+                      formaPagamento = g.Key.codigoFormaPagamento,
+                      dataCancelamento = g.Key.dataDespesa,
+                      cancelamentoDespesa = g.Sum(p => (p.valorDespesa)),
+                      quantidadeDespesa = g.Count()
+                  });
+
+               //Percorrer Gride Cancelamento
+               foreach (DataGridViewRow row in dgvCancelamento.Rows)
+               {
+
+                   foreach (var item in despesaSugestaoLista)
+                   {
+
+                       //Total a Cancela == Despesas -> FormaPagamento  e Data
+                       if ((Convert.ToInt32(row.Cells[0].Value) == (item.formaPagamento) &&
+                           (Convert.ToDateTime(row.Cells[7].Value) == item.dataCancelamento)))
+                       {
+
+                           if (Convert.ToDouble(row.Cells[6].Value) <= 0)
+                           {
+                               //Percorre Grid Despesa zerando os valores para cancelamento
+                               int contador = 0;
+                               foreach (DataGridViewRow rowDespesa in dgvDespesa.Rows)
+                               {
+
+                                   if ((Convert.ToInt32(rowDespesa.Cells[4].Value) == (item.formaPagamento) &&
+                                       (Convert.ToDateTime(rowDespesa.Cells[7].Value) == item.dataCancelamento)))
+                                   {
+
+                                       rowDespesa.Cells[1].Value = 0;
+                                       contador++;
+                                   }
+
+                                   if (contador == item.quantidadeDespesa) { break; }
+                               }
+
+                           }
+                           //Caso haja caixa é realizada a divisão do total pelo numero de despesas
+                           else
+                           {
+                               //Percorre Grid Despesa dividindo os valores pela quantidade de parcelas de despesa
+                               int contador = 0;
+                               foreach (DataGridViewRow rowDespesa in dgvDespesa.Rows)
+                               {
+                                   if ((Convert.ToInt32(rowDespesa.Cells[4].Value) == (item.formaPagamento) &&
+                                       (Convert.ToDateTime(rowDespesa.Cells[7].Value) == item.dataCancelamento)))
+                                   {
+
+                                       rowDespesa.Cells[1].Value = Convert.ToDouble(row.Cells[6].Value) / item.quantidadeDespesa;
+                                       contador++;
+                                   }
+
+                                   if (contador == item.quantidadeDespesa) { break; }
+                               }
+                           }
+                       }
+                   }
+
+               }
+
+               btSugestao.Text = "Desfazer";
+               btSugestao.BackColor = Color.White;
+               btSugestao.ForeColor = Color.Black;
+               btSugestao.FlatAppearance.BorderColor = Color.Black;
+               btSugestao.FlatAppearance.BorderSize = 1;
+
+           }
+           else {
+
+               metodoConstrutorDespesa();
+               btSugestao.Text = "Preencher";
+               btSugestao.BackColor = Color.FromArgb(51, 51, 76);
+               btSugestao.ForeColor = Color.White;
+               btSugestao.FlatAppearance.BorderColor = Color.Black;
+               btSugestao.FlatAppearance.BorderSize = 0;
+
+           
+           
+           }
+
        }
 
 
