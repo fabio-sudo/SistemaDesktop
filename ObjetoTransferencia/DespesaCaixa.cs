@@ -19,4 +19,21 @@ namespace ObjetoTransferencia
    }
 
    public class ListaDespesas : List<DespesaCaixa> { }
+
+   //Lista Genética
+   public class DespesaPagamento
+   {
+       public DateTime Data { get; set; }
+       public int FormaPagamento { get; set; }
+       public double valorDespesaResto { get; set; }
+
+       public DespesaPagamento(DateTime data, int formaPagamento, double valor)
+       {
+           Data = data;
+           FormaPagamento = formaPagamento;
+           valorDespesaResto = valor;
+       }
+   }
+
+
 }

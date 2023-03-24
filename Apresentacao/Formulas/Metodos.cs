@@ -45,6 +45,36 @@ namespace Apresentacao.Formulas
         }
 
         //metodo para formatar campos de Moeda
+        public void metodoMoedaGridTB(ref TextBox txt)
+        {
+            string n = string.Empty;
+            double v = 0;
+
+            try
+            {
+                n = txt.Text.Replace(",", "").Replace(".", "").Replace("R$", "").Trim(); 
+                if (n.Equals(""))
+                    n = "";
+
+                n = n.PadLeft(3, '0');
+
+                if (n.Length > 3 && n.Substring(0, 1) == "0")
+                    n = n.Substring(1, n.Length - 1);
+
+                v = Convert.ToDouble(n) / 100;
+                txt.Text = string.Format("{0:C2}", v);
+                txt.SelectionStart = txt.Text.Length;
+
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "Erro",
+                    MessageBoxButtons.OK, MessageBoxIcon.Error);
+                txt.Clear();
+            }
+        }
+
+        //metodo para formatar campos de Moeda
         public void metodoMoedaMTB(ref MaskedTextBox txt)
         {
 

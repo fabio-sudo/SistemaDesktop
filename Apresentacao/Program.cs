@@ -16,7 +16,7 @@ namespace Apresentacao
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new FrmBackup());
+            //Application.Run(new FrmBackup());
             Application.Run(new FrmVendaPendente());
         }
     }
