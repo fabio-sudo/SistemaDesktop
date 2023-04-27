@@ -21,6 +21,10 @@ namespace Apresentacao
        CaixaLista  listaCaixaSelecionado = new CaixaLista();
        DespesaCaixa objDespesa = new DespesaCaixa();
 
+        //Listas Alteração e Exclusão
+       ListaDespesas listaDespesaAlterar = new ListaDespesas();
+       ListaDespesas listaDespesaExcluir = new ListaDespesas();
+
        ParcialVendaLista  listaParcialSelecionado = new ParcialVendaLista();
        ItemVendaLista  listaItemVendaSelecionado = new ItemVendaLista();
        ItemCrediarioLista listaItemCrediarioPagoSelecionado = new ItemCrediarioLista();
@@ -81,7 +85,6 @@ namespace Apresentacao
 
            dgvCancelamento.Rows.Clear();
 
-
            #region itemVenda - Cancelamento
            if (listaItemVendaSelecionado.Count > 0)
            {
@@ -131,6 +134,60 @@ namespace Apresentacao
            }
            #endregion
 
+           //ItemCrediarioPago
+
+           //ItemCrediarioParcial
+
+           //ParcialVenda
+
+       }
+
+       //Preenchimento despesas a cancelar
+       private void metodoConstrutorDespesa(List<DespesaPagamento> lista)
+       {
+           this.dgvDespesa.Rows.Clear(); // Limpa todos os registros atuais no grid de funcionários.
+
+           if (listaDespesaSelecionada.Count > 0)
+           {
+               dgvDespesa.Rows.Add(listaDespesaSelecionada.Count);
+
+               int indice = 0;
+               foreach (DespesaCaixa despesa in listaDespesaSelecionada)
+               {
+
+                   dgvDespesa[1, indice].Style.ForeColor = Color.Black;
+                   dgvDespesa[1, indice].ErrorText = "";
+
+                   dgvDespesa[0, indice].Value = despesa.codigoDespesa;
+                   dgvDespesa[1, indice].Value = despesa.valorDespesa;
+                   dgvDespesa[2, indice].Value = despesa.funcionario.codigoFuncionario;
+                   dgvDespesa[3, indice].Value = despesa.funcionario.nomeFuncionario;
+                   dgvDespesa[4, indice].Value = despesa.formaPagamento.codigoFormaPagamento;
+                   dgvDespesa[5, indice].Value = despesa.formaPagamento.formaPagamento;
+                   dgvDespesa[6, indice].Value = despesa.statusDespesa;
+                   dgvDespesa[7, indice].Value = despesa.dataDespesa;
+                   dgvDespesa[8, indice].Value = despesa.valorDespesa;//Valor fixo para os calculos
+                   dgvDespesa[9, indice].Value = despesa.caixaDespesa.codigoCaixa;
+
+                   if (lista != null)
+                   {
+                       foreach (DespesaPagamento itemLista in lista)//Lista de valores que ultrapassaram resto do caixa
+                       {
+
+                           if (itemLista.Data == despesa.dataDespesa && itemLista.FormaPagamento == despesa.formaPagamento.codigoFormaPagamento)
+                           {
+                               dgvDespesa[1, indice].Style.ForeColor = Color.Red;
+                               dgvDespesa[1, indice].ErrorText = "Valor a Resto Caixa! " + itemLista.valorDespesaResto.ToString();
+                           }
+                       }
+                   }
+
+
+                   indice++;
+               }
+
+               dgvDespesa.Update();
+           }
        }
 
        //Valida atualização ou exclusão
@@ -203,12 +260,91 @@ namespace Apresentacao
       //Valida todos os valores a serem Excluidos ou alterados para atender Caixa
        private Boolean metodoValidaExclusaoAlteracao() {
 
-           
+           List<DespesaPagamento> lista = new List<DespesaPagamento>();
+
+           foreach (DataGridViewRow rowDespesa in dgvDespesa.Rows)
+           {
+               DespesaPagamento despesa = new DespesaPagamento(
+                   Convert.ToDateTime(rowDespesa.Cells[7].Value),
+                   Convert.ToInt32(rowDespesa.Cells[4].Value),
+                   Convert.ToDouble(rowDespesa.Cells[1].Value.ToString().Replace("R$", ""))                                 
+           );
+
+               lista.Add(despesa);
+           }
+
+           //Lista Agrupa valores iguais
+           var listaDespesaValida = lista.GroupBy(p => new { p.Data, p.FormaPagamento})
+               .Select(d => new
+               {
+                   data = d.Key.Data,
+                   pagamento = d.Key.FormaPagamento,
+                   despesa = d.Sum(v => v.valorDespesaResto)
+               });
+
+           //GridCancelamento - Validação
+           foreach (DataGridViewRow row in dgvCancelamento.Rows)
+           {
+
+               foreach(var item in listaDespesaValida){
+
+               if(Convert.ToInt32(row.Cells[0].Value) ==  item.pagamento  &&
+                  Convert.ToDateTime(row.Cells[7].Value) == item.data){
+
+                      if (item.despesa == 0) {
+
+                          break;
+                      }
+                      else if (item.despesa >= Convert.ToDouble(row.Cells[6].Value)) {
+
+                          return false;
+                      
+                      }      
+                  }   
+               }
+           }
+           //-------------------------Tudo Ok retorna True
+             
+             
+           return true;      
+       }
+
+       //Se ok Add - Lista para Alteração ou ListaExclusão valor for 0,00 
+       private void metodoAddItemLista() {
+
+           listaDespesaAlterar = new ListaDespesas();
+           listaDespesaExcluir = new ListaDespesas();
+           DespesaCaixa despesaAdd = new DespesaCaixa();
+
+           foreach (DataGridViewRow row in dgvDespesa.Rows) {
+
+              despesaAdd = new DespesaCaixa();
+              despesaAdd.caixaDespesa = new Caixa();         
+              despesaAdd.funcionario = new Funcionario();         
+              despesaAdd.formaPagamento = new FormaPagamento();         
 
 
+               despesaAdd.codigoDespesa = Convert.ToInt32(row.Cells[0].Value);
+               despesaAdd.caixaDespesa.codigoCaixa = Convert.ToInt32(row.Cells[9].Value);
+               despesaAdd.funcionario.codigoFuncionario =  Convert.ToInt32(row.Cells[2].Value);
+               despesaAdd.formaPagamento.codigoFormaPagamento =Convert.ToInt32(row.Cells[4].Value);
+               despesaAdd.descricaoDespesa = "";
+               despesaAdd.valorDespesa = Convert.ToDouble(row.Cells[1].Value.ToString().Replace("R$", ""));
+               despesaAdd.dataDespesa = Convert.ToDateTime(row.Cells[7].Value);
+               despesaAdd.statusDespesa = row.Cells[6].Value.ToString();
 
+               if (despesaAdd.valorDespesa == 0)
+               {
 
-           return true;
+                   listaDespesaExcluir.Add(despesaAdd);
+               }
+               else {
+
+                   listaDespesaAlterar.Add(despesaAdd);        
+               }
+                      
+           }
+
        
        }
 
@@ -289,54 +425,6 @@ namespace Apresentacao
        
        }
 
-        //Preenchimento despesas a cancelar
-       private void metodoConstrutorDespesa(List<DespesaPagamento> lista)
-       {
-           this.dgvDespesa.Rows.Clear(); // Limpa todos os registros atuais no grid de funcionários.
-
-           if (listaDespesaSelecionada.Count > 0)
-           {
-               dgvDespesa.Rows.Add(listaDespesaSelecionada.Count);
-
-                   int indice = 0;
-                   foreach (DespesaCaixa despesa in listaDespesaSelecionada)
-                   {
-
-                       dgvDespesa[1, indice].Style.ForeColor = Color.Black;
-                       dgvDespesa[1, indice].ErrorText = "";
-
-                       dgvDespesa[0, indice].Value = despesa.codigoDespesa;
-                       dgvDespesa[1, indice].Value = despesa.valorDespesa;
-                       dgvDespesa[2, indice].Value = despesa.funcionario.codigoFuncionario;
-                       dgvDespesa[3, indice].Value = despesa.funcionario.nomeFuncionario;
-                       dgvDespesa[4, indice].Value = despesa.formaPagamento.codigoFormaPagamento;
-                       dgvDespesa[5, indice].Value = despesa.formaPagamento.formaPagamento;
-                       dgvDespesa[6, indice].Value = despesa.statusDespesa;
-                       dgvDespesa[7, indice].Value = despesa.dataDespesa;
-                       dgvDespesa[8, indice].Value = despesa.valorDespesa;//Valor fixo para os calculos
-
-                       if (lista != null)
-                       {
-                           foreach (DespesaPagamento itemLista in lista)//Lista de valores que ultrapassaram resto do caixa
-                           {
-
-                               if (itemLista.Data == despesa.dataDespesa && itemLista.FormaPagamento == despesa.formaPagamento.codigoFormaPagamento)
-                               {
-                                   dgvDespesa[1, indice].Style.ForeColor = Color.Red;
-                                   dgvDespesa[1, indice].ErrorText = "Valor a Resto Caixa! " + itemLista.valorDespesaResto.ToString();
-                               }
-                           }
-                       }
-                       
-                       
-                       indice++;
-                   }
-
-                   dgvDespesa.Update();
-               }
-       }
-
-
         //---------------------Controles
        private void FrmCancelamentoDespesa_Load(object sender, EventArgs e)
        {
@@ -344,6 +432,7 @@ namespace Apresentacao
            metodoConstrutor();//Preenche Grid Movimento Caixa
            metodoExibeValoresUsuario();//Preenche Grid Despesa
            metodoCalculaTotais();//Calcula totais a serem cancelados 
+
 
            dgvCancelamento.ClearSelection();
        }
@@ -407,8 +496,10 @@ namespace Apresentacao
                                    {
 
                                        rowDespesa.Cells[1].Value = 0;
-                                       rowDespesa.Cells[1].Style.ForeColor = Color.Black;
+                                       row.Cells[6].Style.ForeColor = Color.Turquoise;
+                                       rowDespesa.Cells[1].Style.ForeColor = Color.Turquoise;
                                        rowDespesa.Cells[1].ErrorText = "";
+                                       pbOk.Image = Properties.Resources.DialogOK;
 
                                        contador++;
                                    }
@@ -430,8 +521,10 @@ namespace Apresentacao
 
                                        rowDespesa.Cells[1].Value = Convert.ToDouble(row.Cells[6].Value) / item.quantidadeDespesa;
                                        contador++;
-                                       rowDespesa.Cells[1].Style.ForeColor = Color.Black;
+                                       row.Cells[6].Style.ForeColor = Color.Turquoise;
+                                       rowDespesa.Cells[1].Style.ForeColor = Color.Turquoise;
                                        rowDespesa.Cells[1].ErrorText = "";
+                                       pbOk.Image = Properties.Resources.DialogOK;
                                    }
 
                                    if (contador == item.quantidadeDespesa) { break; }
@@ -452,7 +545,7 @@ namespace Apresentacao
            else
            {
 
-               metodoConstrutorDespesa(null);
+               metodoExibeValoresUsuario();
                btSugestao.Text = "Preencher";
                btSugestao.BackColor = Color.FromArgb(51, 51, 76);
                btSugestao.ForeColor = Color.White;
@@ -592,6 +685,204 @@ namespace Apresentacao
        private void dgvDespesa_CellClick(object sender, DataGridViewCellEventArgs e)
        {
            metodoCalculaTotais();
+       }
+
+        //---------------------Alterar & Excluir
+       private void btAlterar_Click(object sender, EventArgs e)
+       {
+           try
+           {
+               bool valida = true;
+
+               FrmCaixaDialogo frmCaixa = new FrmCaixaDialogo("Alterações",
+               " Deseja realmente realizar as alterações das Despesas?",
+               Properties.Resources.Alterar,
+               System.Drawing.Color.FromArgb(((int)(((byte)(51)))), ((int)(((byte)(51)))), ((int)(((byte)(76))))),
+               Color.White,
+               "Sim", "Não",
+               false);
+
+               DialogResult resposta =
+               frmCaixa.ShowDialog();
+
+               if (resposta == DialogResult.Yes)
+               {
+
+                   if (objDespesa.funcionario == null)
+                   {
+                       frmCaixa = new FrmCaixaDialogo("Erro Funcionário",
+                       " Selecione o funcionário responsável pelas atualizações!",
+                       Properties.Resources.DialogErro,
+                       System.Drawing.Color.FromArgb(((int)(((byte)(51)))), ((int)(((byte)(51)))), ((int)(((byte)(76))))),
+                       Color.White,
+                       "OK", "",
+                       false);
+
+                       frmCaixa.ShowDialog();
+
+                   }
+                   else
+                   {
+                       if (metodoValidaExclusaoAlteracao() == false)
+                       {
+
+                           //Criando Caixa de dialogo
+                           frmCaixa = new FrmCaixaDialogo("Erro Valores Despesa",
+                           " Verifique os valores a atualizar da Despesa!",
+                           Properties.Resources.DialogErro,
+                           System.Drawing.Color.FromArgb(((int)(((byte)(51)))), ((int)(((byte)(51)))), ((int)(((byte)(76))))),
+                           Color.White,
+                           "OK", "",
+                           false);
+
+                           frmCaixa.ShowDialog();
+                       }
+                       else//Alterações e Exclusões
+                       {
+
+                           metodoAddItemLista();
+
+                           //--------------Alteraçõa
+                           if (listaDespesaAlterar.Count() > 0) {
+
+                               if (nDespesa.AtualizarDespesaCancelamento(listaDespesaAlterar) == false)
+                               { 
+                                   //Criando Caixa de dialogo
+                                   frmCaixa = new FrmCaixaDialogo("Erro Alterar Despesa",
+                                   " Verifique os dados da Alteração!",
+                                   Properties.Resources.DialogErro,
+                                   System.Drawing.Color.FromArgb(((int)(((byte)(51)))), ((int)(((byte)(51)))), ((int)(((byte)(76))))),
+                                   Color.White,
+                                   "OK", "",
+                                   false);
+
+                                   frmCaixa.ShowDialog();
+                                   valida = false;
+                               }
+                           
+                           }
+                           //--------------Exclusão
+                           if (listaDespesaExcluir.Count() > 0) {
+
+                               if (nDespesa.ExcluirDespesaCancelamento(listaDespesaExcluir) == false)
+                               { 
+                                   //Criando Caixa de dialogo
+                                   frmCaixa = new FrmCaixaDialogo("Erro Excluir Despesa Zerada",
+                                   " Verifique os dados da Alteração!",
+                                   Properties.Resources.DialogErro,
+                                   System.Drawing.Color.FromArgb(((int)(((byte)(51)))), ((int)(((byte)(51)))), ((int)(((byte)(76))))),
+                                   Color.White,
+                                   "OK", "",
+                                   false);
+
+                                   frmCaixa.ShowDialog();
+                                   valida = false;
+                               }
+                                                                       
+                           }
+
+                           //Caso os dados forem atualizados com sucesso
+                           if (valida != false)
+                           {
+                               //Exibindo atualizações concluidas com Sucesso
+                               frmCaixa = new FrmCaixaDialogo("Atualizações",
+                               " Dados Atualizados com sucesso!",
+                               Properties.Resources.DialogOK,
+                               System.Drawing.Color.FromArgb(((int)(((byte)(51)))), ((int)(((byte)(51)))), ((int)(((byte)(76))))),
+                               Color.White,
+                               "OK", "",
+                               false);
+
+                               frmCaixa.ShowDialog();
+
+                               this.DialogResult = DialogResult.Yes;
+                           }
+
+
+                       }//Alterações
+                   }
+               }//Pergunta se deseja realizar as alterações
+           }
+           catch (Exception ex) { MessageBox.Show(ex.Message, "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error); }
+       }
+
+       private void btExcluir_Click(object sender, EventArgs e)
+       {
+         try
+           {
+           FrmCaixaDialogo frmCaixa = new FrmCaixaDialogo("Exclusão",
+               " Deseja realmente realizar a exclusão das Despesas?",
+               Properties.Resources.Excluir,
+               System.Drawing.Color.FromArgb(((int)(((byte)(51)))), ((int)(((byte)(51)))), ((int)(((byte)(76))))),
+               Color.White,
+               "Sim", "Não",
+               false);
+
+               DialogResult resposta =
+               frmCaixa.ShowDialog();
+
+               if (resposta == DialogResult.Yes)
+               {
+
+                   if (nDespesa.ExcluirDespesaCancelamento(listaDespesaSelecionada) == false)
+                   {
+                       //Criando Caixa de dialogo
+                       frmCaixa = new FrmCaixaDialogo("Erro Excluir Despesas",
+                       " Verifique os dados da Exclusão!",
+                       Properties.Resources.DialogErro,
+                       System.Drawing.Color.FromArgb(((int)(((byte)(51)))), ((int)(((byte)(51)))), ((int)(((byte)(76))))),
+                       Color.White,
+                       "OK", "",
+                       false);
+
+                       frmCaixa.ShowDialog();
+                   }
+                   else {
+
+
+                       //Exibindo atualizações concluidas com Sucesso
+                       frmCaixa = new FrmCaixaDialogo("Exclusão",
+                       " Despesas Excluidos com sucesso!",
+                       Properties.Resources.DialogOK,
+                       System.Drawing.Color.FromArgb(((int)(((byte)(51)))), ((int)(((byte)(51)))), ((int)(((byte)(76))))),
+                       Color.White,
+                       "OK", "",
+                       false);
+
+                       frmCaixa.ShowDialog();
+
+                       this.DialogResult = DialogResult.Yes;
+                   
+                   
+                   }
+               
+               }
+
+          }
+                      
+           catch (Exception ex) { MessageBox.Show(ex.Message, "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error); }
+        }
+
+       private void FrmCancelamentoDespesa_KeyDown(object sender, KeyEventArgs e)
+       {
+           //atalho da tecla de atalho ESC
+           if (e.KeyCode.Equals(Keys.Escape) == true)
+           {
+               btSair.PerformClick();
+           }
+           //atalho para o botão cadastrar
+           else if (e.KeyCode.Equals(Keys.F5) == true)
+           {
+               btSugestao.PerformClick();
+           }
+           else if (e.KeyCode.Equals(Keys.F10) == true)
+           {
+               btAlterar.PerformClick();
+           }
+           else if (e.KeyCode.Equals(Keys.F2) == true)
+           {
+               btExcluir.PerformClick();
+           }
        }
 
 

@@ -468,7 +468,7 @@ namespace Apresentacao
                             if ((valorSangria) >= valorCaixa - valorTotalItem)
                             {
                                 DialogResult resultadoAtualizacaoSangria;
-                                FrmCancelamentoSangria frmSangria = new FrmCancelamentoSangria(sangria, caixaLista, null, null, lista, null);
+                                FrmCancelamentoSangria frmSangria = new FrmCancelamentoSangria(null,null,null);
                                 resultadoAtualizacaoSangria = frmSangria.ShowDialog();
 
                                 if (resultadoAtualizacaoSangria == DialogResult.Yes)

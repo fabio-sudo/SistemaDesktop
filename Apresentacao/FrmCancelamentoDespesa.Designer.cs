@@ -36,6 +36,9 @@
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle13 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle17 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle18 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle14 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle15 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle16 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle4 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle5 = new System.Windows.Forms.DataGridViewCellStyle();
@@ -43,9 +46,6 @@
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle7 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle8 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle9 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle14 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle15 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle16 = new System.Windows.Forms.DataGridViewCellStyle();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FrmCancelamentoDespesa));
             this.pbCancelamento = new System.Windows.Forms.PictureBox();
             this.lbCancelamento = new System.Windows.Forms.Label();
@@ -68,6 +68,16 @@
             this.lbCaixaTotal = new System.Windows.Forms.Label();
             this.pbTitulo = new System.Windows.Forms.PictureBox();
             this.dgvDespesa = new System.Windows.Forms.DataGridView();
+            this.ordemSangria = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.valorDespesaVenda = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.codigoFuncionario = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.nomeFuncionario = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.codigoFormaPagamento = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.formaPagamentoParcial = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.estatusSangria = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dataSangriaCancelada = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.despesaFixa = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Caixa = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.panelSangria = new System.Windows.Forms.Panel();
             this.lbTituloSangria = new System.Windows.Forms.Label();
             this.lbTotalSangria = new System.Windows.Forms.Label();
@@ -87,15 +97,6 @@
             this.valorCaixaAtualizado = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.dataCancelamento = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.estornoCaixa = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.ordemSangria = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.valorDespesaVenda = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.codigoFuncionario = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.nomeFuncionario = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.codigoFormaPagamento = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.formaPagamentoParcial = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.estatusSangria = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.dataSangriaCancelada = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.despesaFixa = new System.Windows.Forms.DataGridViewTextBoxColumn();
             ((System.ComponentModel.ISupportInitialize)(this.pbCancelamento)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dgvCancelamento)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pbFuncionario)).BeginInit();
@@ -130,7 +131,7 @@
             this.lbCancelamento.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.lbCancelamento.Name = "lbCancelamento";
             this.lbCancelamento.Size = new System.Drawing.Size(191, 19);
-            this.lbCancelamento.TabIndex = 164;
+            this.lbCancelamento.TabIndex = 4;
             this.lbCancelamento.Text = "Movimentação do Caixa";
             // 
             // dgvCancelamento
@@ -177,7 +178,7 @@
             this.dgvCancelamento.RowTemplate.Height = 24;
             this.dgvCancelamento.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.dgvCancelamento.Size = new System.Drawing.Size(831, 365);
-            this.dgvCancelamento.TabIndex = 165;
+            this.dgvCancelamento.TabIndex = 5;
             // 
             // btBuscar
             // 
@@ -190,7 +191,7 @@
             this.btBuscar.Margin = new System.Windows.Forms.Padding(2);
             this.btBuscar.Name = "btBuscar";
             this.btBuscar.Size = new System.Drawing.Size(98, 34);
-            this.btBuscar.TabIndex = 168;
+            this.btBuscar.TabIndex = 1;
             this.btBuscar.Text = "F5 Buscar";
             this.btBuscar.UseVisualStyleBackColor = false;
             this.btBuscar.Click += new System.EventHandler(this.btBuscar_Click);
@@ -202,7 +203,7 @@
             this.panelBuscarFuncionario.Margin = new System.Windows.Forms.Padding(2);
             this.panelBuscarFuncionario.Name = "panelBuscarFuncionario";
             this.panelBuscarFuncionario.Size = new System.Drawing.Size(287, 2);
-            this.panelBuscarFuncionario.TabIndex = 169;
+            this.panelBuscarFuncionario.TabIndex = 2;
             // 
             // tbBuscarFuncionario
             // 
@@ -213,7 +214,7 @@
             this.tbBuscarFuncionario.Margin = new System.Windows.Forms.Padding(2);
             this.tbBuscarFuncionario.Name = "tbBuscarFuncionario";
             this.tbBuscarFuncionario.Size = new System.Drawing.Size(257, 19);
-            this.tbBuscarFuncionario.TabIndex = 167;
+            this.tbBuscarFuncionario.TabIndex = 0;
             this.tbBuscarFuncionario.Text = "Digite o nome do funcionário ...";
             this.tbBuscarFuncionario.Enter += new System.EventHandler(this.tbBuscarFuncionario_Enter);
             this.tbBuscarFuncionario.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.tbBuscarFuncionario_KeyPress);
@@ -242,7 +243,7 @@
             this.panelCaixaRestante.Margin = new System.Windows.Forms.Padding(2);
             this.panelCaixaRestante.Name = "panelCaixaRestante";
             this.panelCaixaRestante.Size = new System.Drawing.Size(150, 60);
-            this.panelCaixaRestante.TabIndex = 174;
+            this.panelCaixaRestante.TabIndex = 15;
             // 
             // lbRestoCaixa
             // 
@@ -280,7 +281,7 @@
             this.panelCancelado.Margin = new System.Windows.Forms.Padding(2);
             this.panelCancelado.Name = "panelCancelado";
             this.panelCancelado.Size = new System.Drawing.Size(149, 60);
-            this.panelCancelado.TabIndex = 173;
+            this.panelCancelado.TabIndex = 12;
             // 
             // lbTituloCancelado
             // 
@@ -318,7 +319,7 @@
             this.painelDespesa.Margin = new System.Windows.Forms.Padding(2);
             this.painelDespesa.Name = "painelDespesa";
             this.painelDespesa.Size = new System.Drawing.Size(149, 60);
-            this.painelDespesa.TabIndex = 172;
+            this.painelDespesa.TabIndex = 13;
             // 
             // lbTituloDespesa
             // 
@@ -356,7 +357,7 @@
             this.painelCaixa.Margin = new System.Windows.Forms.Padding(2);
             this.painelCaixa.Name = "painelCaixa";
             this.painelCaixa.Size = new System.Drawing.Size(149, 60);
-            this.painelCaixa.TabIndex = 171;
+            this.painelCaixa.TabIndex = 11;
             // 
             // lbTituloCaixa
             // 
@@ -421,7 +422,8 @@
             this.formaPagamentoParcial,
             this.estatusSangria,
             this.dataSangriaCancelada,
-            this.despesaFixa});
+            this.despesaFixa,
+            this.Caixa});
             dataGridViewCellStyle17.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
             dataGridViewCellStyle17.BackColor = System.Drawing.SystemColors.Window;
             dataGridViewCellStyle17.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
@@ -439,222 +441,10 @@
             this.dgvDespesa.RowTemplate.Height = 24;
             this.dgvDespesa.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.dgvDespesa.Size = new System.Drawing.Size(612, 365);
-            this.dgvDespesa.TabIndex = 170;
+            this.dgvDespesa.TabIndex = 3;
             this.dgvDespesa.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvDespesa_CellClick);
             this.dgvDespesa.CellValidating += new System.Windows.Forms.DataGridViewCellValidatingEventHandler(this.dgvDespesa_CellValidating);
             this.dgvDespesa.EditingControlShowing += new System.Windows.Forms.DataGridViewEditingControlShowingEventHandler(this.dgvDespesa_EditingControlShowing);
-            // 
-            // panelSangria
-            // 
-            this.panelSangria.AutoScroll = true;
-            this.panelSangria.BackColor = System.Drawing.Color.DeepSkyBlue;
-            this.panelSangria.Controls.Add(this.lbTituloSangria);
-            this.panelSangria.Controls.Add(this.lbTotalSangria);
-            this.panelSangria.Location = new System.Drawing.Point(1155, 465);
-            this.panelSangria.Margin = new System.Windows.Forms.Padding(2);
-            this.panelSangria.Name = "panelSangria";
-            this.panelSangria.Size = new System.Drawing.Size(149, 60);
-            this.panelSangria.TabIndex = 177;
-            // 
-            // lbTituloSangria
-            // 
-            this.lbTituloSangria.AutoSize = true;
-            this.lbTituloSangria.Font = new System.Drawing.Font("Arial", 12F, System.Drawing.FontStyle.Bold);
-            this.lbTituloSangria.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
-            this.lbTituloSangria.Location = new System.Drawing.Point(4, 6);
-            this.lbTituloSangria.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
-            this.lbTituloSangria.Name = "lbTituloSangria";
-            this.lbTituloSangria.Size = new System.Drawing.Size(68, 19);
-            this.lbTituloSangria.TabIndex = 0;
-            this.lbTituloSangria.Text = "Sangria";
-            this.lbTituloSangria.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            // 
-            // lbTotalSangria
-            // 
-            this.lbTotalSangria.AutoSize = true;
-            this.lbTotalSangria.Font = new System.Drawing.Font("Arial", 12F, System.Drawing.FontStyle.Bold);
-            this.lbTotalSangria.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
-            this.lbTotalSangria.Location = new System.Drawing.Point(21, 32);
-            this.lbTotalSangria.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
-            this.lbTotalSangria.Name = "lbTotalSangria";
-            this.lbTotalSangria.Size = new System.Drawing.Size(65, 19);
-            this.lbTotalSangria.TabIndex = 1;
-            this.lbTotalSangria.Text = "R$ 0,00";
-            this.lbTotalSangria.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            // 
-            // btSugestao
-            // 
-            this.btSugestao.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(51)))), ((int)(((byte)(51)))), ((int)(((byte)(76)))));
-            this.btSugestao.FlatAppearance.BorderSize = 0;
-            this.btSugestao.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btSugestao.Font = new System.Drawing.Font("Arial Narrow", 10.2F, System.Drawing.FontStyle.Bold);
-            this.btSugestao.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
-            this.btSugestao.Location = new System.Drawing.Point(217, 491);
-            this.btSugestao.Margin = new System.Windows.Forms.Padding(2);
-            this.btSugestao.Name = "btSugestao";
-            this.btSugestao.Size = new System.Drawing.Size(98, 34);
-            this.btSugestao.TabIndex = 180;
-            this.btSugestao.Text = "Preencher";
-            this.btSugestao.UseVisualStyleBackColor = false;
-            this.btSugestao.Click += new System.EventHandler(this.btSugestao_Click);
-            // 
-            // btExcluir
-            // 
-            this.btExcluir.BackColor = System.Drawing.Color.DeepPink;
-            this.btExcluir.FlatAppearance.BorderSize = 0;
-            this.btExcluir.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btExcluir.Font = new System.Drawing.Font("Arial Narrow", 10.2F, System.Drawing.FontStyle.Bold);
-            this.btExcluir.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
-            this.btExcluir.Location = new System.Drawing.Point(114, 491);
-            this.btExcluir.Margin = new System.Windows.Forms.Padding(2);
-            this.btExcluir.Name = "btExcluir";
-            this.btExcluir.Size = new System.Drawing.Size(98, 34);
-            this.btExcluir.TabIndex = 179;
-            this.btExcluir.Text = "F2 Excluir";
-            this.btExcluir.UseVisualStyleBackColor = false;
-            // 
-            // btAlterar
-            // 
-            this.btAlterar.BackColor = System.Drawing.Color.DeepSkyBlue;
-            this.btAlterar.FlatAppearance.BorderSize = 0;
-            this.btAlterar.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btAlterar.Font = new System.Drawing.Font("Arial Narrow", 10.2F, System.Drawing.FontStyle.Bold);
-            this.btAlterar.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
-            this.btAlterar.Location = new System.Drawing.Point(12, 491);
-            this.btAlterar.Margin = new System.Windows.Forms.Padding(2);
-            this.btAlterar.Name = "btAlterar";
-            this.btAlterar.Size = new System.Drawing.Size(98, 34);
-            this.btAlterar.TabIndex = 178;
-            this.btAlterar.Text = "F10 Alterar";
-            this.btAlterar.UseVisualStyleBackColor = false;
-            // 
-            // btSair
-            // 
-            this.btSair.BackColor = System.Drawing.Color.Red;
-            this.btSair.FlatAppearance.BorderSize = 0;
-            this.btSair.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btSair.Font = new System.Drawing.Font("Arial Narrow", 10.2F, System.Drawing.FontStyle.Bold);
-            this.btSair.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
-            this.btSair.Location = new System.Drawing.Point(319, 491);
-            this.btSair.Margin = new System.Windows.Forms.Padding(2);
-            this.btSair.Name = "btSair";
-            this.btSair.Size = new System.Drawing.Size(98, 34);
-            this.btSair.TabIndex = 181;
-            this.btSair.Text = "Esc Sair";
-            this.btSair.UseVisualStyleBackColor = false;
-            this.btSair.Click += new System.EventHandler(this.btSair_Click);
-            // 
-            // lbDataTotalCaixa
-            // 
-            this.lbDataTotalCaixa.AutoSize = true;
-            this.lbDataTotalCaixa.Font = new System.Drawing.Font("Arial", 12F, System.Drawing.FontStyle.Bold);
-            this.lbDataTotalCaixa.ForeColor = System.Drawing.Color.White;
-            this.lbDataTotalCaixa.Location = new System.Drawing.Point(27, 8);
-            this.lbDataTotalCaixa.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
-            this.lbDataTotalCaixa.Name = "lbDataTotalCaixa";
-            this.lbDataTotalCaixa.Size = new System.Drawing.Size(44, 19);
-            this.lbDataTotalCaixa.TabIndex = 2;
-            this.lbDataTotalCaixa.Text = "Data";
-            this.lbDataTotalCaixa.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            // 
-            // panel1
-            // 
-            this.panel1.AutoScroll = true;
-            this.panel1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(51)))), ((int)(((byte)(51)))), ((int)(((byte)(76)))));
-            this.panel1.Controls.Add(this.pbOk);
-            this.panel1.Controls.Add(this.lbDataTotalCaixa);
-            this.panel1.Location = new System.Drawing.Point(696, 427);
-            this.panel1.Margin = new System.Windows.Forms.Padding(2);
-            this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(762, 34);
-            this.panel1.TabIndex = 182;
-            // 
-            // pbOk
-            // 
-            this.pbOk.Anchor = System.Windows.Forms.AnchorStyles.Left;
-            this.pbOk.Image = global::Apresentacao.Properties.Resources.DialogErro;
-            this.pbOk.Location = new System.Drawing.Point(6, 8);
-            this.pbOk.Margin = new System.Windows.Forms.Padding(2);
-            this.pbOk.Name = "pbOk";
-            this.pbOk.Size = new System.Drawing.Size(17, 19);
-            this.pbOk.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
-            this.pbOk.TabIndex = 183;
-            this.pbOk.TabStop = false;
-            // 
-            // dataGridViewTextBoxColumn5
-            // 
-            this.dataGridViewTextBoxColumn5.HeaderText = "codFormaPagamento";
-            this.dataGridViewTextBoxColumn5.Name = "dataGridViewTextBoxColumn5";
-            this.dataGridViewTextBoxColumn5.Visible = false;
-            // 
-            // formaPagamentoCancelado
-            // 
-            this.formaPagamentoCancelado.HeaderText = "Pagamento";
-            this.formaPagamentoCancelado.Name = "formaPagamentoCancelado";
-            this.formaPagamentoCancelado.Resizable = System.Windows.Forms.DataGridViewTriState.True;
-            this.formaPagamentoCancelado.ToolTipText = "Forma de Pagamento";
-            this.formaPagamentoCancelado.Width = 140;
-            // 
-            // dataGridViewTextBoxColumn2
-            // 
-            dataGridViewCellStyle3.Format = "C2";
-            dataGridViewCellStyle3.NullValue = null;
-            this.dataGridViewTextBoxColumn2.DefaultCellStyle = dataGridViewCellStyle3;
-            this.dataGridViewTextBoxColumn2.HeaderText = "Caixa ";
-            this.dataGridViewTextBoxColumn2.Name = "dataGridViewTextBoxColumn2";
-            this.dataGridViewTextBoxColumn2.ToolTipText = "Valor Atual Caixa";
-            // 
-            // caixaCancelamento
-            // 
-            dataGridViewCellStyle4.Format = "C2";
-            dataGridViewCellStyle4.NullValue = null;
-            this.caixaCancelamento.DefaultCellStyle = dataGridViewCellStyle4;
-            this.caixaCancelamento.HeaderText = "Cancelamento";
-            this.caixaCancelamento.Name = "caixaCancelamento";
-            this.caixaCancelamento.Width = 130;
-            // 
-            // Sangria
-            // 
-            dataGridViewCellStyle5.Format = "C2";
-            dataGridViewCellStyle5.NullValue = null;
-            this.Sangria.DefaultCellStyle = dataGridViewCellStyle5;
-            this.Sangria.HeaderText = "Sangria";
-            this.Sangria.Name = "Sangria";
-            // 
-            // DespesaCaixa
-            // 
-            dataGridViewCellStyle6.Format = "C2";
-            dataGridViewCellStyle6.NullValue = null;
-            this.DespesaCaixa.DefaultCellStyle = dataGridViewCellStyle6;
-            this.DespesaCaixa.HeaderText = "Despesa";
-            this.DespesaCaixa.Name = "DespesaCaixa";
-            // 
-            // valorCaixaAtualizado
-            // 
-            dataGridViewCellStyle7.Format = "C2";
-            dataGridViewCellStyle7.NullValue = null;
-            this.valorCaixaAtualizado.DefaultCellStyle = dataGridViewCellStyle7;
-            this.valorCaixaAtualizado.HeaderText = "Resto Caixa";
-            this.valorCaixaAtualizado.Name = "valorCaixaAtualizado";
-            this.valorCaixaAtualizado.ToolTipText = "Valor Restante do Caixa";
-            this.valorCaixaAtualizado.Width = 120;
-            // 
-            // dataCancelamento
-            // 
-            dataGridViewCellStyle8.Format = "d";
-            dataGridViewCellStyle8.NullValue = null;
-            this.dataCancelamento.DefaultCellStyle = dataGridViewCellStyle8;
-            this.dataCancelamento.HeaderText = "Data";
-            this.dataCancelamento.Name = "dataCancelamento";
-            // 
-            // estornoCaixa
-            // 
-            dataGridViewCellStyle9.Format = "C2";
-            dataGridViewCellStyle9.NullValue = null;
-            this.estornoCaixa.DefaultCellStyle = dataGridViewCellStyle9;
-            this.estornoCaixa.HeaderText = "Estorno";
-            this.estornoCaixa.Name = "estornoCaixa";
-            this.estornoCaixa.Visible = false;
             // 
             // ordemSangria
             // 
@@ -729,6 +519,236 @@
             this.despesaFixa.Name = "despesaFixa";
             this.despesaFixa.Visible = false;
             // 
+            // Caixa
+            // 
+            this.Caixa.HeaderText = "Caixa";
+            this.Caixa.Name = "Caixa";
+            this.Caixa.ToolTipText = "Caixa da Despesa";
+            this.Caixa.Width = 60;
+            // 
+            // panelSangria
+            // 
+            this.panelSangria.AutoScroll = true;
+            this.panelSangria.BackColor = System.Drawing.Color.DeepSkyBlue;
+            this.panelSangria.Controls.Add(this.lbTituloSangria);
+            this.panelSangria.Controls.Add(this.lbTotalSangria);
+            this.panelSangria.Location = new System.Drawing.Point(1155, 465);
+            this.panelSangria.Margin = new System.Windows.Forms.Padding(2);
+            this.panelSangria.Name = "panelSangria";
+            this.panelSangria.Size = new System.Drawing.Size(149, 60);
+            this.panelSangria.TabIndex = 14;
+            // 
+            // lbTituloSangria
+            // 
+            this.lbTituloSangria.AutoSize = true;
+            this.lbTituloSangria.Font = new System.Drawing.Font("Arial", 12F, System.Drawing.FontStyle.Bold);
+            this.lbTituloSangria.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
+            this.lbTituloSangria.Location = new System.Drawing.Point(4, 6);
+            this.lbTituloSangria.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.lbTituloSangria.Name = "lbTituloSangria";
+            this.lbTituloSangria.Size = new System.Drawing.Size(68, 19);
+            this.lbTituloSangria.TabIndex = 0;
+            this.lbTituloSangria.Text = "Sangria";
+            this.lbTituloSangria.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // lbTotalSangria
+            // 
+            this.lbTotalSangria.AutoSize = true;
+            this.lbTotalSangria.Font = new System.Drawing.Font("Arial", 12F, System.Drawing.FontStyle.Bold);
+            this.lbTotalSangria.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
+            this.lbTotalSangria.Location = new System.Drawing.Point(21, 32);
+            this.lbTotalSangria.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.lbTotalSangria.Name = "lbTotalSangria";
+            this.lbTotalSangria.Size = new System.Drawing.Size(65, 19);
+            this.lbTotalSangria.TabIndex = 1;
+            this.lbTotalSangria.Text = "R$ 0,00";
+            this.lbTotalSangria.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // btSugestao
+            // 
+            this.btSugestao.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(51)))), ((int)(((byte)(51)))), ((int)(((byte)(76)))));
+            this.btSugestao.FlatAppearance.BorderSize = 0;
+            this.btSugestao.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btSugestao.Font = new System.Drawing.Font("Arial Narrow", 10.2F, System.Drawing.FontStyle.Bold);
+            this.btSugestao.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
+            this.btSugestao.Location = new System.Drawing.Point(217, 491);
+            this.btSugestao.Margin = new System.Windows.Forms.Padding(2);
+            this.btSugestao.Name = "btSugestao";
+            this.btSugestao.Size = new System.Drawing.Size(98, 34);
+            this.btSugestao.TabIndex = 8;
+            this.btSugestao.Text = "F5 Preencher";
+            this.btSugestao.UseVisualStyleBackColor = false;
+            this.btSugestao.Click += new System.EventHandler(this.btSugestao_Click);
+            // 
+            // btExcluir
+            // 
+            this.btExcluir.BackColor = System.Drawing.Color.DeepPink;
+            this.btExcluir.FlatAppearance.BorderSize = 0;
+            this.btExcluir.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btExcluir.Font = new System.Drawing.Font("Arial Narrow", 10.2F, System.Drawing.FontStyle.Bold);
+            this.btExcluir.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
+            this.btExcluir.Location = new System.Drawing.Point(114, 491);
+            this.btExcluir.Margin = new System.Windows.Forms.Padding(2);
+            this.btExcluir.Name = "btExcluir";
+            this.btExcluir.Size = new System.Drawing.Size(98, 34);
+            this.btExcluir.TabIndex = 7;
+            this.btExcluir.Text = "F2 Excluir";
+            this.btExcluir.UseVisualStyleBackColor = false;
+            this.btExcluir.Click += new System.EventHandler(this.btExcluir_Click);
+            // 
+            // btAlterar
+            // 
+            this.btAlterar.BackColor = System.Drawing.Color.DeepSkyBlue;
+            this.btAlterar.FlatAppearance.BorderSize = 0;
+            this.btAlterar.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btAlterar.Font = new System.Drawing.Font("Arial Narrow", 10.2F, System.Drawing.FontStyle.Bold);
+            this.btAlterar.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
+            this.btAlterar.Location = new System.Drawing.Point(12, 491);
+            this.btAlterar.Margin = new System.Windows.Forms.Padding(2);
+            this.btAlterar.Name = "btAlterar";
+            this.btAlterar.Size = new System.Drawing.Size(98, 34);
+            this.btAlterar.TabIndex = 6;
+            this.btAlterar.Text = "F10 Alterar";
+            this.btAlterar.UseVisualStyleBackColor = false;
+            this.btAlterar.Click += new System.EventHandler(this.btAlterar_Click);
+            // 
+            // btSair
+            // 
+            this.btSair.BackColor = System.Drawing.Color.Red;
+            this.btSair.FlatAppearance.BorderSize = 0;
+            this.btSair.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btSair.Font = new System.Drawing.Font("Arial Narrow", 10.2F, System.Drawing.FontStyle.Bold);
+            this.btSair.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
+            this.btSair.Location = new System.Drawing.Point(319, 491);
+            this.btSair.Margin = new System.Windows.Forms.Padding(2);
+            this.btSair.Name = "btSair";
+            this.btSair.Size = new System.Drawing.Size(98, 34);
+            this.btSair.TabIndex = 9;
+            this.btSair.Text = "Esc Sair";
+            this.btSair.UseVisualStyleBackColor = false;
+            this.btSair.Click += new System.EventHandler(this.btSair_Click);
+            // 
+            // lbDataTotalCaixa
+            // 
+            this.lbDataTotalCaixa.AutoSize = true;
+            this.lbDataTotalCaixa.Font = new System.Drawing.Font("Arial", 12F, System.Drawing.FontStyle.Bold);
+            this.lbDataTotalCaixa.ForeColor = System.Drawing.Color.White;
+            this.lbDataTotalCaixa.Location = new System.Drawing.Point(27, 8);
+            this.lbDataTotalCaixa.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.lbDataTotalCaixa.Name = "lbDataTotalCaixa";
+            this.lbDataTotalCaixa.Size = new System.Drawing.Size(44, 19);
+            this.lbDataTotalCaixa.TabIndex = 2;
+            this.lbDataTotalCaixa.Text = "Data";
+            this.lbDataTotalCaixa.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // panel1
+            // 
+            this.panel1.AutoScroll = true;
+            this.panel1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(51)))), ((int)(((byte)(51)))), ((int)(((byte)(76)))));
+            this.panel1.Controls.Add(this.pbOk);
+            this.panel1.Controls.Add(this.lbDataTotalCaixa);
+            this.panel1.Location = new System.Drawing.Point(696, 427);
+            this.panel1.Margin = new System.Windows.Forms.Padding(2);
+            this.panel1.Name = "panel1";
+            this.panel1.Size = new System.Drawing.Size(762, 34);
+            this.panel1.TabIndex = 10;
+            // 
+            // pbOk
+            // 
+            this.pbOk.Anchor = System.Windows.Forms.AnchorStyles.Left;
+            this.pbOk.Image = global::Apresentacao.Properties.Resources.DialogErro;
+            this.pbOk.Location = new System.Drawing.Point(6, 8);
+            this.pbOk.Margin = new System.Windows.Forms.Padding(2);
+            this.pbOk.Name = "pbOk";
+            this.pbOk.Size = new System.Drawing.Size(17, 19);
+            this.pbOk.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.pbOk.TabIndex = 183;
+            this.pbOk.TabStop = false;
+            // 
+            // dataGridViewTextBoxColumn5
+            // 
+            this.dataGridViewTextBoxColumn5.HeaderText = "codFormaPagamento";
+            this.dataGridViewTextBoxColumn5.Name = "dataGridViewTextBoxColumn5";
+            this.dataGridViewTextBoxColumn5.ReadOnly = true;
+            this.dataGridViewTextBoxColumn5.Visible = false;
+            // 
+            // formaPagamentoCancelado
+            // 
+            this.formaPagamentoCancelado.HeaderText = "Pagamento";
+            this.formaPagamentoCancelado.Name = "formaPagamentoCancelado";
+            this.formaPagamentoCancelado.ReadOnly = true;
+            this.formaPagamentoCancelado.Resizable = System.Windows.Forms.DataGridViewTriState.True;
+            this.formaPagamentoCancelado.ToolTipText = "Forma de Pagamento";
+            this.formaPagamentoCancelado.Width = 140;
+            // 
+            // dataGridViewTextBoxColumn2
+            // 
+            dataGridViewCellStyle3.Format = "C2";
+            dataGridViewCellStyle3.NullValue = null;
+            this.dataGridViewTextBoxColumn2.DefaultCellStyle = dataGridViewCellStyle3;
+            this.dataGridViewTextBoxColumn2.HeaderText = "Caixa ";
+            this.dataGridViewTextBoxColumn2.Name = "dataGridViewTextBoxColumn2";
+            this.dataGridViewTextBoxColumn2.ReadOnly = true;
+            this.dataGridViewTextBoxColumn2.ToolTipText = "Valor Atual Caixa";
+            // 
+            // caixaCancelamento
+            // 
+            dataGridViewCellStyle4.Format = "C2";
+            dataGridViewCellStyle4.NullValue = null;
+            this.caixaCancelamento.DefaultCellStyle = dataGridViewCellStyle4;
+            this.caixaCancelamento.HeaderText = "Cancelamento";
+            this.caixaCancelamento.Name = "caixaCancelamento";
+            this.caixaCancelamento.ReadOnly = true;
+            this.caixaCancelamento.Width = 130;
+            // 
+            // Sangria
+            // 
+            dataGridViewCellStyle5.Format = "C2";
+            dataGridViewCellStyle5.NullValue = null;
+            this.Sangria.DefaultCellStyle = dataGridViewCellStyle5;
+            this.Sangria.HeaderText = "Sangria";
+            this.Sangria.Name = "Sangria";
+            this.Sangria.ReadOnly = true;
+            // 
+            // DespesaCaixa
+            // 
+            dataGridViewCellStyle6.Format = "C2";
+            dataGridViewCellStyle6.NullValue = null;
+            this.DespesaCaixa.DefaultCellStyle = dataGridViewCellStyle6;
+            this.DespesaCaixa.HeaderText = "Despesa";
+            this.DespesaCaixa.Name = "DespesaCaixa";
+            this.DespesaCaixa.ReadOnly = true;
+            // 
+            // valorCaixaAtualizado
+            // 
+            dataGridViewCellStyle7.Format = "C2";
+            dataGridViewCellStyle7.NullValue = null;
+            this.valorCaixaAtualizado.DefaultCellStyle = dataGridViewCellStyle7;
+            this.valorCaixaAtualizado.HeaderText = "Resto Caixa";
+            this.valorCaixaAtualizado.Name = "valorCaixaAtualizado";
+            this.valorCaixaAtualizado.ReadOnly = true;
+            this.valorCaixaAtualizado.ToolTipText = "Valor Restante do Caixa";
+            this.valorCaixaAtualizado.Width = 120;
+            // 
+            // dataCancelamento
+            // 
+            dataGridViewCellStyle8.Format = "d";
+            dataGridViewCellStyle8.NullValue = null;
+            this.dataCancelamento.DefaultCellStyle = dataGridViewCellStyle8;
+            this.dataCancelamento.HeaderText = "Data";
+            this.dataCancelamento.Name = "dataCancelamento";
+            this.dataCancelamento.ReadOnly = true;
+            // 
+            // estornoCaixa
+            // 
+            dataGridViewCellStyle9.Format = "C2";
+            dataGridViewCellStyle9.NullValue = null;
+            this.estornoCaixa.DefaultCellStyle = dataGridViewCellStyle9;
+            this.estornoCaixa.HeaderText = "Estorno";
+            this.estornoCaixa.Name = "estornoCaixa";
+            this.estornoCaixa.ReadOnly = true;
+            this.estornoCaixa.Visible = false;
+            // 
             // FrmCancelamentoDespesa
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -755,10 +775,12 @@
             this.Controls.Add(this.lbCancelamento);
             this.Controls.Add(this.dgvCancelamento);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
+            this.KeyPreview = true;
             this.Name = "FrmCancelamentoDespesa";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Atualização Despesas - Venda Cancelada";
             this.Load += new System.EventHandler(this.FrmCancelamentoDespesa_Load);
+            this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.FrmCancelamentoDespesa_KeyDown);
             ((System.ComponentModel.ISupportInitialize)(this.pbCancelamento)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.dgvCancelamento)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pbFuncionario)).EndInit();
@@ -815,15 +837,6 @@
         private System.Windows.Forms.Label lbDataTotalCaixa;
         private System.Windows.Forms.Panel panel1;
         private System.Windows.Forms.PictureBox pbOk;
-        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn5;
-        private System.Windows.Forms.DataGridViewTextBoxColumn formaPagamentoCancelado;
-        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn2;
-        private System.Windows.Forms.DataGridViewTextBoxColumn caixaCancelamento;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Sangria;
-        private System.Windows.Forms.DataGridViewTextBoxColumn DespesaCaixa;
-        private System.Windows.Forms.DataGridViewTextBoxColumn valorCaixaAtualizado;
-        private System.Windows.Forms.DataGridViewTextBoxColumn dataCancelamento;
-        private System.Windows.Forms.DataGridViewTextBoxColumn estornoCaixa;
         private System.Windows.Forms.DataGridViewTextBoxColumn ordemSangria;
         private System.Windows.Forms.DataGridViewTextBoxColumn valorDespesaVenda;
         private System.Windows.Forms.DataGridViewTextBoxColumn codigoFuncionario;
@@ -833,5 +846,15 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn estatusSangria;
         private System.Windows.Forms.DataGridViewTextBoxColumn dataSangriaCancelada;
         private System.Windows.Forms.DataGridViewTextBoxColumn despesaFixa;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Caixa;
+        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn5;
+        private System.Windows.Forms.DataGridViewTextBoxColumn formaPagamentoCancelado;
+        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn2;
+        private System.Windows.Forms.DataGridViewTextBoxColumn caixaCancelamento;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Sangria;
+        private System.Windows.Forms.DataGridViewTextBoxColumn DespesaCaixa;
+        private System.Windows.Forms.DataGridViewTextBoxColumn valorCaixaAtualizado;
+        private System.Windows.Forms.DataGridViewTextBoxColumn dataCancelamento;
+        private System.Windows.Forms.DataGridViewTextBoxColumn estornoCaixa;
     }
 }

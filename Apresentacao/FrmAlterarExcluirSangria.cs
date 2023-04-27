@@ -218,6 +218,7 @@ namespace Apresentacao
         {
             dtpDataSangria.Value = sangriaSelecionada.dataSangria;
             sangriaLista = PreencheValoresRetiradaSangria(nSangria.BuscarSangriaValores(sangriaSelecionada.dataSangria));
+
             metodoPreencheCombobox();
             AtualizarDataGrid();
             metodoCalculaTotais();
@@ -296,6 +297,7 @@ namespace Apresentacao
                 Sangria newSangria = new Sangria();
                 newSangria.pagamentoSangria = new FormaPagamento();
                 newSangria.funcionarioSangria = new Funcionario();
+                newSangria.caixaSangria = new Caixa();
 
                 newSangria.codigoSangria = objSangriaAlterada.codigoSangria;
                 newSangria.valorSangria = Convert.ToDouble(col.Cells[0].Value);
@@ -306,6 +308,7 @@ namespace Apresentacao
                 newSangria.JurosItem = Convert.ToDouble(col.Cells[6].Value);
                 newSangria.dataSangria = objSangriaAlterada.dataSangria;
                 newSangria.ordemSangra = objSangriaAlterada.ordemSangra;
+   
 
                 if (newSangria.valorSangria > 0)//Só adiciona valores lançados
                 {

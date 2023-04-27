@@ -26,8 +26,8 @@ namespace AcessoDados.Properties {
         [global::System.Configuration.ApplicationScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.SpecialSettingAttribute(global::System.Configuration.SpecialSetting.ConnectionString)]
-        [global::System.Configuration.DefaultSettingValueAttribute("Data Source=PC-PROFESSOR\\SQLEXPRESS;Initial Catalog=BancoDeDadosSqlTeste;Integrat" +
-            "ed Security=True")]
+        [global::System.Configuration.DefaultSettingValueAttribute("Data Source=PC-PROFESSOR\\SQLEXPRESS;Initial Catalog=BancoDeDadosSqlTeste;User ID=" +
+            "saAdmin;Password=121790")]
         public string strConexao {
             get {
                 return ((string)(this["strConexao"]));

@@ -6,7 +6,7 @@ using System.Data;
 using System.Data.SqlClient;
 using System.Linq;
 using System.Text;
-
+using System.Security.Cryptography;
 
 namespace Negocio
 {
@@ -15,11 +15,24 @@ namespace Negocio
 
         ConexaoSqlServer sqlserver = new ConexaoSqlServer();
 
+        public string CriptografarSenha(string senha)
+        {
+            byte[] bytesSenha = Encoding.UTF8.GetBytes(senha);
+            using (SHA256 sha = SHA256.Create())
+            {
+                byte[] hash = sha.ComputeHash(bytesSenha);
+                return Convert.ToBase64String(hash);
+            }
+        }
+
         //Cadastro de usuario e senha 
         public Boolean CadastrarUsuarioSenha(UsuarioSenha usuariosenha)
         {
             try
             {
+
+                usuariosenha.senha = CriptografarSenha(usuariosenha.senha);
+
                 sqlserver.AdicionarParametro(new System.Data.SqlClient.SqlParameter("@codigousuariosenha", usuariosenha.codigoUsuarioSenha));
                 sqlserver.AdicionarParametro(new System.Data.SqlClient.SqlParameter("@usuario", usuariosenha.usuario));
                 sqlserver.AdicionarParametro(new System.Data.SqlClient.SqlParameter("@senha", usuariosenha.senha));
@@ -72,6 +85,8 @@ namespace Negocio
             try
             {
                 sqlserver.LimparParametros();
+
+                usuariosenha.senha = CriptografarSenha(usuariosenha.senha);
 
                 sqlserver.AdicionarParametro(new System.Data.SqlClient.SqlParameter("@codigousuariosenha", usuariosenha.codigoUsuarioSenha));
                 sqlserver.AdicionarParametro(new System.Data.SqlClient.SqlParameter("@usuario", usuariosenha.usuario));
@@ -137,6 +152,8 @@ namespace Negocio
         {
             try
             {
+                usuariosenha.senha = CriptografarSenha(usuariosenha.senha);
+
                 string comando = String.Format("exec uspValidaUsuarioSenha '{0}', '{1}'", usuariosenha.usuario.Replace("'", ""), usuariosenha.senha.Replace("'", ""));
 
                 DataTable tabelaRetorno = sqlserver.ExecutarConsulta(comando, System.Data.CommandType.Text);

@@ -16,1074 +16,482 @@ namespace Apresentacao
 {
     public partial class FrmCancelamentoSangria : Form
     {
-        Sangria objSangriaAlterada = new Sangria();
-        Sangria sangriaSelecionada = new Sangria();
-        SangriaLista sangriaLista = new SangriaLista();//Lista para preencher o gride
-        SangriaLista sangriaListaAlt = new SangriaLista();//Lista para cadastrar
-        SangriaLista listaSangriaExcluir = new SangriaLista();
-        NegSangria nSangria = new NegSangria();
-
-        ListaFormaPagamento listaFormaPagamento = new ListaFormaPagamento();
-        NegFormaPagamento nFormaPagamento = new NegFormaPagamento();
-
+        //Negocio
         NegFuncionario nFuncionario = new NegFuncionario();
+        NegDespesa nDespesa = new NegDespesa();
+        NegSangria nSangria = new NegSangria();
+        NegCaixa nCaixa = new NegCaixa();
 
-        //-----------------Metodos
-        Metodos metodos = new Metodos();
-        int quantidadeItem = 0;
-        double totalCancelar = 0;
-        string FormularioCancelado = "";
+
         //Objetos Gride
         TextBox caixaTextoGride;
+        Metodos metodos = new Metodos();
 
-        //Objetos para o cancelamento
-        SangriaListaCancelamento listaSangriaCancelada = new SangriaListaCancelamento();
-        ItemVendaLista itemVendaSelecionado = new ItemVendaLista();
-        ParcialVendaListaSangria parcialVendaSelecionado = new ParcialVendaListaSangria();
-        ItemCrediarioLista itemCrediarioPagoSelecionado = new ItemCrediarioLista();
-        ItemCrediarioParcialLista itemCrediarioParcialSelecionado = new ItemCrediarioParcialLista();
-        CaixaLista caixaSelecionado = new CaixaLista();
 
-        public FrmCancelamentoSangria(Sangria sangria, CaixaLista caixa, [Optional] ParcialVendaListaSangria parcialVenda, [Optional]  ItemVendaLista itemVenda, [Optional] ItemCrediarioLista itemCrediario, [Optional]  ItemCrediarioParcialLista itemCrediarioParcial)
+        ListaDespesas listaDespesaSelecionada = new ListaDespesas();
+        SangriaLista listaSangriaSelecionada = new SangriaLista();
+        CaixaLista listaCaixaSelecionado = new CaixaLista();
+        Sangria objSangria = new Sangria();
+
+        //Listas Alteração e Exclusão
+        SangriaLista listaSangriaAlterar = new SangriaLista();
+        SangriaLista listaSangriaExcluir = new SangriaLista();
+
+        //Listas
+        ParcialVendaLista listaParcialSelecionado = new ParcialVendaLista();
+        ItemVendaLista listaItemVendaSelecionado = new ItemVendaLista();
+        ItemCrediarioLista listaItemCrediarioPagoSelecionado = new ItemCrediarioLista();
+        ItemCrediarioParcialLista listaItemCrediarioParcialSelecionado = new ItemCrediarioParcialLista();
+
+
+        public FrmCancelamentoSangria([Optional] ParcialVendaLista listaParcialVenda, [Optional]  ItemVendaLista itemVenda, [Optional] ItemCrediarioLista itemCrediario, [Optional]  ItemCrediarioParcialLista itemCrediarioParcial)
         {
             InitializeComponent();
 
-            sangriaSelecionada = sangria;
-
-            if (caixa != null)
-            {
-                caixaSelecionado = caixa;
-            }
             //Objetos a serem cancelados
-            if (parcialVenda != null)
+            if (listaParcialVenda != null)
             {
-                parcialVendaSelecionado = parcialVenda;
+                listaParcialSelecionado = listaParcialVenda;
             }
             if (itemVenda != null)
             {
-                itemVendaSelecionado = itemVenda;
+                listaItemVendaSelecionado = itemVenda;
             }
             if (itemCrediario != null)
             {
-                itemCrediarioPagoSelecionado = itemCrediario;
+                listaItemCrediarioPagoSelecionado = itemCrediario;
             }
             if (itemCrediarioParcial != null)
             {
-                itemCrediarioParcialSelecionado = itemCrediarioParcial;
+                listaItemCrediarioParcialSelecionado = itemCrediarioParcial;
             }
 
         }
 
-        //----------------------------------------Metodos
+        //----------------------------------------------------Metodos
+        //Adiciona as listas todos os elementos por data Despesa Sangria e Caixa
+        private void metodoConstrutorListas()
+        {
+            //---------------------------------------------------------------------------------Adicinando todos os itens Por data para realizar cancelamento
+            var dataCancelamento = listaItemVendaSelecionado.GroupBy(p => p.dataItemVenda).Select(d => new { data = d.Key });
 
-        //Inicia o formulario
-        private void metodoIniciaFormulario()
+            //Adiciona todas as Despesas - Sangrias - Caixa -> De acordo com a lista de cancelamento
+            foreach (var item in dataCancelamento)
+            {
+
+                listaDespesaSelecionada.AddRange((nDespesa.BuscarDespesaPorData(item.data, item.data)));
+                listaSangriaSelecionada.AddRange((nSangria.BuscarSangriaParaCancelamento(item.data)));//Codigo sangria deve ser adicionado a busca
+                listaCaixaSelecionado.AddRange(nCaixa.BuscarCaixaValores(item.data));
+            }
+
+        }
+
+        //Preenche grid Movimento Caixa Cancelamento
+        private void metodoConstrutor()
         {
 
+            dgvCancelamento.Rows.Clear();
 
-            metodoPreencheCombobox();
-            //ParcialVenda
-            if (parcialVendaSelecionado.Count > 0)
+            #region itemVenda - Cancelamento
+            if (listaItemVendaSelecionado.Count > 0)
             {
-                FormularioCancelado = "ParcialVenda";
-                dtpDataSangria.Value = sangriaSelecionada.dataSangria;
-                sangriaLista = nSangria.BuscarSangriaParaCancelamento(sangriaSelecionada.dataSangria);
-                AtualizarDataGridCancelamentoVendaParcial();
+
+                dgvCancelamento.Rows.Add(listaItemVendaSelecionado.GroupBy(p => new { p.Venda.formaPagamento, p.dataItemVenda }).Count());//Adiciona Rows de acordo com as forma de pagamentos dos itens cancelados
+
+                var listaAgrupada = listaItemVendaSelecionado
+                    .GroupBy(p => new { p.Venda.formaPagamento, p.dataItemVenda })
+                    .Select(g => new
+                    {
+                        formaPagamento = g.Key.formaPagamento,
+                        dataCancelamento = g.Key.dataItemVenda,
+                        cancelamento = g.Sum(p => ((p.precoVenda * p.quantidadeVenda) + p.JurosItem - p.Venda.descontoVenda)),
+                        sangria = listaSangriaSelecionada
+                            .Where(s => s.pagamentoSangria.codigoFormaPagamento == g.Key.formaPagamento.codigoFormaPagamento && s.dataSangria == g.Key.dataItemVenda)
+                            .Select(p => p.valorSangria).Sum(),
+                        caixa = listaCaixaSelecionado
+                            .Where(c => c.formaPagamento.codigoFormaPagamento == g.Key.formaPagamento.codigoFormaPagamento && c.dataCaixa == g.Key.dataItemVenda)
+                            .Select(p => p.valorCaixa).Sum(),
+                        despesa = listaDespesaSelecionada
+                            .Where(d => d.formaPagamento.codigoFormaPagamento == g.Key.formaPagamento.codigoFormaPagamento && d.dataDespesa == g.Key.dataItemVenda)
+                            .Select(p => p.valorDespesa).Sum(),
+                        data = g.Key.dataItemVenda
+                    });
+
+
+                listaAgrupada.Count();
+
+
+                int indice = 0;
+
+                foreach (var item in listaAgrupada)
+                {
+                    this.dgvCancelamento[0, indice].Value = item.formaPagamento.codigoFormaPagamento;
+                    this.dgvCancelamento[1, indice].Value = item.formaPagamento.formaPagamento;
+                    this.dgvCancelamento[2, indice].Value = item.caixa;
+                    this.dgvCancelamento[3, indice].Value = -item.cancelamento;
+                    this.dgvCancelamento[4, indice].Value = -item.sangria;
+                    this.dgvCancelamento[5, indice].Value = -item.despesa;
+                    this.dgvCancelamento[6, indice].Value = item.caixa - (item.cancelamento + item.sangria + item.despesa);
+                    this.dgvCancelamento[7, indice].Value = item.data;
+                    this.dgvCancelamento[8, indice].Value = 0;//Estorno
+
+                    indice++;
+
+                }
             }
-            //ItemVenda
-            else if (itemVendaSelecionado.Count > 0)
-            {
-                FormularioCancelado = "ItemVenda";
-                dtpDataSangria.Value = sangriaSelecionada.dataSangria;
-                sangriaLista = nSangria.BuscarSangriaParaCancelamento(sangriaSelecionada.dataSangria);
-                AtualizarDataGridCancelamentoItemVenda();
-            }
+            #endregion
+
             //ItemCrediarioPago
-            else if (itemCrediarioPagoSelecionado.Count > 0)
-            {
 
-                FormularioCancelado = "ItemCrediarioPago";
-                sangriaLista = metodoSangriaCrediario(itemCrediarioPagoSelecionado);
-                AtualizarDataGridCancelamentoItemCrediarioPago();
-            }
             //ItemCrediarioParcial
-            else if (itemCrediarioParcialSelecionado.Count > 0)
-            {
-                FormularioCancelado = "ItemCrediarioParcial";
-                sangriaLista = metodoSangriaCrediarioParcial(itemCrediarioParcialSelecionado);
-                AtualizarDataGridCancelamentoItemCrediarioParcial();
-            }
-            else
-            {
 
-                FrmCaixaDialogo frmCaixaCad = new FrmCaixaDialogo("Sangria não existe",
-                "Não exitem dados na Sangria!",
-                Properties.Resources.DialogErro,
-                System.Drawing.Color.FromArgb(((int)(((byte)(51)))), ((int)(((byte)(51)))), ((int)(((byte)(76))))),
-                Color.White,
-                "Ok", "",
-                false);
-                frmCaixaCad.ShowDialog();
-                DialogResult = DialogResult.Cancel;
-            }
+            //ParcialVenda
 
-
-            //Atualiza o gride
-            AtualizarDataGrid();
-            //Calcula totais
-            metodoCalculaTotais();
-            //Percorre o gride verificando os valores
-            metodoValidaCalculaGrideAtualizacoes();
-            //Passa o Focu pro DataGrideSangria
-            dgvSangria.Focus();
         }
 
-        //Atualiza dados do dataGrid
-        private void AtualizarDataGrid()
+        //Preenchimento Sangria a cancelar
+        private void metodoConstrutorSangria(List<SangriaPagamento> lista)
         {
-            this.dgvSangria.Rows.Clear(); // Limpa todos os registros atuais no grid de funcionários.
+          this.dgvSangria.Rows.Clear(); // Limpa todos os registros atuais no grid de funcionários.
 
-            int indice = 0;
-
-            foreach (Sangria sangCancelado in listaSangriaCancelada)
+          if (listaSangriaSelecionada.Count > 0)
             {
+                dgvSangria.Rows.Add(listaSangriaSelecionada.Count);
 
-                foreach (Sangria sang in this.sangriaLista)
+                int indice = 0;
+                foreach (Sangria sangria in listaSangriaSelecionada)
                 {
-                    if (sangCancelado.pagamentoSangria.codigoFormaPagamento == sang.pagamentoSangria.codigoFormaPagamento &&
-                        sangCancelado.dataSangria == sang.dataSangria)
+
+                    dgvSangria[1, indice].Style.ForeColor = Color.Black;
+                    dgvSangria[1, indice].ErrorText = "";
+
+                    dgvSangria[0, indice].Value = sangria.codigoSangria;
+                    dgvSangria[1, indice].Value = sangria.valorSangria;
+                    dgvSangria[2, indice].Value = sangria.funcionarioSangria.codigoFuncionario;
+                    dgvSangria[3, indice].Value = sangria.funcionarioSangria.nomeFuncionario;
+                    dgvSangria[4, indice].Value = sangria.pagamentoSangria.codigoFormaPagamento;
+                    dgvSangria[5, indice].Value = sangria.pagamentoSangria.formaPagamento;
+                    dgvSangria[6, indice].Value = sangria.estatusSangria;
+                    dgvSangria[7, indice].Value = sangria.dataSangria;
+                    dgvSangria[8, indice].Value = sangria.valorSangria;//Valor fixo para os calculos
+                    dgvSangria[9, indice].Value = sangria.caixaSangria.codigoCaixa;
+
+                    if (lista != null)
                     {
-
-                        this.dgvSangria.Rows.Add(1);
-
-                        //----------------------------Exibindo valor a ser cancelado
-                        if (sangCancelado.valorSangria > 0)
+                        foreach (SangriaPagamento itemLista in lista)//Lista de valores que ultrapassaram resto do caixa
                         {
-                            dgvSangria.Rows[indice].Cells["valorParcialVenda"].Style.ForeColor = Color.Red;
+
+                            if (itemLista.Data == sangria.dataSangria && itemLista.FormaPagamento == sangria.pagamentoSangria.codigoFormaPagamento)
+                            {
+                                dgvSangria[1, indice].Style.ForeColor = Color.Red;
+                                dgvSangria[1, indice].ErrorText = "Valor a Resto Caixa! " + itemLista.valorSangriaResto.ToString();
+                            }
                         }
-                        //Quantidade itens sangria 3                        
-                        quantidadeItem = sangriaLista.Where(t => t.pagamentoSangria.codigoFormaPagamento == sang.pagamentoSangria.codigoFormaPagamento && t.dataSangria == sang.dataSangria).Count();
-
-                        //Valor total cancelado de itens R$60
-                        totalCancelar = sangriaLista.Where(t => t.pagamentoSangria.codigoFormaPagamento == sang.pagamentoSangria.codigoFormaPagamento && t.dataSangria == sang.dataSangria).Select(s => s.valorSangria).Sum();
-
-                        this.dgvSangria[0, indice].Value = sang.ordemSangra;
-                        this.dgvSangria[1, indice].Value = sang.valorSangria;//Valor da sangria para atualização e liberação cancelamento
-                        //------------------------------------------------
-                        this.dgvSangria[2, indice].Value = sang.valorSangria;//Valor atual da sangria FIXO
-                        this.dgvSangria[3, indice].Value = sang.funcionarioSangria.codigoFuncionario;
-                        this.dgvSangria[4, indice].Value = sang.funcionarioSangria.nomeFuncionario + " " + sang.funcionarioSangria.sobrenomeFuncionario;
-                        this.dgvSangria[5, indice].Value = sang.pagamentoSangria.codigoFormaPagamento;
-                        this.dgvSangria[6, indice].Value = sang.pagamentoSangria.formaPagamento;
-                        this.dgvSangria[7, indice].Value = 0;
-                        this.dgvSangria[8, indice].Value = sang.estatusSangria;
-                        this.dgvSangria[9, indice].Value = sang.dataSangria;
-                        indice++;
                     }
-                }
-            }
 
-            dgvSangria.Update();
-            this.dgvSangria.ClearSelection();
+
+                    indice++;
+                }
+
+                dgvSangria.Update();
+            }
         }
 
-        //Preencher ComboBox
-        public void metodoPreencheCombobox()
+        //Exibe itens que estão com valor incorreto
+        private void metodoExibeValoresUsuario()
         {
 
-            this.formaPagamentoParcial.Items.Clear();
-            this.formaPagamentoCancelado.Items.Clear();
-
-            this.listaFormaPagamento = nFormaPagamento.BuscarFormaPagamentoPorNome("");
-
-            foreach (FormaPagamento pag in this.listaFormaPagamento)
-            {
-                if (pag.formaPagamento != "CREDIARIO")
+            //Lista de valores Despesa - FormaPagamento e Data
+            var lista = listaSangriaSelecionada.GroupBy(p => new { p.dataSangria, p.pagamentoSangria.codigoFormaPagamento })
+                .Select(d => new
                 {
-                    {
-                        this.formaPagamentoParcial.Items.IndexOf(pag.codigoFormaPagamento);
-                        this.formaPagamentoParcial.Items.Add(pag.formaPagamento);
+                    data = d.Key.dataSangria,
+                    pagamento = d.Key.codigoFormaPagamento,
+                    sangria = d.Sum(v => v.valorSangria)
+                });
 
-                        this.formaPagamentoCancelado.Items.IndexOf(pag.codigoFormaPagamento);
-                        this.formaPagamentoCancelado.Items.Add(pag.formaPagamento);
-                    }
+
+            //Lista Generica
+            List<SangriaPagamento> listaCancelada = new List<SangriaPagamento>();
+
+            double sangriaCancelada = 0;
+            foreach (DataGridViewRow rowCancelamento in dgvCancelamento.Rows)
+            {
+
+                sangriaCancelada = lista.Where(p => p.data == Convert.ToDateTime(rowCancelamento.Cells[7].Value) &&
+                       p.pagamento == Convert.ToInt32(rowCancelamento.Cells[0].Value)).Select(d => d.sangria).FirstOrDefault();
+
+                if (sangriaCancelada > Convert.ToDouble(rowCancelamento.Cells[6].Value))//6 resto do caixa
+                {
+
+                    rowCancelamento.Cells[6].Style.ForeColor = Color.Red;
+
+                    SangriaPagamento sangria = new SangriaPagamento(
+                          Convert.ToDateTime(rowCancelamento.Cells[7].Value),
+                          Convert.ToInt32(rowCancelamento.Cells[0].Value),
+                          Convert.ToDouble(rowCancelamento.Cells[6].Value)
+                          );
+
+                    listaCancelada.Add(sangria);
                 }
             }
+
+            //Preenche o Grid marcando os itens que devem ser cancelados
+            metodoConstrutorSangria(listaCancelada);
         }
 
-        //Calcula Totais
+        //Calcula totais do caixa para facilitar para o usuário
         private void metodoCalculaTotais()
         {
+
+            string pagamento = (dgvSangria.CurrentRow.Cells[5].Value).ToString();
+            DateTime data = Convert.ToDateTime(dgvSangria.CurrentRow.Cells[7].Value);
+
+
             //Caixa
-            double valorSangria = 0;
-            double valorSangriaNova = 0;
-            double valorCancelado = 0;//VAlor do caixa
-            double valorRetirada = 0;
-            //-----------------------------------------Calcula Totais do Datagride
-            //faz a soma dos totais dos valores do gride
-            #region dgvSanngria
-            foreach (DataGridViewRow col in dgvSangria.Rows)
+            double totalSangria = 0;
+            double totalDespesa = 0;
+            double totalCancelado = 0;
+            double totalCaixa = 0;
+            double totalRestanteCaixa = 0;
+
+
+            foreach (DataGridViewRow row in dgvCancelamento.Rows)
             {
-                //Valor da Parcial
-                valorSangriaNova = valorSangriaNova + Convert.ToDouble(col.Cells[1].Value);
-                valorSangria = valorSangria + Convert.ToDouble(col.Cells[3].Value);//Valor fixo da sangria
-            }
-            #endregion
 
-            #region dgvCancelamento
-            foreach (DataGridViewRow col in dgvCancelamento.Rows)
-            {
-                //Valor da Parcial
-                valorCancelado = valorCancelado + Convert.ToDouble(col.Cells[2].Value);
-                valorRetirada = valorRetirada + Convert.ToDouble(col.Cells[3].Value);
-
-                col.DefaultCellStyle.ForeColor = Color.SkyBlue;
-                col.ErrorText = "";
-
-            }
-            #endregion
-
-
-            //-----------Venda
-            if (FormularioCancelado == "ParcialVenda")
-            {
-                lbCaixaTotal.Text = "+ " + String.Format("{0:C2}", (listaSangriaCancelada.Sum(p => p.valorSangria)) + sangriaLista.Sum(p => p.valorSangria * quantidadeItem));//TotalCaixa
-            }
-            else
-            {
-                lbCaixaTotal.Text = "+ " + String.Format("{0:C2}", (listaSangriaCancelada.Sum(p => p.valorSangria)) + valorCancelado);//TotalCaixa          
-            }
-            lbSangriaTotal.Text = "+" + String.Format("{0:C2}", valorSangriaNova);//TotalNovaSangria
-            lbTotalCancelado.Text = "- " + String.Format("{0:C2}", itemVendaSelecionado.Sum(i => i.quantidadeVenda * i.precoVenda));//Soma dos Itens Cancelados
-            lbCaixaRestante.Text = "+ " + String.Format("{0:C2}", (valorCancelado));//ValorRestanteCaixa           
-
-        }
-
-        //Retorna Lista de Parcias Atualizadas
-        private void metodoAddSangriaLista()
-        {
-
-            sangriaListaAlt = new SangriaLista();
-
-            foreach (DataGridViewRow col in dgvSangria.Rows)
-            {
-                Sangria newSangria = new Sangria();
-                newSangria.pagamentoSangria = new FormaPagamento();
-                newSangria.funcionarioSangria = new Funcionario();
-
-                newSangria.codigoSangria = objSangriaAlterada.codigoSangria;
-                newSangria.valorSangria = Convert.ToDouble(col.Cells[0].Value);
-                newSangria.pagamentoSangria.codigoFormaPagamento = Convert.ToInt32(col.Cells[3].Value);
-                newSangria.pagamentoSangria.formaPagamento = (col.Cells[4].Value).ToString();
-                newSangria.funcionarioSangria = objSangriaAlterada.funcionarioSangria;
-                newSangria.descontoItem = Convert.ToDouble(col.Cells[5].Value);
-                newSangria.JurosItem = Convert.ToDouble(col.Cells[6].Value);
-                newSangria.dataSangria = objSangriaAlterada.dataSangria;
-                newSangria.ordemSangra = objSangriaAlterada.ordemSangra;
-
-                if (newSangria.valorSangria > 0)//Só adiciona valores lançados
+                if (Convert.ToInt32(dgvSangria.CurrentRow.Cells[4].Value) == Convert.ToInt32(row.Cells[0].Value) &&
+                    Convert.ToDateTime(dgvSangria.CurrentRow.Cells[7].Value) == Convert.ToDateTime(row.Cells[7].Value))
                 {
-                    sangriaListaAlt.Add(newSangria);
+
+                    totalCaixa = totalCaixa + Convert.ToDouble(row.Cells[2].Value);
+                    totalCancelado = totalCancelado + Convert.ToDouble(row.Cells[3].Value);
+                    totalSangria = totalSangria + Convert.ToDouble(row.Cells[4].Value);
+                    totalDespesa = totalDespesa + Convert.ToDouble(row.Cells[5].Value);
+                    totalRestanteCaixa = totalRestanteCaixa + Convert.ToDouble(row.Cells[6].Value);
                 }
+
             }
+
+            lbCaixaTotal.Text = String.Format("{0:C2}", totalCaixa);
+            lbDataTotalCaixa.Text = pagamento + " " + data.ToShortDateString();
+
+            lbTotalCancelado.Text = String.Format("{0:C2}", totalCancelado);
+            lbDespesaTotal.Text = String.Format("{0:C2}", totalDespesa);
+            lbTotalSangria.Text = String.Format("{0:C2}", totalSangria);
+            lbCaixaRestante.Text = String.Format("{0:C2}", totalRestanteCaixa);
+
         }
 
-        #region Venda ItemVenda e ParcialVenda
-        //VENDAPARCIAL
-        private void AtualizarDataGridCancelamentoVendaParcial()
+        //Valida atualização ou exclusão
+        private void metodoAtualizaPreenchimento()
         {
-            try
+
+            double valorSangriaAtual = 0;
+            double restoCaixa = 0;
+            int pagamento = Convert.ToInt32(dgvSangria.CurrentRow.Cells[4].Value);
+            DateTime data = Convert.ToDateTime(dgvSangria.CurrentRow.Cells[7].Value);
+
+            //GridDespesa
+            if (dgvSangria.CurrentRow.Cells[1].Value != dgvSangria.CurrentRow.Cells[8].Value)
             {
-                this.dgvCancelamento.Rows.Clear(); // Limpa todos os registros atuais no grid de funcionários.
 
-                //Adiciona Valores e forma de pagamentos a serem cancelados
-                Sangria sangriaCancelada = new Sangria();
-                listaSangriaCancelada = new SangriaListaCancelamento();
-
-                #region ADD PARCIALVENDA
-                int contador = 0;
-                foreach (ParcialVenda item in parcialVendaSelecionado)
+                foreach (DataGridViewRow rowDespesa in dgvSangria.Rows)
                 {
-                    if (item.valorParcialVenda < 0)
-                    {
 
-                        item.valorParcialVenda = 0;
+                    if (pagamento == Convert.ToInt32(rowDespesa.Cells[4].Value) && data == Convert.ToDateTime(rowDespesa.Cells[7].Value))
+                    {
+                        valorSangriaAtual = valorSangriaAtual + Convert.ToDouble(rowDespesa.Cells[1].Value.ToString().Replace("R$", ""));
+
                     }
+                }
+                //-----------------------------------------------------------------------------------------------------------------
 
+                //GridCancelamento
+                foreach (DataGridViewRow row in dgvCancelamento.Rows)
+                {
 
-
-                    if (listaSangriaCancelada.Count() > 0)
+                    if (pagamento == Convert.ToInt32(row.Cells[0].Value) && data == Convert.ToDateTime(row.Cells[7].Value))
                     {
+                        row.Cells[4].Value = -valorSangriaAtual;
+                        row.Cells[6].Value = Convert.ToDouble(row.Cells[2].Value) + (Convert.ToDouble(row.Cells[5].Value) + Convert.ToDouble(row.Cells[3].Value) - valorSangriaAtual);
+                        restoCaixa = Convert.ToDouble(row.Cells[6].Value);
 
-                        if (listaSangriaCancelada[contador].pagamentoSangria.codigoFormaPagamento == item.formaPagamentoVenda.codigoFormaPagamento)
+                        if (restoCaixa > valorSangriaAtual || valorSangriaAtual == 0)
                         {
+                            row.Cells[6].Style.ForeColor = Color.Turquoise;
+                            pbOk.Image = Properties.Resources.DialogOK;
 
-                            listaSangriaCancelada[contador].valorSangria = listaSangriaCancelada[contador].valorSangria + (item.valorParcialVenda);
-                            listaSangriaCancelada[contador].retiradaSangria = listaSangriaCancelada[contador].retiradaSangria + (item.valorParcialVenda);
+                            foreach (DataGridViewRow rowDespesa in dgvSangria.Rows)
+                            {
+                                if (pagamento == Convert.ToInt32(rowDespesa.Cells[4].Value) && data == Convert.ToDateTime(rowDespesa.Cells[7].Value))
+                                {
+                                    rowDespesa.Cells[1].Style.ForeColor = Color.Turquoise;
+                                    rowDespesa.Cells[1].ErrorText = "";
+                                }
+                            }
                         }
                         else
                         {
+                            row.Cells[6].Style.ForeColor = Color.Red;
+                            pbOk.Image = Properties.Resources.DialogErro;
 
-                            sangriaCancelada = new Sangria();
-                            sangriaCancelada.pagamentoSangria = new FormaPagamento();
-
-                            sangriaCancelada.valorSangria = item.valorParcialVenda;
-                            sangriaCancelada.retiradaSangria = item.valorParcialVenda;
-                            sangriaCancelada.pagamentoSangria.codigoFormaPagamento = item.formaPagamentoVenda.codigoFormaPagamento;
-                            sangriaCancelada.pagamentoSangria.formaPagamento = item.formaPagamentoVenda.formaPagamento;
-                            sangriaCancelada.dataSangria = sangriaSelecionada.dataSangria;
-                            listaSangriaCancelada.Add(sangriaCancelada);
-
-                            contador++;
+                            foreach (DataGridViewRow rowDespesa in dgvSangria.Rows)
+                            {
+                                if (pagamento == Convert.ToInt32(rowDespesa.Cells[4].Value) && data == Convert.ToDateTime(rowDespesa.Cells[7].Value))
+                                {
+                                    rowDespesa.Cells[1].Style.ForeColor = Color.Red;
+                                    rowDespesa.Cells[1].ErrorText = "Valor a Resto Caixa! " + row.Cells[6].Value.ToString();
+                                }
+                            }
                         }
+
+                        break;
                     }
-                    else
-                    {
-
-                        sangriaCancelada = new Sangria();
-                        sangriaCancelada.pagamentoSangria = new FormaPagamento();
-
-                        sangriaCancelada.valorSangria = item.valorParcialVenda;
-                        sangriaCancelada.pagamentoSangria.codigoFormaPagamento = item.formaPagamentoVenda.codigoFormaPagamento;
-                        sangriaCancelada.pagamentoSangria.formaPagamento = item.formaPagamentoVenda.formaPagamento;
-                        sangriaCancelada.retiradaSangria = item.valorParcialVenda;
-                        sangriaCancelada.dataSangria = sangriaSelecionada.dataSangria;
-                        listaSangriaCancelada.Add(sangriaCancelada);
-                    }
-
                 }
-                #endregion
+                //----------------------------------------------------------------------------------------------------------------
 
-                if (this.listaSangriaCancelada.Count > 0)
-                {
-                    this.dgvCancelamento.Rows.Add(this.listaSangriaCancelada.Count);
-                }
-                else
-                {
-                    return;
-                }
-
-                int indice = 0;
-                foreach (Sangria sang in this.listaSangriaCancelada)
-                {
-                    this.dgvCancelamento[0, indice].Value = sang.pagamentoSangria.codigoFormaPagamento;
-                    this.dgvCancelamento[1, indice].Value = sang.pagamentoSangria.formaPagamento;//forma de pagamentoo
-                    this.dgvCancelamento[2, indice].Value = sang.valorSangria;//Valor a ser cancelado      
-                    this.dgvCancelamento[3, indice].Value = sang.retiradaSangria;
-                    this.dgvCancelamento[4, indice].Value = sang.dataSangria;
-                    indice++;
-                }
-                dgvCancelamento.Update();
-
-                this.dgvCancelamento.ClearSelection();
             }
-            catch (Exception ex) { MessageBox.Show(ex.Message); }
         }
 
-        //ITEMVENDA 
-        private void AtualizarDataGridCancelamentoItemVenda()
+        //Valida todos os valores a serem Excluidos ou alterados para atender Caixa
+        private Boolean metodoValidaExclusaoAlteracao()
         {
-            try
+
+            List<SangriaPagamento> lista = new List<SangriaPagamento>();
+
+            foreach (DataGridViewRow rowSangria in dgvSangria.Rows)
             {
+                SangriaPagamento sangria = new SangriaPagamento(
+                    Convert.ToDateTime(rowSangria.Cells[7].Value),
+                    Convert.ToInt32(rowSangria.Cells[4].Value),
+                    Convert.ToDouble(rowSangria.Cells[1].Value.ToString().Replace("R$", ""))
+            );
 
-                this.dgvCancelamento.Rows.Clear(); // Limpa todos os registros atuais no grid de funcionários.
-
-                //Adiciona Valores e forma de pagamentos a serem cancelados
-                Sangria sangriaCancelada = new Sangria();
-                listaSangriaCancelada = new SangriaListaCancelamento();
-                int contador = 0;
-
-                foreach (ItemVenda item in itemVendaSelecionado)
-                {
-
-                    if (listaSangriaCancelada.Count() > 0)
-                    {
-
-                        if (listaSangriaCancelada[contador].pagamentoSangria.codigoFormaPagamento == item.Venda.formaPagamento.codigoFormaPagamento)
-                        {
-
-                            listaSangriaCancelada[contador].valorSangria = listaSangriaCancelada[contador].valorSangria + (item.quantidadeVenda * item.precoVenda);
-                            listaSangriaCancelada[contador].retiradaSangria = listaSangriaCancelada[contador].retiradaSangria + (item.quantidadeVenda * item.precoVenda);
-                            listaSangriaCancelada[contador].JurosItem = listaSangriaCancelada[contador].JurosItem + (item.quantidadeVenda * item.precoVenda) + item.JurosItem;
-                            listaSangriaCancelada[contador].descontoItem = listaSangriaCancelada[contador].descontoItem + (item.quantidadeVenda * item.precoVenda) + item.descontoItem;
-                        }
-                        else
-                        {
-
-                            sangriaCancelada = new Sangria();
-                            sangriaCancelada.pagamentoSangria = new FormaPagamento();
-
-                            sangriaCancelada.valorSangria = item.quantidadeVenda * item.precoVenda;
-                            sangriaCancelada.retiradaSangria = item.quantidadeVenda * item.precoVenda;
-                            sangriaCancelada.pagamentoSangria.codigoFormaPagamento = item.Venda.formaPagamento.codigoFormaPagamento;
-                            sangriaCancelada.pagamentoSangria.formaPagamento = item.Venda.formaPagamento.formaPagamento;
-                            sangriaCancelada.dataSangria = item.dataItemVenda;
-                            sangriaCancelada.JurosItem = item.JurosItem;
-                            sangriaCancelada.descontoItem = item.descontoItem;
-
-                            listaSangriaCancelada.Add(sangriaCancelada);
-
-                            contador++;
-                        }
-                    }
-                    else
-                    {
-
-                        sangriaCancelada = new Sangria();
-                        sangriaCancelada.pagamentoSangria = new FormaPagamento();
-
-                        sangriaCancelada.valorSangria = item.quantidadeVenda * item.precoVenda;
-                        sangriaCancelada.pagamentoSangria.codigoFormaPagamento = item.Venda.formaPagamento.codigoFormaPagamento;
-                        sangriaCancelada.pagamentoSangria.formaPagamento = item.Venda.formaPagamento.formaPagamento;
-                        sangriaCancelada.retiradaSangria = item.quantidadeVenda * item.precoVenda;
-                        sangriaCancelada.dataSangria = item.dataItemVenda;
-                        sangriaCancelada.JurosItem = item.JurosItem;
-                        sangriaCancelada.descontoItem = item.descontoItem;
-
-                        listaSangriaCancelada.Add(sangriaCancelada);
-                    }
-
-                }
-
-                if (this.listaSangriaCancelada.Count > 0)
-                {
-                    this.dgvCancelamento.Rows.Add(this.listaSangriaCancelada.Count);
-                }
-                else
-                {
-                    return;
-                }
-
-                int indice = 0;
-                foreach (Sangria sang in this.listaSangriaCancelada)
-                {
-                    this.dgvCancelamento[0, indice].Value = sang.pagamentoSangria.codigoFormaPagamento;
-                    this.dgvCancelamento[1, indice].Value = sang.pagamentoSangria.formaPagamento;//forma de pagamento
-                    this.dgvCancelamento[2, indice].Value = caixaSelecionado.Where(c => c.formaPagamento.codigoFormaPagamento == sang.pagamentoSangria.codigoFormaPagamento).Select(s => s.valorCaixa).Sum() - sang.valorSangria - sang.JurosItem + sang.descontoItem;//Valor a ser cancelado
-                    this.dgvCancelamento[3, indice].Value = sang.retiradaSangria;
-                    this.dgvCancelamento[4, indice].Value = sang.dataSangria;
-                    indice++;
-                }
-                dgvCancelamento.Update();
-
-                this.dgvCancelamento.ClearSelection();
+                lista.Add(sangria);
             }
-            catch (Exception ex) { MessageBox.Show(ex.Message); }
-        }
-        #endregion
 
-        #region Crediario ItemCrediarioPago e ParcialCrediario
+            //Lista Agrupa valores iguais
+            var listaSangriaValida = lista.GroupBy(p => new { p.Data, p.FormaPagamento })
+                .Select(d => new
+                {
+                    data = d.Key.Data,
+                    pagamento = d.Key.FormaPagamento,
+                    sangria = d.Sum(v => v.valorSangriaResto)
+                });
 
-        //ItemCrediarioPago
-        private void AtualizarDataGridCancelamentoItemCrediarioPago()
-        {
-            try
+            //GridCancelamento - Validação
+            foreach (DataGridViewRow row in dgvCancelamento.Rows)
             {
 
-                this.dgvCancelamento.Rows.Clear(); // Limpa todos os registros atuais no grid de funcionários.
-
-                //Adiciona Valores e forma de pagamentos a serem cancelados
-                Sangria sangriaCancelada = new Sangria();
-                listaSangriaCancelada = new SangriaListaCancelamento();
-                sangriaLista.Count();
-
-                ItemCrediarioLista novaListaCrediarioPago = new ItemCrediarioLista();
-
-                //Remover Items que não existem na Sangria
-                foreach (ItemCrediario pago in itemCrediarioPagoSelecionado)
+                foreach (var item in listaSangriaValida)
                 {
-                    foreach (Sangria sangria in sangriaLista)
+
+                    if (Convert.ToInt32(row.Cells[0].Value) == item.pagamento &&
+                       Convert.ToDateTime(row.Cells[7].Value) == item.data)
                     {
 
-                        if (sangria.pagamentoSangria.codigoFormaPagamento == pago.formaPagamento.codigoFormaPagamento &&
-                            sangria.dataSangria == pago.dataItemCrediario)
+                        if (item.sangria == 0)
                         {
 
-                            novaListaCrediarioPago.Add(pago);
                             break;
                         }
-                    }
-                }
-                //Lista com apenas valore a serm cancelados de acordo com a sangria
-                itemCrediarioPagoSelecionado = novaListaCrediarioPago;
-
-                //Adiciona os valores restantes do caixa
-                int contador = 0;
-                foreach (ItemCrediario item in itemCrediarioPagoSelecionado)
-                {
-                    if (listaSangriaCancelada.Count() > 0)
-                    {
-
-                        if (listaSangriaCancelada[contador].pagamentoSangria.codigoFormaPagamento == item.formaPagamento.codigoFormaPagamento &&
-                            listaSangriaCancelada[contador].dataSangria == item.dataItemCrediario)
+                        else if (item.sangria >= Convert.ToDouble(row.Cells[6].Value))
                         {
 
-                            listaSangriaCancelada[contador].valorSangria = listaSangriaCancelada[contador].valorSangria + (item.quantidadeItemCrediario * item.valorItemCrediario);
-                            listaSangriaCancelada[contador].retiradaSangria = listaSangriaCancelada[contador].retiradaSangria + (item.quantidadeItemCrediario * item.valorItemCrediario);
-                            listaSangriaCancelada[contador].JurosItem = listaSangriaCancelada[contador].JurosItem + item.jurosItemCrediario;
-                            listaSangriaCancelada[contador].descontoItem = listaSangriaCancelada[contador].descontoItem + item.descontoItemCrediario;
+                            return false;
 
                         }
-                        else
-                        {
-
-                            sangriaCancelada = new Sangria();
-                            sangriaCancelada.pagamentoSangria = new FormaPagamento();
-
-                            sangriaCancelada.valorSangria = item.quantidadeItemCrediario * item.valorItemCrediario;
-                            sangriaCancelada.retiradaSangria = item.quantidadeItemCrediario * item.valorItemCrediario;
-                            sangriaCancelada.pagamentoSangria.codigoFormaPagamento = item.formaPagamento.codigoFormaPagamento;
-                            sangriaCancelada.pagamentoSangria.formaPagamento = item.formaPagamento.formaPagamento;
-                            sangriaCancelada.dataSangria = item.dataItemCrediario;
-                            sangriaCancelada.JurosItem = item.jurosItemCrediario;
-                            sangriaCancelada.descontoItem = item.descontoItemCrediario;
-                            listaSangriaCancelada.Add(sangriaCancelada);
-
-                            contador++;
-                        }
                     }
-                    else
-                    {
-
-                        sangriaCancelada = new Sangria();
-                        sangriaCancelada.pagamentoSangria = new FormaPagamento();
-
-                        sangriaCancelada.valorSangria = item.quantidadeItemCrediario * item.valorItemCrediario;
-                        sangriaCancelada.pagamentoSangria.codigoFormaPagamento = item.formaPagamento.codigoFormaPagamento;
-                        sangriaCancelada.pagamentoSangria.formaPagamento = item.formaPagamento.formaPagamento;
-                        sangriaCancelada.retiradaSangria = item.quantidadeItemCrediario * item.valorItemCrediario;
-                        sangriaCancelada.dataSangria = item.dataItemCrediario;
-                        sangriaCancelada.JurosItem = item.jurosItemCrediario;
-                        sangriaCancelada.descontoItem = item.descontoItemCrediario;
-                        listaSangriaCancelada.Add(sangriaCancelada);
-                    }
-                }//Foreach
-
-                //Adiciona colunas ao gride
-                if (this.listaSangriaCancelada.Count > 0)
-                {
-                    this.dgvCancelamento.Rows.Add(this.listaSangriaCancelada.Count);
-                }
-                else
-                {
-                    return;
-                }
-
-                int indice = 0;
-                foreach (Sangria sang in this.listaSangriaCancelada)
-                {
-                    this.dgvCancelamento[0, indice].Value = sang.pagamentoSangria.codigoFormaPagamento;
-                    this.dgvCancelamento[1, indice].Value = sang.pagamentoSangria.formaPagamento;//forma de pagamento
-                    this.dgvCancelamento[2, indice].Value = caixaSelecionado.Where(c => c.formaPagamento.codigoFormaPagamento == sang.pagamentoSangria.codigoFormaPagamento && c.dataCaixa == sang.dataSangria).Select(s => s.valorCaixa).Sum() - sang.valorSangria - sang.JurosItem + sang.descontoItem;//Valor a ser cancelado
-                    this.dgvCancelamento[3, indice].Value = sang.retiradaSangria;
-                    this.dgvCancelamento[4, indice].Value = sang.dataSangria;
-                    indice++;
-                }
-                dgvCancelamento.Update();
-
-                this.dgvCancelamento.ClearSelection();
-
-            }//Try
-            catch (Exception ex) { MessageBox.Show(ex.Message); }
-
-        }
-
-        //Adiciona itens na sangria de acordo com data do item cancelado e da sangria equivalente
-        public SangriaLista metodoSangriaCrediario(ItemCrediarioLista lista)
-        {
-            try
-            {
-                sangriaLista = new SangriaLista();
-                ItemCrediarioLista ItensRemovidos = new ItemCrediarioLista();
-
-                int contador = 0;
-                foreach (ItemCrediario item in lista)
-                {
-                    if (sangriaLista.Count == 0)
-                    {
-
-                        sangriaLista = nSangria.BuscarSangriaParaCancelamento(item.dataItemCrediario);
-                    }
-                    else if (item.dataItemCrediario != sangriaLista[contador].dataSangria)
-                    {
-                        //Toda vez que a data for diferente busca os itens do caixa 
-                        //E os adiciona na lista antiga
-                        SangriaLista sangriaListaNova = new SangriaLista();
-                        sangriaListaNova = nSangria.BuscarSangriaParaCancelamento(item.dataItemCrediario);
-                        //Se não houver sangria o item não é adicionado
-                        if (sangriaListaNova.Count > 0)
-                        {
-                            foreach (Sangria sangAdd in sangriaListaNova)
-                            {
-
-                                sangriaLista.Add(sangAdd);
-
-                            }
-                        }
-                        //Remove o item da lista Pois não sangria referente ao item
-                        else
-                        {
-
-                            foreach (ItemCrediario itemRemove in itemCrediarioPagoSelecionado)
-                            {
-                                //Verifica se os itens são iguais e remove os mesmo da lista a atualizar
-                                if (item == itemRemove)
-                                {
-
-                                    ItensRemovidos.Add(itemRemove);
-                                    break;
-                                }
-
-                            }
-                        }
-
-                    }
-
-                }
-
-                //Remove itens da lista que não tem Sangria 
-                if (ItensRemovidos.Count > 0)
-                {
-
-                    foreach (ItemCrediario itemRemove in ItensRemovidos)
-                    {
-                        itemCrediarioPagoSelecionado.Remove(itemRemove);
-                    }
-                }
-
-                return sangriaLista;
-
-            }
-
-            catch (Exception ex) { MessageBox.Show(ex.Message); return null; }
-        }
-
-        //ItemCrediarioParcial
-        private void AtualizarDataGridCancelamentoItemCrediarioParcial()
-        {
-            try
-            {
-
-                this.dgvCancelamento.Rows.Clear(); // Limpa todos os registros atuais no grid de funcionários.
-
-                //Adiciona Valores e forma de pagamentos a serem cancelados
-                Sangria sangriaCancelada = new Sangria();
-                listaSangriaCancelada = new SangriaListaCancelamento();
-
-                ItemCrediarioParcialLista novaListaParcial = new ItemCrediarioParcialLista();
-
-                //Remover Items que não existem na Sangria
-                foreach (ItemCrediarioParcial parcial in itemCrediarioParcialSelecionado)
-                {
-                    foreach (Sangria sangria in sangriaLista)
-                    {
-
-                        if (sangria.pagamentoSangria.codigoFormaPagamento == parcial.FormaPagamento.codigoFormaPagamento &&
-                            sangria.dataSangria == parcial.dataParcial)
-                        {
-
-                            novaListaParcial.Add(parcial);
-                            break;
-                        }
-                    }
-                }
-                //Lista com apenas valore a serm cancelados de acordo com a sangria
-                itemCrediarioParcialSelecionado = novaListaParcial;
-
-
-                int contador = 0;
-                foreach (ItemCrediarioParcial item in itemCrediarioParcialSelecionado)
-                {
-                    if (listaSangriaCancelada.Count() > 0)
-                    {
-
-                        if (listaSangriaCancelada[contador].pagamentoSangria.codigoFormaPagamento == item.FormaPagamento.codigoFormaPagamento &&
-                            listaSangriaCancelada[contador].dataSangria == item.dataParcial)
-                        {
-
-                            listaSangriaCancelada[contador].valorSangria = listaSangriaCancelada[contador].valorSangria + item.valorPagoParcial;
-                            listaSangriaCancelada[contador].retiradaSangria = listaSangriaCancelada[contador].retiradaSangria + item.valorPagoParcial;
-                            listaSangriaCancelada[contador].JurosItem = listaSangriaCancelada[contador].JurosItem + item.jurosParcial;
-                            listaSangriaCancelada[contador].descontoItem = listaSangriaCancelada[contador].descontoItem + item.descontoParcial;
-
-                        }
-                        else
-                        {
-
-                            sangriaCancelada = new Sangria();
-                            sangriaCancelada.pagamentoSangria = new FormaPagamento();
-
-                            sangriaCancelada.valorSangria = item.valorPagoParcial;
-                            sangriaCancelada.retiradaSangria = item.valorPagoParcial;
-                            sangriaCancelada.pagamentoSangria.codigoFormaPagamento = item.FormaPagamento.codigoFormaPagamento;
-                            sangriaCancelada.pagamentoSangria.formaPagamento = item.FormaPagamento.formaPagamento;
-                            sangriaCancelada.dataSangria = item.dataParcial;
-                            sangriaCancelada.JurosItem = item.jurosParcial;
-                            sangriaCancelada.descontoItem = item.descontoParcial;
-                            listaSangriaCancelada.Add(sangriaCancelada);
-
-                            contador++;
-                        }
-                    }
-                    else
-                    {
-
-                        sangriaCancelada = new Sangria();
-                        sangriaCancelada.pagamentoSangria = new FormaPagamento();
-
-                        sangriaCancelada.valorSangria = item.valorPagoParcial;
-                        sangriaCancelada.retiradaSangria = item.valorPagoParcial;
-                        sangriaCancelada.pagamentoSangria.codigoFormaPagamento = item.FormaPagamento.codigoFormaPagamento;
-                        sangriaCancelada.pagamentoSangria.formaPagamento = item.FormaPagamento.formaPagamento;
-                        sangriaCancelada.dataSangria = item.dataParcial;
-                        sangriaCancelada.JurosItem = item.jurosParcial;
-                        sangriaCancelada.descontoItem = item.descontoParcial;
-                        listaSangriaCancelada.Add(sangriaCancelada);
-
-                    }
-                }//Foreach
-
-                //Adiciona colunas ao gride
-                if (this.listaSangriaCancelada.Count > 0)
-                {
-                    this.dgvCancelamento.Rows.Add(this.listaSangriaCancelada.Count);
-                }
-                else
-                {
-                    return;
-                }
-
-                int indice = 0;
-                foreach (Sangria sang in this.listaSangriaCancelada)
-                {
-                    this.dgvCancelamento[0, indice].Value = sang.pagamentoSangria.codigoFormaPagamento;
-                    this.dgvCancelamento[1, indice].Value = sang.pagamentoSangria.formaPagamento;//forma de pagamento
-                    this.dgvCancelamento[2, indice].Value = caixaSelecionado.Where(c => c.formaPagamento.codigoFormaPagamento == sang.pagamentoSangria.codigoFormaPagamento && c.dataCaixa == sang.dataSangria).Select(s => s.valorCaixa).Sum() - sang.valorSangria - sang.JurosItem + sang.descontoItem;//Valor a ser cancelado
-                    this.dgvCancelamento[3, indice].Value = sang.retiradaSangria;
-                    this.dgvCancelamento[4, indice].Value = sang.dataSangria;
-                    indice++;
-                }
-                dgvCancelamento.Update();
-
-                this.dgvCancelamento.ClearSelection();
-
-            }//Try
-            catch (Exception ex) { MessageBox.Show(ex.Message); }
-
-        }//Criar esse método
-
-        //Adiciona itens na sangria de acordo com data do item cancelado e da sangria equivalente
-        public SangriaLista metodoSangriaCrediarioParcial(ItemCrediarioParcialLista lista)
-        {
-            try
-            {
-                sangriaLista = new SangriaLista();
-                ItemCrediarioParcialLista ItensRemovidos = new ItemCrediarioParcialLista();
-
-                int contador = 0;
-                foreach (ItemCrediarioParcial item in lista)
-                {
-                    if (sangriaLista.Count == 0)
-                    {
-
-                        sangriaLista = nSangria.BuscarSangriaParaCancelamento(item.dataParcial);
-                    }
-                    else if (item.dataParcial != sangriaLista[contador].dataSangria)
-                    {
-                        //Toda vez que a data for diferente busca os itens do caixa 
-                        //E os adiciona na lista antiga
-                        SangriaLista sangriaListaNova = new SangriaLista();
-                        sangriaListaNova = nSangria.BuscarSangriaParaCancelamento(item.dataParcial);
-                        //Se não houver sangria o item não é adicionado
-                        if (sangriaListaNova.Count > 0)
-                        {
-                            foreach (Sangria sangAdd in sangriaListaNova)
-                            {
-
-                                sangriaLista.Add(sangAdd);
-
-                            }
-                        }
-                        //Remove o item da lista Pois não sangria referente ao item
-                        else
-                        {
-
-                            foreach (ItemCrediarioParcial itemRemove in itemCrediarioParcialSelecionado)
-                            {
-                                //Verifica se os itens são iguais e remove os mesmo da lista a atualizar
-                                if (item == itemRemove)
-                                {
-
-                                    ItensRemovidos.Add(itemRemove);
-                                    break;
-                                }
-
-                            }
-                        }
-
-                    }
-
-                }
-
-                //Remove itens da lista que não tem Sangria 
-                if (ItensRemovidos.Count > 0)
-                {
-
-                    foreach (ItemCrediarioParcial itemRemove in ItensRemovidos)
-                    {
-                        itemCrediarioParcialSelecionado.Remove(itemRemove);
-                    }
-                }
-
-                return sangriaLista;
-
-            }
-
-            catch (Exception ex) { MessageBox.Show(ex.Message); return null; }
-        }//Atualizar Ess Método
-
-        #endregion
-
-
-        //Metodo atualiza valores validação CurrentRows Valor Tempo Real
-        private void metodoAtualizaCancelamentoGrid()
-        {
-
-            double valorCanceladoAtualizar = 0;
-            double totalCancelarAtualiza = 0;
-            double totalCancelarCaixa = 0;
-
-
-            if (FormularioCancelado == "ItemVenda")
-            {
-                totalCancelarAtualiza = totalCancelarAtualiza = listaSangriaCancelada.Where(t => t.pagamentoSangria.codigoFormaPagamento == Convert.ToInt32(dgvSangria.CurrentRow.Cells[5].Value)).Select(s => s.valorSangria + s.JurosItem - s.descontoItem).Sum();
-                totalCancelarAtualiza = (caixaSelecionado.Where(c => c.formaPagamento.codigoFormaPagamento == Convert.ToInt32(dgvSangria.CurrentRow.Cells[5].Value)).Select(s => s.valorCaixa).Sum() - totalCancelarAtualiza);
-
-            }
-            else if (FormularioCancelado == "ItemCrediarioPago")
-            {
-
-                totalCancelarAtualiza = totalCancelarAtualiza = listaSangriaCancelada.Where(t => t.pagamentoSangria.codigoFormaPagamento == Convert.ToInt32(dgvSangria.CurrentRow.Cells[5].Value) && t.dataSangria == Convert.ToDateTime(dgvSangria.CurrentRow.Cells[9].Value)).Select(s => s.valorSangria + s.JurosItem - s.descontoItem).Sum();
-                totalCancelarCaixa = (caixaSelecionado.Where(c => c.formaPagamento.codigoFormaPagamento == Convert.ToInt32(dgvSangria.CurrentRow.Cells[5].Value) && c.dataCaixa == Convert.ToDateTime(dgvSangria.CurrentRow.Cells[9].Value)).Select(s => s.valorCaixa).Sum());
-                totalCancelarAtualiza = totalCancelarCaixa - totalCancelarAtualiza;
-
-            }
-            else if (FormularioCancelado == "ItemCrediarioParcial")
-            {
-
-                totalCancelarAtualiza = totalCancelarAtualiza = listaSangriaCancelada.Where(t => t.pagamentoSangria.codigoFormaPagamento == Convert.ToInt32(dgvSangria.CurrentRow.Cells[5].Value) && t.dataSangria == Convert.ToDateTime(dgvSangria.CurrentRow.Cells[9].Value)).Select(s => s.valorSangria + s.JurosItem - s.descontoItem).Sum();
-                totalCancelarCaixa = (caixaSelecionado.Where(c => c.formaPagamento.codigoFormaPagamento == Convert.ToInt32(dgvSangria.CurrentRow.Cells[5].Value) && c.dataCaixa == Convert.ToDateTime(dgvSangria.CurrentRow.Cells[9].Value)).Select(s => s.valorCaixa).Sum());
-                totalCancelarAtualiza = totalCancelarAtualiza - totalCancelarCaixa;
-
-            }
-            else//ParcialVenda 
-            {
-
-                totalCancelarAtualiza = totalCancelarAtualiza = listaSangriaCancelada.Where(t => t.pagamentoSangria.codigoFormaPagamento == Convert.ToInt32(dgvSangria.CurrentRow.Cells[6].Value)).Select(s => s.valorSangria).Sum();
-
-            }
-
-
-
-            foreach (DataGridViewRow col in dgvSangria.Rows)
-            {
-                if (col.Cells[5].Value.ToString() == dgvSangria.CurrentRow.Cells[5].Value.ToString() &&
-                    Convert.ToDateTime(col.Cells[9].Value) == Convert.ToDateTime(dgvSangria.CurrentRow.Cells[9].Value))
-                {
-
-                    valorCanceladoAtualizar = valorCanceladoAtualizar + Convert.ToDouble(col.Cells[1].Value);
-
                 }
             }
-            foreach (DataGridViewRow col in dgvSangria.Rows)
-            {
-                if (valorCanceladoAtualizar <= totalCancelarAtualiza)
-                {
-                    if (col.Cells[5].Value.ToString() == dgvSangria.CurrentRow.Cells[5].Value.ToString() &&
-                    Convert.ToDateTime(col.Cells[9].Value) == Convert.ToDateTime(dgvSangria.CurrentRow.Cells[9].Value))
-                    {
-                        col.Cells["valorParcialVenda"].Style.ForeColor = Color.SkyBlue;
-                    }
-                }
-                else
-                {
+            //-------------------------Tudo Ok retorna True
 
-                    if (col.Cells[5].Value.ToString() == dgvSangria.CurrentRow.Cells[5].Value.ToString() &&
-                    Convert.ToDateTime(col.Cells[9].Value) == Convert.ToDateTime(dgvSangria.CurrentRow.Cells[9].Value))
-                    {
-                        col.Cells["valorParcialVenda"].Style.ForeColor = Color.Red;
-                    }
-                }
-
-            }
-
-            this.dgvSangria.ClearSelection();
-        }
-
-        //Percorre os grides para validar os valores que devem ser atualizados na sangria
-        private void metodoValidaCalculaGrideAtualizacoes()
-        {
-
-            double valorCanceladoAtualizar = 0;
-            double totalCancelarAtualiza = 0;
-
-            //Percorre as formas de pagamenta do caixa para verificar valores a serem cancelados 
-            foreach (DataGridViewRow colCaixa in dgvCancelamento.Rows)
-            {
-                valorCanceladoAtualizar = 0;
-
-                if (FormularioCancelado == "ItemVenda")
-                {
-                    totalCancelarAtualiza = listaSangriaCancelada.Where(t => t.pagamentoSangria.codigoFormaPagamento == Convert.ToInt32(colCaixa.Cells[0].Value)).Select(s => s.valorSangria).Sum();
-                    totalCancelarAtualiza = (caixaSelecionado.Where(c => c.formaPagamento.codigoFormaPagamento == Convert.ToInt32(colCaixa.Cells[0].Value)).Select(s => s.valorCaixa).Sum() - totalCancelarAtualiza);
-                }
-                else if (FormularioCancelado == "ParcialVenda")
-                {
-
-                    totalCancelarAtualiza = listaSangriaCancelada.Where(t => t.pagamentoSangria.codigoFormaPagamento == Convert.ToInt32(colCaixa.Cells[0].Value)).Select(s => s.valorSangria).Sum();
-                }
-                else if ((FormularioCancelado == "ItemCrediarioPago"))
-                {
-                    totalCancelarAtualiza = listaSangriaCancelada.Where(t => t.pagamentoSangria.codigoFormaPagamento == Convert.ToInt32(colCaixa.Cells[0].Value) && t.dataSangria == Convert.ToDateTime(colCaixa.Cells[4].Value)).Select(s => s.valorSangria).Sum();
-                    totalCancelarAtualiza = (caixaSelecionado.Where(c => c.formaPagamento.codigoFormaPagamento == Convert.ToInt32(colCaixa.Cells[0].Value) && c.dataCaixa == Convert.ToDateTime(colCaixa.Cells[4].Value)).Select(s => s.valorCaixa).Sum() - totalCancelarAtualiza);
-
-                }
-
-                //Soma total dos itens cancelados de acordo com a forma de pagamente 
-                foreach (DataGridViewRow colSangria in dgvSangria.Rows)
-                {
-                    if (colCaixa.Cells[0].Value.ToString() == colSangria.Cells[5].Value.ToString() &&
-                    Convert.ToDateTime(colCaixa.Cells[4].Value) == Convert.ToDateTime(colSangria.Cells[9].Value))
-                    {
-                        valorCanceladoAtualizar = valorCanceladoAtualizar + Convert.ToDouble(colSangria.Cells[1].Value);
-                    }
-                }
-
-                //Caso o Valor a ser cancelado for <= ao valor restante do caixa muda a cor dos valores para Azul SENÃO Vermelho
-                if (valorCanceladoAtualizar <= totalCancelarAtualiza)
-                {
-                    foreach (DataGridViewRow colValores in dgvSangria.Rows)
-                    {
-                        if (colValores.Cells[5].Value.ToString() == colCaixa.Cells[0].Value.ToString())
-                        {
-                            colValores.Cells["valorParcialVenda"].Style.ForeColor = Color.SkyBlue;
-                            colCaixa.ErrorText = "";
-                        }
-                    }
-
-                }
-                //Soma dos itens forem maior doque valor restante do caixa cor fica vermelha
-                else
-                {
-
-                    foreach (DataGridViewRow colValores in dgvSangria.Rows)
-                    {
-                        if (colValores.Cells[5].Value.ToString() == colCaixa.Cells[0].Value.ToString())
-                        {
-                            colValores.Cells["valorParcialVenda"].Style.ForeColor = Color.Red;
-                            colCaixa.ErrorText = "Valor a Resto Caixa! " + colCaixa.Cells[1].Value.ToString();
-                        }
-                    }
-
-                }
-            }
-
-
-            this.dgvSangria.ClearSelection();
-        }
-
-        //Valida se os valores atualizados não são maiores que valores que existe no caixa
-        private Boolean metodoValidaAlteracaoSangria() {
-
-           double valorValida = 0;
-            
-            //Percorre Data Grid com valores referente ao caixa 
-            foreach (DataGridViewRow rowCancela in dgvCancelamento.Rows) {
-
-                //Zera o valor a ser validado para a nova comparação
-                valorValida = 0;
-
-                //Percorre valores a serem atualizados
-                foreach (DataGridViewRow rowSangria in dgvSangria.Rows) {
-                
-               //Verifica itens iguais
-               if (Convert.ToInt32(rowCancela.Cells[0].Value) == Convert.ToInt32(rowSangria.Cells[5].Value) &&
-                    Convert.ToDateTime(rowCancela.Cells[4].Value) == Convert.ToDateTime(rowSangria.Cells[9].Value)){
-               
-                   //soma itens iguais para validação
-                   valorValida = valorValida + Convert.ToDouble(rowSangria.Cells[1].Value);
-                     
-                    }
-                }//Foreach
-                //Caso valor a ser atualizado for maior que o valor que existe no caixa retorna falso
-                if (Math.Round(valorValida, 2) > Math.Round(Convert.ToDouble(rowCancela.Cells[2].Value),2))
-                {
-
-                    return false;
-                }     
-            }
 
             return true;
         }
 
-        //Cria Preenche listas para realizar a exclusão do item ou alteração
-        private void metodoAddSangriaAltExc() { 
+        //Se ok Add - Lista para Alteração ou ListaExclusão valor for 0,00 
+        private void metodoAddItemLista()
+        {
 
-            sangriaListaAlt = new SangriaLista();
+            listaSangriaAlterar = new SangriaLista();
             listaSangriaExcluir = new SangriaLista();
 
-                //Percorre valores a serem atualizados
-            foreach (DataGridViewRow rowSangria in dgvSangria.Rows)
+            Sangria sangriaAdd = new Sangria();
+
+            foreach (DataGridViewRow row in dgvSangria.Rows)
             {
 
-                //Adiciona sangrias com valor igaul a 0 para realizar a exclusão
-                if (Math.Round(Convert.ToDouble(rowSangria.Cells[1].Value), 2) == 0)
+                sangriaAdd = new Sangria();
+                sangriaAdd.caixaSangria = new Caixa();
+                sangriaAdd.funcionarioSangria = new Funcionario();
+                sangriaAdd.pagamentoSangria = new FormaPagamento();
+
+
+                sangriaAdd.codigoSangria = Convert.ToInt32(row.Cells[0].Value);
+                sangriaAdd.caixaSangria.codigoCaixa = Convert.ToInt32(row.Cells[9].Value);
+                sangriaAdd.funcionarioSangria.codigoFuncionario = Convert.ToInt32(row.Cells[2].Value);
+                sangriaAdd.pagamentoSangria.codigoFormaPagamento = Convert.ToInt32(row.Cells[4].Value);
+                sangriaAdd.valorSangria = Convert.ToDouble(row.Cells[1].Value.ToString().Replace("R$", ""));
+                sangriaAdd.dataSangria = Convert.ToDateTime(row.Cells[7].Value);
+                sangriaAdd.estatusSangria = row.Cells[6].Value.ToString();
+
+                if (sangriaAdd.valorSangria == 0)
                 {
 
-                    Sangria sangExcluida = new Sangria();
-
-                    sangExcluida.funcionarioSangria = new Funcionario();
-                    sangExcluida.pagamentoSangria = new FormaPagamento();
-
-                    sangExcluida.ordemSangra = Convert.ToInt32(rowSangria.Cells[0].Value);
-                    sangExcluida.funcionarioSangria.codigoFuncionario = Convert.ToInt32(rowSangria.Cells[3].Value);
-                    sangExcluida.pagamentoSangria.codigoFormaPagamento = Convert.ToInt32(rowSangria.Cells[5].Value);
-                    sangExcluida.dataSangria = Convert.ToDateTime(rowSangria.Cells[9].Value);
-
-                    listaSangriaExcluir.Add(sangExcluida);
+                    listaSangriaExcluir.Add(sangriaAdd);
                 }
                 else
                 {
 
-
-                    Sangria sangAterar = new Sangria();
-
-                    sangAterar.funcionarioSangria = new Funcionario();
-                    sangAterar.pagamentoSangria = new FormaPagamento();
-
-                    sangAterar.ordemSangra = Convert.ToInt32(rowSangria.Cells[0].Value);
-                    sangAterar.valorSangria = Convert.ToInt32(rowSangria.Cells[1].Value);
-                    sangAterar.funcionarioSangria.codigoFuncionario = Convert.ToInt32(rowSangria.Cells[3].Value);
-                    sangAterar.pagamentoSangria.codigoFormaPagamento = Convert.ToInt32(rowSangria.Cells[5].Value);
-                    sangAterar.dataSangria = Convert.ToDateTime(rowSangria.Cells[9].Value);
-
-                    sangriaListaAlt.Add(sangAterar);
+                    listaSangriaAlterar.Add(sangriaAdd);
                 }
+
+            }
+
+
+        }
+        
+
+        //-------------------------------------------Caixa Texto Funcionário
+        private void tbBuscarFuncionario_Leave(object sender, EventArgs e)
+        {
+            if (tbBuscarFuncionario.Text == "")
+            {
+                tbBuscarFuncionario.Text = "Digite o nome do funcionário ...";
+                pbFuncionario.Image = Properties.Resources.FuncionarioAzul;
+                panelBuscarFuncionario.BackColor = Color.FromArgb(((int)(((byte)(51)))), ((int)(((byte)(51)))), ((int)(((byte)(76)))));
+                tbBuscarFuncionario.ForeColor = Color.FromArgb(((int)(((byte)(51)))), ((int)(((byte)(51)))), ((int)(((byte)(76)))));
+
             }
         }
 
-        //-------------------------------------------------------Formulário
-        //-------------------------Buscar Funcionário da Sangria
+        private void tbBuscarFuncionario_Enter(object sender, EventArgs e)
+        {
+            tbBuscarFuncionario.Clear();
+            pbFuncionario.Image = Properties.Resources.FuncionarioRosa;
+            panelBuscarFuncionario.BackColor = Color.DeepPink;
+        }
+
+        private void tbBuscarFuncionario_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (e.KeyChar == 13)
+            {
+                btBuscar.PerformClick();
+                e.Handled = true;
+            }
+        }
+
         private void btBuscar_Click(object sender, EventArgs e)
         {
             int n;
             bool ehUmNumero = int.TryParse(tbBuscarFuncionario.Text, out n);
             if (ehUmNumero == true)
             {
-                objSangriaAlterada.funcionarioSangria = nFuncionario.BuscarFuncionarioPorCodigo(n);
-                if (objSangriaAlterada.funcionarioSangria != null)
+                objSangria.funcionarioSangria = nFuncionario.BuscarFuncionarioPorCodigo(n);
+                if (objSangria.funcionarioSangria != null)
                 {
-                    this.tbBuscarFuncionario.Text = objSangriaAlterada.funcionarioSangria.nomeFuncionario; ;
+                    this.tbBuscarFuncionario.Text = objSangria.funcionarioSangria.nomeFuncionario; ;
                     dgvSangria.Focus();
                 }
                 else
@@ -1097,53 +505,331 @@ namespace Apresentacao
                 if (resultado == DialogResult.OK)
                 {
 
-                    this.objSangriaAlterada.funcionarioSangria = frmSelecionarFuncionario.FuncionarioSelecionado;
-                    this.tbBuscarFuncionario.Text = objSangriaAlterada.funcionarioSangria.nomeFuncionario;
+                    this.objSangria.funcionarioSangria = frmSelecionarFuncionario.FuncionarioSelecionado;
+                    this.tbBuscarFuncionario.Text = objSangria.funcionarioSangria.nomeFuncionario;
                     dgvSangria.Focus();
                 }
 
             }
         }
 
-        private void tbBuscarFuncionario_Leave(object sender, EventArgs e)
-        {
-            if (tbBuscarFuncionario.Text == "")
-            {
-                tbBuscarFuncionario.Text = "Digite o nome do funcionário ...";
-                pbFuncionario.Image = Properties.Resources.FuncionarioAzul;
-                panelBuscarFuncionario.BackColor = Color.FromArgb(((int)(((byte)(51)))), ((int)(((byte)(51)))), ((int)(((byte)(76)))));
-                tbBuscarFuncionario.ForeColor = Color.FromArgb(((int)(((byte)(51)))), ((int)(((byte)(51)))), ((int)(((byte)(76)))));
-
-            }
-        }
-
-        private void tbBuscarFuncionario_KeyPress(object sender, KeyPressEventArgs e)
-        {
-            if (e.KeyChar == 13)
-            {
-                btBuscar.PerformClick();
-                e.Handled = true;
-            }
-        }
-
-        private void tbBuscarFuncionario_Enter(object sender, EventArgs e)
-        {
-            tbBuscarFuncionario.Clear();
-            pbFuncionario.Image = Properties.Resources.FuncionarioRosa;
-            panelBuscarFuncionario.BackColor = Color.DeepPink;
-        }
-
-        //--------------------------Formulário
+        //-------------------------------------------Formulário
         private void FrmCancelamentoSangria_Load(object sender, EventArgs e)
         {
-            //Pega no formulario da venda o UsuarioLogado
-            if (FrmMenuPrincipal.userLogado != null)
+            metodoConstrutorListas();//Busca Referencias dos lançamentos dos itens cancelados  Sangria - Caixa - Despesa
+            metodoConstrutor();//Preenche Grid Movimento Caixa
+            metodoExibeValoresUsuario();//Preenche o grid de cancelamento
+            metodoCalculaTotais();//Calcula totais a serem cancelados 
+
+
+            dgvCancelamento.ClearSelection();
+        }
+
+        //-------------------------------------------Botões
+        private void btSair_Click(object sender, EventArgs e)
+        {
+            DialogResult resposta;
+            //Criando Caixa de dialogo
+            FrmCaixaDialogo frmCaixa = new FrmCaixaDialogo("Confirmação",
+            " Deseja realmente sair da Atualização da Sangria?",
+            Properties.Resources.DialogQuestion,
+            System.Drawing.Color.FromArgb(((int)(((byte)(51)))), ((int)(((byte)(51)))), ((int)(((byte)(76))))),
+            Color.White,
+            "Sim", "Não",
+            false);
+
+            resposta = frmCaixa.ShowDialog();
+            if (resposta == DialogResult.Yes)
             {
-                objSangriaAlterada.funcionarioSangria = FrmMenuPrincipal.userLogado;
-                tbBuscarFuncionario.Text = objSangriaAlterada.funcionarioSangria.nomeFuncionario;
+                this.Close();
+
+            }
+        }
+
+        private void btSugestao_Click(object sender, EventArgs e)
+        {
+            if (btSugestao.Text != "Desfazer")
+            {
+                var sangriaSugestaoLista = listaSangriaSelecionada
+                   .GroupBy(p => new { p.pagamentoSangria.codigoFormaPagamento, p.dataSangria })
+                   .Select(g => new
+                   {
+                       formaPagamento = g.Key.codigoFormaPagamento,
+                       dataCancelamento = g.Key.dataSangria,
+                       cancelamentoSangria = g.Sum(p => (p.valorSangria)),
+                       quantidadeSangria = g.Count()
+                   });
+
+                //Percorrer Gride Cancelamento
+                foreach (DataGridViewRow row in dgvCancelamento.Rows)
+                {
+
+                    foreach (var item in sangriaSugestaoLista)
+                    {
+
+                        //Total a Cancela == Despesas -> FormaPagamento  e Data
+                        if ((Convert.ToInt32(row.Cells[0].Value) == (item.formaPagamento) &&
+                            (Convert.ToDateTime(row.Cells[7].Value) == item.dataCancelamento)))
+                        {
+
+                            if (Convert.ToDouble(row.Cells[6].Value) <= 0)
+                            {
+                                //Percorre Grid Despesa zerando os valores para cancelamento
+                                int contador = 0;
+                                foreach (DataGridViewRow rowSangria in dgvSangria.Rows)
+                                {
+
+                                    if ((Convert.ToInt32(rowSangria.Cells[4].Value) == (item.formaPagamento) &&
+                                        (Convert.ToDateTime(rowSangria.Cells[7].Value) == item.dataCancelamento)))
+                                    {
+
+                                        rowSangria.Cells[1].Value = 0;
+                                        row.Cells[6].Style.ForeColor = Color.Turquoise;
+                                        rowSangria.Cells[1].Style.ForeColor = Color.Turquoise;
+                                        rowSangria.Cells[1].ErrorText = "";
+                                        pbOk.Image = Properties.Resources.DialogOK;
+
+                                        contador++;
+                                    }
+
+                                    if (contador == item.quantidadeSangria) { break; }
+                                }
+
+                            }
+
+                            //Caso haja caixa é realizada a divisão do total pelo numero de despesas
+                            else
+                            {
+                                //Percorre Grid Despesa dividindo os valores pela quantidade de parcelas de despesa
+                                int contador = 0;
+                                foreach (DataGridViewRow rowDespesa in dgvSangria.Rows)
+                                {
+                                    if ((Convert.ToInt32(rowDespesa.Cells[4].Value) == (item.formaPagamento) &&
+                                        (Convert.ToDateTime(rowDespesa.Cells[7].Value) == item.dataCancelamento)))
+                                    {
+
+                                        rowDespesa.Cells[1].Value = Convert.ToDouble(row.Cells[6].Value) / item.quantidadeSangria;
+                                        contador++;
+                                        row.Cells[6].Style.ForeColor = Color.Turquoise;
+                                        rowDespesa.Cells[1].Style.ForeColor = Color.Turquoise;
+                                        rowDespesa.Cells[1].ErrorText = "";
+                                        pbOk.Image = Properties.Resources.DialogOK;
+                                    }
+
+                                    if (contador == item.quantidadeSangria) { break; }
+                                }
+                            }
+                        }
+                    }
+
+                }
+
+                btSugestao.Text = "Desfazer";
+                btSugestao.BackColor = Color.White;
+                btSugestao.ForeColor = Color.Black;
+                btSugestao.FlatAppearance.BorderColor = Color.Black;
+                btSugestao.FlatAppearance.BorderSize = 1;
+
+            }
+            else
+            {
+
+                metodoExibeValoresUsuario();
+                btSugestao.Text = "Preencher";
+                btSugestao.BackColor = Color.FromArgb(51, 51, 76);
+                btSugestao.ForeColor = Color.White;
+                btSugestao.FlatAppearance.BorderColor = Color.Black;
+                btSugestao.FlatAppearance.BorderSize = 0;
+
+
+
             }
 
-            metodoIniciaFormulario();
+        }
+
+        private void btAlterar_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                bool valida = true;
+
+                FrmCaixaDialogo frmCaixa = new FrmCaixaDialogo("Alterações",
+                " Deseja realmente realizar as alterações das Sangrias?",
+                Properties.Resources.Alterar,
+                System.Drawing.Color.FromArgb(((int)(((byte)(51)))), ((int)(((byte)(51)))), ((int)(((byte)(76))))),
+                Color.White,
+                "Sim", "Não",
+                false);
+
+                DialogResult resposta =
+                frmCaixa.ShowDialog();
+
+                if (resposta == DialogResult.Yes)
+                {
+
+                    if (objSangria.funcionarioSangria == null)
+                    {
+                        frmCaixa = new FrmCaixaDialogo("Erro Funcionário",
+                        " Selecione o funcionário responsável pelas atualizações!",
+                        Properties.Resources.DialogErro,
+                        System.Drawing.Color.FromArgb(((int)(((byte)(51)))), ((int)(((byte)(51)))), ((int)(((byte)(76))))),
+                        Color.White,
+                        "OK", "",
+                        false);
+
+                        frmCaixa.ShowDialog();
+
+                    }
+                    else
+                    {
+                        if (metodoValidaExclusaoAlteracao() == false)
+                        {
+
+                            //Criando Caixa de dialogo
+                            frmCaixa = new FrmCaixaDialogo("Erro Valores Sangria",
+                            " Verifique os valores a atualizar da Sangria!",
+                            Properties.Resources.DialogErro,
+                            System.Drawing.Color.FromArgb(((int)(((byte)(51)))), ((int)(((byte)(51)))), ((int)(((byte)(76))))),
+                            Color.White,
+                            "OK", "",
+                            false);
+
+                            frmCaixa.ShowDialog();
+                        }
+                        else//Alterações e Exclusões
+                        {
+
+                            metodoAddItemLista();
+
+                            //--------------Alteraçõa
+                            if (listaSangriaAlterar.Count() > 0)
+                            {
+
+                                if (nSangria.AlterarSangriaCancelamento(listaSangriaAlterar) == false)
+                                {
+                                    //Criando Caixa de dialogo
+                                    frmCaixa = new FrmCaixaDialogo("Erro Alterar Sangria",
+                                    " Verifique os dados da Alteração!",
+                                    Properties.Resources.DialogErro,
+                                    System.Drawing.Color.FromArgb(((int)(((byte)(51)))), ((int)(((byte)(51)))), ((int)(((byte)(76))))),
+                                    Color.White,
+                                    "OK", "",
+                                    false);
+
+                                    frmCaixa.ShowDialog();
+                                    valida = false;
+                                }
+
+                            }
+                            //--------------Exclusão
+                            if (listaSangriaExcluir.Count() > 0)
+                            {
+
+                                if (nSangria.ExcluirSangriaCancelamentoLista(listaSangriaExcluir) == false)
+                                {
+                                    //Criando Caixa de dialogo
+                                    frmCaixa = new FrmCaixaDialogo("Erro Excluir Sangria Zerada",
+                                    " Verifique os dados da Alteração Excluir!",
+                                    Properties.Resources.DialogErro,
+                                    System.Drawing.Color.FromArgb(((int)(((byte)(51)))), ((int)(((byte)(51)))), ((int)(((byte)(76))))),
+                                    Color.White,
+                                    "OK", "",
+                                    false);
+
+                                    frmCaixa.ShowDialog();
+                                    valida = false;
+                                }
+
+                            }
+
+                            //Caso os dados forem atualizados com sucesso
+                            if (valida != false)
+                            {
+                                //Exibindo atualizações concluidas com Sucesso
+                                frmCaixa = new FrmCaixaDialogo("Atualizações",
+                                " Dados Atualizados com sucesso!",
+                                Properties.Resources.DialogOK,
+                                System.Drawing.Color.FromArgb(((int)(((byte)(51)))), ((int)(((byte)(51)))), ((int)(((byte)(76))))),
+                                Color.White,
+                                "OK", "",
+                                false);
+
+                                frmCaixa.ShowDialog();
+
+                                this.DialogResult = DialogResult.Yes;
+                            }
+
+
+                        }//Alterações
+                    }
+                }//Pergunta se deseja realizar as alterações
+            }
+            catch (Exception ex) { MessageBox.Show(ex.Message, "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error); }
+        }
+
+        private void btExcluir_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                FrmCaixaDialogo frmCaixa = new FrmCaixaDialogo("Exclusão",
+                    " Deseja realmente realizar a exclusão das Sangrias?",
+                    Properties.Resources.Excluir,
+                    System.Drawing.Color.FromArgb(((int)(((byte)(51)))), ((int)(((byte)(51)))), ((int)(((byte)(76))))),
+                    Color.White,
+                    "Sim", "Não",
+                    false);
+
+                DialogResult resposta =
+                frmCaixa.ShowDialog();
+
+                if (resposta == DialogResult.Yes)
+                {
+
+                    if (nSangria.ExcluirSangriaCancelamentoLista(listaSangriaSelecionada) == false)
+                    {
+                        //Criando Caixa de dialogo
+                        frmCaixa = new FrmCaixaDialogo("Erro Excluir Sangria",
+                        " Verifique os dados da Exclusão!",
+                        Properties.Resources.DialogErro,
+                        System.Drawing.Color.FromArgb(((int)(((byte)(51)))), ((int)(((byte)(51)))), ((int)(((byte)(76))))),
+                        Color.White,
+                        "OK", "",
+                        false);
+
+                        frmCaixa.ShowDialog();
+                    }
+                    else
+                    {
+
+
+                        //Exibindo atualizações concluidas com Sucesso
+                        frmCaixa = new FrmCaixaDialogo("Exclusão",
+                        " Sangria Excluida com sucesso!",
+                        Properties.Resources.DialogOK,
+                        System.Drawing.Color.FromArgb(((int)(((byte)(51)))), ((int)(((byte)(51)))), ((int)(((byte)(76))))),
+                        Color.White,
+                        "OK", "",
+                        false);
+
+                        frmCaixa.ShowDialog();
+
+                        this.DialogResult = DialogResult.Yes;
+
+
+                    }
+
+                }
+
+            }
+
+            catch (Exception ex) { MessageBox.Show(ex.Message, "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error); }
+        
+        }
+
+        //------------------------------------------Data Grid
+        private void dgvSangria_CellClick(object sender, DataGridViewCellEventArgs e)
+        {
+            metodoCalculaTotais();
         }
 
         private void dgvSangria_EditingControlShowing(object sender, DataGridViewEditingControlShowingEventArgs e)
@@ -1178,6 +864,19 @@ namespace Apresentacao
             }
         }
 
+        private void caixaTextoGride_TextChanged(object sender, EventArgs e)
+        {
+            metodos.metodoMoedaGridTB(ref caixaTextoGride);
+        }
+
+        private void caixaTextoGride_Leave(object sender, EventArgs e)
+        {
+
+            metodoAtualizaPreenchimento();
+            metodoCalculaTotais();
+
+        }
+
         private void dgvSangria_CellValidating(object sender, DataGridViewCellValidatingEventArgs e)
         {
             //Valor da Parcial
@@ -1190,23 +889,10 @@ namespace Apresentacao
                 if (!double.TryParse(e.FormattedValue.ToString(),
                     out newDouble) || newDouble < 0)
                 {
-                    dgvSangria.Rows[e.RowIndex].ErrorText = "Informe o valor da Sangria";
+                    dgvSangria.Rows[e.RowIndex].ErrorText = "Informe o valor da Despesa";
                 }
 
             }
-        }
-
-        //-----------------------------Data Gride Caixa de Texto
-        //Evento TextoChanged do Gride
-        private void caixaTextoGride_TextChanged(object sender, EventArgs e)
-        {
-            metodos.metodoMoedaTB(ref caixaTextoGride);
-        }
-
-        private void caixaTextoGride_Leave(object sender, EventArgs e)
-        {
-            metodoAtualizaCancelamentoGrid();
-            metodoCalculaTotais();
         }
 
         private void FrmCancelamentoSangria_KeyDown(object sender, KeyEventArgs e)
@@ -1217,6 +903,10 @@ namespace Apresentacao
                 btSair.PerformClick();
             }
             //atalho para o botão cadastrar
+            else if (e.KeyCode.Equals(Keys.F5) == true)
+            {
+                btSugestao.PerformClick();
+            }
             else if (e.KeyCode.Equals(Keys.F10) == true)
             {
                 btAlterar.PerformClick();
@@ -1225,304 +915,8 @@ namespace Apresentacao
             {
                 btExcluir.PerformClick();
             }
-            else if (e.KeyCode.Equals(Keys.F5) == true)
-            {
-                btBuscar.PerformClick();
-            }
         }
 
-        //----------------------------Botões
-        private void btExcluir_Click(object sender, EventArgs e)
-        {
-
-            try
-            {
-                DialogResult resposta;
-                //Criando Caixa de dialogo
-                FrmCaixaDialogo frmCaixa = new FrmCaixaDialogo("Exclusão",
-                "Deseja excluir a sangria?",
-                 Properties.Resources.DialogExcluir,
-                 System.Drawing.Color.FromArgb(((int)(((byte)(51)))), ((int)(((byte)(51)))), ((int)(((byte)(76))))),
-                 Color.White,
-                 "Sim", "Não",
-                 false);
-                resposta = frmCaixa.ShowDialog();
-                if (resposta == DialogResult.Yes)
-                {
-
-                    //Adiciona sangria a serem excluidas 
-                    listaSangriaExcluir = new SangriaLista();
-                    Sangria sangExcluida = new Sangria();
-
-                    foreach (DataGridViewRow row in dgvSangria.Rows)
-                    {
-
-                        sangExcluida = new Sangria();
-                        sangExcluida.funcionarioSangria = new Funcionario();
-                        sangExcluida.pagamentoSangria = new FormaPagamento();
-
-                        sangExcluida.ordemSangra = Convert.ToInt32(row.Cells[0].Value);
-                        sangExcluida.funcionarioSangria.codigoFuncionario = Convert.ToInt32(row.Cells[3].Value);
-                        sangExcluida.pagamentoSangria.codigoFormaPagamento = Convert.ToInt32(row.Cells[5].Value);
-                        sangExcluida.dataSangria = Convert.ToDateTime(row.Cells[9].Value);
-
-                        listaSangriaExcluir.Add(sangExcluida);
-                    }
-
-
-                    if (nSangria.ExcluirSangriaCancelamento(listaSangriaExcluir) == true)
-                    {
-
-                        resposta = new DialogResult();
-                        //Criando Caixa de dialogo
-                        frmCaixa = new FrmCaixaDialogo("Confirmação",
-                        "Exclusão Realizada com Sucesso! \r\n" +
-                        "Deseja realizar impressão comprovante?",
-                        Properties.Resources.DialogOK,
-                        System.Drawing.Color.FromArgb(((int)(((byte)(51)))), ((int)(((byte)(51)))), ((int)(((byte)(76))))),
-                        Color.White,
-                        "Sim", "Não",
-                        false);
-
-                        resposta = frmCaixa.ShowDialog();
-                        if (resposta == DialogResult.Yes)
-                        {
-
-                            //Imprimi o comprovante
-                            this.DialogResult = DialogResult.Yes;
-                        }
-                        else
-                        {
-
-                            this.DialogResult = DialogResult.Yes;
-
-                        }
-
-                    }
-                    else
-                    {
-                        MessageBox.Show("Erro ao excluir Sangria!", "Erro Exclusão", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                        this.DialogResult = DialogResult.No;//Erro finaliza a operação por não conseguir excluir os itens
-                    }
-
-                }
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show("Erro ao excluir Sangria!: " + ex.Message, "Erro Exclusão", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                return;
-            }
-        }
-
-        private void btAlterar_Click(object sender, EventArgs e)
-        {
-            Boolean validaAlteracao = true;
-
-            try
-            {
-
-                DialogResult resposta;
-                //Criando Caixa de dialogo
-                FrmCaixaDialogo frmCaixa = new FrmCaixaDialogo("Alteração",
-                "Deseja alterar os dados da sangria?",
-                 Properties.Resources.Alterar,
-                 System.Drawing.Color.FromArgb(((int)(((byte)(51)))), ((int)(((byte)(51)))), ((int)(((byte)(76))))),
-                 Color.White,
-                 "Sim", "Não",
-                 false);
-
-                resposta = frmCaixa.ShowDialog();
-
-                if (resposta == DialogResult.Yes)
-                {
-
-                    //-----Validação sangria está dentro do valor do caixa
-                    if (metodoValidaAlteracaoSangria() == true)
-                    {
-
-                        //---------------------------Adiciona itens a serem atualizados
-                        metodoAddSangriaAltExc();
-
-                        //-----------------------------Altera os dados da sangria
-                        #region Alterar
-                        if (sangriaListaAlt.Count() > 0)
-                        {
-
-                            if (nSangria.AlterarSangria(sangriaListaAlt) != true)
-                            {
-
-                                //Criando Caixa de dialogo
-                                frmCaixa = new FrmCaixaDialogo("Erro ao Alterar",
-                                "Não foi possível alterar a sangria!",
-                                Properties.Resources.DialogErro,
-                                System.Drawing.Color.FromArgb(((int)(((byte)(51)))), ((int)(((byte)(51)))), ((int)(((byte)(76))))),
-                                Color.White,
-                                "OK", "",
-                                false);
-
-                                validaAlteracao = false;
-                            }
-
-                        }
-                        #endregion
-
-                        //-----------------------Exclui Valores 0,00 da sangria
-                        #region Excluir
-                        if (listaSangriaExcluir.Count() > 0)
-                        {
-
-                            //Criando Caixa de dialogo
-                            frmCaixa = new FrmCaixaDialogo("Sangria zerada",
-                           "Sangrias com valor R$0,00 serão excluidas!",
-                            Properties.Resources.DialogExcluir,
-                            System.Drawing.Color.FromArgb(((int)(((byte)(51)))), ((int)(((byte)(51)))), ((int)(((byte)(76))))),
-                            Color.White,
-                            "OK", "",
-                            false);
-
-                            frmCaixa.ShowDialog();
-
-                            if (nSangria.ExcluirSangriaCancelamento(listaSangriaExcluir) != true)
-                            {
-
-                                //Criando Caixa de dialogo
-                                frmCaixa = new FrmCaixaDialogo("Erro ao Excluir",
-                                "Não foi possível excluir a sangria!",
-                                Properties.Resources.DialogErro,
-                                System.Drawing.Color.FromArgb(((int)(((byte)(51)))), ((int)(((byte)(51)))), ((int)(((byte)(76))))),
-                                Color.White,
-                                "OK", "",
-                                false);
-
-                                validaAlteracao = false;
-                            }
-                        }
-                        #endregion
-
-                        //-----------------------------------------Impressão do comprovante
-                        if (validaAlteracao == true) {
-
-                            resposta = new DialogResult();
-                            //Criando Caixa de dialogo
-                            frmCaixa = new FrmCaixaDialogo("Confirmação",
-                            "Alteração Realizada com Sucesso! \r\n" +
-                            "Deseja realizar impressão comprovante?",
-                            Properties.Resources.DialogOK,
-                            System.Drawing.Color.FromArgb(((int)(((byte)(51)))), ((int)(((byte)(51)))), ((int)(((byte)(76))))),
-                            Color.White,
-                            "Sim", "Não",
-                            false);
-
-                            resposta = frmCaixa.ShowDialog();
-                            if (resposta == DialogResult.Yes)
-                            {
-
-                                //Imprimi o comprovante
-                                this.DialogResult = DialogResult.Yes;
-                            }
-                            else
-                            {
-
-                                this.DialogResult = DialogResult.Yes;
-
-                            }                  
-                        }
-
-                    }//Validação da alteração
-                        else
-                        {
-                            //Criando Caixa de dialogo
-                            frmCaixa = new FrmCaixaDialogo("Sangria maior que o Caixa",
-                           "Erro - Valores da sangria maiores que o lançamento no Caixa!",
-                            Properties.Resources.DialogErro,
-                            System.Drawing.Color.FromArgb(((int)(((byte)(51)))), ((int)(((byte)(51)))), ((int)(((byte)(76))))),
-                            Color.White,
-                            "OK", "",
-                            false);
-
-                        
-                    }
-                }
-            }
-            catch (Exception ex)
-            {
-                FrmCaixaDialogo frmCaixa = new FrmCaixaDialogo("Erro",
-                "Erro ao alterar a Sangria \r\n" + ex.Message,
-                Properties.Resources.DialogErro,
-                System.Drawing.Color.FromArgb(((int)(((byte)(51)))), ((int)(((byte)(51)))), ((int)(((byte)(76))))),
-                Color.White,
-                "Ok", "",
-                false);
-
-                frmCaixa.ShowDialog();
-            }
-        }
-
-        private void btSugestao_Click(object sender, EventArgs e)
-        {
-
-            if (btSugestao.Text != "Desfazer")
-            {
-                foreach (DataGridViewRow rowGridSangriaCancelamento in dgvCancelamento.Rows)
-                {
-
-                    int contador = 0;
-
-                    //Conta quantas vezes foram realizadas as sangia
-                    foreach (DataGridViewRow rowGridSangriaConta in dgvSangria.Rows)
-                    {
-                        //Quantas formas de pagamento iguais existem no item
-                        if ((Convert.ToInt32(rowGridSangriaCancelamento.Cells[0].Value) == (Convert.ToInt32(rowGridSangriaConta.Cells[5].Value)) &&
-                          (Convert.ToDateTime(rowGridSangriaCancelamento.Cells[4].Value) == Convert.ToDateTime(rowGridSangriaConta.Cells[9].Value))))
-                        {
-                            //Erro está aqui
-                            contador++;
-                        }
-                    }
-
-                    //Atualiza o valor da sangria com a sugestão
-                    foreach (DataGridViewRow rowGridSangria in dgvSangria.Rows)
-                    {
-
-                        if ((Convert.ToInt32(rowGridSangriaCancelamento.Cells[0].Value) == (Convert.ToInt32(rowGridSangria.Cells[5].Value)) &&
-                         (Convert.ToDateTime(rowGridSangriaCancelamento.Cells[4].Value) == Convert.ToDateTime(rowGridSangria.Cells[9].Value))))
-                        {
-                            rowGridSangria.Cells[1].Value = (Convert.ToDouble(rowGridSangriaCancelamento.Cells[2].Value) / contador);
-                        }
-                    }
-
-                }
-
-
-                btSugestao.Text = "Desfazer";
-                btSugestao.BackColor = Color.White;
-                btSugestao.ForeColor = Color.Black;
-                btSugestao.FlatAppearance.BorderColor = Color.Black;
-                btSugestao.FlatAppearance.BorderSize = 1;
-
-            }
-            //--------------------------------Retorna valores originais da sangria
-            else {
-
-                foreach (DataGridViewRow row in dgvSangria.Rows) {
-
-                    row.Cells[1].Value = row.Cells[2].Value;
-                
-                }
-
-                btSugestao.Text = "Preencher";
-                btSugestao.BackColor = Color.FromArgb(51,51,76);
-                btSugestao.ForeColor = Color.White;
-                btSugestao.FlatAppearance.BorderColor = Color.Black;
-                btSugestao.FlatAppearance.BorderSize = 0;
-
-            }
-
-            metodoValidaCalculaGrideAtualizacoes();
-            metodoCalculaTotais();
-
-        }
-
-
+     
     }
 }

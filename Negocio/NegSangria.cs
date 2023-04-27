@@ -52,12 +52,13 @@ namespace Negocio
                     sqlServer.LimparParametros();
 
                     sqlServer.AdicionarParametro(new SqlParameter("@sangriaCaixa", sangria.valorSangria));
+                    sqlServer.AdicionarParametro(new SqlParameter("@codigoCaixa", sangria.caixaSangria.codigoCaixa));                                   
                     sqlServer.AdicionarParametro(new SqlParameter("@codigoFuncionario", sangria.funcionarioSangria.codigoFuncionario));
                     sqlServer.AdicionarParametro(new SqlParameter("@codigoFormaPagamento", sangria.pagamentoSangria.codigoFormaPagamento));
                     sqlServer.AdicionarParametro(new SqlParameter("@dataSangria", sangria.dataSangria));
                     sqlServer.AdicionarParametro(new SqlParameter("@ordemSangria", sangria.ordemSangra));
 
-                    string comandoSql = "exec uspAlterarSangria @sangriaCaixa, @codigoFuncionario, @codigoFormaPagamento, @dataSangria, @ordemSangria";
+                    string comandoSql = "exec uspAlterarSangria @sangriaCaixa, @codigoCaixa, @codigoFuncionario, @codigoFormaPagamento, @dataSangria, @ordemSangria";
 
                     sqlServer.ExecutarScalar(comandoSql, System.Data.CommandType.Text);
 
@@ -99,7 +100,6 @@ namespace Negocio
                 throw new Exception("Erro na camada de negócios Sangria  - Exclusão. " + ex.Message);
             }
         }
-
 
         //Excluir Sangria Cancelamento
         public Boolean ExcluirSangriaCancelamento(SangriaLista Listasangria)
@@ -240,20 +240,29 @@ namespace Negocio
                         sangria = new Sangria();
                         sangria.funcionarioSangria = new Funcionario();
                         sangria.pagamentoSangria = new FormaPagamento();
+                        sangria.caixaSangria = new Caixa();
 
                         sangria.codigoSangria = Convert.ToInt32(registro[0]);
                         sangria.ordemSangra = Convert.ToInt32(registro[1]);
                         sangria.dataSangria = Convert.ToDateTime(registro[2]);
 
                         sangria.valorSangria = Convert.ToDouble(registro[3]);
+ 
+                        if (registro[4] != null && registro[4].ToString() != "")
+                        {
 
-                        sangria.pagamentoSangria.codigoFormaPagamento = Convert.ToInt32(registro[4]);
-                        sangria.pagamentoSangria.formaPagamento = (registro[5]).ToString();
+                            sangria.caixaSangria.codigoCaixa = Convert.ToInt32(registro[4]);
+                        }
+                        else { sangria.caixaSangria.codigoCaixa = 0; }
 
-                        sangria.funcionarioSangria.codigoFuncionario = Convert.ToInt32(registro[6]);
-                        sangria.funcionarioSangria.nomeFuncionario = (registro[7]).ToString();
 
-                        sangria.estatusSangria = (registro[8]).ToString();
+                        sangria.pagamentoSangria.codigoFormaPagamento = Convert.ToInt32(registro[5]);
+                        sangria.pagamentoSangria.formaPagamento = (registro[6]).ToString();
+
+                        sangria.funcionarioSangria.codigoFuncionario = Convert.ToInt32(registro[7]);
+                        sangria.funcionarioSangria.nomeFuncionario = (registro[8]).ToString();
+
+                        sangria.estatusSangria = (registro[9]).ToString();
 
                         listaSangria.Add(sangria);
                     }
@@ -292,14 +301,24 @@ namespace Negocio
                         sangria = new Sangria();
                         sangria.funcionarioSangria = new Funcionario();
                         sangria.pagamentoSangria = new FormaPagamento();
+                        sangria.caixaSangria = new Caixa();
 
-                        sangria.ordemSangra = Convert.ToInt32(registro[0]);
-                        sangria.dataSangria = Convert.ToDateTime(registro[1]);
 
-                        sangria.funcionarioSangria.codigoFuncionario = Convert.ToInt32(registro[2]);
-                        sangria.funcionarioSangria.nomeFuncionario = (registro[3]).ToString();
+                        if (registro[0] != null && registro[0].ToString() != "")
+                        {
 
-                        sangria.estatusSangria = (registro[4]).ToString();
+                            sangria.caixaSangria.codigoCaixa = Convert.ToInt32(registro[0]);
+                        }
+                        else { sangria.caixaSangria.codigoCaixa = 0; }
+
+
+                        sangria.ordemSangra = Convert.ToInt32(registro[1]);
+                        sangria.dataSangria = Convert.ToDateTime(registro[2]);
+
+                        sangria.funcionarioSangria.codigoFuncionario = Convert.ToInt32(registro[3]);
+                        sangria.funcionarioSangria.nomeFuncionario = (registro[4]).ToString();
+
+                        sangria.estatusSangria = (registro[5]).ToString();
 
                         listaSangria.Add(sangria);
                     }
@@ -339,15 +358,26 @@ namespace Negocio
                         sangria = new Sangria();
                         sangria.funcionarioSangria = new Funcionario();
                         sangria.pagamentoSangria = new FormaPagamento();
+                        sangria.caixaSangria = new Caixa();
 
-                        sangria.ordemSangra = Convert.ToInt32(registro[0]);
-                        sangria.funcionarioSangria.codigoFuncionario = Convert.ToInt32(registro[1]);
-                        sangria.funcionarioSangria.nomeFuncionario = (registro[2]).ToString();
-                        
-                        sangria.valorSangria = Convert.ToDouble(registro[3]);
-                        sangria.pagamentoSangria.codigoFormaPagamento = Convert.ToInt32(registro[4]);
-                        sangria.pagamentoSangria.formaPagamento = (registro[5]).ToString();
-                        
+
+                        if (registro[0] != null && registro[0].ToString() != "")
+                        {
+
+                            sangria.caixaSangria.codigoCaixa = Convert.ToInt32(registro[0]);
+                        }
+                        else { sangria.caixaSangria.codigoCaixa = 0; }
+
+
+                        sangria.ordemSangra = Convert.ToInt32(registro[1]);
+         
+
+                        sangria.funcionarioSangria.codigoFuncionario = Convert.ToInt32(registro[2]);
+                        sangria.funcionarioSangria.nomeFuncionario = (registro[3]).ToString();
+                        sangria.valorSangria = Convert.ToDouble(registro[4]);
+                        sangria.pagamentoSangria.codigoFormaPagamento = Convert.ToInt32(registro[5]);
+                        sangria.pagamentoSangria.formaPagamento = (registro[6]).ToString();
+
                         listaSangria.Add(sangria);
                     }
                     return listaSangria;
@@ -361,7 +391,7 @@ namespace Negocio
 
         }
        
-       //Validação Exclusão das Vendas
+       //Validação ---------------------------------------------------- Exclusão das Vendas
 
         public Boolean BuscarCancelamentoSangriaPorData(DateTime data)
         {
@@ -507,17 +537,28 @@ namespace Negocio
                     sangria = new Sangria();
                     sangria.pagamentoSangria = new FormaPagamento();
                     sangria.funcionarioSangria = new Funcionario();
+                    sangria.caixaSangria = new Caixa();
 
-                    sangria.funcionarioSangria.codigoFuncionario = Convert.ToInt32(registro[0]);
-                    sangria.funcionarioSangria.nomeFuncionario = (registro[1]).ToString();
-                    sangria.funcionarioSangria.sobrenomeFuncionario = (registro[2]).ToString();
+                    sangria.codigoSangria = Convert.ToInt32(registro[0]);
+
+                    if (registro[1] != null && registro[1].ToString() != "")
+                    {
+
+                        sangria.caixaSangria.codigoCaixa = Convert.ToInt32(registro[1]);
+                    }
+                    else { sangria.caixaSangria.codigoCaixa = 0; }
+
+
+                    sangria.funcionarioSangria.codigoFuncionario = Convert.ToInt32(registro[2]);
+                    sangria.funcionarioSangria.nomeFuncionario = (registro[3]).ToString();
+                    sangria.funcionarioSangria.sobrenomeFuncionario = (registro[4]).ToString();
                     
-                    sangria.ordemSangra = Convert.ToInt32(registro[3]);
-                    sangria.valorSangria = Convert.ToDouble(registro[4]);
-                    sangria.pagamentoSangria.codigoFormaPagamento = Convert.ToInt32(registro[5]);
-                    sangria.pagamentoSangria.formaPagamento = (registro[6]).ToString();
-                    sangria.estatusSangria = (registro[7]).ToString();
-                    sangria.dataSangria = Convert.ToDateTime(registro[8]);
+                    sangria.ordemSangra = Convert.ToInt32(registro[5]);
+                    sangria.valorSangria = Convert.ToDouble(registro[6]);
+                    sangria.pagamentoSangria.codigoFormaPagamento = Convert.ToInt32(registro[7]);
+                    sangria.pagamentoSangria.formaPagamento = (registro[8]).ToString();
+                    sangria.estatusSangria = (registro[9]).ToString();
+                    sangria.dataSangria = Convert.ToDateTime(registro[10]);
 
                     listaSangria.Add(sangria);
                 }
@@ -553,16 +594,25 @@ namespace Negocio
                     sangria = new Sangria();
                     sangria.pagamentoSangria = new FormaPagamento();
                     sangria.funcionarioSangria = new Funcionario();
+                    sangria.caixaSangria = new Caixa();
 
-                    sangria.funcionarioSangria.codigoFuncionario = Convert.ToInt32(registro[0]);
-                    sangria.funcionarioSangria.nomeFuncionario = (registro[1]).ToString();
-                    sangria.funcionarioSangria.sobrenomeFuncionario = (registro[2]).ToString();
 
-                    sangria.ordemSangra = Convert.ToInt32(registro[3]);
-                    sangria.valorSangria = Convert.ToDouble(registro[4]);
-                    sangria.pagamentoSangria.codigoFormaPagamento = Convert.ToInt32(registro[5]);
-                    sangria.pagamentoSangria.formaPagamento = (registro[6]).ToString();
-                    sangria.estatusSangria = (registro[7]).ToString();
+                    if (registro[0] != null && registro[0].ToString() != "")
+                    {
+
+                        sangria.caixaSangria.codigoCaixa = Convert.ToInt32(registro[0]);
+                    }
+                    else { sangria.caixaSangria.codigoCaixa = 0; }
+
+                    sangria.funcionarioSangria.codigoFuncionario = Convert.ToInt32(registro[1]);
+                    sangria.funcionarioSangria.nomeFuncionario = (registro[2]).ToString();
+                    sangria.funcionarioSangria.sobrenomeFuncionario = (registro[3]).ToString();
+
+                    sangria.ordemSangra = Convert.ToInt32(registro[4]);
+                    sangria.valorSangria = Convert.ToDouble(registro[5]);
+                    sangria.pagamentoSangria.codigoFormaPagamento = Convert.ToInt32(registro[6]);
+                    sangria.pagamentoSangria.formaPagamento = (registro[7]).ToString();
+                    sangria.estatusSangria = (registro[8]).ToString();
 
                     listaSangria.Add(sangria);
                 }
@@ -601,6 +651,61 @@ namespace Negocio
             
             }
         
+        }
+
+        public Boolean AlterarSangriaCancelamento(SangriaLista Listasangria)
+        {
+            try
+            {
+                foreach (Sangria sangria in Listasangria)
+                {
+                    sqlServer.LimparParametros();
+
+                    sqlServer.AdicionarParametro(new SqlParameter("@codigoSangria", sangria.codigoSangria));
+                    sqlServer.AdicionarParametro(new SqlParameter("@sangriaCaixa", sangria.valorSangria));
+                    sqlServer.AdicionarParametro(new SqlParameter("@codigoCaixa", sangria.caixaSangria.codigoCaixa));
+                    sqlServer.AdicionarParametro(new SqlParameter("@codigoFuncionario", sangria.funcionarioSangria.codigoFuncionario));
+                    sqlServer.AdicionarParametro(new SqlParameter("@codigoFormaPagamento", sangria.pagamentoSangria.codigoFormaPagamento));
+                    sqlServer.AdicionarParametro(new SqlParameter("@dataSangria", sangria.dataSangria));
+
+
+                    string comandoSql = "exec uspAlterarSangriaCancelamento @codigoSangria, @sangriaCaixa, @codigoCaixa, @codigoFuncionario, @codigoFormaPagamento, @dataSangria";
+
+                    sqlServer.ExecutarScalar(comandoSql, System.Data.CommandType.Text);
+
+                }
+                return true;
+            }
+            catch (Exception ex)
+            {
+                return false;
+                throw new Exception("Não foi possível alterar a Sangria. [Negócios]. Motivo: " + ex.Message);
+            }
+        }
+
+        public Boolean ExcluirSangriaCancelamentoLista(SangriaLista Listasangria)
+        {
+            try
+            {
+
+                foreach (Sangria item in Listasangria)
+                {
+
+                    sqlServer.LimparParametros();
+                    sqlServer.AdicionarParametro(new System.Data.SqlClient.SqlParameter("@codigoSangria", item.codigoSangria));
+
+                    string comando = "exec uspExcluirSangriaCancelamento @codigoSangria";
+
+                    sqlServer.ExecutarScalar(comando, System.Data.CommandType.Text);
+
+                }
+                return true;
+            }
+            catch (Exception ex)
+            {
+                return false;
+                throw new Exception("Erro na camada de negócios Sangria  - Exclusão. " + ex.Message);
+            }
         }
 
     }

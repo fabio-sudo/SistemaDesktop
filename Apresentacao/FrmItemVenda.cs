@@ -16,6 +16,8 @@ namespace Apresentacao
     public partial class FrmItemVenda : Form
     {
 
+        Boolean sangriaCancela = false;
+        Boolean despesaCancela = false;
 
         Venda objVenda = new Venda();
         NegVenda nVenda = new NegVenda();
@@ -259,7 +261,7 @@ namespace Apresentacao
             }
         }
 
-        //Valida Sangria
+        //---------------------------------------------Métodos para atualização dos vinculos dos formulários
         #region Metodo valida cancelamento vinculo sangria
 
         private Boolean metodoValidaCancelamentoSangria() {
@@ -344,21 +346,7 @@ namespace Apresentacao
                     if ((valorSangria) >= valorCaixa - valorTotalItem)
                     {//Verifica se há necessidade da atualização da sangria
 
-                        DialogResult resultadoAtualizacaoSangria;
-                        FrmCancelamentoSangria frmSangria = new FrmCancelamentoSangria(sangria, caixaLista, null, listaItemVendaExclusao, null, null);
-                        resultadoAtualizacaoSangria = frmSangria.ShowDialog();
-
-                        if (resultadoAtualizacaoSangria == DialogResult.Yes)
-                        {
-
-                            return true;
-
-                        }
-                        else {
-
-                            return false;
-                        
-                        }
+                        return false; //Retorna que há necessida de cancelar sangria
                     }
                 }
 
@@ -367,12 +355,12 @@ namespace Apresentacao
             return  true;
         }
 
-
         private Boolean metodoValidaCancelamentoDespesa() { 
         
           //Verifica se há sangria para realizar cancelamento
             foreach (ItemVenda item in listaItemVendaExclusao)
             {
+                //Se tiver Parcial Chama o formulario Parcial
                 #region Parcial Cancela
                 //---------------------------------------------------------------------------Parcial - Despesa -> Cancelamento
                 if (item.Venda.formaPagamento.formaPagamento == "PARCIAL")
@@ -431,7 +419,10 @@ namespace Apresentacao
 
                 }//Verifica se existe Parcial no item
                 #endregion
+
                 //--------------------------------------------------------------Cancelamento da Parcial - Despesa
+
+
                 DespesaCaixa despesaValida = null;
                 //Item não tiver parcial cancelamento normal -> Despesa Recebe o valor restante do caixa
                 despesaValida = nDespesa.BuscarCancelamentoDespesa(item.dataItemVenda, item.Venda.formaPagamento.codigoFormaPagamento);
@@ -462,23 +453,15 @@ namespace Apresentacao
                     //Despesa for maior que o resto que sobrou no caixa não necessita cancelamento
                     if ((valorDespesa) >= (valorCaixa - valorTotalItem - valorSangria))
                     {
-                        FrmCancelamentoDespesa frmDespesa
-                            = new FrmCancelamentoDespesa(null, listaItemVendaExclusao, null, null);
+                         despesaCancela = true;
 
-                        DialogResult resultadoAtualizacaoSangria = frmDespesa.ShowDialog();
+                    }else{ despesaCancela = false;}
+                                        //Despesa for maior que o resto que sobrou no caixa não necessita cancelamento
+                 
+                    if ((valorSangria) >= (valorCaixa - valorTotalItem - valorSangria))
+                    {
 
-                        if (resultadoAtualizacaoSangria == DialogResult.Yes)
-                        {
-
-                            return true;
-
-                        }
-                        else
-                        {
-
-                            return false;
-
-                        }
+                        return false;//há a necessidade de cancela a despesa
                     }
                 }
 
@@ -487,6 +470,123 @@ namespace Apresentacao
             return true;
         }
 
+        private void meotodoVerificaLancamentos() {
+
+            despesaCancela = metodoValidaCancelamentoDespesa();
+            sangriaCancela = metodoValidaCancelamentoSangria();
+
+
+
+            if (sangriaCancela == false && despesaCancela == false)
+            {
+
+                DialogResult respostaAtualiza;
+                //Criando Caixa de dialogo
+                FrmCaixaDialogoOpcoes frmCaixaOpcoes = new FrmCaixaDialogoOpcoes("Selecione Opção",
+                " Existem lançamentos vinculados a venda selecione a opção para verificar!",
+                Properties.Resources.DialogQuestion,
+                System.Drawing.Color.FromArgb(((int)(((byte)(51)))), ((int)(((byte)(51)))), ((int)(((byte)(76))))),
+                Color.White,
+                "Sangria", "Despesa", "Sair",
+                false);
+                respostaAtualiza = frmCaixaOpcoes.ShowDialog();
+
+                if (respostaAtualiza == DialogResult.Yes)
+                {
+                    sangriaCancela = metodoCancelaSangria();  //Chama formulario sangria Atualização ou Cancelamento                                       
+                }
+                if (respostaAtualiza == DialogResult.OK) {
+
+                    despesaCancela = metodoCancelaDespesa();    //Chama formulário despesa atualização ou cancelamento          
+                }
+            }
+
+           //------------------------Despesa
+            if (sangriaCancela == true && despesaCancela == false)
+            {
+
+                    DialogResult resposta;
+                    //Criando Caixa de dialogo
+                    FrmCaixaDialogo frmCaixa = new FrmCaixaDialogo("Cancelamento Despesa",
+                    " É necessário atualizar as Despesas!",
+                    Properties.Resources.DialogQuestion,
+                    System.Drawing.Color.FromArgb(((int)(((byte)(51)))), ((int)(((byte)(51)))), ((int)(((byte)(76))))),
+                    Color.White,
+                    "Confirmar", "Cancelar",
+                    false);
+                    resposta = frmCaixa.ShowDialog();
+
+                    if (resposta == DialogResult.Yes)
+                    {             
+                           despesaCancela = metodoCancelaDespesa();
+                    }
+            }
+
+            //-------------------------Sangria
+            if (sangriaCancela == false && despesaCancela == true)
+            {
+                DialogResult resposta;
+                //Criando Caixa de dialogo
+                FrmCaixaDialogo frmCaixa = new FrmCaixaDialogo("Cancelamento Sangria",
+                " É necessário atualizar a Sangria!",
+                Properties.Resources.DialogQuestion,
+                System.Drawing.Color.FromArgb(((int)(((byte)(51)))), ((int)(((byte)(51)))), ((int)(((byte)(76))))),
+                Color.White,
+                "Confirmar", "Cancelar",
+                false);
+                resposta = frmCaixa.ShowDialog();
+
+                if (resposta == DialogResult.Yes)
+                {
+                    sangriaCancela = metodoCancelaSangria();
+                }
+                         
+            }
+
+
+        }
+
+        private Boolean metodoCancelaSangria() {
+
+
+            DialogResult resultadoAtualizacaoSangria;
+            FrmCancelamentoSangria frmSangria = new FrmCancelamentoSangria(null,listaItemVendaExclusao ,null, null);
+            resultadoAtualizacaoSangria = frmSangria.ShowDialog();
+
+            if (resultadoAtualizacaoSangria == DialogResult.Yes)
+            {
+
+                return true;
+
+            }
+            else
+            {
+
+                return false;
+
+            }
+        
+        }
+
+        private Boolean metodoCancelaDespesa() {
+
+            FrmCancelamentoDespesa frmDespesa
+                          = new FrmCancelamentoDespesa(null, listaItemVendaExclusao, null, null);
+            DialogResult resultadoAtualizacaoDespesa = frmDespesa.ShowDialog();
+
+            if (resultadoAtualizacaoDespesa == DialogResult.Yes)
+            {
+
+                return true;
+
+            }
+            else
+            {
+
+                return false;
+
+            }
+        }
 
         #endregion
         //----------------Formulário
@@ -547,17 +647,18 @@ namespace Apresentacao
 
                     if (resposta == DialogResult.Yes)
                     {
+                           
+                    //--------------------------------------------------------------------------------
+                    
+                        meotodoVerificaLancamentos();//Verifica se há lançamentos Despesa e Sangria
+                        
+                    //--------------------------------------------------------------------------------
 
-                    //método verifica se há sangria vinculada com venda para realizar atualização
-                  if ( metodoValidaCancelamentoDespesa() == true)
-                      //metodoValidaCancelamentoSangria() == true &&
+                    //método verifica se há sangria e despesa vinculada com venda para realizar atualização
+                   if (sangriaCancela == true && despesaCancela == true)
                     {
                         if (cancelamentoJaRealizado == false)
                         {
-                          //Se não haver mais sangria pergunta se quer cancelar tudo
-                            if (nSangria.BuscarCancelamentoSangriaPorData(objVenda.dataVenda) == false || nSangria.ValidaSangriaFormaPagamento(objVenda.dataVenda, objVenda.formaPagamento.codigoFormaPagamento) == false)
-                            {
-
                                 #region Cancela Todos os Itens
                                 //----------------------------------------------Cancela Todos os Itens e Parciais da Venda 
                                 if (listaItemVendaExclusao.Count == dgvItemVenda.RowCount)
@@ -714,7 +815,6 @@ namespace Apresentacao
                                     }
                                 }
                                 #endregion
-                            }
                         }
                         else { 
                             this.DialogResult = DialogResult.Yes; 
@@ -722,7 +822,7 @@ namespace Apresentacao
                     }
                     else
                     {
-                        MessageBox.Show("Atualize os dados da sangria para realizar cancelamento!",
+                        MessageBox.Show("Verifique se há movimentação do caixa Sangria e Despesas!",
                             "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     }
                       if (cancelamentoJaRealizado == false)
@@ -979,7 +1079,6 @@ namespace Apresentacao
                 btCancelar.PerformClick();
             }
         }
-
 
 
     }

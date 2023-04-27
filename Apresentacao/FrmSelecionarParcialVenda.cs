@@ -208,7 +208,7 @@ namespace Apresentacao
                             }
 
                             DialogResult resultadoAtualizacaoSangria;
-                            FrmCancelamentoSangria frmSangria = new FrmCancelamentoSangria(sangria, caixaLista, parcialListaSangria, null, null, null);
+                            FrmCancelamentoSangria frmSangria = new FrmCancelamentoSangria(null, null, null);
                             resultadoAtualizacaoSangria = frmSangria.ShowDialog();
 
                             if (resultadoAtualizacaoSangria == DialogResult.Yes)

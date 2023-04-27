@@ -127,6 +127,7 @@ namespace Apresentacao
                         this.dgvSangria[2, indice].Value = sang.funcionarioSangria.codigoFuncionario;
                         this.dgvSangria[3, indice].Value = sang.funcionarioSangria.nomeFuncionario;
                         this.dgvSangria[4, indice].Value = sang.estatusSangria;
+                        this.dgvSangria[5, indice].Value = sang.caixaSangria.codigoCaixa;
 
                         //--------------------------------------------------------Percorre DataGride Preenchendo as formas de pagamento
                         int indicePagamentoSangria = 5;

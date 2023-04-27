@@ -620,7 +620,7 @@ namespace Apresentacao
                             {//Verifica se há necessidade da atualização da sangria
 
                                 DialogResult resultadoAtualizacaoSangria;
-                                FrmCancelamentoSangria frmSangria = new FrmCancelamentoSangria(sangria, null, listaParcialSangria, listaItem, null, null);
+                                FrmCancelamentoSangria frmSangria = new FrmCancelamentoSangria(null,null,null);
                                 resultadoAtualizacaoSangria = frmSangria.ShowDialog();
 
                                 if (resultadoAtualizacaoSangria == DialogResult.Yes)

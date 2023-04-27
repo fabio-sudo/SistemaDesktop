@@ -8,6 +8,8 @@ namespace ObjetoTransferencia
    //Valores Caixa
    public class Caixa
     {
+       public int codigoCaixa { get; set; }
+
        public string tipoVenda { get; set; }
        public double sangriaCaixa { get; set; }//Sangria
        public double estornoCaixa { get; set; }//Estorno

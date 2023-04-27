@@ -118,7 +118,7 @@ namespace Apresentacao
                 else
                     epUsuarioSenha.Clear();
 
-                if (usuarioCorrente.usuario != tbUsuario.Text)
+                if (!usuarioCorrente.usuario.Equals(tbUsuario.Text, StringComparison.OrdinalIgnoreCase))
                 {
                     //Verifica se já existe CPF cadastrado
                     UsuarioSenha usuario = new UsuarioSenha();

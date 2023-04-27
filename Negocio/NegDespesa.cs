@@ -30,7 +30,7 @@ namespace Negocio
 
 
 
-                string comando = "exec uspCadastrarDespesaTemporaria @descricaoDespesa, @funcionario, @formaPagamento, @valorDespesa, @dataDespesa";
+                string comando = "exec uspCadastrarDespesa @descricaoDespesa, @funcionario, @formaPagamento, @valorDespesa, @dataDespesa";
 
                 object Resposta = sqlserver.ExecutarScalar(comando, System.Data.CommandType.Text);
                 if (Convert.ToInt16(Resposta) == 2)
@@ -62,7 +62,7 @@ namespace Negocio
                 sqlserver.AdicionarParametro(new System.Data.SqlClient.SqlParameter("@dataDespesa", despesa.dataDespesa));
                 sqlserver.AdicionarParametro(new System.Data.SqlClient.SqlParameter("@statusDespesa", despesa.statusDespesa));
 
-                string comando = "exec uspAlterarDespesaTemporaria @codigoDespesa, @descricaoDespesa, @funcionario, @formaPagamento, @valorDespesa, @dataDespesa, @statusDespesa";
+                string comando = "exec uspAlterarDespesa @codigoDespesa, @descricaoDespesa, @funcionario, @formaPagamento, @valorDespesa, @dataDespesa, @statusDespesa";
                 object resposta = sqlserver.ExecutarScalar(comando, System.Data.CommandType.Text);
 
                 if (Convert.ToInt32(resposta) == 2)
@@ -89,7 +89,7 @@ namespace Negocio
 
                 sqlserver.AdicionarParametro(new System.Data.SqlClient.SqlParameter("@codigo", despesa.codigoDespesa));
 
-                string comando = "exec uspExcluirDespesaTemporariaPorCodigo @codigo";
+                string comando = "exec uspExcluirDespesaPorCodigo @codigo";
 
                 object Resposta = sqlserver.ExecutarScalar(comando, System.Data.CommandType.Text);
 
@@ -115,7 +115,7 @@ namespace Negocio
 
                 sqlserver.AdicionarParametro(new System.Data.SqlClient.SqlParameter("@dataDespesa", dataCaixa));
 
-                string comando = "exec uspExcluirDespesaTemporariaPorData @dataDespesa";
+                string comando = "exec uspExcluirDespesaPorData @dataDespesa";
 
                 object Resposta = sqlserver.ExecutarScalar(comando, System.Data.CommandType.Text);
 
@@ -146,7 +146,7 @@ namespace Negocio
                 DespesaCaixa despesa = new DespesaCaixa();
                 DataTable tabelaResultado;
 
-                string comando = "exec uspBuscarDespesaTemporariaPorData @dataInicial, @dataFinal";
+                string comando = "exec uspBuscarDespesaPorData @dataInicial, @dataFinal";
                 tabelaResultado = sqlserver.ExecutarConsulta(comando, CommandType.Text);
 
                 foreach (DataRow registro in tabelaResultado.Rows)
@@ -154,6 +154,7 @@ namespace Negocio
                     despesa = new DespesaCaixa();
                     despesa.formaPagamento = new FormaPagamento();
                     despesa.funcionario = new Funcionario();
+                    despesa.caixaDespesa = new Caixa();
 
                     despesa.codigoDespesa = Convert.ToInt32(registro[0]);
                     despesa.descricaoDespesa = registro[1].ToString();
@@ -164,6 +165,12 @@ namespace Negocio
                     despesa.valorDespesa = Convert.ToDouble(registro[6]);
                     despesa.dataDespesa = Convert.ToDateTime(registro[7]);
                     despesa.statusDespesa = (registro[8]).ToString();
+                    if (registro[9] != null && registro[9].ToString() != "")
+                    {
+
+                        despesa.caixaDespesa.codigoCaixa = Convert.ToInt32(registro[9]);
+                    }
+                    else { despesa.caixaDespesa.codigoCaixa = 0; }
 
                     listaDespesa.Add(despesa);
                 }
@@ -185,7 +192,7 @@ namespace Negocio
                 DespesaCaixa despesa = new DespesaCaixa();
                 DataTable tabelaResultado;
 
-                string comando = "exec uspBuscarDespesaTemporariaPorNome @descricao";
+                string comando = "exec uspBuscarDespesaPorNome @descricao";
                 tabelaResultado = sqlserver.ExecutarConsulta(comando, CommandType.Text);
 
                 foreach (DataRow registro in tabelaResultado.Rows)
@@ -193,6 +200,7 @@ namespace Negocio
                     despesa = new DespesaCaixa();
                     despesa.formaPagamento = new FormaPagamento();
                     despesa.funcionario = new Funcionario();
+                    despesa.caixaDespesa = new Caixa();
 
                     despesa.codigoDespesa = Convert.ToInt32(registro[0]);
                     despesa.descricaoDespesa = registro[1].ToString();
@@ -203,6 +211,15 @@ namespace Negocio
                     despesa.valorDespesa = Convert.ToDouble(registro[6]);
                     despesa.dataDespesa = Convert.ToDateTime(registro[7]);
                     despesa.statusDespesa = (registro[8]).ToString();
+
+                    if (registro[9] != null && registro[9].ToString() != "")
+                    {
+
+                        despesa.caixaDespesa.codigoCaixa = Convert.ToInt32(registro[9]);
+                    }
+                    else { despesa.caixaDespesa.codigoCaixa = 0; }
+
+                    
 
                     listaDespesa.Add(despesa);
                 }
@@ -294,6 +311,72 @@ namespace Negocio
               throw new Exception("Não foi possível buscar dados da Sangria. [Negócios]. Motivo: " + ex.Message);
           }
 
+      }
+
+      //Alterar despesa Cancelamento
+      public Boolean AtualizarDespesaCancelamento(ListaDespesas Listadespesa)
+      {
+          try
+          {
+              foreach (DespesaCaixa despesa in Listadespesa)
+              {
+
+              sqlserver.LimparParametros();
+
+              sqlserver.AdicionarParametro(new System.Data.SqlClient.SqlParameter("@codigoDespesa", despesa.codigoDespesa));
+              sqlserver.AdicionarParametro(new System.Data.SqlClient.SqlParameter("@codigoCaixa", despesa.caixaDespesa.codigoCaixa));
+              sqlserver.AdicionarParametro(new System.Data.SqlClient.SqlParameter("@funcionario", despesa.funcionario.codigoFuncionario));
+              sqlserver.AdicionarParametro(new System.Data.SqlClient.SqlParameter("@formaPagamento", despesa.formaPagamento.codigoFormaPagamento));
+              sqlserver.AdicionarParametro(new System.Data.SqlClient.SqlParameter("@valorDespesa", despesa.valorDespesa));
+              sqlserver.AdicionarParametro(new System.Data.SqlClient.SqlParameter("@dataDespesa", despesa.dataDespesa));
+              sqlserver.AdicionarParametro(new System.Data.SqlClient.SqlParameter("@statusDespesa", despesa.statusDespesa));
+
+              string comando = "exec uspAlterarDespesaCancelamento @codigoDespesa, @codigoCaixa, @funcionario, @formaPagamento, @valorDespesa, @dataDespesa, @statusDespesa";
+              object resposta = sqlserver.ExecutarScalar(comando, System.Data.CommandType.Text);
+
+              if (Convert.ToInt32(resposta) == 2)
+              {
+                  return false;
+              }
+
+          }
+                  return true;
+ 
+          }
+          catch (Exception ex)
+          {
+              return false;
+              throw new Exception("Erro na camada de negócios Alterar Despesa Cancelamento" + ex.Message);
+          }
+      }
+
+      //Excluir despesa Cancelamento
+      public Boolean ExcluirDespesaCancelamento(ListaDespesas Listadespesa)
+      {
+          try
+          {
+            foreach (DespesaCaixa despesa in Listadespesa)
+              {
+              sqlserver.LimparParametros();
+              sqlserver.AdicionarParametro(new System.Data.SqlClient.SqlParameter("@codigo", despesa.codigoDespesa));
+
+              string comando = "exec uspExcluirDespesaPorCodigo @codigo";
+
+              object Resposta = sqlserver.ExecutarScalar(comando, System.Data.CommandType.Text);
+
+              if (Convert.ToInt16(Resposta) == 1)
+              {
+                  return false;//Caso estiver vinculado tabela Produto cor
+              }
+            }
+              
+                  return true;
+          }
+          catch (Exception ex)
+          {
+              return false;
+              throw new Exception("Erro na camada de negócios - Exclusão. " + ex.Message);
+          }
       }
 
     }

@@ -82,6 +82,7 @@
             this.estornoSangria = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.contador = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.despesaSangria = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.caixaSangria = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.panelEstorno.SuspendLayout();
             this.panelCaixaRestante.SuspendLayout();
             this.painelSangria.SuspendLayout();
@@ -102,7 +103,7 @@
             this.btAlterar.Font = new System.Drawing.Font("Arial Narrow", 10.2F, System.Drawing.FontStyle.Bold);
             this.btAlterar.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
             this.btAlterar.Location = new System.Drawing.Point(9, 551);
-            this.btAlterar.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.btAlterar.Margin = new System.Windows.Forms.Padding(2);
             this.btAlterar.Name = "btAlterar";
             this.btAlterar.Size = new System.Drawing.Size(98, 34);
             this.btAlterar.TabIndex = 11;
@@ -118,7 +119,7 @@
             this.btSair.Font = new System.Drawing.Font("Arial Narrow", 10.2F, System.Drawing.FontStyle.Bold);
             this.btSair.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
             this.btSair.Location = new System.Drawing.Point(978, 551);
-            this.btSair.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.btSair.Margin = new System.Windows.Forms.Padding(2);
             this.btSair.Name = "btSair";
             this.btSair.Size = new System.Drawing.Size(98, 34);
             this.btSair.TabIndex = 14;
@@ -135,7 +136,7 @@
             this.dtpDataSangria.Enabled = false;
             this.dtpDataSangria.Font = new System.Drawing.Font("Arial", 12F, System.Drawing.FontStyle.Bold);
             this.dtpDataSangria.Location = new System.Drawing.Point(725, 20);
-            this.dtpDataSangria.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.dtpDataSangria.Margin = new System.Windows.Forms.Padding(2);
             this.dtpDataSangria.Name = "dtpDataSangria";
             this.dtpDataSangria.Size = new System.Drawing.Size(353, 26);
             this.dtpDataSangria.TabIndex = 2;
@@ -148,7 +149,7 @@
             this.btBuscar.Font = new System.Drawing.Font("Arial Narrow", 10.2F, System.Drawing.FontStyle.Bold);
             this.btBuscar.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
             this.btBuscar.Location = new System.Drawing.Point(344, 20);
-            this.btBuscar.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.btBuscar.Margin = new System.Windows.Forms.Padding(2);
             this.btBuscar.Name = "btBuscar";
             this.btBuscar.Size = new System.Drawing.Size(98, 34);
             this.btBuscar.TabIndex = 1;
@@ -160,7 +161,7 @@
             // 
             this.panelBuscarFuncionario.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(51)))), ((int)(((byte)(51)))), ((int)(((byte)(76)))));
             this.panelBuscarFuncionario.Location = new System.Drawing.Point(52, 50);
-            this.panelBuscarFuncionario.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.panelBuscarFuncionario.Margin = new System.Windows.Forms.Padding(2);
             this.panelBuscarFuncionario.Name = "panelBuscarFuncionario";
             this.panelBuscarFuncionario.Size = new System.Drawing.Size(287, 2);
             this.panelBuscarFuncionario.TabIndex = 3;
@@ -171,7 +172,7 @@
             this.tbBuscarFuncionario.Font = new System.Drawing.Font("Arial", 12F, System.Drawing.FontStyle.Bold);
             this.tbBuscarFuncionario.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(51)))), ((int)(((byte)(51)))), ((int)(((byte)(76)))));
             this.tbBuscarFuncionario.Location = new System.Drawing.Point(82, 32);
-            this.tbBuscarFuncionario.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.tbBuscarFuncionario.Margin = new System.Windows.Forms.Padding(2);
             this.tbBuscarFuncionario.Name = "tbBuscarFuncionario";
             this.tbBuscarFuncionario.Size = new System.Drawing.Size(257, 19);
             this.tbBuscarFuncionario.TabIndex = 0;
@@ -187,7 +188,7 @@
             this.panelEstorno.Controls.Add(this.lbTituloEstorno);
             this.panelEstorno.Controls.Add(this.lbTotalEstorno);
             this.panelEstorno.Location = new System.Drawing.Point(928, 187);
-            this.panelEstorno.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.panelEstorno.Margin = new System.Windows.Forms.Padding(2);
             this.panelEstorno.Name = "panelEstorno";
             this.panelEstorno.Size = new System.Drawing.Size(149, 60);
             this.panelEstorno.TabIndex = 7;
@@ -227,7 +228,7 @@
             this.panelCaixaRestante.Controls.Add(this.lbCaixaRestante);
             this.panelCaixaRestante.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
             this.panelCaixaRestante.Location = new System.Drawing.Point(929, 446);
-            this.panelCaixaRestante.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.panelCaixaRestante.Margin = new System.Windows.Forms.Padding(2);
             this.panelCaixaRestante.Name = "panelCaixaRestante";
             this.panelCaixaRestante.Size = new System.Drawing.Size(150, 60);
             this.panelCaixaRestante.TabIndex = 10;
@@ -265,7 +266,7 @@
             this.painelSangria.Controls.Add(this.lbTituloSangria);
             this.painelSangria.Controls.Add(this.lbSangriaTotal);
             this.painelSangria.Location = new System.Drawing.Point(928, 122);
-            this.painelSangria.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.painelSangria.Margin = new System.Windows.Forms.Padding(2);
             this.painelSangria.Name = "painelSangria";
             this.painelSangria.Size = new System.Drawing.Size(149, 60);
             this.painelSangria.TabIndex = 6;
@@ -303,7 +304,7 @@
             this.painelDesconto.Controls.Add(this.lbTituloDesconto);
             this.painelDesconto.Controls.Add(this.lbDesconto);
             this.painelDesconto.Location = new System.Drawing.Point(929, 379);
-            this.painelDesconto.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.painelDesconto.Margin = new System.Windows.Forms.Padding(2);
             this.painelDesconto.Name = "painelDesconto";
             this.painelDesconto.Size = new System.Drawing.Size(149, 60);
             this.painelDesconto.TabIndex = 9;
@@ -341,7 +342,7 @@
             this.painelTaxa.Controls.Add(this.lbTituloTaxa);
             this.painelTaxa.Controls.Add(this.lbTaxa);
             this.painelTaxa.Location = new System.Drawing.Point(928, 315);
-            this.painelTaxa.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.painelTaxa.Margin = new System.Windows.Forms.Padding(2);
             this.painelTaxa.Name = "painelTaxa";
             this.painelTaxa.Size = new System.Drawing.Size(149, 60);
             this.painelTaxa.TabIndex = 8;
@@ -379,7 +380,7 @@
             this.painelCaixa.Controls.Add(this.lbTituloCaixa);
             this.painelCaixa.Controls.Add(this.lbCaixaTotal);
             this.painelCaixa.Location = new System.Drawing.Point(928, 57);
-            this.painelCaixa.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.painelCaixa.Margin = new System.Windows.Forms.Padding(2);
             this.painelCaixa.Name = "painelCaixa";
             this.painelCaixa.Size = new System.Drawing.Size(149, 60);
             this.painelCaixa.TabIndex = 5;
@@ -437,7 +438,8 @@
             this.porcentagemTaxa,
             this.estornoSangria,
             this.contador,
-            this.despesaSangria});
+            this.despesaSangria,
+            this.caixaSangria});
             dataGridViewCellStyle10.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
             dataGridViewCellStyle10.BackColor = System.Drawing.SystemColors.Window;
             dataGridViewCellStyle10.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
@@ -448,7 +450,7 @@
             this.dgvSangria.DefaultCellStyle = dataGridViewCellStyle10;
             this.dgvSangria.GridColor = System.Drawing.SystemColors.ButtonFace;
             this.dgvSangria.Location = new System.Drawing.Point(9, 57);
-            this.dgvSangria.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.dgvSangria.Margin = new System.Windows.Forms.Padding(2);
             this.dgvSangria.Name = "dgvSangria";
             dataGridViewCellStyle11.Font = new System.Drawing.Font("Arial Narrow", 14F, System.Drawing.FontStyle.Bold);
             this.dgvSangria.RowsDefaultCellStyle = dataGridViewCellStyle11;
@@ -467,7 +469,7 @@
             this.btExcluir.Font = new System.Drawing.Font("Arial Narrow", 10.2F, System.Drawing.FontStyle.Bold);
             this.btExcluir.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
             this.btExcluir.Location = new System.Drawing.Point(111, 551);
-            this.btExcluir.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.btExcluir.Margin = new System.Windows.Forms.Padding(2);
             this.btExcluir.Name = "btExcluir";
             this.btExcluir.Size = new System.Drawing.Size(98, 34);
             this.btExcluir.TabIndex = 12;
@@ -483,7 +485,7 @@
             this.btSangriaTotal.Font = new System.Drawing.Font("Arial Narrow", 10.2F, System.Drawing.FontStyle.Bold);
             this.btSangriaTotal.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
             this.btSangriaTotal.Location = new System.Drawing.Point(213, 551);
-            this.btSangriaTotal.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.btSangriaTotal.Margin = new System.Windows.Forms.Padding(2);
             this.btSangriaTotal.Name = "btSangriaTotal";
             this.btSangriaTotal.Size = new System.Drawing.Size(98, 34);
             this.btSangriaTotal.TabIndex = 13;
@@ -495,7 +497,7 @@
             // 
             this.pbFuncionario.Image = global::Apresentacao.Properties.Resources.FuncionarioAzul;
             this.pbFuncionario.Location = new System.Drawing.Point(52, 20);
-            this.pbFuncionario.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.pbFuncionario.Margin = new System.Windows.Forms.Padding(2);
             this.pbFuncionario.Name = "pbFuncionario";
             this.pbFuncionario.Size = new System.Drawing.Size(26, 29);
             this.pbFuncionario.SizeMode = System.Windows.Forms.PictureBoxSizeMode.CenterImage;
@@ -506,7 +508,7 @@
             // 
             this.pbTitulo.Image = global::Apresentacao.Properties.Resources.wallet;
             this.pbTitulo.Location = new System.Drawing.Point(9, 10);
-            this.pbTitulo.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.pbTitulo.Margin = new System.Windows.Forms.Padding(2);
             this.pbTitulo.Name = "pbTitulo";
             this.pbTitulo.Size = new System.Drawing.Size(39, 42);
             this.pbTitulo.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
@@ -643,6 +645,12 @@
             this.despesaSangria.HeaderText = "Despesa";
             this.despesaSangria.Name = "despesaSangria";
             // 
+            // caixaSangria
+            // 
+            this.caixaSangria.HeaderText = "Caixa";
+            this.caixaSangria.Name = "caixaSangria";
+            this.caixaSangria.Visible = false;
+            // 
             // FrmAlterarExcluirSangria
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -669,7 +677,7 @@
             this.Controls.Add(this.pbTitulo);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.KeyPreview = true;
-            this.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.Margin = new System.Windows.Forms.Padding(2);
             this.Name = "FrmAlterarExcluirSangria";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Alterar & Excluir Sangria";
@@ -741,5 +749,6 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn estornoSangria;
         private System.Windows.Forms.DataGridViewTextBoxColumn contador;
         private System.Windows.Forms.DataGridViewTextBoxColumn despesaSangria;
+        private System.Windows.Forms.DataGridViewTextBoxColumn caixaSangria;
     }
 }
